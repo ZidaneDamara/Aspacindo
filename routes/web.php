@@ -1,5 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminArticleController;
+use App\Http\Controllers\Admin\AdminBranchController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminJobOpeningController;
+use App\Http\Controllers\Admin\AdminLoyaltyController;
+use App\Http\Controllers\Admin\AdminMotorcycleController;
+use App\Http\Controllers\Admin\AdminPromotionController;
+use App\Http\Controllers\Admin\AdminServiceBookingController;
+use App\Http\Controllers\Admin\AdminTestimonialController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\BranchController;
@@ -14,6 +23,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Middleware\EnsureAdminOrStaff;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -62,6 +72,57 @@ Route::middleware(['auth'])->prefix('loyalty')->name('loyalty.')->group(function
     Route::get('/dashboard', [LoyaltyDashboardController::class, 'dashboard'])->name('dashboard');
     Route::post('/redeem', [LoyaltyDashboardController::class, 'redeem'])->name('redeem');
     Route::post('/profile', [LoyaltyDashboardController::class, 'updateProfile'])->name('profile.update');
+});
+
+// ADMIN PANEL ROUTES (Role: Admin or Staff)
+Route::middleware(['auth', EnsureAdminOrStaff::class])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', AdminDashboardController::class)->name('dashboard');
+
+    // Motorcycles
+    Route::resource('motorcycles', AdminMotorcycleController::class);
+
+    // Branches
+    Route::resource('branches', AdminBranchController::class);
+
+    // Articles
+    Route::resource('articles', AdminArticleController::class);
+
+    // Promotions
+    Route::resource('promotions', AdminPromotionController::class);
+
+    // Job Openings
+    Route::resource('job-openings', AdminJobOpeningController::class);
+
+    // Testimonials Moderation
+    Route::get('/testimonials', [AdminTestimonialController::class, 'index'])->name('testimonials.index');
+    Route::post('/testimonials/{id}/approve', [AdminTestimonialController::class, 'toggleApprove'])->name('testimonials.approve');
+    Route::post('/testimonials/{id}/feature', [AdminTestimonialController::class, 'toggleFeature'])->name('testimonials.feature');
+    Route::delete('/testimonials/{id}', [AdminTestimonialController::class, 'destroy'])->name('testimonials.destroy');
+
+    // Service Bookings Management
+    Route::get('/service-bookings', [AdminServiceBookingController::class, 'index'])->name('service-bookings.index');
+    Route::post('/service-bookings/{id}/status', [AdminServiceBookingController::class, 'updateStatus'])->name('service-bookings.status');
+
+    // Loyalty Management & Offline Point Input Tool
+    Route::prefix('loyalty')->name('loyalty.')->group(function () {
+        Route::get('/members', [AdminLoyaltyController::class, 'members'])->name('members.index');
+        Route::get('/members/{id}', [AdminLoyaltyController::class, 'memberDetail'])->name('members.show');
+        Route::post('/members/{id}/adjust-points', [AdminLoyaltyController::class, 'adjustPoints'])->name('members.adjust-points');
+
+        Route::get('/point-input', [AdminLoyaltyController::class, 'pointInputView'])->name('point-input');
+        Route::post('/point-input', [AdminLoyaltyController::class, 'processPointInput'])->name('point-input.process');
+
+        Route::get('/rewards', [AdminLoyaltyController::class, 'rewardsIndex'])->name('rewards.index');
+        Route::post('/rewards', [AdminLoyaltyController::class, 'storeReward'])->name('rewards.store');
+        Route::put('/rewards/{id}', [AdminLoyaltyController::class, 'updateReward'])->name('rewards.update');
+        Route::delete('/rewards/{id}', [AdminLoyaltyController::class, 'destroyReward'])->name('rewards.destroy');
+
+        Route::get('/redemptions', [AdminLoyaltyController::class, 'redemptionsIndex'])->name('redemptions.index');
+        Route::post('/redemptions/{id}/status', [AdminLoyaltyController::class, 'updateRedemptionStatus'])->name('redemptions.status');
+
+        Route::get('/settings', [AdminLoyaltyController::class, 'settingsView'])->name('settings.index');
+        Route::post('/settings', [AdminLoyaltyController::class, 'updateSettings'])->name('settings.update');
+    });
 });
 
 // Standard Breeze Dashboard Placeholder
