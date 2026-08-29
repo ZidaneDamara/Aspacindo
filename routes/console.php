@@ -2,7 +2,12 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+// Scheduled Cron Jobs
+Schedule::command('loyalty:recalculate-tiers')->dailyAt('01:00');
+Schedule::command('loyalty:expire-points')->dailyAt('02:00');

@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin/
+Disallow: /loyalty/dashboard/
+Disallow: /loyalty/complete-profile
+Sitemap: http://localhost/sitemap.xml

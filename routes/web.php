@@ -24,8 +24,12 @@ use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Middleware\EnsureAdminOrStaff;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+// Dynamic XML Sitemap
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 // Public Pages
 Route::get('/', HomeController::class)->name('home');
