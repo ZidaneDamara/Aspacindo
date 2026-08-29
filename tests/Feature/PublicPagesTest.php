@@ -64,6 +64,13 @@ class PublicPagesTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_spareparts_detail_page_renders_successfully(): void
+    {
+        $sparepart = \App\Models\Sparepart::first();
+        $response = $this->get('/sparepart/' . $sparepart->slug);
+        $response->assertStatus(200);
+    }
+
     public function test_service_booking_form_submission(): void
     {
         $branch = Branch::first();

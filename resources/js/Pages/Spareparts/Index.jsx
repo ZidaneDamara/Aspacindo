@@ -41,7 +41,7 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                 categories: cats.length > 0 ? cats.join(',') : undefined,
                 sort: sort !== 'latest' ? sort : undefined,
             },
-            { preserveState: true, replace: true }
+            { preserveState: true, preserveScroll: true, replace: true }
         );
     };
 
@@ -209,13 +209,13 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                                                     <span className="text-xs sm:text-sm font-black text-slate-900">
                                                         {formatPrice(item.price)}
                                                     </span>
-                                                    <button
-                                                        onClick={() => setSelectedProduct(item)}
+                                                    <Link
+                                                        href={`/sparepart/${item.slug}`}
                                                         style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
                                                         className="hover:brightness-110 text-white font-extrabold text-[11px] uppercase px-4 py-1.5 rounded-lg transition-all shadow-sm"
                                                     >
                                                         Detail
-                                                    </button>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
@@ -237,6 +237,7 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                                             key={idx}
                                             href={link.url || '#'}
                                             preserveState
+                                            preserveScroll
                                             className={`px-3.5 py-1.5 rounded-lg text-xs font-bold transition ${
                                                 link.active
                                                     ? 'bg-blue-600 text-white'

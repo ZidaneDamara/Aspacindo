@@ -27,7 +27,7 @@ export default function Index({ motorcycles, categories = [], filters = {} }) {
             sort: newSort,
             min_price: newMin || undefined,
             max_price: newMax || undefined,
-        }, { preserveState: true, replace: true });
+        }, { preserveState: true, preserveScroll: true, replace: true });
     };
 
     const handleCategoryChange = (catName) => {

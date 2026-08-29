@@ -6,6 +6,11 @@
 
         <title inertia>{{ config('app.name', 'Aspacindo Kedaton Motor') }}</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="/favicon.png">
+        <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="apple-touch-icon" href="/favicon.png">
+
         <!-- Corporate Sans-Serif Fonts (Plus Jakarta Sans & Inter) -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

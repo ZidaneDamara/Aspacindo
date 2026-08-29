@@ -20,7 +20,7 @@ export default function Index({ servicePrices = {}, branches = [], regions = [],
     const handleRegionChange = (e) => {
         const reg = e.target.value;
         setSelectedRegion(reg);
-        router.get('/bengkel', { region: reg !== 'Semua' ? reg : undefined }, { preserveState: true, replace: true });
+        router.get('/bengkel', { region: reg !== 'Semua' ? reg : undefined }, { preserveState: true, preserveScroll: true, replace: true });
     };
 
     // Current active category repair items

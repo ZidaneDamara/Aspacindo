@@ -38,11 +38,40 @@ class ServiceController extends Controller
 
         $regions = ['Semua', 'Pekanbaru', 'Pelalawan', 'Siak', 'Kampar', 'Medan', 'Indragiri Hulu'];
 
+        // Iklan Promo Service Banners
+        $servicePromos = [
+            [
+                'badge' => 'SPECIAL PROMO BENGKEL RESMI',
+                'title' => 'DISKON 20% SERVIS BERKALA & CEK 10 TITIK MESIN',
+                'subtitle' => 'Dapatkan gratis pembersihan injector & garansi performa halus menggunakan peralatan diagnostik digital Yamaha Injection (YDT) terbaru.',
+                'image_url' => 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
+                'button_text' => 'Booking Service Online',
+                'button_url' => '#booking',
+            ],
+            [
+                'badge' => 'LAYANAN SKY (SERVICE KUNJUNG)',
+                'title' => 'SERVIS MOTOR DI RUMAH TANPA BIAYA TRANSPOR TAMBAHAN',
+                'subtitle' => 'Mekanik resmi Yamaha tersertifikasi siap mendatangi rumah atau lokasi kantor Anda untuk servis rutin & ganti oli original.',
+                'image_url' => 'https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?auto=format&fit=crop&w=1200&q=80',
+                'button_text' => 'Pesan Service Kunjung SKY',
+                'button_url' => '#booking',
+            ],
+            [
+                'badge' => 'PAKET SPESIAL MAXI YAMAHA',
+                'title' => 'PAKET SERVIS LENGKAP CVT NMAX, AEROX & XMAX',
+                'subtitle' => 'Servis CVT + Ganti V-Belt Kit & Oli Yamalube Super Matic Full Synthetic untuk performa akselerasi maksimal tanpa gredek.',
+                'image_url' => 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1200&q=80',
+                'button_text' => 'Reservasi Paket Maxi',
+                'button_url' => '#booking',
+            ],
+        ];
+
         return Inertia::render('Services', [
             'servicePrices' => $servicePrices,
             'bengkelBranches' => $bengkelBranches,
             'branches' => $allBranches,
             'regions' => $regions,
+            'servicePromos' => $servicePromos,
             'filters' => [
                 'region' => $selectedRegion,
             ],

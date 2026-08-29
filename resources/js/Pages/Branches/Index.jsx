@@ -4,7 +4,7 @@ import PublicLayout from '@/Layouts/PublicLayout';
 
 export default function Index({ branches = [], regions = [], selectedRegion = 'Semua' }) {
     const handleRegionChange = (region) => {
-        router.get('/lokasi-dealer', { region }, { preserveState: true, replace: true });
+        router.get('/lokasi-dealer', { region }, { preserveState: true, preserveScroll: true, replace: true });
     };
 
     return (

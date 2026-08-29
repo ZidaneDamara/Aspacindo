@@ -6,7 +6,7 @@ import Pagination from '@/Components/Pagination';
 
 export default function Index({ articles, categories = [], selectedCategory = 'Semua' }) {
     const handleCategoryClick = (cat) => {
-        router.get('/artikel', { category: cat !== 'Semua' ? cat : undefined }, { preserveState: true, replace: true });
+        router.get('/artikel', { category: cat !== 'Semua' ? cat : undefined }, { preserveState: true, preserveScroll: true, replace: true });
     };
 
     return (

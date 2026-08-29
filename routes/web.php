@@ -47,6 +47,7 @@ Route::post('/layanan/booking', [ServiceController::class, 'store'])->name('serv
 
 Route::get('/sparepart', [SparepartController::class, 'index'])->name('spareparts.index');
 Route::get('/layanan/sparepart', [SparepartController::class, 'index']);
+Route::get('/sparepart/{slug}', [SparepartController::class, 'show'])->name('spareparts.show');
 
 Route::get('/bengkel', [ServiceController::class, 'index'])->name('bengkel.index');
 Route::get('/bengkel-resmi', [ServiceController::class, 'index']);

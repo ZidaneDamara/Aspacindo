@@ -21,6 +21,8 @@ export default function Pagination({ links = [] }) {
                     <Link
                         key={index}
                         href={link.url}
+                        preserveScroll
+                        preserveState
                         className={`px-3.5 py-2 text-sm font-medium rounded-lg border transition-colors ${
                             link.active
                                 ? 'bg-blue-600 border-blue-600 text-white shadow-md'
