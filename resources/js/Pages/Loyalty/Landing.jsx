@@ -110,7 +110,7 @@ export default function Landing({ rewards = [], tierThresholds = {}, earningRule
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                     <div className="text-center max-w-2xl mx-auto space-y-2">
                         <span className="text-xs font-bold text-amber-600 uppercase tracking-widest block">Cara Kerja</span>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">4 Langkah Mudah Kumpulkan Poin</h2>
+                        <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">4 Langkah Mudah Kumpulkan Poin</h2>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -135,7 +135,7 @@ export default function Landing({ rewards = [], tierThresholds = {}, earningRule
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                     <div className="text-center max-w-2xl mx-auto space-y-2">
                         <span className="text-xs font-bold text-blue-600 uppercase tracking-widest block">Tingkatan Member</span>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">Perbandingan Benefit Tier Membership</h2>
+                        <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Perbandingan Benefit Tier Membership</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -200,7 +200,7 @@ export default function Landing({ rewards = [], tierThresholds = {}, earningRule
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                     <div className="text-center max-w-2xl mx-auto space-y-2">
                         <span className="text-xs font-bold text-amber-600 uppercase tracking-widest block">Katalog Hadiah</span>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">Katalog Hadiah Yang Bisa Ditukarkan</h2>
+                        <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Katalog Hadiah Yang Bisa Ditukarkan</h2>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -229,7 +229,7 @@ export default function Landing({ rewards = [], tierThresholds = {}, earningRule
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                     <div className="text-center space-y-2">
                         <span className="text-xs font-bold text-blue-600 uppercase tracking-widest block">Pertanyaan Umum</span>
-                        <h2 className="text-3xl font-black text-slate-900">Pertanyaan Sering Diajukan (FAQ)</h2>
+                        <h2 className="text-3xl font-semibold text-slate-900 uppercase">Pertanyaan Sering Diajukan (FAQ)</h2>
                     </div>
 
                     <div className="space-y-4">

@@ -69,7 +69,7 @@ export default function Services({ branches = [] }) {
                 <div id="booking" className="bg-white p-8 sm:p-12 rounded-3xl border border-slate-100 shadow-sm space-y-8">
                     <div className="max-w-xl space-y-2">
                         <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Reservasi Online</span>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">Formulir Booking Service</h2>
+                        <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Formulir Booking Service</h2>
                         <p className="text-slate-500 text-sm">Isi data jadwal kedatangan Anda untuk verifikasi reservasi teknisi.</p>
                     </div>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import MotorcycleCard from '@/Components/MotorcycleCard';
@@ -12,6 +12,8 @@ export default function Home({
     featuredTestimonials = [],
     stats = {},
 }) {
+    const [carouselIndex, setCarouselIndex] = useState(0);
+
     const categoryList = [
         { name: 'MAXi', desc: 'Skuter Premium VVA', color: 'from-blue-900 to-slate-900', count: categories.MAXi || 0 },
         { name: 'Classy', desc: 'Skuter Stylish Hybrid', color: 'from-amber-600 to-amber-800', count: categories.Classy || 0 },
@@ -59,6 +61,18 @@ export default function Home({
             ),
         },
     ];
+
+    // Carousel navigation logic
+    const totalItems = featuredMotorcycles.length;
+    const maxIndex = Math.max(0, totalItems - 3);
+
+    const prevSlide = () => {
+        setCarouselIndex((prev) => Math.max(0, prev - 1));
+    };
+
+    const nextSlide = () => {
+        setCarouselIndex((prev) => Math.min(maxIndex, prev + 1));
+    };
 
     return (
         <PublicLayout title="Dealer Resmi Yamaha Terpercaya di Riau & Sumatera Utara">
@@ -110,23 +124,27 @@ export default function Home({
                 </div>
             </section>
 
-            {/* CATEGORIES GRID */}
+            {/* CATEGORY EXPLORER */}
             <section className="py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-slate-100 pb-4">
                         <div>
-                            <span className="text-xs font-bold text-red-600 uppercase tracking-widest block">Kategori Produk</span>
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Pilih Motor Sesuai Gaya Hidup Anda</h2>
+                            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Kategori Pilihan</span>
+                            <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Kategori Motor Yamaha</h2>
                         </div>
-                        <Link href="/produk" className="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1">
-                            Lihat Semua Produk &rarr;
+                        <Link
+                            href="/produk"
+                            style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                            className="text-white font-bold text-xs px-5 py-2.5 rounded-full uppercase tracking-wider shadow-md hover:brightness-110 transition whitespace-nowrap"
+                        >
+                            Semua Produk &rarr;
                         </Link>
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                        {categoryList.map((cat) => (
+                        {categoryList.map((cat, idx) => (
                             <Link
-                                key={cat.name}
+                                key={idx}
                                 href={`/produk?category=${cat.name}`}
                                 className="group p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-500 hover:bg-blue-50/50 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
                             >
@@ -174,24 +192,84 @@ export default function Home({
                 </div>
             </section>
 
-            {/* FEATURED PRODUCTS */}
-            <section className="py-16 bg-slate-50">
+            {/* FEATURED PRODUCTS - CAROUSEL SLIDER */}
+            <section className="py-16 bg-slate-50 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-                    <div className="text-center max-w-2xl mx-auto space-y-2">
-                        <span className="text-xs font-bold text-red-600 uppercase tracking-widest">Produk Unggulan</span>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">Motor Yamaha Paling Populer Hari Ini</h2>
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                        <div className="space-y-2">
+                            <span className="text-xs font-bold text-red-600 uppercase tracking-widest">Produk Unggulan</span>
+                            <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Motor Yamaha Paling Populer Hari Ini</h2>
+                        </div>
+
+                        {/* Carousel Navigation Buttons */}
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={prevSlide}
+                                disabled={carouselIndex === 0}
+                                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                                className={`w-11 h-11 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
+                                    carouselIndex === 0 ? 'opacity-40 cursor-not-allowed' : ''
+                                }`}
+                                aria-label="Previous slide"
+                            >
+                                &#10094;
+                            </button>
+                            <button
+                                onClick={nextSlide}
+                                disabled={carouselIndex >= maxIndex}
+                                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                                className={`w-11 h-11 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
+                                    carouselIndex >= maxIndex ? 'opacity-40 cursor-not-allowed' : ''
+                                }`}
+                                aria-label="Next slide"
+                            >
+                                &#10095;
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {featuredMotorcycles.map((motorcycle) => (
-                            <MotorcycleCard key={motorcycle.id} motorcycle={motorcycle} />
-                        ))}
+                    {/* Carousel Container */}
+                    <div className="relative overflow-hidden py-2">
+                        <div
+                            className="flex transition-transform duration-500 ease-out gap-6"
+                            style={{
+                                transform: `translateX(-${carouselIndex * (100 / (totalItems > 3 ? 3 : totalItems))}%)`,
+                            }}
+                        >
+                            {featuredMotorcycles.map((motorcycle) => (
+                                <div
+                                    key={motorcycle.id}
+                                    className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0"
+                                >
+                                    <MotorcycleCard motorcycle={motorcycle} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
+
+                    {/* Pagination Dots */}
+                    {maxIndex > 0 && (
+                        <div className="flex justify-center items-center gap-2 pt-2">
+                            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setCarouselIndex(idx)}
+                                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                                        carouselIndex === idx
+                                            ? 'w-8 bg-blue-700'
+                                            : 'w-2.5 bg-slate-300 hover:bg-slate-400'
+                                    }`}
+                                    aria-label={`Go to slide ${idx + 1}`}
+                                />
+                            ))}
+                        </div>
+                    )}
 
                     <div className="text-center pt-4">
                         <Link
                             href="/produk"
-                            className="inline-flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-3.5 rounded-xl shadow-md transition text-sm uppercase tracking-wider"
+                            style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                            className="inline-flex items-center justify-center gap-2 text-white font-bold px-8 py-3.5 rounded-full shadow-md transition hover:brightness-110 text-sm uppercase tracking-wider"
                         >
                             Lihat Seluruh Katalog Motor &rarr;
                         </Link>
@@ -204,7 +282,7 @@ export default function Home({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                     <div className="text-center max-w-2xl mx-auto space-y-2">
                         <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Keunggulan Aspacindo</span>
-                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">Mengapa Memilih Aspacindo Kedaton Motor?</h2>
+                        <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Mengapa Memilih Aspacindo Kedaton Motor?</h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -215,80 +293,6 @@ export default function Home({
                                 </div>
                                 <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
                                 <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* LOYALTY PROMO BANNER */}
-            <section className="py-16 bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950 text-white relative overflow-hidden">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                        <div className="lg:col-span-8 space-y-4">
-                            <span className="inline-block px-3.5 py-1 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-full border border-amber-500/30 uppercase tracking-wider">
-                                Program Loyalty Eksklusif
-                            </span>
-                            <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">
-                                Bergabung dengan <span className="text-amber-400">Aspacindo Loyalty Customer</span>
-                            </h2>
-                            <p className="text-slate-300 text-base max-w-2xl leading-relaxed">
-                                Kumpulkan poin dari setiap pembelian sepeda motor, servis berkala, dan pembelian suku cadang. Tukarkan poin dengan voucher diskon, oli gratis, hingga merchandise exclusive Yamaha!
-                            </p>
-                        </div>
-                        <div className="lg:col-span-4 flex justify-start lg:justify-end">
-                            <Link
-                                href="/loyalty"
-                                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black px-8 py-4 rounded-xl shadow-lg hover:shadow-amber-500/30 transition text-sm uppercase tracking-wider"
-                            >
-                                Daftar Loyalty Sekarang &rarr;
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* LATEST ARTICLES & PROMOS */}
-            <section className="py-16 bg-slate-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                        <div>
-                            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest block">Berita &amp; Promo</span>
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Kabar Terbaru Yamaha Aspacindo</h2>
-                        </div>
-                        <Link href="/artikel" className="text-sm font-bold text-blue-600 hover:text-blue-700">
-                            Lihat Semua Artikel &rarr;
-                        </Link>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {latestArticles.map((article) => (
-                            <div key={article.id} className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-lg transition flex flex-col justify-between">
-                                <div>
-                                    <div className="relative">
-                                        <LazyImage
-                                            src={article.thumbnail || '/assets/images/placeholder_article.webp'}
-                                            alt={article.title}
-                                            aspectRatio="aspect-[16/9]"
-                                        />
-                                        <span className="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">
-                                            {article.category}
-                                        </span>
-                                    </div>
-                                    <div className="p-6 space-y-3">
-                                        <h3 className="text-base font-bold text-slate-900 line-clamp-2 hover:text-blue-600 transition">
-                                            <Link href={`/artikel/${article.slug}`}>{article.title}</Link>
-                                        </h3>
-                                        <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
-                                            {article.excerpt}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="px-6 pb-6 pt-2">
-                                    <Link href={`/artikel/${article.slug}`} className="text-xs font-bold text-blue-600 hover:underline">
-                                        Baca Selengkapnya &rarr;
-                                    </Link>
-                                </div>
                             </div>
                         ))}
                     </div>
