@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Branch;
 use App\Models\ServiceBooking;
+use App\Models\ServicePrice;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,14 +13,39 @@ use Inertia\Response;
 
 class ServiceController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $branches = Branch::active()
-            ->select(['id', 'name', 'region', 'full_address', 'whatsapp_number'])
-            ->get();
+        $selectedRegion = $request->query('region', 'Semua');
+
+        // Dynamic Bengkel Branches (where has_service_center = 1)
+        $branchesQuery = Branch::active()->serviceCenter();
+
+        if ($selectedRegion && $selectedRegion !== 'Semua') {
+            $branchesQuery->where('region', $selectedRegion);
+        }
+
+        $bengkelBranches = $branchesQuery->orderBy('name')->get();
+
+        // All active branches for dropdown booking selection
+        $allBranches = Branch::active()->select(['id', 'name', 'region', 'full_address', 'whatsapp_number'])->get();
+
+        // Dynamic Service Prices grouped by category
+        $servicePrices = ServicePrice::active()
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get()
+            ->groupBy('category');
+
+        $regions = ['Semua', 'Pekanbaru', 'Pelalawan', 'Siak', 'Kampar', 'Medan', 'Indragiri Hulu'];
 
         return Inertia::render('Services', [
-            'branches' => $branches,
+            'servicePrices' => $servicePrices,
+            'bengkelBranches' => $bengkelBranches,
+            'branches' => $allBranches,
+            'regions' => $regions,
+            'filters' => [
+                'region' => $selectedRegion,
+            ],
         ]);
     }
 

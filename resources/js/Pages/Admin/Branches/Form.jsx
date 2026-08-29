@@ -13,7 +13,8 @@ export default function Form({ branch = null }) {
         latitude: branch?.latitude || '',
         longitude: branch?.longitude || '',
         google_maps_url: branch?.google_maps_url || '',
-        is_active: branch ? branch.is_active : true,
+        has_service_center: branch ? (branch.has_service_center ?? true) : true,
+        is_active: branch ? (branch.is_active ?? true) : true,
     });
 
     const handleSubmit = (e) => {
@@ -30,7 +31,7 @@ export default function Form({ branch = null }) {
             <div className="max-w-3xl bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
                 <div className="flex justify-between items-center border-b border-slate-100 pb-4">
                     <h2 className="text-xl font-black text-slate-900">
-                        {isEditing ? 'Edit Data Cabang' : 'Form Tambah Cabang Dealer'}
+                        {isEditing ? 'Edit Data Cabang' : 'Form Tambah Cabang Dealer & Bengkel'}
                     </h2>
                     <Link href="/admin/branches" className="text-xs font-bold text-slate-500 hover:text-slate-900">
                         &larr; Kembali
@@ -99,6 +100,41 @@ export default function Form({ branch = null }) {
                             onChange={(e) => setData('google_maps_url', e.target.value)}
                             className="w-full text-sm border-slate-200 rounded-2xl p-3"
                         />
+                    </div>
+
+                    {/* Radio Button (Biner) Service */}
+                    <div className="space-y-2 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                        <label className="text-xs font-black text-slate-800 uppercase tracking-wider block">
+                            Service (Fasilitas Bengkel Resmi)
+                        </label>
+                        <p className="text-xs text-slate-500">
+                            Jika dihidupkan (Ya), cabang ini otomatis masuk &amp; tampil di daftar lokasi Halaman Bengkel Resmi.
+                        </p>
+                        <div className="flex items-center gap-6 pt-1">
+                            <label className="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="has_service_center"
+                                    value={1}
+                                    checked={data.has_service_center === true || data.has_service_center === 1}
+                                    onChange={() => setData('has_service_center', true)}
+                                    className="text-blue-600 focus:ring-blue-500"
+                                />
+                                <span>Ya (Aktif di Halaman Bengkel)</span>
+                            </label>
+
+                            <label className="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                                <input
+                                    type="radio"
+                                    name="has_service_center"
+                                    value={0}
+                                    checked={data.has_service_center === false || data.has_service_center === 0}
+                                    onChange={() => setData('has_service_center', false)}
+                                    className="text-blue-600 focus:ring-blue-500"
+                                />
+                                <span>Tidak (Hanya Sales Dealer)</span>
+                            </label>
+                        </div>
                     </div>
 
                     <div className="pt-2">

@@ -201,7 +201,7 @@ export default function Navbar({ categoryBar = null }) {
                                         Service
                                     </Link>
                                     <Link
-                                        href="/layanan#sparepart"
+                                        href="/sparepart"
                                         className="block px-4 py-2.5 text-xs font-semibold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition"
                                     >
                                         Sparepart

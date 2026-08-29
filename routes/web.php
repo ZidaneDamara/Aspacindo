@@ -23,6 +23,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\Admin\AdminServicePriceController;
+use App\Http\Controllers\SparepartController;
+use App\Http\Controllers\WorkshopController;
 use App\Http\Middleware\EnsureAdminOrStaff;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +44,13 @@ Route::get('/simulasi-cicilan', CreditSimulationController::class)->name('credit
 
 Route::get('/layanan', [ServiceController::class, 'index'])->name('services.index');
 Route::post('/layanan/booking', [ServiceController::class, 'store'])->name('services.booking');
+
+Route::get('/sparepart', [SparepartController::class, 'index'])->name('spareparts.index');
+Route::get('/layanan/sparepart', [SparepartController::class, 'index']);
+
+Route::get('/bengkel', [ServiceController::class, 'index'])->name('bengkel.index');
+Route::get('/bengkel-resmi', [ServiceController::class, 'index']);
+Route::get('/bengkel-resmi-yamaha-aspacindo', [ServiceController::class, 'index']);
 
 Route::get('/lokasi-dealer', BranchController::class)->name('branches.index');
 
@@ -106,6 +116,9 @@ Route::middleware(['auth', EnsureAdminOrStaff::class])->prefix('admin')->name('a
     // Service Bookings Management
     Route::get('/service-bookings', [AdminServiceBookingController::class, 'index'])->name('service-bookings.index');
     Route::post('/service-bookings/{id}/status', [AdminServiceBookingController::class, 'updateStatus'])->name('service-bookings.status');
+
+    // Service Prices Management
+    Route::resource('service-prices', AdminServicePriceController::class);
 
     // Loyalty Management & Offline Point Input Tool
     Route::prefix('loyalty')->name('loyalty.')->group(function () {

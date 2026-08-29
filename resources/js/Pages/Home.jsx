@@ -170,7 +170,7 @@ export default function Home({
 
             {/* STATS COUNTER */}
             <section
-                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%)' }}
                 className="py-12 text-white border-y border-blue-900 font-['Inter',sans-serif]"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

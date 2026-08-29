@@ -58,27 +58,31 @@ Mohon diproses untuk pengajuan kreditnya. Terima kasih.`
 
     return (
         <PublicLayout title="Simulasi Cicilan Kredit Motor Yamaha OTR Riau">
-            <div className="bg-slate-900 text-white py-12 border-b border-slate-800">
+            {/* Top Banner Header */}
+            <div
+                style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%)' }}
+                className="text-white py-12 border-b border-blue-900 font-['Inter',sans-serif]"
+            >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <span className="text-xs font-bold text-red-500 uppercase tracking-widest block">Kalkulator Interaktif</span>
-                    <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Simulasi Cicilan Motor Yamaha</h1>
-                    <p className="text-slate-400 text-sm mt-2 max-w-xl">
+                    <span className="text-xs font-bold text-white uppercase tracking-widest block opacity-90">Kalkulator Interaktif</span>
+                    <h1 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">Simulasi Cicilan Motor Yamaha</h1>
+                    <p className="text-blue-100 text-sm mt-2 max-w-xl">
                         Hitung estimasi Uang Muka (DP) dan angsuran bulanan sepeda motor Yamaha impian Anda secara instan dan fleksibel.
                     </p>
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-['Inter',sans-serif]">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                     {/* Left: Input Form Controls */}
                     <div className="lg:col-span-7 bg-white p-8 rounded-3xl border border-slate-100 shadow-sm space-y-6">
-                        <h3 className="text-xl font-black text-slate-900 border-b border-slate-100 pb-4">
+                        <h3 className="text-xl font-bold text-slate-900 border-b border-slate-100 pb-4">
                             Parameter Kredit
                         </h3>
 
                         {/* Motor Dropdown */}
                         <div className="space-y-2">
-                            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Pilih Model Sepeda Motor</label>
+                            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Pilih Model Sepeda Motor</label>
                             <select
                                 value={selectedMotorcycle?.id || ''}
                                 onChange={handleMotorcycleChange}
@@ -95,8 +99,8 @@ Mohon diproses untuk pengajuan kreditnya. Terima kasih.`
                         {/* DP Percent Slider */}
                         <div className="space-y-3 pt-2">
                             <div className="flex justify-between items-center">
-                                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Uang Muka (DP %)</label>
-                                <span className="text-sm font-extrabold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                                <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Uang Muka (DP %)</label>
+                                <span className="text-sm font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
                                     {dpPercent}% ({formatRupiah(dpAmount)})
                                 </span>
                             </div>
@@ -118,16 +122,16 @@ Mohon diproses untuk pengajuan kreditnya. Terima kasih.`
 
                         {/* Tenor Select */}
                         <div className="space-y-2 pt-2">
-                            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Jangka Waktu Tenor</label>
+                            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Jangka Waktu Tenor</label>
                             <div className="grid grid-cols-3 gap-3">
                                 {[12, 24, 36].map((months) => (
                                     <button
                                         key={months}
                                         type="button"
                                         onClick={() => setTenorMonths(months)}
-                                        className={`py-3 rounded-2xl font-extrabold text-sm border transition ${
+                                        className={`py-3 rounded-2xl font-bold text-sm border transition ${
                                             tenorMonths === months
-                                                ? 'bg-slate-900 text-white border-slate-900 shadow-md'
+                                                ? 'bg-yamaha-blue text-white border-transparent shadow-md'
                                                 : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
                                         }`}
                                     >
@@ -139,7 +143,7 @@ Mohon diproses untuk pengajuan kreditnya. Terima kasih.`
 
                         {/* Leasing Partner Select */}
                         <div className="space-y-2 pt-2">
-                            <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Mitra Finance Leasing</label>
+                            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Mitra Finance Leasing</label>
                             <select
                                 value={selectedPartner.id}
                                 onChange={(e) => {
@@ -158,38 +162,41 @@ Mohon diproses untuk pengajuan kreditnya. Terima kasih.`
                     </div>
 
                     {/* Right: Real-time Calculation Result Card */}
-                    <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 via-slate-900 to-blue-950 text-white p-8 rounded-3xl border border-slate-800 shadow-xl space-y-6">
-                        <span className="text-xs font-bold text-amber-400 uppercase tracking-widest block">Hasil Estimasi Cicilan</span>
+                    <div
+                        style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%)' }}
+                        className="lg:col-span-5 text-white p-8 rounded-3xl border border-blue-500/30 shadow-xl space-y-6"
+                    >
+                        <span className="text-xs font-bold text-white uppercase tracking-widest block opacity-90">Hasil Estimasi Cicilan</span>
 
                         {selectedMotorcycle && (
                             <div className="space-y-6">
                                 <div>
-                                    <h4 className="text-2xl font-black">{selectedMotorcycle.name}</h4>
-                                    <p className="text-slate-400 text-xs mt-1">Harga OTR: {formatRupiah(selectedMotorcycle.price_otr)}</p>
+                                    <h4 className="text-2xl font-bold text-white">{selectedMotorcycle.name}</h4>
+                                    <p className="text-blue-100 text-xs mt-1">Harga OTR: {formatRupiah(selectedMotorcycle.price_otr)}</p>
                                 </div>
 
-                                <div className="p-6 bg-slate-950/80 rounded-2xl border border-slate-800 space-y-1">
-                                    <span className="text-xs text-slate-400 font-semibold uppercase">Estimasi Angsuran Bulanan</span>
-                                    <p className="text-3xl sm:text-4xl font-black text-amber-400">
+                                <div className="p-6 bg-white/10 rounded-2xl border border-white/10 space-y-1 backdrop-blur-sm">
+                                    <span className="text-xs text-blue-100 font-semibold uppercase">Estimasi Angsuran Bulanan</span>
+                                    <p className="text-3xl sm:text-4xl font-extrabold text-white">
                                         {formatRupiah(monthlyInstallment)}
                                     </p>
-                                    <span className="text-[11px] text-slate-400 block pt-1">
+                                    <span className="text-[11px] text-blue-100 block pt-1">
                                         Selama {tenorMonths} Bulan (DP {dpPercent}%)
                                     </span>
                                 </div>
 
-                                <div className="space-y-2.5 text-xs text-slate-300 border-t border-slate-800 pt-4">
+                                <div className="space-y-2.5 text-xs text-white border-t border-white/15 pt-4">
                                     <div className="flex justify-between">
-                                        <span className="text-slate-400">Uang Muka (DP):</span>
+                                        <span className="text-blue-100">Uang Muka (DP):</span>
                                         <span className="font-bold">{formatRupiah(dpAmount)}</span>
                                     </div>
                                     <div className="flex justify-between">
-                                        <span className="text-slate-400">Pokok Pinjaman:</span>
+                                        <span className="text-blue-100">Pokok Pinjaman:</span>
                                         <span className="font-bold">{formatRupiah(loanAmount)}</span>
                                     </div>
                                     <div className="flex justify-between">
-                                        <span className="text-slate-400">Mitra Leasing:</span>
-                                        <span className="font-bold text-blue-300">{selectedPartner.name}</span>
+                                        <span className="text-blue-100">Mitra Leasing:</span>
+                                        <span className="font-bold text-white">{selectedPartner.name}</span>
                                     </div>
                                 </div>
 
@@ -202,7 +209,7 @@ Mohon diproses untuk pengajuan kreditnya. Terima kasih.`
                                     Ajukan Pengajuan via WhatsApp &rarr;
                                 </a>
 
-                                <p className="text-[10px] text-slate-400 text-center leading-relaxed">
+                                <p className="text-[10px] text-blue-100 text-center leading-relaxed opacity-90">
                                     *Perhitungan di atas merupakan estimasi sementara. Angsuran final disesuaikan dengan persetujuan survei mitra leasing resmi.
                                 </p>
                             </div>

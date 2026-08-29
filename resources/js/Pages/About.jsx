@@ -137,7 +137,7 @@ export default function About({ stats = {}, totalBranches = 20 }) {
 
                         {/* Right Side Stats Counter Grid */}
                         <div
-                            style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                            style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%)' }}
                             className="lg:col-span-5 p-8 sm:p-10 rounded-3xl border border-blue-500/30 shadow-2xl backdrop-blur-md font-['Inter',sans-serif]"
                         >
                             <div className="grid grid-cols-2 gap-8 text-center">

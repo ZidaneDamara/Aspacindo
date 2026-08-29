@@ -21,6 +21,7 @@ class Branch extends Model
         'google_maps_url',
         'operating_hours',
         'whatsapp_number',
+        'has_service_center',
         'is_active',
     ];
 
@@ -30,6 +31,7 @@ class Branch extends Model
             'operating_hours' => 'array',
             'latitude' => 'float',
             'longitude' => 'float',
+            'has_service_center' => 'boolean',
             'is_active' => 'boolean',
         ];
     }
@@ -52,6 +54,11 @@ class Branch extends Model
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
+    }
+
+    public function scopeServiceCenter(Builder $query): Builder
+    {
+        return $query->where('has_service_center', true);
     }
 
     public function scopeByRegion(Builder $query, ?string $region): Builder

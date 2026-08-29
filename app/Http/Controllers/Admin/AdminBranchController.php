@@ -33,6 +33,7 @@ class AdminBranchController extends Controller
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
             'google_maps_url' => 'nullable|string',
+            'has_service_center' => 'boolean',
             'is_active' => 'boolean',
         ]);
 
@@ -60,6 +61,7 @@ class AdminBranchController extends Controller
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
             'google_maps_url' => 'nullable|string',
+            'has_service_center' => 'boolean',
             'is_active' => 'boolean',
         ]);
 

@@ -49,6 +49,21 @@ class PublicPagesTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_bengkel_page_renders_successfully(): void
+    {
+        $response = $this->get('/bengkel');
+        $response->assertStatus(200);
+
+        $aliasResponse = $this->get('/bengkel-resmi-yamaha-aspacindo');
+        $aliasResponse->assertStatus(200);
+    }
+
+    public function test_spareparts_page_renders_successfully(): void
+    {
+        $response = $this->get('/sparepart');
+        $response->assertStatus(200);
+    }
+
     public function test_service_booking_form_submission(): void
     {
         $branch = Branch::first();
