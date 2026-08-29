@@ -1,11 +1,14 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CreditSimulationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Loyalty\LoyaltyDashboardController;
+use App\Http\Controllers\Loyalty\LoyaltyLandingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromotionController;
@@ -43,9 +46,27 @@ Route::get('/promo/{slug}', [PromotionController::class, 'show'])->name('promoti
 Route::get('/testimoni', [TestimonialController::class, 'index'])->name('testimonials.index');
 Route::post('/testimoni', [TestimonialController::class, 'store'])->name('testimonials.store');
 
-// Auth Dashboard Placeholder
+// LOYALTY PROGRAM PUBLIC & AUTH ROUTES
+Route::get('/loyalty', LoyaltyLandingController::class)->name('loyalty.landing');
+
+// Google OAuth
+Route::get('/auth/google', [SocialiteController::class, 'redirect'])->name('auth.google');
+Route::get('/auth/google/callback', [SocialiteController::class, 'callback'])->name('auth.google.callback');
+Route::post('/auth/mock-login', [SocialiteController::class, 'mockLogin'])->name('auth.mock-login');
+
+// Loyalty Protected Member Routes
+Route::middleware(['auth'])->prefix('loyalty')->name('loyalty.')->group(function () {
+    Route::get('/complete-profile', [LoyaltyDashboardController::class, 'showCompleteProfile'])->name('complete-profile');
+    Route::post('/complete-profile', [LoyaltyDashboardController::class, 'saveCompleteProfile'])->name('complete-profile.save');
+
+    Route::get('/dashboard', [LoyaltyDashboardController::class, 'dashboard'])->name('dashboard');
+    Route::post('/redeem', [LoyaltyDashboardController::class, 'redeem'])->name('redeem');
+    Route::post('/profile', [LoyaltyDashboardController::class, 'updateProfile'])->name('profile.update');
+});
+
+// Standard Breeze Dashboard Placeholder
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return redirect()->route('loyalty.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
