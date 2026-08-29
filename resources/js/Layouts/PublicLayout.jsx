@@ -4,7 +4,12 @@ import Navbar from '@/Components/Navbar';
 import Footer from '@/Components/Footer';
 import FloatingWhatsApp from '@/Components/FloatingWhatsApp';
 
-export default function PublicLayout({ title = 'Dealer Resmi Yamaha Riau & Sumatera Utara', description = 'PT Aspacindo Kedaton Motor - Dealer Resmi Yamaha dengan 20+ cabang di Riau & Sumatera Utara. Jual motor baru, sparepart original, dan servis bergaransi.', children }) {
+export default function PublicLayout({
+    title = 'Dealer Resmi Yamaha Riau & Sumatera Utara',
+    description = 'PT Aspacindo Kedaton Motor - Dealer Resmi Yamaha dengan 20+ cabang di Riau & Sumatera Utara. Jual motor baru, sparepart original, dan servis bergaransi.',
+    categoryBar = null,
+    children
+}) {
     return (
         <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
             <Head>
@@ -15,7 +20,7 @@ export default function PublicLayout({ title = 'Dealer Resmi Yamaha Riau & Sumat
                 <meta property="og:type" content="website" />
             </Head>
 
-            <Navbar />
+            <Navbar categoryBar={categoryBar} />
 
             <main className="flex-grow">
                 {children}

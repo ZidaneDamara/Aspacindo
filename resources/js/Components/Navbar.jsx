@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, usePage, router } from '@inertiajs/react';
 
-export default function Navbar() {
+export default function Navbar({ categoryBar = null }) {
     const { url, props } = usePage();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
@@ -88,8 +88,8 @@ export default function Navbar() {
                                 href="/"
                                 className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
                                     isActive('/')
-                                        ? 'bg-blue-600 text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover:bg-blue-600 hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                        ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
+                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
                                 }`}
                             >
                                 <span className={`inline-block transition-transform duration-200 ${
@@ -105,8 +105,8 @@ export default function Navbar() {
                             <button
                                 className={`h-full px-3.5 flex items-center justify-center gap-1 text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap ${
                                     isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
-                                        ? 'bg-blue-600 text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 group-hover:bg-blue-600 group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
+                                        ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
+                                        : 'text-slate-800 group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
                                 }`}
                             >
                                 <span className={`inline-flex items-center gap-1 transition-transform duration-200 ${
@@ -147,8 +147,8 @@ export default function Navbar() {
                                 href="/produk"
                                 className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
                                     isActive('/produk')
-                                        ? 'bg-blue-600 text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover:bg-blue-600 hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                        ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
+                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
                                 }`}
                             >
                                 <span className={`inline-block transition-transform duration-200 ${
@@ -165,8 +165,8 @@ export default function Navbar() {
                                 href="/simulasi-cicilan"
                                 className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
                                     isActive('/simulasi-cicilan')
-                                        ? 'bg-blue-600 text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover:bg-blue-600 hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                        ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
+                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
                                 }`}
                             >
                                 <span className={`inline-block transition-transform duration-200 ${
@@ -182,8 +182,8 @@ export default function Navbar() {
                             <button
                                 className={`h-full px-3.5 flex items-center justify-center gap-1 text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap ${
                                     isActive('/layanan')
-                                        ? 'bg-blue-600 text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 group-hover:bg-blue-600 group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
+                                        ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
+                                        : 'text-slate-800 group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
                                 }`}
                             >
                                 <span className={`inline-flex items-center gap-1 transition-transform duration-200 ${
@@ -216,8 +216,8 @@ export default function Navbar() {
                                 href="/artikel"
                                 className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
                                     isActive('/artikel')
-                                        ? 'bg-blue-600 text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover:bg-blue-600 hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                        ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
+                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
                                 }`}
                             >
                                 <span className={`inline-block transition-transform duration-200 ${
@@ -234,8 +234,8 @@ export default function Navbar() {
                                 href="/loyalty"
                                 className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
                                     isActive('/loyalty')
-                                        ? 'bg-blue-600 text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover:bg-blue-600 hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                        ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
+                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
                                 }`}
                             >
                                 <span className={`inline-block transition-transform duration-200 ${
@@ -313,6 +313,7 @@ export default function Navbar() {
                     </div>
                 )}
             </nav>
+            {categoryBar}
         </header>
     );
 }
