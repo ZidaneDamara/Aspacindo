@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .bg-yamaha-blue {
+        background: linear-gradient(298deg, #0A2872 0%, #0A73BA 97%) !important;
+    }
+    .btn-yamaha {
+        background: linear-gradient(298deg, #0A2872 0%, #0A73BA 97%) !important;
+        color: #ffffff !important;
+        transition: all 0.2s ease-in-out;
+    }
+    .btn-yamaha:hover {
+        filter: brightness(1.15);
+        box-shadow: 0 10px 20px -3px rgba(10, 40, 114, 0.4);
+    }
+}

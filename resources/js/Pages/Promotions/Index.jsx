@@ -38,7 +38,8 @@ export default function Index({ promotions }) {
                                     </span>
                                     <Link
                                         href={`/promo/${promo.slug}`}
-                                        className="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl uppercase tracking-wider transition"
+                                        style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                                        className="text-white font-bold text-xs px-4 py-2.5 rounded-xl uppercase tracking-wider transition hover:brightness-110 shadow-sm"
                                     >
                                         Klaim Promo &rarr;
                                     </Link>

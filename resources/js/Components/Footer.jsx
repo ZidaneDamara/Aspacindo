@@ -9,17 +9,17 @@ export default function Footer() {
                     {/* Brand Info */}
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-md">
-                                A
-                            </div>
-                            <div className="flex flex-col">
-                                <span className="font-black text-white text-lg tracking-wider uppercase leading-tight">
-                                    ASPACINDO
-                                </span>
-                                <span className="text-[10px] font-bold text-red-500 tracking-widest uppercase">
-                                    KEDATON MOTOR — YAMAHA
-                                </span>
-                            </div>
+                            <img
+                                src="/images/logo-aspacindo.png"
+                                alt="PT. Aspacindo Kedaton Motor"
+                                className="h-12 w-auto object-contain bg-white p-1 rounded-xl"
+                            />
+                            <div className="h-8 w-px bg-slate-700"></div>
+                            <img
+                                src="/images/logo-yamaha.png"
+                                alt="Yamaha Motor Indonesia"
+                                className="h-10 w-auto object-contain bg-white p-1 rounded-xl"
+                            />
                         </div>
                         <p className="text-sm text-slate-400 leading-relaxed">
                             Dealer Resmi Yamaha terpercaya di Riau &amp; Sumatera Utara. Menyediakan unit motor terbaru, suku cadang original, dan layanan servis berkala bergaransi.

@@ -7,9 +7,10 @@ export default function PrimaryButton({
     return (
         <button
             {...props}
+            style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
             className={
-                `inline-flex items-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900 ${
-                    disabled && 'opacity-25'
+                `inline-flex items-center rounded-xl px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md transition duration-200 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 ${
+                    disabled ? 'opacity-50 cursor-not-allowed' : ''
                 } ` + className
             }
             disabled={disabled}
