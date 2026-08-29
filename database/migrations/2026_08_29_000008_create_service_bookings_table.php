@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('service_bookings', function (Blueprint $table) {
+            $table->id();
+            $table->string('booking_code')->unique();
+            $table->string('customer_name');
+            $table->string('phone_number')->index();
+            $table->string('motorcycle_model');
+            $table->foreignId('branch_id')->constrained('branches')->cascadeOnDelete();
+            $table->date('preferred_date')->index();
+            $table->string('preferred_time');
+            $table->enum('service_type', ['Booking Service', 'Layanan SKY'])->default('Booking Service');
+            $table->enum('status', ['pending', 'confirmed', 'completed', 'cancelled'])->default('pending')->index();
+            $table->text('notes')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('service_bookings');
+    }
+};
