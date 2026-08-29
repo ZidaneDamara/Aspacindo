@@ -58,8 +58,8 @@ export default function Index({ motorcycles, categories = [], filters = {} }) {
                             onClick={() => handleCategoryChange(item.name)}
                             className={`h-full flex flex-col items-center justify-center px-6 sm:px-10 lg:px-12 flex-shrink-0 transition-all duration-200 select-none ${
                                 isActive
-                                    ? 'bg-[#0A73BA] text-white font-normal shadow-sm'
-                                    : 'text-slate-200 hover:text-white hover:bg-[#0a58ca]'
+                                    ? 'bg-yamaha-blue text-white font-normal shadow-sm'
+                                    : 'text-slate-200 hover:text-white hover-bg-yamaha-blue'
                             }`}
                         >
                             {item.icon && (

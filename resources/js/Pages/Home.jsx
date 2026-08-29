@@ -169,24 +169,27 @@ export default function Home({
             </section>
 
             {/* STATS COUNTER */}
-            <section className="py-12 bg-blue-900 text-white border-y border-blue-800">
+            <section
+                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                className="py-12 text-white border-y border-blue-900 font-['Inter',sans-serif]"
+            >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         <div className="space-y-1">
-                            <p className="text-4xl sm:text-5xl font-black text-amber-400">{stats.years_operating || '15+'}</p>
-                            <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-blue-200">Tahun Pengalaman</p>
+                            <p className="text-4xl sm:text-5xl font-bold text-white tracking-tight">{stats.years_operating || '15+'}</p>
+                            <p className="text-xs sm:text-sm font-normal uppercase tracking-wider text-white">Tahun Pengalaman</p>
                         </div>
                         <div className="space-y-1">
-                            <p className="text-4xl sm:text-5xl font-black text-amber-400">{stats.branches_count || '20+'}</p>
-                            <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-blue-200">Jaringan Cabang</p>
+                            <p className="text-4xl sm:text-5xl font-bold text-white tracking-tight">{stats.branches_count || '20+'}</p>
+                            <p className="text-xs sm:text-sm font-normal uppercase tracking-wider text-white">Jaringan Cabang</p>
                         </div>
                         <div className="space-y-1">
-                            <p className="text-4xl sm:text-5xl font-black text-amber-400">{stats.employees_count || '150+'}</p>
-                            <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-blue-200">Karyawan &amp; Mekanik</p>
+                            <p className="text-4xl sm:text-5xl font-bold text-white tracking-tight">{stats.employees_count || '150+'}</p>
+                            <p className="text-xs sm:text-sm font-normal uppercase tracking-wider text-white">Karyawan &amp; Mekanik</p>
                         </div>
                         <div className="space-y-1">
-                            <p className="text-4xl sm:text-5xl font-black text-amber-400">{stats.satisfied_customers || '50,000+'}</p>
-                            <p className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-blue-200">Pelanggan Setia</p>
+                            <p className="text-4xl sm:text-5xl font-bold text-white tracking-tight">{stats.satisfied_customers || '50,000+'}</p>
+                            <p className="text-xs sm:text-sm font-normal uppercase tracking-wider text-white">Pelanggan Setia</p>
                         </div>
                     </div>
                 </div>

@@ -136,23 +136,26 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                         </div>
 
                         {/* Right Side Stats Counter Grid */}
-                        <div className="lg:col-span-5 bg-gradient-to-br from-blue-950/80 to-slate-900/90 p-8 sm:p-10 rounded-3xl border border-blue-500/30 shadow-2xl backdrop-blur-md">
+                        <div
+                            style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                            className="lg:col-span-5 p-8 sm:p-10 rounded-3xl border border-blue-500/30 shadow-2xl backdrop-blur-md font-['Inter',sans-serif]"
+                        >
                             <div className="grid grid-cols-2 gap-8 text-center">
-                                <div className="p-4 bg-slate-900/60 rounded-2xl border border-slate-800">
-                                    <p className="text-4xl sm:text-5xl font-black text-amber-400">28Th</p>
-                                    <p className="text-xs font-bold uppercase tracking-wider text-slate-300 mt-2">Pengalaman</p>
+                                <div className="p-4 bg-white/10 rounded-2xl border border-white/10">
+                                    <p className="text-4xl sm:text-5xl font-bold text-white">28Th</p>
+                                    <p className="text-xs font-normal uppercase tracking-wider text-white mt-2">Pengalaman</p>
                                 </div>
-                                <div className="p-4 bg-slate-900/60 rounded-2xl border border-slate-800">
-                                    <p className="text-4xl sm:text-5xl font-black text-amber-400">20+</p>
-                                    <p className="text-xs font-bold uppercase tracking-wider text-slate-300 mt-2">Penghargaan</p>
+                                <div className="p-4 bg-white/10 rounded-2xl border border-white/10">
+                                    <p className="text-4xl sm:text-5xl font-bold text-white">20+</p>
+                                    <p className="text-xs font-normal uppercase tracking-wider text-white mt-2">Penghargaan</p>
                                 </div>
-                                <div className="p-4 bg-slate-900/60 rounded-2xl border border-slate-800">
-                                    <p className="text-4xl sm:text-5xl font-black text-amber-400">100+</p>
-                                    <p className="text-xs font-bold uppercase tracking-wider text-slate-300 mt-2">Karyawan Aktif</p>
+                                <div className="p-4 bg-white/10 rounded-2xl border border-white/10">
+                                    <p className="text-4xl sm:text-5xl font-bold text-white">100+</p>
+                                    <p className="text-xs font-normal uppercase tracking-wider text-white mt-2">Karyawan Aktif</p>
                                 </div>
-                                <div className="p-4 bg-slate-900/60 rounded-2xl border border-slate-800">
-                                    <p className="text-4xl sm:text-5xl font-black text-amber-400">19</p>
-                                    <p className="text-xs font-bold uppercase tracking-wider text-slate-300 mt-2">Cabang</p>
+                                <div className="p-4 bg-white/10 rounded-2xl border border-white/10">
+                                    <p className="text-4xl sm:text-5xl font-bold text-white">19</p>
+                                    <p className="text-xs font-normal uppercase tracking-wider text-white mt-2">Cabang</p>
                                 </div>
                             </div>
                         </div>
