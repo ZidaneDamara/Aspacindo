@@ -18,6 +18,9 @@ class Article extends Model
         'excerpt',
         'content',
         'author',
+        'focus_keyword',
+        'meta_description',
+        'views_count',
         'published_at',
         'is_active',
     ];
@@ -27,6 +30,7 @@ class Article extends Model
         return [
             'published_at' => 'datetime',
             'is_active' => 'boolean',
+            'views_count' => 'integer',
         ];
     }
 

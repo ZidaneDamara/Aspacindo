@@ -34,14 +34,26 @@ class ArticleController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
+        // Increment views count silently
+        $article->increment('views_count');
+
+        // Recent articles for right sidebar widget
+        $recentArticles = Article::published()
+            ->where('id', '!=', $article->id)
+            ->latest('published_at')
+            ->take(4)
+            ->get();
+
+        // Related articles for bottom section (4 items)
         $relatedArticles = Article::published()
             ->where('id', '!=', $article->id)
             ->latest('published_at')
-            ->take(3)
+            ->take(4)
             ->get();
 
         return Inertia::render('Articles/Show', [
             'article' => $article,
+            'recentArticles' => $recentArticles,
             'relatedArticles' => $relatedArticles,
         ]);
     }

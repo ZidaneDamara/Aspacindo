@@ -10,6 +10,7 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
 
     const navItems = [
         { name: 'Dashboard', href: '/admin', icon: '📊' },
+        { name: 'Prospect / Leads', href: '/admin/prospects', icon: '🎯' },
         { name: 'Katalog Motor', href: '/admin/motorcycles', icon: '🏍️' },
         { name: 'Cabang Dealer', href: '/admin/branches', icon: '🏢' },
         { name: 'Booking Service', href: '/admin/service-bookings', icon: '🛠️' },
@@ -53,11 +54,10 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition ${
-                                    isActive(item.href)
+                                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-bold transition ${isActive(item.href)
                                         ? 'bg-blue-600 text-white shadow-md'
                                         : 'text-slate-400 hover:text-white hover:bg-slate-800'
-                                }`}
+                                    }`}
                             >
                                 <span className="text-base">{item.icon}</span>
                                 {item.name}
@@ -123,9 +123,8 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
                                 key={item.href}
                                 href={item.href}
                                 onClick={() => setMobileSidebarOpen(false)}
-                                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-bold transition ${
-                                    isActive(item.href) ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-800'
-                                }`}
+                                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-xs font-bold transition ${isActive(item.href) ? 'bg-blue-600 text-white' : 'text-slate-300 hover:bg-slate-800'
+                                    }`}
                             >
                                 <span>{item.icon}</span>
                                 {item.name}

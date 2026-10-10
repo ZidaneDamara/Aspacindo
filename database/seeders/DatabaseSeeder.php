@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             MotorcycleSeeder::class,
             UserSeeder::class,
             LoyaltyRewardSeeder::class,
+            ProspectSeeder::class,
         ]);
     }
 }

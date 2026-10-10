@@ -87,4 +87,27 @@ class AdminPanelTest extends TestCase
 
         $response->assertRedirect();
     }
+
+    public function test_admin_can_access_spareparts_and_create_sparepart(): void
+    {
+        $admin = User::where('role', 'admin')->first();
+
+        $response = $this->actingAs($admin)->get('/admin/spareparts');
+        $response->assertStatus(200);
+
+        $createResponse = $this->actingAs($admin)->post('/admin/spareparts', [
+            'name' => 'Oli Yamalube Test',
+            'category' => 'Pelumas',
+            'price' => 55000,
+            'description' => 'Deskripsi oli tes',
+            'is_new' => true,
+            'is_active' => true,
+        ]);
+
+        $createResponse->assertRedirect('/admin/spareparts');
+        $this->assertDatabaseHas('spareparts', [
+            'name' => 'Oli Yamalube Test',
+            'price' => 55000,
+        ]);
+    }
 }

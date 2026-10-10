@@ -24,12 +24,15 @@ use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\Admin\AdminServicePriceController;
+use App\Http\Controllers\Admin\AdminSparepartController;
 use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\WorkshopController;
 use App\Http\Middleware\EnsureAdminOrStaff;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+use App\Http\Controllers\Admin\AdminProspectController;
 
 // Dynamic XML Sitemap
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
@@ -40,7 +43,8 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/produk', [ProductController::class, 'index'])->name('products.index');
 Route::get('/produk/{slug}', [ProductController::class, 'show'])->name('products.show');
 
-Route::get('/simulasi-cicilan', CreditSimulationController::class)->name('credit-simulation');
+Route::get('/simulasi-cicilan', [CreditSimulationController::class, 'index'])->name('credit-simulation');
+Route::post('/simulasi-cicilan', [CreditSimulationController::class, 'store'])->name('credit-simulation.store');
 
 Route::get('/layanan', [ServiceController::class, 'index'])->name('services.index');
 Route::post('/layanan/booking', [ServiceController::class, 'store'])->name('services.booking');
@@ -96,11 +100,15 @@ Route::middleware(['auth', EnsureAdminOrStaff::class])->prefix('admin')->name('a
     // Motorcycles
     Route::resource('motorcycles', AdminMotorcycleController::class);
 
+    // Spareparts
+    Route::resource('spareparts', AdminSparepartController::class);
+
     // Branches
     Route::resource('branches', AdminBranchController::class);
 
     // Articles
     Route::resource('articles', AdminArticleController::class);
+    Route::post('articles/upload-image', [AdminArticleController::class, 'uploadInlineImage'])->name('articles.upload-image');
 
     // Promotions
     Route::resource('promotions', AdminPromotionController::class);
@@ -117,6 +125,11 @@ Route::middleware(['auth', EnsureAdminOrStaff::class])->prefix('admin')->name('a
     // Service Bookings Management
     Route::get('/service-bookings', [AdminServiceBookingController::class, 'index'])->name('service-bookings.index');
     Route::post('/service-bookings/{id}/status', [AdminServiceBookingController::class, 'updateStatus'])->name('service-bookings.status');
+
+    // Prospect Leads Management
+    Route::get('/prospects', [AdminProspectController::class, 'index'])->name('prospects.index');
+    Route::post('/prospects/{id}/status', [AdminProspectController::class, 'updateStatus'])->name('prospects.status');
+    Route::delete('/prospects/{id}', [AdminProspectController::class, 'destroy'])->name('prospects.destroy');
 
     // Service Prices Management
     Route::resource('service-prices', AdminServicePriceController::class);

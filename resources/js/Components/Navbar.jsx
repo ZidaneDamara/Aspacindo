@@ -294,7 +294,7 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="px-4 py-2 space-y-1 bg-slate-50 rounded-xl my-1 border border-slate-100">
                             <span className="text-[10px] text-blue-700 font-bold uppercase tracking-wider block">LAYANAN</span>
                             <Link href="/layanan#booking" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs">Service</Link>
-                            <Link href="/layanan#sparepart" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs">Sparepart</Link>
+                            <Link href="/sparepart" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs">Sparepart</Link>
                         </div>
 
                         <Link href="/artikel" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-xs uppercase">ARTIKEL</Link>
