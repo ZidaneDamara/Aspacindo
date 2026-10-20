@@ -42,7 +42,7 @@ export default function Home({
         { name: 'Classy', desc: 'Skuter Stylish Hybrid', color: 'from-amber-600 to-amber-800', count: categories.Classy || 0 },
         { name: 'Matic', desc: 'Praktis & Irit Harian', color: 'from-cyan-700 to-blue-900', count: categories.Matic || 0 },
         { name: 'Sport', desc: 'Performa Balap Sejati', color: 'from-red-700 to-slate-950', count: categories.Sport || 0 },
-        { name: 'Off-Road', desc: 'Tangguh Jelajah Medan', color: 'from-emerald-700 to-slate-900', count: categories.OffRoad || 0 },
+        { name: 'Off-Road', desc: 'Tangguh Jelajah Medan', color: 'from-emerald-700 to-slate-900', count: categories['Off-Road'] ?? categories.OffRoad ?? 0 },
         { name: 'Moped', desc: 'Bebek Handal & Robust', color: 'from-slate-700 to-slate-900', count: categories.Moped || 0 },
     ];
 

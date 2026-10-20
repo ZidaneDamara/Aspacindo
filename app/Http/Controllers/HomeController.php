@@ -43,12 +43,15 @@ class HomeController extends Controller
             return $motorcycle;
         });
 
+        $offRoadCount = Motorcycle::active()->byCategory('Off-Road')->count();
+
         $categories = [
             'MAXi' => Motorcycle::active()->byCategory('MAXi')->count(),
             'Classy' => Motorcycle::active()->byCategory('Classy')->count(),
             'Matic' => Motorcycle::active()->byCategory('Matic')->count(),
             'Sport' => Motorcycle::active()->byCategory('Sport')->count(),
-            'Off-Road' => Motorcycle::active()->byCategory('Off-Road')->count(),
+            'Off-Road' => $offRoadCount,
+            'OffRoad' => $offRoadCount,
             'Moped' => Motorcycle::active()->byCategory('Moped')->count(),
         ];
 

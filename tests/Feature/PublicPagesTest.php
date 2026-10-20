@@ -22,6 +22,12 @@ class PublicPagesTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
+        $response->assertInertia(fn ($page) => $page
+            ->component('Home')
+            ->has('categories')
+            ->where('categories.Off-Road', 1)
+            ->where('categories.OffRoad', 1)
+        );
     }
 
     public function test_product_catalog_renders_successfully(): void
@@ -41,6 +47,39 @@ class PublicPagesTest extends TestCase
     {
         $response = $this->get('/simulasi-cicilan');
         $response->assertStatus(200);
+        $response->assertInertia(fn ($page) => $page
+            ->component('CreditSimulation')
+            ->has('leasingPartners', 4)
+            ->where('leasingPartners.0.name', 'Busan Auto Finance (BAF)')
+            ->where('leasingPartners.1.name', 'Adira Finance (Adira)')
+            ->where('leasingPartners.2.name', 'Indomobil Finance (ImFi)')
+            ->where('leasingPartners.3.name', 'Summit Oto Finance (SOF)')
+        );
+    }
+
+    public function test_credit_simulation_submission_creates_prospect(): void
+    {
+        $motorcycle = Motorcycle::first();
+
+        $response = $this->post('/simulasi-cicilan', [
+            'name' => 'Doni Customer',
+            'phone' => '081234567890',
+            'email' => 'doni@example.com',
+            'address' => 'Jl. Sudirman No. 10',
+            'city' => 'Pekanbaru',
+            'motorcycle_id' => $motorcycle->id,
+            'region' => 'Pekanbaru',
+            'dp_percent' => 20,
+            'tenor_months' => 36,
+            'leasing_partner' => 'Busan Auto Finance (BAF)',
+            'notes' => 'Butuh unit warna biru',
+        ]);
+
+        $response->assertRedirect();
+        $this->assertDatabaseHas('prospects', [
+            'name' => 'Doni Customer',
+            'leasing_partner' => 'Busan Auto Finance (BAF)',
+        ]);
     }
 
     public function test_services_page_renders_successfully(): void

@@ -98,6 +98,9 @@ class Motorcycle extends Model
         if (empty($category) || $category === 'Semua') {
             return $query;
         }
+        if (strcasecmp($category, 'Off Road') === 0) {
+            $category = 'Off-Road';
+        }
         return $query->where('category', $category);
     }
 

@@ -42,10 +42,10 @@ class CreditSimulationController extends Controller
         });
 
         $leasingPartners = [
-            ['id' => 'baf', 'name' => 'BAF (Bussan Auto Finance)', 'rate_modifier' => 1.0],
-            ['id' => 'adira', 'name' => 'Adira Finance', 'rate_modifier' => 1.02],
-            ['id' => 'oto', 'name' => 'OTO Kredit Motor', 'rate_modifier' => 1.03],
-            ['id' => 'wom', 'name' => 'WOM Finance', 'rate_modifier' => 1.01],
+            ['id' => 'baf', 'code' => 'BAF', 'name' => 'Busan Auto Finance (BAF)', 'rate_modifier' => 1.0],
+            ['id' => 'adira', 'code' => 'Adira', 'name' => 'Adira Finance (Adira)', 'rate_modifier' => 1.02],
+            ['id' => 'imfi', 'code' => 'ImFi', 'name' => 'Indomobil Finance (ImFi)', 'rate_modifier' => 1.01],
+            ['id' => 'sof', 'code' => 'SOF', 'name' => 'Summit Oto Finance (SOF)', 'rate_modifier' => 1.03],
         ];
 
         return Inertia::render('CreditSimulation', [
@@ -83,6 +83,10 @@ class CreditSimulationController extends Controller
 
         // Rate modifiers map
         $modifiers = [
+            'Busan Auto Finance (BAF)' => 1.0,
+            'Adira Finance (Adira)' => 1.02,
+            'Indomobil Finance (ImFi)' => 1.01,
+            'Summit Oto Finance (SOF)' => 1.03,
             'BAF (Bussan Auto Finance)' => 1.0,
             'Adira Finance' => 1.02,
             'OTO Kredit Motor' => 1.03,

@@ -34,7 +34,7 @@ class ProspectSeeder extends Seeder
                 'dp_amount' => $nmax->price_otr * 0.20,
                 'dp_percent' => 20,
                 'tenor_months' => 36,
-                'leasing_partner' => 'BAF (Bussan Auto Finance)',
+                'leasing_partner' => 'Busan Auto Finance (BAF)',
                 'monthly_installment' => round(($nmax->price_otr * 0.80 * 1.27) / 36),
                 'notes' => 'Tertarik opsi kredit DP ringan, butuh unit cepat warna Hitam Glossy.',
                 'status' => 'new',
@@ -55,7 +55,7 @@ class ProspectSeeder extends Seeder
                 'dp_amount' => $fazzio->price_otr * 0.15,
                 'dp_percent' => 15,
                 'tenor_months' => 24,
-                'leasing_partner' => 'Adira Finance',
+                'leasing_partner' => 'Adira Finance (Adira)',
                 'monthly_installment' => round(($fazzio->price_otr * 0.85 * 1.18) / 24),
                 'notes' => 'Tanya syarat berkas untuk pekerja swasta.',
                 'status' => 'contacted',
@@ -76,17 +76,41 @@ class ProspectSeeder extends Seeder
                 'dp_amount' => $aerox->price_otr * 0.25,
                 'dp_percent' => 25,
                 'tenor_months' => 36,
-                'leasing_partner' => 'WOM Finance',
+                'leasing_partner' => 'Summit Oto Finance (SOF)',
                 'monthly_installment' => round(($aerox->price_otr * 0.75 * 1.28) / 36),
                 'notes' => 'Mau trade-in Vixion lama dengan Aerox Cybercity.',
                 'status' => 'prospect',
-                'follow_up_notes' => 'Survey rumah dijadwalkan besok jam 10.00 WIB oleh tim WOM.',
+                'follow_up_notes' => 'Survey rumah dijadwalkan besok jam 10.00 WIB oleh tim SOF.',
                 'created_at' => now()->subDays(2),
+            ],
+            [
+                'ticket_number' => 'PRP-20260929-G7H8',
+                'name' => 'Budi Santoso',
+                'phone' => '081276543210',
+                'email' => 'budi.santoso@gmail.com',
+                'address' => 'Jl. Riau No. 88, Pekanbaru',
+                'city' => 'Kota Pekanbaru',
+                'current_motorcycle' => 'Jupiter Z (2012)',
+                'motorcycle_id' => $nmax->id,
+                'motorcycle_name' => $nmax->name,
+                'price_otr' => $nmax->price_otr,
+                'dp_amount' => $nmax->price_otr * 0.30,
+                'dp_percent' => 30,
+                'tenor_months' => 48,
+                'leasing_partner' => 'Indomobil Finance (ImFi)',
+                'monthly_installment' => round(($nmax->price_otr * 0.70 * 1.36) / 48),
+                'notes' => 'Pengajuan via Indomobil Finance untuk tenor 4 tahun.',
+                'status' => 'new',
+                'follow_up_notes' => null,
+                'created_at' => now()->subDays(3),
             ]
         ];
 
         foreach ($prospects as $item) {
-            Prospect::create($item);
+            Prospect::updateOrCreate(
+                ['ticket_number' => $item['ticket_number']],
+                $item
+            );
         }
     }
 }

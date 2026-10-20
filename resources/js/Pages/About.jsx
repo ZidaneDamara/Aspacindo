@@ -4,10 +4,10 @@ import PublicLayout from '@/Layouts/PublicLayout';
 
 export default function About({ stats = {}, totalBranches = 20 }) {
     const partnerLogos = [
-        { name: 'Mandala Finance', label: 'MANDALA', color: 'border-red-500 text-red-600 bg-red-50' },
-        { name: 'Mega Auto Finance', label: 'MAF', color: 'border-amber-500 text-amber-600 bg-amber-50' },
-        { name: 'Indomobil Finance', label: 'IMFI', color: 'border-blue-600 text-blue-700 bg-blue-50' },
-        { name: 'Yamaha Financial Services', label: 'YAMAHA FINANCE', color: 'border-red-600 text-red-700 bg-red-50' },
+        { name: 'Busan Auto Finance', label: 'BAF', color: 'border-blue-600 text-blue-700 bg-blue-50' },
+        { name: 'Adira Finance', label: 'ADIRA', color: 'border-amber-500 text-amber-600 bg-amber-50' },
+        { name: 'Indomobil Finance', label: 'IMFI', color: 'border-blue-700 text-blue-800 bg-blue-50' },
+        { name: 'Summit Oto Finance', label: 'SOF / OTO', color: 'border-red-600 text-red-700 bg-red-50' },
         { name: 'Alfa Scorpii', label: 'ALFA SCORPII', color: 'border-slate-800 text-slate-900 bg-slate-100' },
     ];
 
