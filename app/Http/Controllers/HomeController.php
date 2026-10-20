@@ -14,13 +14,34 @@ use Inertia\Response;
 
 class HomeController extends Controller
 {
+    public const VALID_REGIONS = [
+        'Pekanbaru',
+        'Siak',
+        'Kampar',
+        'Pelalawan',
+        'Indragiri Hulu',
+        'Indragiri Hilir',
+        'Medan',
+    ];
+
     public function __invoke(Request $request): Response
     {
+        $region = $request->query('region', 'Pekanbaru');
+        if (!in_array($region, self::VALID_REGIONS)) {
+            $region = 'Pekanbaru';
+        }
+
         $featuredMotorcycles = Motorcycle::active()
             ->featured()
             ->with(['primaryImage', 'colors'])
-            ->take(6)
+            ->take(8)
             ->get();
+
+        $featuredMotorcycles->transform(function ($motorcycle) use ($region) {
+            $motorcycle->price_otr = $motorcycle->getPriceForRegion($region);
+            $motorcycle->selected_region = $region;
+            return $motorcycle;
+        });
 
         $categories = [
             'MAXi' => Motorcycle::active()->byCategory('MAXi')->count(),
@@ -57,6 +78,8 @@ class HomeController extends Controller
         return Inertia::render('Home', [
             'featuredMotorcycles' => $featuredMotorcycles,
             'categories' => $categories,
+            'regions' => self::VALID_REGIONS,
+            'selectedRegion' => $region,
             'latestArticles' => $latestArticles,
             'activePromotions' => $activePromotions,
             'featuredTestimonials' => $featuredTestimonials,

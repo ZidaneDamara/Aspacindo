@@ -21,6 +21,7 @@ class Branch extends Model
         'google_maps_url',
         'operating_hours',
         'whatsapp_number',
+        'dealer_type',
         'has_service_center',
         'is_active',
     ];
@@ -36,6 +37,30 @@ class Branch extends Model
         ];
     }
 
+    public function is3S(): bool
+    {
+        return ($this->dealer_type ?? '3S') === '3S';
+    }
+
+    public function is2S(): bool
+    {
+        return $this->dealer_type === '2S';
+    }
+
+    public function is1S(): bool
+    {
+        return $this->dealer_type === '1S';
+    }
+
+    public function getDealerTypeLabelAttribute(): string
+    {
+        return match ($this->dealer_type) {
+            '1S' => 'Sales (1S)',
+            '2S' => 'Sales, Service (2S)',
+            default => 'Sales, Service, Sparepart (Dealer Utama 3S)',
+        };
+    }
+
     public function jobOpenings(): HasMany
     {
         return $this->hasMany(JobOpening::class);
@@ -49,6 +74,16 @@ class Branch extends Model
     public function serviceBookings(): HasMany
     {
         return $this->hasMany(ServiceBooking::class);
+    }
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function admins(): HasMany
+    {
+        return $this->hasMany(User::class)->whereIn('role', ['admin', 'branch_admin']);
     }
 
     public function scopeActive(Builder $query): Builder

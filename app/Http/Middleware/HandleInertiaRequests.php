@@ -29,10 +29,21 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+        if ($user) {
+            $user->load('branch');
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
+                'isSuperAdmin' => $user ? $user->isSuperAdmin() : false,
+                'isBranchAdmin' => $user ? $user->isBranchAdmin() : false,
+            ],
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
             ],
         ];
     }

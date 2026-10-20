@@ -36,7 +36,7 @@ class ServiceController extends Controller
             ->get()
             ->groupBy('category');
 
-        $regions = ['Semua', 'Pekanbaru', 'Pelalawan', 'Siak', 'Kampar', 'Medan', 'Indragiri Hulu'];
+        $regions = ['Semua', 'Pekanbaru', 'Pelalawan', 'Siak', 'Kampar', 'Indragiri Hulu', 'Indragiri Hilir', 'Medan'];
 
         // Iklan Promo Service Banners
         $servicePromos = [

@@ -17,12 +17,16 @@ class EnsureAdminOrStaff
 
         $user = Auth::user();
 
-        if (!in_array($user->role, ['admin', 'staff'])) {
+        if (!in_array($user->role, ['admin', 'branch_admin', 'staff'])) {
             return redirect()->route('loyalty.dashboard')->with('error', 'Akses ditolak. Halaman ini hanya untuk Staff / Admin.');
         }
 
-        if ($role === 'admin' && $user->role !== 'admin') {
+        if ($role === 'admin' && !in_array($user->role, ['admin', 'branch_admin'])) {
             return back()->with('error', 'Akses terbatas. Fitur ini hanya dapat diakses oleh Administrator.');
+        }
+
+        if ($role === 'superadmin' && !$user->isSuperAdmin()) {
+            return back()->with('error', 'Akses terbatas. Fitur ini hanya dapat diakses oleh Super Administrator (Pusat).');
         }
 
         return $next($request);

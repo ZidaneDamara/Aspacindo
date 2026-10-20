@@ -30,7 +30,7 @@ class WorkshopController extends Controller
             ->get()
             ->groupBy('category');
 
-        $regions = ['Semua', 'Pekanbaru', 'Pelalawan', 'Siak', 'Kampar', 'Medan', 'Indragiri Hulu'];
+        $regions = ['Semua', 'Pekanbaru', 'Pelalawan', 'Siak', 'Kampar', 'Indragiri Hulu', 'Indragiri Hilir', 'Medan'];
 
         return Inertia::render('Bengkel/Index', [
             'servicePrices' => $servicePrices,

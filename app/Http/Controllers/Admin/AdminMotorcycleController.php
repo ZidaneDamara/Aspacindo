@@ -13,14 +13,24 @@ use Inertia\Response;
 
 class AdminMotorcycleController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $user = $request->user();
+        $branch = $user?->branch;
+
         $motorcycles = Motorcycle::with(['primaryImage', 'colors'])
             ->latest()
             ->paginate(15);
 
+        // Append branch specific price for display
+        $motorcycles->getCollection()->transform(function ($bike) use ($branch) {
+            $bike->branch_price = $branch ? $bike->getPriceForBranch($branch) : null;
+            return $bike;
+        });
+
         return Inertia::render('Admin/Motorcycles/Index', [
             'motorcycles' => $motorcycles,
+            'userBranch' => $branch,
         ]);
     }
 
@@ -173,8 +183,12 @@ class AdminMotorcycleController extends Controller
         return redirect()->route('admin.motorcycles.index')->with('success', 'Data Motor berhasil diperbarui!');
     }
 
-    public function destroy(int $id): RedirectResponse
+    public function destroy(Request $request, int $id): RedirectResponse
     {
+        if ($request->user()->isBranchAdmin()) {
+            abort(403, 'Akses ditolak. Admin Cabang tidak diperkenankan menghapus data master motor.');
+        }
+
         $motorcycle = Motorcycle::findOrFail($id);
         $motorcycle->images()->delete();
         $motorcycle->colors()->delete();

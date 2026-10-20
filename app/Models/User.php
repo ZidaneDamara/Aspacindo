@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'google_id',
+        'branch_id',
         'role',
         'phone_number',
     ];
@@ -48,6 +49,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'branch_id' => 'integer',
         ];
     }
 
@@ -56,13 +58,28 @@ class User extends Authenticatable
         return $this->hasOne(LoyaltyMember::class);
     }
 
+    public function branch(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'admin' && empty($this->branch_id);
+    }
+
+    public function isBranchAdmin(): bool
+    {
+        return $this->role === 'branch_admin' || ($this->role === 'admin' && !empty($this->branch_id));
+    }
+
     public function isAdmin(): bool
     {
-        return $this->role === 'admin';
+        return in_array($this->role, ['admin', 'branch_admin']);
     }
 
     public function isStaff(): bool
     {
-        return in_array($this->role, ['admin', 'staff']);
+        return in_array($this->role, ['admin', 'branch_admin', 'staff']);
     }
 }

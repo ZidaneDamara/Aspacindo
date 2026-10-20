@@ -2,10 +2,28 @@ import React, { useState, useEffect } from 'react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import { Head, useForm, usePage } from '@inertiajs/react';
 
-export default function CreditSimulation({ motorcycles = [], selectedSlug = '', leasingPartners = [] }) {
+export default function CreditSimulation({
+    motorcycles = [],
+    selectedSlug = '',
+    leasingPartners = [],
+    regions = [],
+    selectedRegion = 'Pekanbaru',
+}) {
+    const defaultRegions = [
+        'Pekanbaru',
+        'Siak',
+        'Kampar',
+        'Pelalawan',
+        'Indragiri Hulu',
+        'Indragiri Hilir',
+        'Medan',
+    ];
+    const allRegions = regions.length > 0 ? regions : defaultRegions;
+
     const { flash } = usePage().props;
     const defaultBike = motorcycles.find((m) => m.slug === selectedSlug) || motorcycles[0] || null;
 
+    const [currentRegion, setCurrentRegion] = useState(selectedRegion || 'Pekanbaru');
     const [selectedMotorcycle, setSelectedMotorcycle] = useState(defaultBike);
     const [dpPercent, setDpPercent] = useState(20);
     const [tenorMonths, setTenorMonths] = useState(36);
@@ -26,6 +44,7 @@ export default function CreditSimulation({ motorcycles = [], selectedSlug = '', 
         address: '',
         current_motorcycle: 'Belum Punya Motor',
         motorcycle_id: defaultBike?.id || '',
+        region: selectedRegion || 'Pekanbaru',
         dp_percent: 20,
         tenor_months: 36,
         leasing_partner: leasingPartners[0]?.name || 'BAF (Bussan Auto Finance)',
@@ -40,11 +59,20 @@ export default function CreditSimulation({ motorcycles = [], selectedSlug = '', 
         }).format(number || 0);
     };
 
+    const getPriceForCurrentRegion = (bike, reg) => {
+        if (!bike) return 0;
+        const targetRegion = reg || currentRegion;
+        if (bike.regional_prices && bike.regional_prices[targetRegion]) {
+            return bike.regional_prices[targetRegion];
+        }
+        return bike.price_otr || 0;
+    };
+
     // Calculate real-time simulation preview
     useEffect(() => {
         if (!selectedMotorcycle) return;
 
-        const price = selectedMotorcycle.price_otr;
+        const price = getPriceForCurrentRegion(selectedMotorcycle, currentRegion);
         const calculatedDp = (price * dpPercent) / 100;
         const principalLoan = price - calculatedDp;
 
@@ -62,11 +90,12 @@ export default function CreditSimulation({ motorcycles = [], selectedSlug = '', 
         setData((prev) => ({
             ...prev,
             motorcycle_id: selectedMotorcycle.id,
+            region: currentRegion,
             dp_percent: dpPercent,
             tenor_months: tenorMonths,
             leasing_partner: selectedPartner.name,
         }));
-    }, [selectedMotorcycle, dpPercent, tenorMonths, selectedPartner]);
+    }, [selectedMotorcycle, currentRegion, dpPercent, tenorMonths, selectedPartner]);
 
     // Check if flash contains submitted prospect
     useEffect(() => {
@@ -99,11 +128,12 @@ export default function CreditSimulation({ motorcycles = [], selectedSlug = '', 
 
     const buildWhatsAppMessage = () => {
         if (!lastSubmittedProspect && !selectedMotorcycle) return '';
+        const currentPrice = getPriceForCurrentRegion(selectedMotorcycle, currentRegion);
         const p = lastSubmittedProspect || {
             ticket_number: 'SIMULASI-LANGSUNG',
             name: data.name || 'Customer',
             motorcycle_name: selectedMotorcycle?.name,
-            price_otr: selectedMotorcycle?.price_otr,
+            price_otr: currentPrice,
             dp_amount: dpAmount,
             dp_percent: dpPercent,
             tenor_months: tenorMonths,
@@ -111,8 +141,9 @@ export default function CreditSimulation({ motorcycles = [], selectedSlug = '', 
             leasing_partner: selectedPartner.name,
         };
 
-        return `Halo Yamaha Aspacindo Riau, saya mengajukan simulasi cicilan kredit motor:
+        return `Halo Yamaha Aspacindo, saya mengajukan simulasi cicilan kredit motor:
 📌 *KODE TIKET:* ${p.ticket_number}
+📍 *Wilayah OTR:* Area ${currentRegion}
 👤 *Nama:* ${p.name}
 🏍️ *Motor:* ${p.motorcycle_name}
 💰 *Harga OTR:* ${formatRupiah(p.price_otr)}
@@ -288,6 +319,30 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                 </div>
                             </div>
 
+                            {/* Region Dropdown */}
+                            <div className="space-y-2">
+                                <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
+                                    Pilih Wilayah OTR Cabang <span className="text-red-500">*</span>
+                                </label>
+                                <select
+                                    value={currentRegion}
+                                    onChange={(e) => {
+                                        const reg = e.target.value;
+                                        setCurrentRegion(reg);
+                                        if (typeof window !== 'undefined') {
+                                            localStorage.setItem('aspacindo_preferred_region', reg);
+                                        }
+                                    }}
+                                    className="w-full text-base border-blue-200 rounded-2xl p-4 focus:ring-blue-500 focus:border-blue-500 font-bold bg-blue-50/70 text-slate-900"
+                                >
+                                    {allRegions.map((reg) => (
+                                        <option key={reg} value={reg}>
+                                            Area {reg}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
                             {/* Motor Dropdown */}
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
@@ -300,7 +355,7 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                 >
                                     {motorcycles.map((bike) => (
                                         <option key={bike.id} value={bike.id}>
-                                            {bike.name} — OTR {formatRupiah(bike.price_otr)} ({bike.category})
+                                            {bike.name} — OTR {formatRupiah(getPriceForCurrentRegion(bike, currentRegion))} ({bike.category})
                                         </option>
                                     ))}
                                 </select>
@@ -416,7 +471,7 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                     <div>
                                         <h4 className="text-2xl font-black text-white">{selectedMotorcycle.name}</h4>
                                         <p className="text-blue-100 text-xs mt-1 font-medium">
-                                            Harga OTR Riau: <span className="font-bold text-white">{formatRupiah(selectedMotorcycle.price_otr)}</span>
+                                            Harga OTR Area {currentRegion}: <span className="font-bold text-white">{formatRupiah(getPriceForCurrentRegion(selectedMotorcycle, currentRegion))}</span>
                                         </p>
                                     </div>
 

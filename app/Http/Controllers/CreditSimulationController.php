@@ -11,15 +11,35 @@ use Inertia\Response;
 
 class CreditSimulationController extends Controller
 {
+    public const VALID_REGIONS = [
+        'Pekanbaru',
+        'Siak',
+        'Kampar',
+        'Pelalawan',
+        'Indragiri Hulu',
+        'Indragiri Hilir',
+        'Medan',
+    ];
+
     public function index(Request $request): Response
     {
         $selectedSlug = $request->query('motorcycle');
+        $region = $request->query('region', 'Pekanbaru');
+        if (!in_array($region, self::VALID_REGIONS)) {
+            $region = 'Pekanbaru';
+        }
 
         $motorcycles = Motorcycle::active()
-            ->select(['id', 'name', 'slug', 'category', 'price_otr'])
+            ->select(['id', 'name', 'slug', 'category', 'price_otr', 'regional_prices'])
             ->with('primaryImage')
             ->orderBy('name', 'asc')
             ->get();
+
+        $motorcycles->transform(function ($bike) use ($region) {
+            $bike->price_otr = $bike->getPriceForRegion($region);
+            $bike->selected_region = $region;
+            return $bike;
+        });
 
         $leasingPartners = [
             ['id' => 'baf', 'name' => 'BAF (Bussan Auto Finance)', 'rate_modifier' => 1.0],
@@ -31,6 +51,8 @@ class CreditSimulationController extends Controller
         return Inertia::render('CreditSimulation', [
             'motorcycles' => $motorcycles,
             'selectedSlug' => $selectedSlug,
+            'regions' => self::VALID_REGIONS,
+            'selectedRegion' => $region,
             'leasingPartners' => $leasingPartners,
         ]);
     }
@@ -45,6 +67,7 @@ class CreditSimulationController extends Controller
             'city' => 'nullable|string|max:255',
             'current_motorcycle' => 'nullable|string|max:255',
             'motorcycle_id' => 'required|exists:motorcycles,id',
+            'region' => 'nullable|string|max:50',
             'dp_percent' => 'required|numeric|min:10|max:50',
             'tenor_months' => 'required|integer|in:12,24,36,48,60',
             'leasing_partner' => 'required|string|max:255',
@@ -52,7 +75,8 @@ class CreditSimulationController extends Controller
         ]);
 
         $motorcycle = Motorcycle::findOrFail($validated['motorcycle_id']);
-        $priceOtr = (float) $motorcycle->price_otr;
+        $region = $validated['region'] ?? 'Pekanbaru';
+        $priceOtr = (float) $motorcycle->getPriceForRegion($region);
         $dpPercent = (int) $validated['dp_percent'];
         $dpAmount = ($priceOtr * $dpPercent) / 100;
         $principalLoan = $priceOtr - $dpAmount;
@@ -79,7 +103,7 @@ class CreditSimulationController extends Controller
             'phone' => $validated['phone'],
             'email' => $validated['email'] ?? null,
             'address' => $validated['address'] ?? null,
-            'city' => $validated['city'] ?? null,
+            'city' => $validated['city'] ?? $region,
             'current_motorcycle' => $validated['current_motorcycle'] ?? null,
             'motorcycle_id' => $motorcycle->id,
             'motorcycle_name' => $motorcycle->name,
@@ -89,12 +113,12 @@ class CreditSimulationController extends Controller
             'tenor_months' => $tenorMonths,
             'leasing_partner' => $validated['leasing_partner'],
             'monthly_installment' => $monthlyPayment,
-            'notes' => $validated['notes'] ?? null,
+            'notes' => ($validated['notes'] ? $validated['notes'] . " | " : "") . "Wilayah OTR: " . $region,
             'status' => 'new',
         ]);
 
         return back()->with([
-            'success' => "Pengajuan simulasi kredit Anda (Tiket: {$ticketNumber}) telah tersimpan ke sistem!",
+            'success' => "Pengajuan simulasi kredit Anda (Tiket: {$ticketNumber}) wilayah {$region} telah tersimpan ke sistem!",
             'submittedProspect' => [
                 'ticket_number' => $prospect->ticket_number,
                 'name' => $prospect->name,
@@ -106,6 +130,7 @@ class CreditSimulationController extends Controller
                 'tenor_months' => $prospect->tenor_months,
                 'leasing_partner' => $prospect->leasing_partner,
                 'monthly_installment' => $prospect->monthly_installment,
+                'region' => $region,
             ],
         ]);
     }

@@ -13,7 +13,7 @@ class BranchController extends Controller
     {
         $selectedRegion = $request->query('region', 'Semua');
 
-        $regions = ['Semua', 'Pekanbaru', 'Pelalawan', 'Siak', 'Kampar', 'Medan', 'Indragiri Hulu'];
+        $regions = ['Semua', 'Pekanbaru', 'Pelalawan', 'Siak', 'Kampar', 'Indragiri Hulu', 'Indragiri Hilir', 'Medan'];
 
         $branches = Branch::active()
             ->byRegion($selectedRegion)

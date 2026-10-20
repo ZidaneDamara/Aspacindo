@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import MotorcycleCard from '@/Components/MotorcycleCard';
 import LazyImage from '@/Components/LazyImage';
@@ -7,12 +7,35 @@ import LazyImage from '@/Components/LazyImage';
 export default function Home({
     featuredMotorcycles = [],
     categories = {},
+    regions = [],
+    selectedRegion = 'Pekanbaru',
     latestArticles = [],
     activePromotions = [],
     featuredTestimonials = [],
     stats = {},
 }) {
+    const defaultRegions = [
+        'Pekanbaru',
+        'Siak',
+        'Kampar',
+        'Pelalawan',
+        'Indragiri Hulu',
+        'Indragiri Hilir',
+        'Medan',
+    ];
+    const allRegions = regions.length > 0 ? regions : defaultRegions;
+
+    const [currentRegion, setCurrentRegion] = useState(selectedRegion || 'Pekanbaru');
     const [carouselIndex, setCarouselIndex] = useState(0);
+
+    const handleRegionChange = (e) => {
+        const reg = e.target.value;
+        setCurrentRegion(reg);
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('aspacindo_preferred_region', reg);
+        }
+        router.get('/', { region: reg !== 'Pekanbaru' ? reg : undefined }, { preserveState: true, preserveScroll: true, replace: true });
+    };
 
     const categoryList = [
         { name: 'MAXi', desc: 'Skuter Premium VVA', color: 'from-blue-900 to-slate-900', count: categories.MAXi || 0 },
@@ -204,30 +227,49 @@ export default function Home({
                             <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Motor Yamaha Paling Populer Hari Ini</h2>
                         </div>
 
-                        {/* Carousel Navigation Buttons */}
-                        <div className="flex items-center gap-3">
-                            <button
-                                onClick={prevSlide}
-                                disabled={carouselIndex === 0}
-                                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                                className={`w-11 h-11 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
-                                    carouselIndex === 0 ? 'opacity-40 cursor-not-allowed' : ''
-                                }`}
-                                aria-label="Previous slide"
-                            >
-                                &#10094;
-                            </button>
-                            <button
-                                onClick={nextSlide}
-                                disabled={carouselIndex >= maxIndex}
-                                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                                className={`w-11 h-11 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
-                                    carouselIndex >= maxIndex ? 'opacity-40 cursor-not-allowed' : ''
-                                }`}
-                                aria-label="Next slide"
-                            >
-                                &#10095;
-                            </button>
+                        {/* Region Selector & Carousel Navigation Buttons */}
+                        <div className="flex flex-wrap items-center gap-3">
+                            <div className="flex items-center gap-2 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-xs">
+                                <svg className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span className="text-xs font-bold text-slate-400">OTR:</span>
+                                <select
+                                    value={currentRegion}
+                                    onChange={handleRegionChange}
+                                    className="bg-transparent text-xs font-bold text-slate-800 border-none p-0 pr-4 focus:ring-0 cursor-pointer"
+                                >
+                                    {allRegions.map((reg) => (
+                                        <option key={reg} value={reg}>Area {reg}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={prevSlide}
+                                    disabled={carouselIndex === 0}
+                                    style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                                    className={`w-10 h-10 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
+                                        carouselIndex === 0 ? 'opacity-40 cursor-not-allowed' : ''
+                                    }`}
+                                    aria-label="Previous slide"
+                                >
+                                    &#10094;
+                                </button>
+                                <button
+                                    onClick={nextSlide}
+                                    disabled={carouselIndex >= maxIndex}
+                                    style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                                    className={`w-10 h-10 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
+                                        carouselIndex >= maxIndex ? 'opacity-40 cursor-not-allowed' : ''
+                                    }`}
+                                    aria-label="Next slide"
+                                >
+                                    &#10095;
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -244,7 +286,7 @@ export default function Home({
                                     key={motorcycle.id}
                                     className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0"
                                 >
-                                    <MotorcycleCard motorcycle={motorcycle} />
+                                    <MotorcycleCard motorcycle={motorcycle} selectedRegion={currentRegion} />
                                 </div>
                             ))}
                         </div>

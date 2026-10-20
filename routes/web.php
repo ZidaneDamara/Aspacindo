@@ -33,6 +33,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\Admin\AdminProspectController;
+use App\Http\Controllers\Admin\AdminBranchPriceController;
+use App\Http\Controllers\Admin\AdminBranchUserController;
 
 // Dynamic XML Sitemap
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
@@ -99,6 +101,14 @@ Route::middleware(['auth', EnsureAdminOrStaff::class])->prefix('admin')->name('a
 
     // Motorcycles
     Route::resource('motorcycles', AdminMotorcycleController::class);
+
+    // Branch OTR Prices
+    Route::get('branch-prices', [AdminBranchPriceController::class, 'index'])->name('branch-prices.index');
+    Route::put('branch-prices/{branchId}', [AdminBranchPriceController::class, 'update'])->name('branch-prices.update');
+    Route::put('branch-prices/{branchId}/motorcycles/{motorcycleId}', [AdminBranchPriceController::class, 'updateSingle'])->name('branch-prices.update-single');
+
+    // Branch Admins Management
+    Route::resource('branch-admins', AdminBranchUserController::class)->except(['create', 'edit', 'show']);
 
     // Spareparts
     Route::resource('spareparts', AdminSparepartController::class);

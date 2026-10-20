@@ -8,11 +8,18 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
 
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-    const navItems = [
+    const isSuperAdmin = props.auth?.isSuperAdmin ?? (user?.role === 'admin' && !user?.branch_id);
+    const isBranchAdmin = props.auth?.isBranchAdmin ?? (user?.role === 'branch_admin' || !!user?.branch_id);
+
+    const baseNavItems = [
         { name: 'Dashboard', href: '/admin', icon: '📊' },
-        { name: 'Prospect / Leads', href: '/admin/prospects', icon: '🎯' },
+        { name: 'Harga OTR Cabang', href: '/admin/branch-prices', icon: '💰', highlight: true },
         { name: 'Katalog Motor', href: '/admin/motorcycles', icon: '🏍️' },
+        ...(isSuperAdmin ? [
+            { name: 'Admin Cabang', href: '/admin/branch-admins', icon: '👤' },
+        ] : []),
         { name: 'Cabang Dealer', href: '/admin/branches', icon: '🏢' },
+        { name: 'Prospect / Leads', href: '/admin/prospects', icon: '🎯' },
         { name: 'Booking Service', href: '/admin/service-bookings', icon: '🛠️' },
         { name: 'Input Poin Kasir', href: '/admin/loyalty/point-input', icon: '📱' },
         { name: 'Member Loyalty', href: '/admin/loyalty/members', icon: '👥' },
@@ -24,6 +31,8 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
         { name: 'Promo Banner', href: '/admin/promotions', icon: '📢' },
         { name: 'Lowongan Kerja', href: '/admin/job-openings', icon: '💼' },
     ];
+
+    const navItems = baseNavItems;
 
     const isActive = (path) => {
         if (path === '/admin') return url === '/admin';
@@ -69,12 +78,14 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
                 {/* Bottom User Badge */}
                 <div className="p-4 border-t border-slate-800 space-y-3">
                     <div className="flex items-center gap-3 px-2">
-                        <div className="w-8 h-8 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center text-xs">
+                        <div className="w-9 h-9 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-xs flex-shrink-0">
                             {user?.name?.charAt(0)}
                         </div>
                         <div className="overflow-hidden">
                             <p className="text-xs font-bold text-white truncate">{user?.name}</p>
-                            <span className="text-[10px] uppercase font-bold text-amber-400">ROLE: {user?.role}</span>
+                            <span className="text-[10px] uppercase font-bold text-amber-400 block truncate">
+                                {user?.branch ? `CABANG: ${user.branch.name}` : (isSuperAdmin ? 'SUPER ADMIN (PUSAT)' : `ROLE: ${user?.role}`)}
+                            </span>
                         </div>
                     </div>
                     <Link
@@ -97,18 +108,28 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
                         >
                             ☰
                         </button>
-                        <h1 className="text-lg font-black text-slate-900 uppercase tracking-tight">{title}</h1>
+                        <div>
+                            <h1 className="text-lg font-black text-slate-900 uppercase tracking-tight">{title}</h1>
+                            {user?.branch && (
+                                <span className="text-[11px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md inline-block mt-0.5">
+                                    🏢 {user.branch.name} ({user.branch.region})
+                                </span>
+                            )}
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-4 text-xs font-bold">
-                        <span className="hidden sm:inline-block px-3 py-1 bg-slate-100 text-slate-700 rounded-full">
-                            Akun: {user?.email} ({user?.role})
+                        <span className="hidden sm:inline-flex items-center gap-2 px-3 py-1 bg-slate-100 text-slate-700 rounded-full">
+                            <span>{user?.email}</span>
+                            <span className="bg-slate-200 text-slate-800 text-[10px] px-2 py-0.5 rounded-full uppercase">
+                                {user?.branch ? 'Admin Cabang' : (isSuperAdmin ? 'Super Admin' : user?.role)}
+                            </span>
                         </span>
                         <Link
                             href="/logout"
                             method="post"
                             as="button"
-                            className="bg-red-50 text-red-600 hover:bg-red-100 px-3.5 py-2 rounded-xl transition"
+                            className="bg-red-50 text-red-600 hover:bg-red-100 px-3.5 py-2 rounded-xl transition font-bold"
                         >
                             Logout
                         </Link>

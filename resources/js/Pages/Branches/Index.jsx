@@ -43,9 +43,18 @@ export default function Index({ branches = [], regions = [], selectedRegion = 'S
                         <div key={branch.id} className="bg-white rounded-3xl border border-slate-100 p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6">
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between">
-                                    <span className="bg-blue-50 text-blue-700 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase">
-                                        Wilayah {branch.region}
-                                    </span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="bg-blue-50 text-blue-700 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase">
+                                            {branch.region}
+                                        </span>
+                                        <span className={`text-[10px] font-black px-2.5 py-0.5 rounded-full ${
+                                            branch.dealer_type === '1S' ? 'bg-purple-100 text-purple-800' :
+                                            branch.dealer_type === '2S' ? 'bg-cyan-100 text-cyan-800' :
+                                            'bg-emerald-100 text-emerald-800'
+                                        }`}>
+                                            {branch.dealer_type || '3S'} {branch.dealer_type === '1S' ? '• Sales' : branch.dealer_type === '2S' ? '• 2S' : '• 3S Dealer Utama'}
+                                        </span>
+                                    </div>
                                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" title="Cabang Aktif"></span>
                                 </div>
                                 <h3 className="text-lg font-black text-slate-900 leading-snug">{branch.name}</h3>
