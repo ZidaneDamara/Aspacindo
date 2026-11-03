@@ -132,10 +132,10 @@ export default function BranchAdminsIndex({ admins = [], branches = [] }) {
                                                 <div className="space-y-0.5">
                                                     <span className="font-bold text-blue-900 block">{admin.branch.name}</span>
                                                     <Link
-                                                        href={`/admin/branch-prices?branch_id=${admin.branch.id}`}
+                                                        href={`/admin/motorcycles?region=${encodeURIComponent(admin.branch.region)}`}
                                                         className="text-[11px] text-blue-600 hover:underline font-semibold"
                                                     >
-                                                        Lihat OTR Cabang &rarr;
+                                                        Lihat OTR {admin.branch.region} &rarr;
                                                     </Link>
                                                 </div>
                                             ) : (
@@ -225,7 +225,7 @@ export default function BranchAdminsIndex({ admins = [], branches = [] }) {
                                             {hasAdmin ? branchAdmins[0].email : 'Perlu ditugaskan'}
                                         </span>
                                         <Link
-                                            href={`/admin/branch-prices?branch_id=${b.id}`}
+                                            href={`/admin/motorcycles?region=${encodeURIComponent(b.region)}`}
                                             className="text-blue-600 font-bold hover:underline"
                                         >
                                             Atur OTR &rarr;

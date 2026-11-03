@@ -47,10 +47,10 @@ export default function Index({ branches, userBranch = null, isBranchAdmin = fal
                         </div>
                         <div className="flex items-center gap-2">
                             <Link
-                                href="/admin/branch-prices"
+                                href="/admin/motorcycles"
                                 className="bg-amber-400 hover:bg-amber-300 text-slate-900 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow transition"
                             >
-                                💰 OTR Wilayah &rarr;
+                                🏍️ Katalog &amp; OTR &rarr;
                             </Link>
                             <Link
                                 href="/admin/branches/create"

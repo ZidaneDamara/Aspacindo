@@ -112,4 +112,29 @@ class AdminArticleController extends Controller
             'url' => '/storage/articles/' . $filename,
         ]);
     }
+
+    public function getMediaLibrary()
+    {
+        $dir = public_path('storage/articles');
+        $files = [];
+        if (file_exists($dir)) {
+            $scan = scandir($dir);
+            foreach ($scan as $file) {
+                if ($file !== '.' && $file !== '..' && !str_starts_with($file, '.')) {
+                    $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                    if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'])) {
+                        $filePath = $dir . DIRECTORY_SEPARATOR . $file;
+                        $files[] = [
+                            'url' => '/storage/articles/' . $file,
+                            'name' => $file,
+                            'size' => filesize($filePath),
+                            'mtime' => filemtime($filePath),
+                        ];
+                    }
+                }
+            }
+            usort($files, fn($a, $b) => $b['mtime'] <=> $a['mtime']);
+        }
+        return response()->json($files);
+    }
 }

@@ -1,15 +1,11 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useForm, Link, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
+import WysiwygEditor from '@/Components/WysiwygEditor/WysiwygEditor';
 
 export default function Form({ article = null }) {
     const isEditing = !!article;
     const [imagePreview, setImagePreview] = useState(article?.thumbnail || '');
-    const [viewMode, setViewMode] = useState('editor'); // 'editor' | 'preview'
-    const [isUploadingInline, setIsUploadingInline] = useState(false);
-
-    const textareaRef = useRef(null);
-    const inlineFileRef = useRef(null);
 
     const { data, setData, processing, errors } = useForm({
         title: article?.title || '',
@@ -29,99 +25,6 @@ export default function Form({ article = null }) {
         if (file) {
             setData('thumbnail_file', file);
             setImagePreview(URL.createObjectURL(file));
-        }
-    };
-
-    // TOOLBAR HELPER FUNCTIONS: Insert HTML snippet at cursor position
-    const insertSnippet = (before, after = '') => {
-        const textarea = textareaRef.current;
-        if (!textarea) return;
-
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const currentText = data.content;
-        const selectedText = currentText.substring(start, end) || 'Teks di sini';
-
-        const replacement = `${before}${selectedText}${after}`;
-        const newContent = currentText.substring(0, start) + replacement + currentText.substring(end);
-
-        setData('content', newContent);
-
-        setTimeout(() => {
-            textarea.focus();
-            textarea.setSelectionRange(start + before.length, start + before.length + selectedText.length);
-        }, 50);
-    };
-
-    // INLINE IMAGE UPLOAD HANDLER
-    const handleInlineImageSelect = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        setIsUploadingInline(true);
-        const formData = new FormData();
-        formData.append('image', file);
-
-        try {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-            const response = await fetch('/admin/articles/upload-image', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken || '',
-                },
-                body: formData,
-            });
-
-            if (!response.ok) throw new Error('Gagal mengunggah gambar');
-
-            const result = await response.json();
-            const imgHtml = `\n<img src="${result.url}" alt="${file.name}" class="w-full my-6 rounded-2xl shadow-md border border-slate-200" />\n`;
-
-            insertSnippet(imgHtml, '');
-        } catch (err) {
-            alert('Gagal mengunggah foto ke tengah teks: ' + err.message);
-        } finally {
-            setIsUploadingInline(false);
-            if (inlineFileRef.current) inlineFileRef.current.value = '';
-        }
-    };
-
-    // INSERT TABLE TEMPLATE HANDLER
-    const insertTableTemplate = () => {
-        const tableHtml = `\n<div className="overflow-x-auto my-6 border border-slate-200 rounded-2xl shadow-sm bg-white">
-  <table className="w-full text-left border-collapse text-sm">
-    <thead>
-      <tr className="bg-black text-white font-bold uppercase text-xs">
-        <th className="p-3 border-r border-slate-700">TIPE PERBAIKAN</th>
-        <th className="p-3 border-r border-slate-700 text-center">SPESIFIKASI</th>
-        <th className="p-3 text-center">BIAYA (RP)</th>
-      </tr>
-    </thead>
-    <tbody className="divide-y divide-slate-200 font-medium text-slate-800">
-      <tr>
-        <td className="p-3 border-r font-semibold">Pembersihan Injector</td>
-        <td className="p-3 border-r text-center">Garansi YDT Digital</td>
-        <td className="p-3 text-center font-bold">Rp 35.000</td>
-      </tr>
-      <tr>
-        <td className="p-3 border-r font-semibold">Servis Berkala Lengkap</td>
-        <td className="p-3 border-r text-center">Cek 10 Titik Mesin</td>
-        <td className="p-3 text-center font-bold">Rp 75.000</td>
-      </tr>
-    </tbody>
-  </table>
-</div>\n`;
-        insertSnippet(tableHtml, '');
-    };
-
-    // INSERT LINK HANDLER
-    const insertLink = () => {
-        const url = prompt('Masukkan URL Link (contoh: https://aspacindo.com/produk):', 'https://');
-        if (url) {
-            const text = prompt('Masukkan Teks Link:', 'Lihat di sini');
-            if (text) {
-                insertSnippet(`<a href="${url}" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-bold underline">`, `${text}</a>`);
-            }
         }
     };
 
@@ -151,50 +54,46 @@ export default function Form({ article = null }) {
                 results.push({ type: 'good', text: 'Keyword Fokus ditemukan pada Meta Description!' });
                 score += 15;
             } else {
-                results.push({ type: 'bad', text: 'Keyword Fokus belum ada di Meta Description.' });
+                results.push({ type: 'bad', text: 'Keyword Fokus tidak ditemukan pada Meta Description.' });
             }
 
-            const first100Words = plainContent.split(/\s+/).slice(0, 100).join(' ').toLowerCase();
-            if (first100Words.includes(keyword)) {
-                results.push({ type: 'good', text: 'Keyword Fokus ada di Paragraf Pertama artikel!' });
+            if (plainContent.toLowerCase().includes(keyword)) {
+                const matches = (plainContent.toLowerCase().match(new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length;
+                results.push({ type: 'good', text: `Keyword Fokus muncul ${matches}x di dalam konten artikel.` });
                 score += 15;
             } else {
-                results.push({ type: 'warning', text: 'Keyword Fokus sebaiknya muncul di 100 kata pertama.' });
-                score += 5;
+                results.push({ type: 'bad', text: 'Keyword Fokus tidak ditemukan di dalam teks isi artikel.' });
             }
 
-            if (wordCount > 0) {
-                const occurrences = (plainContent.toLowerCase().match(new RegExp(keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g')) || []).length;
-                const density = ((occurrences * keyword.split(' ').length) / wordCount) * 100;
-                if (density >= 0.8 && density <= 2.5) {
-                    results.push({ type: 'good', text: `Kepadatan Keyword sangat ideal (${density.toFixed(1)}%, ${occurrences} kali muncul).` });
-                    score += 15;
-                } else if (density > 2.5) {
-                    results.push({ type: 'warning', text: `Kepadatan Keyword terlalu tinggi (${density.toFixed(1)}%). Hindari keyword stuffing.` });
-                    score += 5;
+            if (/<h2>.*?<\/h2>|<h3>.*?<\/h3>/i.test(content)) {
+                const headingMatches = content.match(/<h[23][^>]*>(.*?)<\/h[23]>/gi) || [];
+                const keywordInHeading = headingMatches.some((h) => h.toLowerCase().includes(keyword));
+                if (keywordInHeading) {
+                    results.push({ type: 'good', text: 'Keyword Fokus ditemukan dalam Sub-Heading (H2/H3).' });
+                    score += 10;
                 } else {
-                    results.push({ type: 'warning', text: `Kepadatan Keyword masih rendah (${density.toFixed(1)}%). Sisipkan keyword beberapa kali lagi.` });
+                    results.push({ type: 'warning', text: 'Sebaiknya sisipkan Keyword Fokus ke dalam salah satu Sub-Heading (H2/H3).' });
                     score += 5;
                 }
             }
         }
 
         if (title.length >= 40 && title.length <= 70) {
-            results.push({ type: 'good', text: `Panjang Judul sangat pas untuk Google SERP (${title.length} karakter).` });
+            results.push({ type: 'good', text: `Panjang Judul sangat ideal (${title.length} karakter).` });
             score += 10;
-        } else if (title.length > 0 && title.length < 40) {
-            results.push({ type: 'warning', text: `Judul terlalu pendek (${title.length} karakter). Disarankan 40-70 karakter.` });
-            score += 5;
         } else if (title.length > 70) {
-            results.push({ type: 'warning', text: `Judul terlalu panjang (${title.length} karakter). Mungkin terpotong di Google.` });
+            results.push({ type: 'warning', text: `Judul terlalu panjang (${title.length} karakter). Bisa terpotong di Google.` });
             score += 5;
+        } else if (title.length > 0) {
+            results.push({ type: 'bad', text: `Judul terlalu pendek (${title.length} karakter). Minimal 40 karakter disarankan.` });
+            score += 3;
         }
 
         if (metaDesc.length >= 120 && metaDesc.length <= 160) {
-            results.push({ type: 'good', text: `Panjang Meta Description sempurna (${metaDesc.length} karakter).` });
-            score += 10;
+            results.push({ type: 'good', text: `Panjang Meta Description optimal (${metaDesc.length} karakter).` });
+            score += 15;
         } else if (metaDesc.length > 0 && metaDesc.length < 120) {
-            results.push({ type: 'warning', text: `Meta Description masih pendek (${metaDesc.length} karakter). Idealnya 120-160 karakter.` });
+            results.push({ type: 'warning', text: `Meta Description terlalu pendek (${metaDesc.length} karakter). Disarankan 120-160 karakter.` });
             score += 5;
         } else if (metaDesc.length > 160) {
             results.push({ type: 'warning', text: `Meta Description terlalu panjang (${metaDesc.length} karakter). Terpotong pada hasil pencarian.` });
@@ -211,7 +110,7 @@ export default function Form({ article = null }) {
             results.push({ type: 'bad', text: `Jumlah kata terlalu sedikit (${wordCount} kata). Minimal disarankan 300 kata.` });
         }
 
-        if (/<h2>|<h3>|<h4>|#|<strong>/.test(content)) {
+        if (/<h2>|<h3>|<h4>|<strong>|<b>/.test(content)) {
             results.push({ type: 'good', text: 'Artikel menggunakan Sub-Heading (H2/H3/Teks Bold) untuk struktur bacaan.' });
             score += 10;
         } else {
@@ -268,55 +167,49 @@ export default function Form({ article = null }) {
 
     return (
         <AdminLayout title={isEditing ? `Edit Artikel: ${article.title}` : 'Buat Artikel Baru dengan Yoast SEO'}>
-            <div className="max-w-5xl mx-auto space-y-8 font-sans">
-                {/* Hidden File Input for Inline Images */}
-                <input
-                    type="file"
-                    ref={inlineFileRef}
-                    accept="image/*"
-                    onChange={handleInlineImageSelect}
-                    className="hidden"
-                />
-
+            <div className="max-w-7xl mx-auto space-y-8 font-sans">
+                {/* Header Title Bar */}
                 <div className="flex justify-between items-center bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
                     <div>
                         <h2 className="text-xl font-black text-slate-900">
-                            {isEditing ? 'Edit &amp; Optimasi Artikel' : 'Editor Artikel Baru (Optimasi Yoast SEO)'}
+                            {isEditing ? 'Edit & Optimasi Artikel' : 'Editor Artikel Baru (WordPress Classic WYSIWYG)'}
                         </h2>
                         <p className="text-xs text-slate-500 mt-1">
-                            Gunakan toolbar H2, H3, bold, tabel, serta tombol upload foto di tengah teks untuk membuat artikel menarik.
+                            Gunakan editor WYSIWYG untuk membuat tulisan langsung tebal, miring, sub-heading, tabel tarif, dan sisipkan media dengan mudah.
                         </p>
                     </div>
                     <Link href="/admin/articles" className="text-xs font-bold text-slate-500 hover:text-slate-900">
-                        &larr; Kembali
+                        &larr; Kembali ke Daftar Artikel
                     </Link>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        {/* MAIN CONTENT FORM (7 Columns) */}
-                        <div className="lg:col-span-7 space-y-6">
-                            <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                                <div className="space-y-1">
+                        {/* MAIN CONTENT FORM (8 Columns) */}
+                        <div className="lg:col-span-8 space-y-6">
+                            <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-5">
+                                {/* Title */}
+                                <div className="space-y-1.5">
                                     <label className="text-xs font-bold text-slate-700 uppercase">Judul Utama Artikel</label>
                                     <input
                                         type="text"
                                         required
-                                        placeholder="Contoh: Berapa Biaya Service Injeksi Di Dealer Resmi, Mahal Gak Sih?"
+                                        placeholder="Contoh: Berapa Biaya Service Injeksi Di Dealer Resmi Yamaha, Mahal Gak Sih?"
                                         value={data.title}
                                         onChange={(e) => setData('title', e.target.value)}
-                                        className="w-full text-sm font-bold border-slate-200 rounded-2xl p-3"
+                                        className="w-full text-base font-bold border-slate-200 rounded-2xl p-3.5 focus:ring-blue-500"
                                     />
                                     {errors.title && <p className="text-xs text-red-500">{errors.title}</p>}
                                 </div>
 
+                                {/* Category & Author */}
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-1">
                                         <label className="text-xs font-bold text-slate-700 uppercase">Kategori Artikel</label>
                                         <select
                                             value={data.category}
                                             onChange={(e) => setData('category', e.target.value)}
-                                            className="w-full text-sm border-slate-200 rounded-2xl p-3"
+                                            className="w-full text-sm border-slate-200 rounded-2xl p-3 focus:ring-blue-500 cursor-pointer"
                                         >
                                             <option value="Berita Yamaha">Berita Yamaha</option>
                                             <option value="Tips & Trik">Tips &amp; Trik</option>
@@ -330,15 +223,15 @@ export default function Form({ article = null }) {
                                             type="text"
                                             value={data.author}
                                             onChange={(e) => setData('author', e.target.value)}
-                                            className="w-full text-sm border-slate-200 rounded-2xl p-3"
+                                            className="w-full text-sm border-slate-200 rounded-2xl p-3 focus:ring-blue-500"
                                         />
                                     </div>
                                 </div>
 
-                                {/* Upload Header Thumbnail */}
+                                {/* Header Featured Image */}
                                 <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
                                     <label className="text-xs font-extrabold text-slate-800 uppercase block">
-                                        📸 Upload Foto Header Utama Artikel
+                                        📸 Foto Header Utama (Thumbnail Artikel)
                                     </label>
                                     <input
                                         type="file"
@@ -348,8 +241,8 @@ export default function Form({ article = null }) {
                                     />
                                     {imagePreview && (
                                         <div className="pt-2 flex items-center gap-3">
-                                            <img src={imagePreview} alt="Preview Header" className="w-20 h-16 object-cover rounded-xl border shadow-sm" />
-                                            <span className="text-[11px] text-slate-500">Preview foto header artikel</span>
+                                            <img src={imagePreview} alt="Preview Header" className="w-24 h-16 object-cover rounded-xl border shadow-xs" />
+                                            <span className="text-[11px] text-slate-500">Preview foto cover artikel</span>
                                         </div>
                                     )}
                                 </div>
@@ -359,193 +252,42 @@ export default function Form({ article = null }) {
                                     <label className="text-xs font-bold text-slate-700 uppercase">Ringkasan Singkat (Excerpt)</label>
                                     <textarea
                                         rows="2"
-                                        placeholder="Ringkasan singkat yang tampil di kartu artikel..."
+                                        placeholder="Ringkasan singkat yang tampil di beranda & kartu artikel..."
                                         value={data.excerpt}
                                         onChange={(e) => setData('excerpt', e.target.value)}
-                                        className="w-full text-sm border-slate-200 rounded-2xl p-3"
+                                        className="w-full text-sm border-slate-200 rounded-2xl p-3 focus:ring-blue-500"
                                     />
                                 </div>
 
-                                {/* FULL ARTICLE CONTENT EDITOR WITH RICH TOOLBAR */}
+                                {/* WYSIWYG CONTENT EDITOR (WordPress Style) */}
                                 <div className="space-y-2 pt-2 border-t border-slate-100">
-                                    <div className="flex justify-between items-center">
+                                    <div className="flex justify-between items-center mb-1">
                                         <label className="text-xs font-extrabold text-slate-900 uppercase">
-                                            📝 Editor Konten Artikel (Lengkap Tools H2, H3 &amp; Insert Foto)
+                                            📝 Editor Konten Artikel (WordPress Classic WYSIWYG)
                                         </label>
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-xs font-bold text-blue-600 mr-2">{seoAnalysis.wordCount} Kata</span>
-                                            <button
-                                                type="button"
-                                                onClick={() => setViewMode('editor')}
-                                                className={`px-3 py-1 text-[11px] font-bold rounded-lg transition ${
-                                                    viewMode === 'editor' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                                                }`}
-                                            >
-                                                Mode Editor
-                                            </button>
-                                            <button
-                                                type="button"
-                                                onClick={() => setViewMode('preview')}
-                                                className={`px-3 py-1 text-[11px] font-bold rounded-lg transition ${
-                                                    viewMode === 'preview' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                                                }`}
-                                            >
-                                                👁️ Visual Preview
-                                            </button>
-                                        </div>
+                                        <span className="text-xs font-bold text-blue-600">
+                                            {seoAnalysis.wordCount} Kata
+                                        </span>
                                     </div>
 
-                                    {/* TOOLBAR BUTTONS BAR */}
-                                    <div className="bg-slate-900 text-white p-2.5 rounded-2xl flex items-center gap-1.5 flex-wrap shadow-md">
-                                        {/* H2 */}
-                                        <button
-                                            type="button"
-                                            onClick={() => insertSnippet('<h2>', '</h2>')}
-                                            title="Sub-Heading Utama H2"
-                                            className="px-2.5 py-1 bg-slate-800 hover:bg-blue-600 rounded-lg text-xs font-black transition border border-slate-700"
-                                        >
-                                            H2 Sub-Judul
-                                        </button>
+                                    <WysiwygEditor
+                                        value={data.content}
+                                        onChange={(html) => setData('content', html)}
+                                        placeholder="Tulis artikel menarik di sini... Klik tombol tebal (B) untuk langsung membuat tulisan tebal tanpa tag HTML!"
+                                    />
 
-                                        {/* H3 */}
-                                        <button
-                                            type="button"
-                                            onClick={() => insertSnippet('<h3>', '</h3>')}
-                                            title="Sub-Heading Kecil H3"
-                                            className="px-2.5 py-1 bg-slate-800 hover:bg-blue-600 rounded-lg text-xs font-black transition border border-slate-700"
-                                        >
-                                            H3 Sub-Judul
-                                        </button>
-
-                                        <span className="text-slate-700 font-bold">|</span>
-
-                                        {/* Bold */}
-                                        <button
-                                            type="button"
-                                            onClick={() => insertSnippet('<strong>', '</strong>')}
-                                            title="Teks Tebal (Bold)"
-                                            className="w-7 h-7 bg-slate-800 hover:bg-blue-600 rounded-lg text-xs font-extrabold flex items-center justify-center transition border border-slate-700"
-                                        >
-                                            B
-                                        </button>
-
-                                        {/* Italic */}
-                                        <button
-                                            type="button"
-                                            onClick={() => insertSnippet('<em>', '</em>')}
-                                            title="Teks Miring (Italic)"
-                                            className="w-7 h-7 bg-slate-800 hover:bg-blue-600 rounded-lg text-xs font-extrabold italic flex items-center justify-center transition border border-slate-700"
-                                        >
-                                            I
-                                        </button>
-
-                                        {/* Underline */}
-                                        <button
-                                            type="button"
-                                            onClick={() => insertSnippet('<u>', '</u>')}
-                                            title="Garis Bawah (Underline)"
-                                            className="w-7 h-7 bg-slate-800 hover:bg-blue-600 rounded-lg text-xs font-extrabold underline flex items-center justify-center transition border border-slate-700"
-                                        >
-                                            U
-                                        </button>
-
-                                        <span className="text-slate-700 font-bold">|</span>
-
-                                        {/* Bullet List */}
-                                        <button
-                                            type="button"
-                                            onClick={() => insertSnippet('\n<ul>\n  <li>Poin 1</li>\n  <li>Poin 2</li>\n</ul>\n')}
-                                            title="Daftar Poin (Bullet List)"
-                                            className="px-2.5 py-1 bg-slate-800 hover:bg-blue-600 rounded-lg text-xs font-bold transition border border-slate-700 flex items-center gap-1"
-                                        >
-                                            • List Poin
-                                        </button>
-
-                                        {/* Numbered List */}
-                                        <button
-                                            type="button"
-                                            onClick={() => insertSnippet('\n<ol>\n  <li>Langkah 1</li>\n  <li>Langkah 2</li>\n</ol>\n')}
-                                            title="Daftar Angka (Numbered List)"
-                                            className="px-2.5 py-1 bg-slate-800 hover:bg-blue-600 rounded-lg text-xs font-bold transition border border-slate-700 flex items-center gap-1"
-                                        >
-                                            1. List Angka
-                                        </button>
-
-                                        <span className="text-slate-700 font-bold">|</span>
-
-                                        {/* Link */}
-                                        <button
-                                            type="button"
-                                            onClick={insertLink}
-                                            title="Sisipkan Link URL"
-                                            className="px-2.5 py-1 bg-slate-800 hover:bg-blue-600 rounded-lg text-xs font-bold transition border border-slate-700 flex items-center gap-1"
-                                        >
-                                            🔗 Link
-                                        </button>
-
-                                        {/* Table */}
-                                        <button
-                                            type="button"
-                                            onClick={insertTableTemplate}
-                                            title="Sisipkan Tabel Tarif/Spesifikasi"
-                                            className="px-2.5 py-1 bg-slate-800 hover:bg-blue-600 rounded-lg text-xs font-bold transition border border-slate-700 flex items-center gap-1"
-                                        >
-                                            📊 Tabel Tarif
-                                        </button>
-
-                                        <span className="text-slate-700 font-bold">|</span>
-
-                                        {/* INLINE IMAGE UPLOAD BUTTON */}
-                                        <button
-                                            type="button"
-                                            onClick={() => inlineFileRef.current?.click()}
-                                            disabled={isUploadingInline}
-                                            title="Upload Foto & Sisipkan Di Tengah Teks"
-                                            className="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-extrabold transition shadow-sm flex items-center gap-1 disabled:opacity-50"
-                                        >
-                                            {isUploadingInline ? 'Mengunggah...' : '📸 Upload Foto Di Tengah Teks'}
-                                        </button>
-                                    </div>
-
-                                    {/* EDITOR TEXTAREA OR VISUAL PREVIEW TAB */}
-                                    {viewMode === 'editor' ? (
-                                        <textarea
-                                            ref={textareaRef}
-                                            rows="16"
-                                            required
-                                            placeholder="Tuliskan isi artikel Anda di sini... Gunakan tombol toolbar di atas untuk menyisipkan H2, H3, tabel, link, atau foto di tengah teks."
-                                            value={data.content}
-                                            onChange={(e) => setData('content', e.target.value)}
-                                            className="w-full text-sm border-slate-200 rounded-2xl p-4 font-mono leading-relaxed focus:ring-blue-500 focus:border-blue-500"
-                                        />
-                                    ) : (
-                                        <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 min-h-[360px]">
-                                            <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 pb-2 border-b border-slate-200">
-                                                Pratinjau Tampilan Visual Konten Publik:
-                                            </div>
-                                            {data.content ? (
-                                                <div
-                                                    className="prose max-w-none prose-headings:font-black prose-headings:text-slate-900 prose-h2:text-2xl prose-h3:text-xl prose-p:mb-3 prose-ul:list-disc prose-ul:ml-6 prose-ol:list-decimal prose-ol:ml-6 prose-a:text-blue-600 prose-a:underline"
-                                                    dangerouslySetInnerHTML={{ __html: data.content }}
-                                                />
-                                            ) : (
-                                                <p className="text-xs text-slate-400 italic">Belum ada isi konten artikel untuk dipratinjau.</p>
-                                            )}
-                                        </div>
-                                    )}
-
-                                    {errors.content && <p className="text-xs text-red-500">{errors.content}</p>}
+                                    {errors.content && <p className="text-xs text-red-500 font-semibold mt-1">{errors.content}</p>}
                                 </div>
                             </div>
                         </div>
 
-                        {/* YOAST SEO ANALYZER SIDEBAR (5 Columns) */}
-                        <div className="lg:col-span-5 space-y-6">
+                        {/* YOAST SEO ANALYZER SIDEBAR (4 Columns) */}
+                        <div className="lg:col-span-4 space-y-6">
                             {/* SEO SCORE METER WIDGET */}
                             <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
                                 <div className="flex justify-between items-center border-b border-slate-100 pb-3">
                                     <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                                        <span>🔍</span> Yoast SEO Analysis Engine
+                                        <span>🔍</span> Yoast SEO Analysis
                                     </h3>
                                     <span className={`px-3 py-1 rounded-full text-xs font-black uppercase ${seoAnalysis.scoreColor}`}>
                                         {seoAnalysis.score} / 100%
@@ -576,7 +318,7 @@ export default function Form({ article = null }) {
                                         placeholder="Deskripsi singkat menarik yang tampil di pencarian Google..."
                                         value={data.meta_description}
                                         onChange={(e) => setData('meta_description', e.target.value)}
-                                        className="w-full text-xs border-slate-200 rounded-xl p-2.5"
+                                        className="w-full text-xs border-slate-200 rounded-xl p-2.5 focus:ring-blue-500"
                                     />
                                 </div>
 
@@ -629,7 +371,7 @@ export default function Form({ article = null }) {
                                     disabled={processing}
                                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-md hover:shadow-lg disabled:opacity-50"
                                 >
-                                    {processing ? 'Menyimpan...' : (isEditing ? 'Simpan Perubahan Artikel' : 'Publikasikan Artikel Dengan Yoast SEO')}
+                                    {processing ? 'Menyimpan...' : (isEditing ? 'Simpan Perubahan Artikel' : 'Publikasikan Artikel')}
                                 </button>
                             </div>
                         </div>

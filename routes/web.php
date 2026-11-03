@@ -97,77 +97,90 @@ Route::middleware(['auth'])->prefix('loyalty')->name('loyalty.')->group(function
 
 // ADMIN PANEL ROUTES (Role: Admin or Staff)
 Route::middleware(['auth', EnsureAdminOrStaff::class])->prefix('admin')->name('admin.')->group(function () {
+    // Accessible by Branch Admin (scoped to their branch area) & Super Admin
     Route::get('/', AdminDashboardController::class)->name('dashboard');
 
-    // Motorcycles
+    // Motorcycles (Katalog Produk & Harga OTR) - Accessible by Super Admin & Branch Admin (scoped)
+    Route::put('motorcycles/{id}/regional-price', [AdminMotorcycleController::class, 'updateRegionalPrice'])->name('motorcycles.update-regional-price');
+    Route::put('motorcycles-bulk-regional-price', [AdminMotorcycleController::class, 'updateBulkRegionalPrice'])->name('motorcycles.update-bulk-regional-price');
     Route::resource('motorcycles', AdminMotorcycleController::class);
 
-    // Branch OTR Prices
+    // Branch OTR Prices (kept for backwards compatibility & tests)
     Route::get('branch-prices', [AdminBranchPriceController::class, 'index'])->name('branch-prices.index');
     Route::put('branch-prices/{branchId}', [AdminBranchPriceController::class, 'update'])->name('branch-prices.update');
     Route::put('branch-prices/{branchId}/motorcycles/{motorcycleId}', [AdminBranchPriceController::class, 'updateSingle'])->name('branch-prices.update-single');
 
-    // Branch Admins Management
-    Route::resource('branch-admins', AdminBranchUserController::class)->except(['create', 'edit', 'show']);
-
-    // Spareparts
-    Route::resource('spareparts', AdminSparepartController::class);
-
     // Branches
     Route::resource('branches', AdminBranchController::class);
 
-    // Articles
-    Route::resource('articles', AdminArticleController::class);
-    Route::post('articles/upload-image', [AdminArticleController::class, 'uploadInlineImage'])->name('articles.upload-image');
-
-    // Promotions
-    Route::resource('promotions', AdminPromotionController::class);
-
-    // Job Openings
-    Route::resource('job-openings', AdminJobOpeningController::class);
-
-    // Testimonials Moderation
-    Route::get('/testimonials', [AdminTestimonialController::class, 'index'])->name('testimonials.index');
-    Route::post('/testimonials/{id}/approve', [AdminTestimonialController::class, 'toggleApprove'])->name('testimonials.approve');
-    Route::post('/testimonials/{id}/feature', [AdminTestimonialController::class, 'toggleFeature'])->name('testimonials.feature');
-    Route::delete('/testimonials/{id}', [AdminTestimonialController::class, 'destroy'])->name('testimonials.destroy');
-
-    // Service Bookings Management
+    // Service Bookings Management (Staff & Branch Admin)
     Route::get('/service-bookings', [AdminServiceBookingController::class, 'index'])->name('service-bookings.index');
     Route::post('/service-bookings/{id}/status', [AdminServiceBookingController::class, 'updateStatus'])->name('service-bookings.status');
 
-    // Prospect Leads Management
+    // Prospect Leads Management (Staff & Branch Admin)
     Route::get('/prospects', [AdminProspectController::class, 'index'])->name('prospects.index');
     Route::post('/prospects/{id}/status', [AdminProspectController::class, 'updateStatus'])->name('prospects.status');
     Route::delete('/prospects/{id}', [AdminProspectController::class, 'destroy'])->name('prospects.destroy');
 
-    // Service Prices Management
-    Route::resource('service-prices', AdminServicePriceController::class);
-
-    // Loyalty Management & Offline Point Input Tool
+    // Point Input for Cashiers/Staff & Members
     Route::prefix('loyalty')->name('loyalty.')->group(function () {
+        Route::get('/point-input', [AdminLoyaltyController::class, 'pointInputView'])->name('point-input');
+        Route::post('/point-input', [AdminLoyaltyController::class, 'processPointInput'])->name('point-input.process');
         Route::get('/members', [AdminLoyaltyController::class, 'members'])->name('members.index');
         Route::get('/members/{id}', [AdminLoyaltyController::class, 'memberDetail'])->name('members.show');
         Route::post('/members/{id}/adjust-points', [AdminLoyaltyController::class, 'adjustPoints'])->name('members.adjust-points');
-
-        Route::get('/point-input', [AdminLoyaltyController::class, 'pointInputView'])->name('point-input');
-        Route::post('/point-input', [AdminLoyaltyController::class, 'processPointInput'])->name('point-input.process');
-
-        Route::get('/rewards', [AdminLoyaltyController::class, 'rewardsIndex'])->name('rewards.index');
-        Route::post('/rewards', [AdminLoyaltyController::class, 'storeReward'])->name('rewards.store');
-        Route::put('/rewards/{id}', [AdminLoyaltyController::class, 'updateReward'])->name('rewards.update');
-        Route::delete('/rewards/{id}', [AdminLoyaltyController::class, 'destroyReward'])->name('rewards.destroy');
-
         Route::get('/redemptions', [AdminLoyaltyController::class, 'redemptionsIndex'])->name('redemptions.index');
         Route::post('/redemptions/{id}/status', [AdminLoyaltyController::class, 'updateRedemptionStatus'])->name('redemptions.status');
+    });
 
-        Route::get('/settings', [AdminLoyaltyController::class, 'settingsView'])->name('settings.index');
-        Route::post('/settings', [AdminLoyaltyController::class, 'updateSettings'])->name('settings.update');
+    // SUPER ADMIN (PUSAT) ONLY ROUTES
+    Route::middleware([EnsureAdminOrStaff::class . ':superadmin'])->group(function () {
+
+        // Branch Admins Management
+        Route::resource('branch-admins', AdminBranchUserController::class)->except(['create', 'edit', 'show']);
+
+        // Spareparts
+        Route::resource('spareparts', AdminSparepartController::class);
+
+        // Articles
+        Route::resource('articles', AdminArticleController::class);
+        Route::post('articles/upload-image', [AdminArticleController::class, 'uploadInlineImage'])->name('articles.upload-image');
+        Route::get('articles/media-library', [AdminArticleController::class, 'getMediaLibrary'])->name('articles.media-library');
+
+        // Promotions
+        Route::resource('promotions', AdminPromotionController::class);
+
+        // Job Openings
+        Route::resource('job-openings', AdminJobOpeningController::class);
+
+        // Service Prices Management
+        Route::resource('service-prices', AdminServicePriceController::class);
+
+        // Testimonials Moderation
+        Route::get('/testimonials', [AdminTestimonialController::class, 'index'])->name('testimonials.index');
+        Route::post('/testimonials/{id}/approve', [AdminTestimonialController::class, 'toggleApprove'])->name('testimonials.approve');
+        Route::post('/testimonials/{id}/feature', [AdminTestimonialController::class, 'toggleFeature'])->name('testimonials.feature');
+        Route::delete('/testimonials/{id}', [AdminTestimonialController::class, 'destroy'])->name('testimonials.destroy');
+
+        // Master Loyalty Config
+        Route::prefix('loyalty')->name('loyalty.')->group(function () {
+            Route::get('/rewards', [AdminLoyaltyController::class, 'rewardsIndex'])->name('rewards.index');
+            Route::post('/rewards', [AdminLoyaltyController::class, 'storeReward'])->name('rewards.store');
+            Route::put('/rewards/{id}', [AdminLoyaltyController::class, 'updateReward'])->name('rewards.update');
+            Route::delete('/rewards/{id}', [AdminLoyaltyController::class, 'destroyReward'])->name('rewards.destroy');
+
+            Route::get('/settings', [AdminLoyaltyController::class, 'settingsView'])->name('settings.index');
+            Route::post('/settings', [AdminLoyaltyController::class, 'updateSettings'])->name('settings.update');
+        });
     });
 });
 
 // Standard Breeze Dashboard Placeholder
 Route::get('/dashboard', function () {
+    $user = auth()->user();
+    if ($user && in_array($user->role, ['admin', 'branch_admin', 'staff'])) {
+        return redirect()->route('admin.dashboard');
+    }
     return redirect()->route('loyalty.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

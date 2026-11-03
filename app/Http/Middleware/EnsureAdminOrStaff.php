@@ -26,7 +26,7 @@ class EnsureAdminOrStaff
         }
 
         if ($role === 'superadmin' && !$user->isSuperAdmin()) {
-            return back()->with('error', 'Akses terbatas. Fitur ini hanya dapat diakses oleh Super Administrator (Pusat).');
+            return redirect()->route('admin.dashboard')->with('error', 'Akses terbatas. Fitur ini hanya dapat dikelola oleh Super Administrator (Pusat).');
         }
 
         return $next($request);

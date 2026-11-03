@@ -46,7 +46,7 @@ export default function Footer() {
                             <li><Link href="/layanan" className="hover:text-white transition">Booking Service &amp; SKY</Link></li>
                             <li><Link href="/lokasi-dealer" className="hover:text-white transition">Lokasi Dealer &amp; Bengkel</Link></li>
                             <li><Link href="/promo" className="hover:text-white transition">Promo Spesial Yamaha</Link></li>
-                            <li><Link href="/loyalty" className="hover:text-white font-bold text-amber-300 transition">Aspacindo Loyalty Club</Link></li>
+                            {/* <li><Link href="/loyalty" className="hover:text-white font-bold text-amber-300 transition">Aspacindo Loyalty Club</Link></li> */}
                         </ul>
                     </div>
 
@@ -54,12 +54,13 @@ export default function Footer() {
                     <div className="space-y-3">
                         <h4 className="text-white font-bold text-base uppercase tracking-wider">Jaringan Wilayah</h4>
                         <ul className="space-y-2 text-sm text-blue-100">
-                            <li>• Pekanbaru (Nangka, Sudirman, Panam)</li>
-                            <li>• Pelalawan (Pangkalan Kerinci)</li>
-                            <li>• Siak Sri Indrapura</li>
-                            <li>• Kampar (Bangkinang)</li>
-                            <li>• Indragiri Hulu (Rengat)</li>
-                            <li>• Medan (Kota &amp; Amplas)</li>
+                            <li>• Pekanbaru (Riau Ujung, Riau, Garuda Sakti)</li>
+                            <li>• Pelalawan (Sorek, Pangkalan Kerinci, Ukui)</li>
+                            <li>• Siak (Kandis, Siak Sri Indrapura, Perawang, Sabak auh)</li>
+                            <li>• Kampar (Sungai Pagar, Bangkinang, Petapahan, Lipat Kain)</li>
+                            <li>• Indragiri Hulu (Air Molek, Belilas, Peranap)</li>
+                            <li>• Medan (Medan, Pancur Batu)</li>
+                            <li>• Indragiri Hilir (Tembilahan)</li>
                         </ul>
                     </div>
 
@@ -72,7 +73,7 @@ export default function Footer() {
                         </div>
                         <div className="pt-3">
                             <h5 className="text-xs uppercase text-blue-200 font-bold tracking-wider opacity-90">Customer Service</h5>
-                            <p className="text-xl font-extrabold text-emerald-300 tracking-wide">0812-7000-1111</p>
+                            <p className="text-xl font-extrabold text-emerald-300 tracking-wide">0812-6224-1100</p>
                             <p className="text-xs text-blue-100">cs@aspacindo.com</p>
                         </div>
                     </div>

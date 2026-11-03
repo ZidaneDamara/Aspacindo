@@ -29,7 +29,7 @@ export default function Navbar({ categoryBar = null }) {
                             <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
                             DEALER RESMI YAMAHA RIAU &amp; SUMUT
                         </span>
-                        <span className="text-slate-400">HOTLINE: <strong className="text-white font-semibold">0812-7000-1111</strong></span>
+                        <span className="text-slate-400">HOTLINE: <strong className="text-white font-semibold">0812-6224-1100</strong></span>
                     </div>
 
                     <div className="flex items-center gap-5">
@@ -39,8 +39,8 @@ export default function Navbar({ categoryBar = null }) {
                         {authUser && (
                             <>
                                 <span className="text-slate-700">|</span>
-                                <Link href={authUser.role === 'admin' || authUser.role === 'staff' ? '/admin' : '/loyalty/dashboard'} className="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1">
-                                    👤 {authUser.name} ({authUser.role.toUpperCase()})
+                                <Link href={['admin', 'branch_admin', 'staff'].includes(authUser.role) ? '/admin' : '/loyalty/dashboard'} className="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1">
+                                    👤 {authUser.name} ({authUser.role === 'branch_admin' ? 'ADMIN CABANG' : authUser.role.toUpperCase()})
                                 </Link>
                             </>
                         )}
@@ -86,15 +86,13 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/"
-                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
-                                    isActive('/')
+                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
                                         : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
-                                }`}
+                                    }`}
                             >
-                                <span className={`inline-block transition-transform duration-200 ${
-                                    isActive('/') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
-                                }`}>
+                                <span className={`inline-block transition-transform duration-200 ${isActive('/') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
+                                    }`}>
                                     BERANDA
                                 </span>
                             </Link>
@@ -103,17 +101,15 @@ export default function Navbar({ categoryBar = null }) {
                         {/* TENTANG KAMI Dropdown */}
                         <div className="h-full flex items-center relative group">
                             <button
-                                className={`h-full px-3.5 flex items-center justify-center gap-1 text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap ${
-                                    isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
+                                className={`h-full px-3.5 flex items-center justify-center gap-1 text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
                                         : 'text-slate-800 group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
-                                }`}
+                                    }`}
                             >
-                                <span className={`inline-flex items-center gap-1 transition-transform duration-200 ${
-                                    isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
+                                <span className={`inline-flex items-center gap-1 transition-transform duration-200 ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
                                         ? 'transform skew-x-12'
                                         : 'group-hover:transform group-hover:skew-x-12'
-                                }`}>
+                                    }`}>
                                     TENTANG KAMI <span className="text-[10px] transition-transform duration-200 group-hover:rotate-180">▾</span>
                                 </span>
                             </button>
@@ -145,15 +141,13 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/produk"
-                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
-                                    isActive('/produk')
+                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/produk')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
                                         : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
-                                }`}
+                                    }`}
                             >
-                                <span className={`inline-block transition-transform duration-200 ${
-                                    isActive('/produk') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
-                                }`}>
+                                <span className={`inline-block transition-transform duration-200 ${isActive('/produk') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
+                                    }`}>
                                     PRODUK
                                 </span>
                             </Link>
@@ -163,15 +157,13 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/simulasi-cicilan"
-                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
-                                    isActive('/simulasi-cicilan')
+                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/simulasi-cicilan')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
                                         : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
-                                }`}
+                                    }`}
                             >
-                                <span className={`inline-block transition-transform duration-200 ${
-                                    isActive('/simulasi-cicilan') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
-                                }`}>
+                                <span className={`inline-block transition-transform duration-200 ${isActive('/simulasi-cicilan') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
+                                    }`}>
                                     SIMULASI CICILAN
                                 </span>
                             </Link>
@@ -180,15 +172,13 @@ export default function Navbar({ categoryBar = null }) {
                         {/* LAYANAN Dropdown */}
                         <div className="h-full flex items-center relative group">
                             <button
-                                className={`h-full px-3.5 flex items-center justify-center gap-1 text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap ${
-                                    isActive('/layanan')
+                                className={`h-full px-3.5 flex items-center justify-center gap-1 text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap ${isActive('/layanan')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
                                         : 'text-slate-800 group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
-                                }`}
+                                    }`}
                             >
-                                <span className={`inline-flex items-center gap-1 transition-transform duration-200 ${
-                                    isActive('/layanan') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
-                                }`}>
+                                <span className={`inline-flex items-center gap-1 transition-transform duration-200 ${isActive('/layanan') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
+                                    }`}>
                                     LAYANAN <span className="text-[10px] transition-transform duration-200 group-hover:rotate-180">▾</span>
                                 </span>
                             </button>
@@ -214,21 +204,20 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/artikel"
-                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
-                                    isActive('/artikel')
+                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/artikel')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
                                         : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
-                                }`}
+                                    }`}
                             >
-                                <span className={`inline-block transition-transform duration-200 ${
-                                    isActive('/artikel') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
-                                }`}>
+                                <span className={`inline-block transition-transform duration-200 ${isActive('/artikel') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
+                                    }`}>
                                     ARTIKEL
                                 </span>
                             </Link>
                         </div>
 
-                        {/* LOYALTY */}
+                        {/* LOYALTY (Disembunyikan sementara) */}
+                        {/*
                         <div className="h-full flex items-center">
                             <Link
                                 href="/loyalty"
@@ -245,6 +234,7 @@ export default function Navbar({ categoryBar = null }) {
                                 </span>
                             </Link>
                         </div>
+                        */}
                     </div>
 
                     {/* Desktop CTA Button */}
@@ -298,7 +288,7 @@ export default function Navbar({ categoryBar = null }) {
                         </div>
 
                         <Link href="/artikel" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-xs uppercase">ARTIKEL</Link>
-                        <Link href="/loyalty" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-xs uppercase">LOYALTY</Link>
+                        {/* <Link href="/loyalty" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-xs uppercase">LOYALTY</Link> */}
 
                         <div className="pt-3 border-t border-slate-200 px-4 space-y-2">
                             <Link

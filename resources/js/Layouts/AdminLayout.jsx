@@ -13,7 +13,6 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
 
     const baseNavItems = [
         { name: 'Dashboard', href: '/admin', icon: '📊' },
-        { name: 'Harga OTR Cabang', href: '/admin/branch-prices', icon: '💰', highlight: true },
         { name: 'Katalog Motor', href: '/admin/motorcycles', icon: '🏍️' },
         ...(isSuperAdmin ? [
             { name: 'Admin Cabang', href: '/admin/branch-admins', icon: '👤' },
@@ -32,7 +31,11 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
         { name: 'Lowongan Kerja', href: '/admin/job-openings', icon: '💼' },
     ];
 
-    const navItems = baseNavItems;
+    const navItems = (isBranchAdmin && !isSuperAdmin) ? [
+        { name: 'Dashboard Cabang', href: '/admin', icon: '📊' },
+        { name: 'Katalog Motor', href: '/admin/motorcycles', icon: '🏍️' },
+        { name: 'Data Cabang Dealer', href: '/admin/branches', icon: '🏢' },
+    ] : baseNavItems;
 
     const isActive = (path) => {
         if (path === '/admin') return url === '/admin';
