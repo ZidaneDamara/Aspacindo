@@ -797,9 +797,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Metallic Black', 'hex_code' => '#111827'],
-                    ['color_name' => 'Metallic Red', 'hex_code' => '#B91C1C'],
+                    ['color_name' => 'Black Yellow', 'hex_code' => '#EAB308', 'image_path' => '/assets/images/motorcycles/vega-force-black-yellow.png'],
+                    ['color_name' => 'Black Red', 'hex_code' => '#DC2626', 'image_path' => '/assets/images/motorcycles/vega-force-black-red.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/vega-force-black-yellow.png',
             ],
             [
                 'name' => 'Yamaha Jupiter Z CW FI',
@@ -1050,6 +1051,9 @@ class MotorcycleSeeder extends Seeder
             $colors = $bikeData['colors'] ?? [];
             unset($bikeData['colors']);
 
+            $primaryImage = $bikeData['primary_image'] ?? null;
+            unset($bikeData['primary_image']);
+
             $branchPrices = [];
             foreach ($branches as $branch) {
                 $branchPrices[(string)$branch->id] = $bikeData['regional_prices'][$branch->region] ?? $bikeData['price_otr'];
@@ -1059,17 +1063,27 @@ class MotorcycleSeeder extends Seeder
             $motorcycle = Motorcycle::updateOrCreate(['slug' => $bikeData['slug']], $bikeData);
 
             // Seed primary image
+            $primaryImagePath = $primaryImage ?? ('/assets/images/motorcycles/' . $bikeData['slug'] . '.webp');
             $motorcycle->images()->updateOrCreate(
                 ['is_primary' => true],
-                ['image_path' => '/assets/images/motorcycles/' . $bikeData['slug'] . '.webp', 'sort_order' => 1]
+                ['image_path' => $primaryImagePath, 'sort_order' => 1]
             );
 
-            // Seed color variants
+            // Seed color variants & secondary images
+            $order = 2;
             foreach ($colors as $color) {
+                $colorImagePath = $color['image_path'] ?? ('/assets/images/motorcycles/' . $bikeData['slug'] . '.webp');
                 $motorcycle->colors()->updateOrCreate(
                     ['color_name' => $color['color_name']],
-                    ['hex_code' => $color['hex_code'], 'image_path' => '/assets/images/motorcycles/' . $bikeData['slug'] . '.webp']
+                    ['hex_code' => $color['hex_code'], 'image_path' => $colorImagePath]
                 );
+
+                if ($colorImagePath !== $primaryImagePath) {
+                    $motorcycle->images()->updateOrCreate(
+                        ['image_path' => $colorImagePath],
+                        ['is_primary' => false, 'sort_order' => $order++]
+                    );
+                }
             }
         }
     }
