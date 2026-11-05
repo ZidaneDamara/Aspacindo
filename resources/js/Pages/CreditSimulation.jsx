@@ -142,15 +142,15 @@ export default function CreditSimulation({
         };
 
         return `Halo Yamaha Aspacindo, saya mengajukan simulasi cicilan kredit motor:
-📌 *KODE TIKET:* ${p.ticket_number}
-📍 *Wilayah OTR:* Area ${currentRegion}
-👤 *Nama:* ${p.name}
-🏍️ *Motor:* ${p.motorcycle_name}
-💰 *Harga OTR:* ${formatRupiah(p.price_otr)}
-💵 *Uang Muka (DP ${p.dp_percent}%):* ${formatRupiah(p.dp_amount)}
-📅 *Tenor:* ${p.tenor_months} Bulan
-📊 *Estimasi Cicilan:* ${formatRupiah(p.monthly_installment)} / bulan
-🏢 *Leasing:* ${p.leasing_partner}
+*KODE TIKET:* ${p.ticket_number}
+*Wilayah OTR:* Area ${currentRegion}
+*Nama:* ${p.name}
+*Motor:* ${p.motorcycle_name}
+*Harga OTR:* ${formatRupiah(p.price_otr)}
+*Uang Muka (DP ${p.dp_percent}%):* ${formatRupiah(p.dp_amount)}
+*Tenor:* ${p.tenor_months} Bulan
+*Estimasi Cicilan:* ${formatRupiah(p.monthly_installment)} / bulan
+*Leasing:* ${p.leasing_partner}
 
 Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
     };
@@ -168,11 +168,11 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
             {/* Top Banner Header */}
             <div
                 style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%)' }}
-                className="text-white py-12 border-b border-blue-900 font-['Inter',sans-serif]"
+                className="text-white py-12 border-b border-blue-900"
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <span className="text-xs font-bold text-white uppercase tracking-widest block opacity-90">Kalkulator Kredit &amp; Form Lead Prospect</span>
-                    <h1 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white mt-1">
+                    <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-white mt-1">
                         Simulasi Cicilan Motor Yamaha
                     </h1>
                     <p className="text-blue-100 text-sm mt-2 max-w-2xl leading-relaxed">
@@ -181,7 +181,7 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 font-['Inter',sans-serif]">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                     
                     {/* Left & Middle Column: Form Inputs */}
@@ -450,18 +450,22 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                                             {partner.name}
                                                         </p>
                                                         <span className="text-[11px] text-slate-400 font-medium">
-                                                            {isSelected ? '✓ Leasing Terpilih' : 'Mitra Resmi Yamaha'}
+                                                            {isSelected ? 'Leasing Terpilih' : 'Mitra Resmi Yamaha'}
                                                         </span>
                                                     </div>
                                                 </div>
                                                 <div
-                                                    className={`w-5 h-5 rounded-full border flex items-center justify-center text-xs transition ${
+                                                    className={`w-5 h-5 rounded-full border flex items-center justify-center transition ${
                                                         isSelected
                                                             ? 'border-blue-600 bg-blue-600 text-white'
                                                             : 'border-slate-300 bg-white'
                                                     }`}
                                                 >
-                                                    {isSelected && '✓'}
+                                                    {isSelected && (
+                                                        <svg className="w-3 h-3 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    )}
                                                 </div>
                                             </button>
                                         );
@@ -587,8 +591,10 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
             {showSuccessModal && lastSubmittedProspect && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm overflow-y-auto">
                     <div className="bg-white rounded-3xl max-w-lg w-full p-8 text-center space-y-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
-                        <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl font-bold">
-                            ✓
+                        <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                            </svg>
                         </div>
 
                         <div>
@@ -637,7 +643,7 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                 rel="noopener noreferrer"
                                 className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-4 rounded-2xl shadow-lg hover:shadow-emerald-500/20 transition text-sm uppercase tracking-wider"
                             >
-                                💬 Lanjutkan Diskusi via WhatsApp Sales &rarr;
+                                Lanjutkan Diskusi via WhatsApp Sales &rarr;
                             </a>
 
                             <button

@@ -23,7 +23,7 @@ export default function Show({ article, recentArticles = [], relatedArticles = [
                 {article.focus_keyword && <meta name="keywords" content={article.focus_keyword} />}
             </Head>
 
-            <div className="bg-slate-50 font-['Inter',sans-serif] min-h-screen text-slate-800 pb-16">
+            <div className="bg-white min-h-screen text-slate-800 pb-16">
                 {/* 1. TOP HERO BANNER HEADER */}
                 <div
                     style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%)' }}
@@ -37,15 +37,15 @@ export default function Show({ article, recentArticles = [], relatedArticles = [
                     ></div>
 
                     <div className="relative z-10 max-w-5xl mx-auto px-4 text-center space-y-4">
-                        <div className="flex justify-center items-center text-amber-400 text-sm font-bold">
-                            <span>♦</span>
-                        </div>
-                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight uppercase text-white drop-shadow-md">
+                        <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase text-white drop-shadow-md">
                             {article.title}
                         </h1>
                         <nav className="flex justify-center items-center gap-2 text-xs font-semibold text-blue-200 pt-2">
                             <Link href="/" className="hover:text-white transition flex items-center gap-1">
-                                <span>🏠</span> Home
+                                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+                                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                                </svg>
+                                Home
                             </Link>
                             <span>&rsaquo;</span>
                             <Link href="/artikel" className="hover:text-white transition">
@@ -61,15 +61,25 @@ export default function Show({ article, recentArticles = [], relatedArticles = [
                         {/* Author & Date Metadata */}
                         <div className="flex flex-wrap items-center gap-4 text-slate-600">
                             <span className="flex items-center gap-1.5 font-bold text-slate-900">
-                                <span>👤</span> {article.author || 'Admin Aspacindo'}
+                                <svg className="w-3.5 h-3.5 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                                </svg>
+                                {article.author || 'Admin Aspacindo'}
                             </span>
                             <span>•</span>
                             <span className="flex items-center gap-1.5">
-                                <span>📅</span> {formattedDate}
+                                <svg className="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                {formattedDate}
                             </span>
                             <span>•</span>
                             <span className="flex items-center gap-1.5">
-                                <span>👁️</span> {article.views_count || 3510} views
+                                <svg className="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                                {article.views_count || 3510} views
                             </span>
                         </div>
 
@@ -247,7 +257,12 @@ export default function Show({ article, recentArticles = [], relatedArticles = [
                                         </div>
 
                                         <div className="px-4 pb-4 pt-2 border-t border-slate-100 flex justify-between items-center text-[11px] text-slate-400 font-semibold">
-                                            <span>👤 {rel.author || 'Admin'}</span>
+                                            <span className="flex items-center gap-1">
+                                                <svg className="w-3 h-3 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                                                </svg>
+                                                {rel.author || 'Admin'}
+                                            </span>
                                             <span>{rel.published_at ? new Date(rel.published_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' }) : ''}</span>
                                         </div>
                                     </div>

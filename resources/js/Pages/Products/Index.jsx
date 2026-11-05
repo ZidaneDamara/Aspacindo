@@ -91,7 +91,7 @@ export default function Index({
                             className={`h-full flex flex-col items-center justify-center px-6 sm:px-10 lg:px-12 flex-shrink-0 transition-all duration-200 select-none ${
                                 isActive
                                     ? 'bg-yamaha-blue text-white font-normal shadow-sm'
-                                    : 'text-slate-200 hover:text-white hover-bg-yamaha-blue'
+                                    : 'text-slate-200 hover:text-white hover:bg-yamaha-blue'
                             }`}
                         >
                             {item.icon && (
@@ -122,9 +122,9 @@ export default function Index({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                     {/* Centered Main Title */}
                     <div className="text-center space-y-2">
-                        <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight uppercase">
-                            Produk Motor Yamaha
-                        </h2>
+                        <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-slate-900">
+                            Produk Sepeda Motor Yamaha
+                        </h1>
                         {selectedCategory !== 'Semua' && (
                             <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-800 text-xs font-normal px-4 py-1.5 rounded-full border border-blue-100">
                                 Kategori: {selectedCategory}
@@ -133,7 +133,7 @@ export default function Index({
                     </div>
 
                     {/* REGION FILTER BAR */}
-                    <div className="bg-slate-50 border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
+                    <div className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm space-y-3.5">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div className="flex items-center gap-2.5 text-slate-800">
                                 <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0 shadow-sm">
@@ -192,8 +192,11 @@ export default function Index({
                         </div>
 
                         <div className="text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center justify-between border-t border-slate-200/60 pt-2.5 gap-1">
-                            <span>
-                                💡 Menampilkan harga OTR resmi berlaku untuk cabang <strong>Area {currentRegion}</strong> (Periode promo Oktober 2026)
+                            <span className="inline-flex items-center gap-1.5">
+                                <svg className="w-3.5 h-3.5 text-blue-600 inline flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Menampilkan harga OTR resmi berlaku untuk cabang <strong>Area {currentRegion}</strong> (Periode promo Oktober 2026)</span>
                             </span>
                             <span className="text-slate-400 text-[10px]">
                                 *Harga sewaktu-waktu dapat berubah
@@ -213,7 +216,7 @@ export default function Index({
                             ))}
                         </div>
                     ) : (
-                        <div className="bg-slate-50 p-12 rounded-3xl border border-slate-100 text-center space-y-4">
+                        <div className="bg-white p-12 rounded-3xl border border-slate-200 text-center space-y-4">
                             <p className="text-slate-500 text-base">Tidak ada unit sepeda motor yang sesuai dengan filter Anda.</p>
                             <button
                                 onClick={() => {

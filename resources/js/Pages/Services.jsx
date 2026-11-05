@@ -67,7 +67,7 @@ export default function Services({
             title="Layanan Bengkel Resmi & Booking Service Yamaha"
             description="Layanan purna jual bengkel resmi Yamaha PT. Aspacindo Kedaton Motor. Booking service online, Service Kunjung Yamaha (SKY), Fast Pit, dan suku cadang asli Yamalube."
         >
-            <div className="bg-slate-50 font-['Inter',sans-serif] min-h-screen pb-16">
+            <div className="bg-white min-h-screen pb-16">
                 {/* 1. IKLAN PROMO SERVICE HERO CAROUSEL BANNER */}
                 <div className="bg-white border-b border-slate-200 shadow-sm relative overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -77,9 +77,9 @@ export default function Services({
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 sm:p-12 w-full z-10">
                                     <div className="lg:col-span-7 space-y-4">
                                         <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-red-600 text-white rounded-full text-xs font-black tracking-widest uppercase shadow-md">
-                                            <span>⚡</span> {servicePromos[currentPromoIndex]?.badge || 'IKLAN PROMO SERVICE'}
+                                            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" /></svg> {servicePromos[currentPromoIndex]?.badge || 'IKLAN PROMO SERVICE'}
                                         </div>
-                                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black italic tracking-tight uppercase leading-tight text-white drop-shadow-md">
+                                        <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase text-white drop-shadow-md">
                                             {servicePromos[currentPromoIndex]?.title}
                                         </h1>
                                         <p className="text-blue-100 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
@@ -419,14 +419,14 @@ export default function Services({
                                                 rel="noopener noreferrer"
                                                 className="hover:text-blue-400 transition flex items-center gap-1.5"
                                             >
-                                                <span>📞</span> Hubungi
+                                                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" /></svg> Hubungi
                                             </a>
                                             <span className="text-slate-700">|</span>
                                             <a
                                                 href="mailto:contact.aspacindo@gmail.com"
                                                 className="hover:text-blue-400 transition flex items-center gap-1.5"
                                             >
-                                                <span>✉️</span> Email
+                                                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" /></svg> Email
                                             </a>
                                             <span className="text-slate-700">|</span>
                                             <a
@@ -435,7 +435,7 @@ export default function Services({
                                                 rel="noopener noreferrer"
                                                 className="hover:text-blue-400 transition flex items-center gap-1.5"
                                             >
-                                                <span>📍</span> Lihat Lokasi
+                                                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" /></svg> Lihat Lokasi
                                             </a>
                                         </div>
                                     </div>

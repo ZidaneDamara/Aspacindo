@@ -80,7 +80,7 @@ export default function Show({
                         <span className="text-white font-semibold">{motorcycle.name}</span>
                     </div>
                     <span className="text-xs font-bold text-red-500 uppercase tracking-widest block">{motorcycle.category} Series</span>
-                    <h1 className="text-3xl sm:text-4xl font-black uppercase">{motorcycle.name}</h1>
+                    <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase text-white">{motorcycle.name}</h1>
                 </div>
             </div>
 
@@ -94,6 +94,7 @@ export default function Show({
                                 src={selectedImage}
                                 alt={motorcycle.name}
                                 aspectRatio="aspect-[4/3]"
+                                bgClassName="bg-white"
                                 className="w-full object-contain"
                             />
                         </div>
@@ -160,7 +161,7 @@ export default function Show({
                                 </span>
                             </div>
 
-                            <p className="text-sm text-slate-600 leading-relaxed border-t border-b border-slate-100 py-4">
+                            <p className="font-['NotoSans-Regular',sans-serif] text-[14px] leading-[21px] text-[#707070] border-t border-b border-slate-100 py-4">
                                 {motorcycle.short_description || 'Nikmati kemudahan pembelian sepeda motor Yamaha resmi dengan cicilan terjangkau, garansi mesin 5 tahun, dan bonus helm gratis.'}
                             </p>
 
@@ -168,7 +169,7 @@ export default function Show({
                             <div className="space-y-3">
                                 <Link
                                     href={`/simulasi-cicilan?motorcycle=${motorcycle.slug}&region=${encodeURIComponent(currentRegion)}`}
-                                    className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl shadow-lg hover:shadow-blue-600/30 transition text-sm uppercase tracking-wider"
+                                    className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-play text-[17px] leading-[26px] font-normal py-3.5 rounded-2xl shadow-lg hover:shadow-blue-600/30 transition uppercase tracking-wider"
                                 >
                                     Hitung Simulasi Cicilan OTR {currentRegion}
                                 </Link>
@@ -177,7 +178,7 @@ export default function Show({
                                     href={`https://wa.me/6281262241100?text=${encodeURIComponent(`Halo Yamaha Aspacindo, saya berminat dengan unit ${motorcycle.name} (${selectedColor?.color_name || ''}) untuk area ${currentRegion} dengan harga OTR ${formatRupiah(currentPrice)}. Mohon info penawaran promo terbarunya.`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-2xl shadow-md transition text-sm uppercase tracking-wider"
+                                    className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-play text-[17px] leading-[26px] font-normal py-3.5 rounded-2xl shadow-md transition uppercase tracking-wider"
                                 >
                                     Pesan via WhatsApp Customer Service
                                 </a>

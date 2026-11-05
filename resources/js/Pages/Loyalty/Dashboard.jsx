@@ -53,7 +53,7 @@ export default function Dashboard({
             <div className="bg-slate-900 text-white py-10 border-b border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <span className="text-xs font-bold text-amber-400 uppercase tracking-widest block">Loyalty Portal</span>
-                    <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Dashboard Member ALC</h1>
+                    <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-white">Dashboard Member ALC</h1>
                     <p className="text-slate-400 text-sm mt-1">Selamat datang kembali, <strong className="text-white">{user?.name}</strong>!</p>
                 </div>
             </div>
@@ -62,12 +62,18 @@ export default function Dashboard({
                 {/* Flash Notifications */}
                 {flash?.success && (
                     <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-emerald-900 text-sm font-bold flex items-center gap-2">
-                        <span>✓</span> {flash.success}
+                        <svg className="w-5 h-5 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>{flash.success}</span>
                     </div>
                 )}
                 {flash?.error && (
                     <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-red-900 text-sm font-bold flex items-center gap-2">
-                        <span>⚠️</span> {flash.error}
+                        <svg className="w-5 h-5 text-red-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        <span>{flash.error}</span>
                     </div>
                 )}
 

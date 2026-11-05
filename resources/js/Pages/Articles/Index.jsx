@@ -17,7 +17,7 @@ export default function Index({ articles, categories = [], selectedCategory = 'S
             <div className="bg-slate-900 text-white py-12 border-b border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <span className="text-xs font-bold text-red-500 uppercase tracking-widest block">Artikel &amp; Edukasi</span>
-                    <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Berita, Tips &amp; Event Yamaha</h1>
+                    <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-white">Berita, Tips &amp; Event Yamaha</h1>
                     <p className="text-slate-400 text-sm mt-2 max-w-xl">
                         Dapatkan ulasan mendalam mengenai fitur sepeda motor Yamaha, panduan perawatan rutin, serta promo terbaru di Aspacindo Kedaton Motor.
                     </p>

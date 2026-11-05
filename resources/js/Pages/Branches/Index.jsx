@@ -15,7 +15,7 @@ export default function Index({ branches = [], regions = [], selectedRegion = 'S
             <div className="bg-slate-900 text-white py-12 border-b border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <span className="text-xs font-bold text-red-500 uppercase tracking-widest block">Jaringan Dealer</span>
-                    <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Lokasi Dealer &amp; Bengkel Resmi Yamaha</h1>
+                    <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-white">Lokasi Dealer &amp; Bengkel Resmi Yamaha</h1>
                     <p className="text-slate-400 text-sm mt-2 max-w-xl">
                         Temukan cabang PT Aspacindo Kedaton Motor terdekat di kota Anda untuk layanan pembelian motor, suku cadang, dan servis berkala.
                     </p>
@@ -90,7 +90,7 @@ export default function Index({ branches = [], regions = [], selectedRegion = 'S
                                                     rel="noopener noreferrer"
                                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-amber-500 text-white shadow-sm hover:opacity-90 transition"
                                                 >
-                                                    <span>📷</span> Instagram
+                                                    Instagram
                                                 </a>
                                             )}
                                             {branch.social_media.facebook && (
@@ -100,7 +100,7 @@ export default function Index({ branches = [], regions = [], selectedRegion = 'S
                                                     rel="noopener noreferrer"
                                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-[#1877F2] text-white shadow-sm hover:opacity-90 transition"
                                                 >
-                                                    <span>👥</span> Facebook
+                                                    Facebook
                                                 </a>
                                             )}
                                             {branch.social_media.tiktok && (
@@ -110,7 +110,7 @@ export default function Index({ branches = [], regions = [], selectedRegion = 'S
                                                     rel="noopener noreferrer"
                                                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-slate-900 text-white shadow-sm hover:bg-black transition"
                                                 >
-                                                    <span>🎵</span> TikTok
+                                                    TikTok
                                                 </a>
                                             )}
                                         </div>

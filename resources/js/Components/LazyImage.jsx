@@ -6,6 +6,7 @@ export default function LazyImage({
     className = '',
     placeholderSrc = null,
     aspectRatio = 'aspect-video',
+    bgClassName = 'bg-white',
     ...props
 }) {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -33,9 +34,9 @@ export default function LazyImage({
     }, []);
 
     return (
-        <div ref={imgRef} className={`relative overflow-hidden bg-slate-100 dark:bg-slate-800 ${aspectRatio} ${className}`}>
+        <div ref={imgRef} className={`relative overflow-hidden ${bgClassName} ${aspectRatio} ${className}`}>
             {!isLoaded && (
-                <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-slate-200 via-slate-100 to-slate-200 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800" />
+                <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-slate-100 via-white to-slate-100" />
             )}
             {isInView && (
                 <img

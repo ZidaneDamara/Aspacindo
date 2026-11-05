@@ -30,7 +30,7 @@ export default function Testimonials({ testimonials, branches = [] }) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                     <div>
                         <span className="text-xs font-bold text-red-500 uppercase tracking-widest block">Kepuasan Pelanggan</span>
-                        <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight">Testimoni &amp; Ulasan Pembeli</h1>
+                        <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-white">Testimoni &amp; Ulasan Pembeli</h1>
                         <p className="text-slate-400 text-sm mt-1">Pengalaman nyata para pemilik sepeda motor Yamaha Aspacindo Kedaton Motor.</p>
                     </div>
                     <button
@@ -83,7 +83,11 @@ export default function Testimonials({ testimonials, branches = [] }) {
                         <div className="bg-white rounded-3xl p-8 max-w-lg w-full space-y-6 shadow-2xl relative">
                             <div className="flex justify-between items-center border-b border-slate-100 pb-4">
                                 <h3 className="text-xl font-black text-slate-900">Tulis Ulasan Kepuasan</h3>
-                                <button onClick={() => setModalOpen(false)} className="text-slate-400 hover:text-slate-700">✕</button>
+                                <button onClick={() => setModalOpen(false)} aria-label="Tutup" className="text-slate-400 hover:text-slate-700 p-1">
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
                             </div>
 
                             <form onSubmit={handleSubmit} className="space-y-4">

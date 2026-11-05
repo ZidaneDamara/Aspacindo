@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <footer
             style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%)' }}
-            className="text-white pt-16 pb-12 border-t border-blue-900 font-['Inter',sans-serif]"
+            className="text-white pt-16 pb-12 border-t border-blue-900"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-white/15">

@@ -56,7 +56,7 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
 
     return (
         <PublicLayout title="Suku Cadang & Sparepart Original Yamaha - Aspacindo">
-            <div className="bg-slate-50 min-h-screen pb-16 font-sans text-slate-800">
+            <div className="bg-white min-h-screen pb-16 font-sans text-slate-800">
                 {/* 1. HERO CAROUSEL BANNER SECTION */}
                 <div className="bg-white border-b border-slate-200 shadow-sm relative overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
@@ -66,9 +66,9 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 sm:p-12 w-full z-10">
                                     <div className="lg:col-span-7 space-y-4">
                                         <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-red-600 text-white rounded-full text-xs font-black tracking-widest uppercase shadow-md">
-                                            <span>★</span> {promos[currentSlide]?.badge_text || 'YAMAHA GENUINE PARTS'}
+                                            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> {promos[currentSlide]?.badge_text || 'YAMAHA GENUINE PARTS'}
                                         </div>
-                                        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black italic tracking-tight uppercase leading-tight text-white drop-shadow-md">
+                                        <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase text-white drop-shadow-md">
                                             {promos[currentSlide]?.title || 'ASLI LEBIH BAIK Suku Cadang YAMAHA'}
                                         </h1>
                                         <p className="text-blue-100 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
@@ -223,7 +223,11 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                                 </div>
                             ) : (
                                 <div className="bg-white p-12 rounded-2xl border border-slate-200 text-center space-y-3">
-                                    <div className="text-4xl">🔧</div>
+                                    <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-500 mx-auto flex items-center justify-center">
+                                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                        </svg>
+                                    </div>
                                     <h3 className="text-base font-bold text-slate-800">Tidak ada sparepart yang sesuai filter</h3>
                                     <p className="text-xs text-slate-500">Coba atur ulang pilihan filter kategori di sebelah kiri.</p>
                                 </div>
@@ -261,9 +265,12 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                     <div className="bg-white rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl relative animate-in fade-in zoom-in duration-200">
                         <button
                             onClick={() => setSelectedProduct(null)}
-                            className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 font-bold text-lg"
+                            aria-label="Tutup"
+                            className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 p-1"
                         >
-                            ✕
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
                         </button>
                         <div className="text-center space-y-2">
                             <span className="inline-block px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-bold">
@@ -293,7 +300,7 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                                     rel="noopener noreferrer"
                                     className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl transition shadow-sm flex items-center gap-1.5"
                                 >
-                                    <span>💬</span> Pesan via WA
+                                    Pesan via WhatsApp
                                 </a>
                             </div>
                         </div>

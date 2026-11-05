@@ -27,7 +27,7 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold uppercase tracking-tight text-white">
+                    <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-white">
                         PT. ASPACINDO KEDATON MOTOR
                     </h1>
                     <div className="flex items-center justify-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
@@ -141,7 +141,7 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                         {/* Right Side Stats Counter Grid */}
                         <div
                             style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%)' }}
-                            className="lg:col-span-5 p-8 sm:p-10 rounded-3xl border border-blue-500/30 shadow-2xl backdrop-blur-md font-['Inter',sans-serif]"
+                            className="lg:col-span-5 p-8 sm:p-10 rounded-3xl border border-blue-500/30 shadow-2xl backdrop-blur-md"
                         >
                             <div className="grid grid-cols-2 gap-8 text-center">
                                 <div className="p-4 bg-white/10 rounded-2xl border border-white/10">
@@ -167,7 +167,7 @@ export default function About({ stats = {}, totalBranches = 20 }) {
             </section>
 
             {/* CULTURE ASPACINDO */}
-            <section className="py-16 bg-slate-50">
+            <section className="py-16 bg-white border-t border-slate-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                         {/* Title Card */}
@@ -273,7 +273,7 @@ export default function About({ stats = {}, totalBranches = 20 }) {
             </section>
 
             {/* STRUKTUR ORGANISASI SECTION */}
-            <section className="py-16 bg-slate-50 border-t border-slate-200">
+            <section className="py-16 bg-white border-t border-slate-200">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                     <div className="text-center max-w-2xl mx-auto space-y-2">
                         <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Manajemen &amp; Kepemimpinan</span>

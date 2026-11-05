@@ -8,7 +8,7 @@ export default function Show({ promotion }) {
             <div className="bg-slate-900 text-white py-12 border-b border-slate-800">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
                     <span className="text-xs font-bold text-red-500 uppercase tracking-widest block">Promo Spesial</span>
-                    <h1 className="text-3xl sm:text-4xl font-black uppercase">{promotion.title}</h1>
+                    <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase text-white">{promotion.title}</h1>
                     <p className="text-slate-400 text-sm">Periode: {promotion.start_date || 'Hari ini'} - {promotion.end_date || 'Akhir Bulan'}</p>
                 </div>
             </div>

@@ -17,14 +17,130 @@
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="apple-touch-icon" href="/favicon.png">
 
-        <!-- Corporate Sans-Serif Fonts (Plus Jakarta Sans & Inter) -->
+        <!-- Google Fonts: Play & Noto Sans -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Play:wght@400;700&display=swap" rel="stylesheet">
 
         <style>
-            body, button, input, select, textarea {
-                font-family: 'Inter', 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+            /* Local font declarations ensuring 100% offline & local server reliability */
+            @font-face {
+                font-family: 'Play';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+                src: url('/fonts/Play-Regular.ttf') format('truetype'),
+                     url('https://fonts.gstatic.com/s/play/v21/6aez4K2oVqwIjtI.ttf') format('truetype');
+            }
+            @font-face {
+                font-family: 'Play';
+                font-style: normal;
+                font-weight: 700;
+                font-display: swap;
+                src: url('/fonts/Play-Bold.ttf') format('truetype'),
+                     url('https://fonts.gstatic.com/s/play/v21/6ae84K2oVqwItm4TOpc.ttf') format('truetype');
+            }
+            @font-face {
+                font-family: 'Play-Bold';
+                font-style: normal;
+                font-weight: 700;
+                font-display: swap;
+                src: url('/fonts/Play-Bold.ttf') format('truetype'),
+                     url('https://fonts.gstatic.com/s/play/v21/6ae84K2oVqwItm4TOpc.ttf') format('truetype');
+            }
+            @font-face {
+                font-family: 'Noto Sans';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+                src: url('/fonts/NotoSans-Regular.ttf') format('truetype'),
+                     url('https://fonts.gstatic.com/s/notosans/v42/o-0mIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A99d.ttf') format('truetype');
+            }
+            @font-face {
+                font-family: 'NotoSans-Regular';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+                src: url('/fonts/NotoSans-Regular.ttf') format('truetype'),
+                     url('https://fonts.gstatic.com/s/notosans/v42/o-0mIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A99d.ttf') format('truetype');
+            }
+
+            /* GLOBAL FONT & COLOR SPECIFICATIONS - ALL PAGES */
+            html, body {
+                font-family: 'Noto Sans', 'NotoSans-Regular', system-ui, -apple-system, sans-serif !important;
+                background-color: #ffffff !important;
+                color: #707070 !important;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 21px;
+            }
+
+            /* Body dan semua teks isi web */
+            p, span:not([class*="font-play"]):not([class*="text-white"]):not(.nav-link-item), li, input, select, textarea, label, td, th {
+                font-family: 'Noto Sans', 'NotoSans-Regular', sans-serif;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 21px;
+                color: #707070;
+            }
+
+            /* Navbar & SEMUA H1 */
+            h1, .h1 {
+                font-family: 'Play-Bold', 'Play', sans-serif !important;
+                font-size: 18px !important;
+                font-weight: 700 !important;
+                line-height: 27px !important;
+                color: #ffffff;
+            }
+
+            /* Navbar Top-Level Nav Links */
+            header nav > div > div > div > a,
+            header nav > div > div > div > button,
+            .nav-play {
+                font-family: 'Play-Bold', 'Play', sans-serif !important;
+                font-size: 18px !important;
+                font-weight: 700 !important;
+                line-height: 27px !important;
+            }
+
+            /* Dropdown Sub-links stay readable as regular menu items */
+            header nav .group .absolute a, header nav .dropdown a {
+                font-family: 'Noto Sans', 'NotoSans-Regular', sans-serif !important;
+                font-size: 14px !important;
+                font-weight: 400 !important;
+                line-height: 21px !important;
+                text-transform: none !important;
+                color: #334155 !important;
+            }
+            header nav .group .absolute a:hover {
+                color: #0d47a1 !important;
+            }
+
+            /* All Heading levels use Play font family for cohesive corporate look */
+            h2, h3, h4, h5, h6 {
+                font-family: 'Play-Bold', 'Play', sans-serif !important;
+            }
+
+            /* SEMUA BUTTON - Font Family Play, 17px, line-height 26px */
+            button, .btn, a.btn, input[type="submit"], input[type="button"] {
+                font-family: 'Play', 'Play-Bold', sans-serif !important;
+                font-size: 17px;
+                font-weight: 400;
+                line-height: 26px;
+            }
+
+            /* Action / CTA / Primary Buttons: white text */
+            button:not([class*="text-slate"]):not([class*="text-gray"]):not([class*="text-neutral"]):not([class*="text-blue"]):not([class*="bg-transparent"]):not([class*="bg-slate-100"]):not([class*="bg-slate-200"]),
+            .btn-primary,
+            .btn-yamaha,
+            a[class*="rounded-full"][class*="shadow"][class*="text-white"],
+            a[class*="rounded-2xl"][class*="shadow"][class*="text-white"],
+            a[class*="rounded-xl"][class*="shadow"][class*="text-white"],
+            input[type="submit"] {
+                color: #ffffff !important;
+                font-size: 17px !important;
+                font-weight: 400 !important;
+                line-height: 26px !important;
             }
         </style>
 
@@ -34,7 +150,7 @@
         @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
     </head>
-    <body class="font-sans antialiased bg-slate-50 text-slate-900">
+    <body class="font-sans antialiased bg-white text-[#707070]">
         @inertia
     </body>
 </html>

@@ -27,8 +27,8 @@ export default function Landing({ rewards = [], tierThresholds = {}, earningRule
                             <span className="inline-block px-3.5 py-1.5 bg-amber-500/20 text-amber-300 font-bold text-xs rounded-full border border-amber-500/30 uppercase tracking-wider">
                                 Customer Loyalty Program
                             </span>
-                            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight">
-                                Kumpulkan Poin, <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-200 to-amber-500">Nikmati Hadiah Exclusive</span>
+                            <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-white">
+                                Kumpulkan Poin, <span className="text-amber-300">Nikmati Hadiah Exclusive</span>
                             </h1>
                             <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl">
                                 Bergabunglah bersama puluhan ribu pemilik motor Yamaha di Riau &amp; Sumut. Dapatkan poin dari setiap pembelian unit, servis rutin, dan spare part original.
@@ -149,9 +149,18 @@ export default function Landing({ rewards = [], tierThresholds = {}, earningRule
                                 <p className="text-xs text-slate-500">Tier awal otomatis setelah pendaftaran akun.</p>
                             </div>
                             <ul className="space-y-3 text-xs text-slate-600 border-t border-slate-100 pt-4">
-                                <li className="flex items-center gap-2">✓ Kartu Member Digital &amp; QR Code</li>
-                                <li className="flex items-center gap-2">✓ Pengumpulan Poin Servis &amp; Spare Part</li>
-                                <li className="flex items-center gap-2">✓ Akses Penukaran Katalog Hadiah</li>
+                                <li className="flex items-center gap-2">
+                                    <svg className="w-4 h-4 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Kartu Member Digital &amp; QR Code</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg className="w-4 h-4 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Pengumpulan Poin Servis &amp; Spare Part</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg className="w-4 h-4 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Akses Penukaran Katalog Hadiah</span>
+                                </li>
                             </ul>
                         </div>
 
@@ -168,10 +177,22 @@ export default function Landing({ rewards = [], tierThresholds = {}, earningRule
                                 <p className="text-xs text-slate-500">Untuk konsumen yang rutin servis di Aspacindo.</p>
                             </div>
                             <ul className="space-y-3 text-xs text-slate-700 border-t border-amber-200 pt-4 font-medium">
-                                <li className="flex items-center gap-2 text-amber-700 font-bold">✓ Semua Benefit Silver Tier</li>
-                                <li className="flex items-center gap-2">✓ Bonus Poin Tambahan +10% per Transaksi</li>
-                                <li className="flex items-center gap-2">✓ Antrean Prioritas Booking Service</li>
-                                <li className="flex items-center gap-2">✓ Diskon Khusus Jasa Service 10%</li>
+                                <li className="flex items-center gap-2 text-amber-700 font-bold">
+                                    <svg className="w-4 h-4 text-amber-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Semua Benefit Silver Tier</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg className="w-4 h-4 text-amber-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Bonus Poin Tambahan +10% per Transaksi</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg className="w-4 h-4 text-amber-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Antrean Prioritas Booking Service</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg className="w-4 h-4 text-amber-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Diskon Khusus Jasa Service 10%</span>
+                                </li>
                             </ul>
                         </div>
 
@@ -185,10 +206,22 @@ export default function Landing({ rewards = [], tierThresholds = {}, earningRule
                                 <p className="text-xs text-slate-400">Tingkat tertinggi dengan keistimewaan maksimal.</p>
                             </div>
                             <ul className="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-4">
-                                <li className="flex items-center gap-2 text-amber-400 font-bold">✓ Semua Benefit Gold Tier</li>
-                                <li className="flex items-center gap-2">✓ Bonus Poin Tambahan +25% per Transaksi</li>
-                                <li className="flex items-center gap-2">✓ Layanan SKY (Service Kunjung) Bebas Biaya</li>
-                                <li className="flex items-center gap-2">✓ Undangan Eksklusif Event Touring Yamaha</li>
+                                <li className="flex items-center gap-2 text-amber-400 font-bold">
+                                    <svg className="w-4 h-4 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Semua Benefit Gold Tier</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg className="w-4 h-4 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Bonus Poin Tambahan +25% per Transaksi</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg className="w-4 h-4 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Layanan SKY (Service Kunjung) Bebas Biaya</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <svg className="w-4 h-4 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                                    <span>Undangan Eksklusif Event Touring Yamaha</span>
+                                </li>
                             </ul>
                         </div>
                     </div>

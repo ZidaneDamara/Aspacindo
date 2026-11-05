@@ -66,7 +66,7 @@ export default function Show({ sparepart = {}, relatedSpareparts = [] }) {
                         {/* RIGHT COLUMN: PRODUCT INFORMATION */}
                         <div className="md:col-span-7 space-y-6">
                             <div className="space-y-1">
-                                <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                                <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-slate-900">
                                     {sparepart.name}
                                 </h1>
                                 <p className="text-xs sm:text-sm font-semibold text-slate-500">
@@ -122,7 +122,7 @@ export default function Show({ sparepart = {}, relatedSpareparts = [] }) {
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 bg-[#28a745] hover:bg-[#218838] text-white font-extrabold px-8 py-3.5 rounded-xl shadow-md transition-all duration-200 text-sm uppercase tracking-wider hover:shadow-lg transform hover:-translate-y-0.5"
                                 >
-                                    <span>💬</span> Pesan Sekarang
+                                    Pesan via WhatsApp
                                 </a>
                             </div>
                         </div>

@@ -24,7 +24,7 @@ export default function Show({ job }) {
             <div className="bg-slate-900 text-white py-12 border-b border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
                     <span className="text-xs font-bold text-red-500 uppercase tracking-widest block">Lowongan Pekerjaan</span>
-                    <h1 className="text-3xl sm:text-4xl font-black uppercase">{job.title}</h1>
+                    <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase text-white">{job.title}</h1>
                     <p className="text-slate-400 text-sm">{job.branch ? job.branch.name : 'Semua Cabang'} — {job.employment_type}</p>
                 </div>
             </div>

@@ -39,8 +39,11 @@ export default function Navbar({ categoryBar = null }) {
                         {authUser && (
                             <>
                                 <span className="text-slate-700">|</span>
-                                <Link href={['admin', 'branch_admin', 'staff'].includes(authUser.role) ? '/admin' : '/loyalty/dashboard'} className="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1">
-                                    👤 {authUser.name} ({authUser.role === 'branch_admin' ? 'ADMIN CABANG' : authUser.role.toUpperCase()})
+                                <Link href={['admin', 'branch_admin', 'staff'].includes(authUser.role) ? '/admin' : '/loyalty/dashboard'} className="text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1.5">
+                                    <svg className="w-3 h-3 inline-block fill-current" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                                    </svg>
+                                    <span>{authUser.name} ({authUser.role === 'branch_admin' ? 'ADMIN CABANG' : authUser.role.toUpperCase()})</span>
                                 </Link>
                             </>
                         )}
@@ -54,8 +57,10 @@ export default function Navbar({ categoryBar = null }) {
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="bg-slate-900 border border-slate-700 text-white placeholder-slate-400 text-[10px] rounded-full px-3 py-1 pr-7 w-40 focus:outline-none focus:border-blue-500 font-normal"
                             />
-                            <button type="submit" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
-                                🔍
+                            <button type="submit" aria-label="Search" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white flex items-center justify-center">
+                                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
                             </button>
                         </form>
                     </div>
@@ -80,15 +85,15 @@ export default function Navbar({ categoryBar = null }) {
                         />
                     </Link>
 
-                    {/* Desktop Navigation Links - Full Height (h-20) Slanted Hover Tabs (Slim Corporate Font) */}
+                    {/* Desktop Navigation Links - Full Height (h-20) Slanted Hover Tabs */}
                     <div className="hidden lg:flex items-center h-20 gap-0 flex-shrink-0">
                         {/* BERANDA */}
                         <div className="h-full flex items-center">
                             <Link
                                 href="/"
-                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/')
+                                className={`h-full px-3.5 xl:px-4 flex items-center justify-center font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                        : 'text-slate-800 hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
                                     }`}
                             >
                                 <span className={`inline-block transition-transform duration-200 ${isActive('/') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
@@ -101,35 +106,38 @@ export default function Navbar({ categoryBar = null }) {
                         {/* TENTANG KAMI Dropdown */}
                         <div className="h-full flex items-center relative group">
                             <button
-                                className={`h-full px-3.5 flex items-center justify-center gap-1 text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
+                                className={`h-full px-3.5 xl:px-4 flex items-center justify-center gap-1.5 font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
                                         : 'text-slate-800 group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
                                     }`}
                             >
-                                <span className={`inline-flex items-center gap-1 transition-transform duration-200 ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
+                                <span className={`inline-flex items-center gap-1.5 transition-transform duration-200 ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
                                         ? 'transform skew-x-12'
                                         : 'group-hover:transform group-hover:skew-x-12'
                                     }`}>
-                                    TENTANG KAMI <span className="text-[10px] transition-transform duration-200 group-hover:rotate-180">▾</span>
+                                    TENTANG KAMI
+                                    <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                    </svg>
                                 </span>
                             </button>
                             <div className="absolute left-0 top-full hidden group-hover:block w-56 pt-1 z-50">
                                 <div className="bg-white rounded-xl shadow-xl border border-slate-100 py-2 space-y-1">
                                     <Link
                                         href="/tentang-kami"
-                                        className="block px-4 py-2.5 text-xs font-semibold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition border-b border-slate-100/60"
+                                        className="block px-4 py-2.5 font-sans text-sm text-slate-700 hover:text-blue-700 hover:bg-slate-50 transition border-b border-slate-100/60"
                                     >
                                         PT. Aspacindo Kedaton Motor
                                     </Link>
                                     <Link
                                         href="/lokasi-dealer"
-                                        className="block px-4 py-2.5 text-xs font-semibold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition border-b border-slate-100/60"
+                                        className="block px-4 py-2.5 font-sans text-sm text-slate-700 hover:text-blue-700 hover:bg-slate-50 transition border-b border-slate-100/60"
                                     >
                                         Jaringan Dealer
                                     </Link>
                                     <Link
                                         href="/galeri-aktifitas"
-                                        className="block px-4 py-2.5 text-xs font-semibold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition"
+                                        className="block px-4 py-2.5 font-sans text-sm text-slate-700 hover:text-blue-700 hover:bg-slate-50 transition"
                                     >
                                         Galeri &amp; Aktifitas
                                     </Link>
@@ -141,9 +149,9 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/produk"
-                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/produk')
+                                className={`h-full px-3.5 xl:px-4 flex items-center justify-center font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/produk')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                        : 'text-slate-800 hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
                                     }`}
                             >
                                 <span className={`inline-block transition-transform duration-200 ${isActive('/produk') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
@@ -157,9 +165,9 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/simulasi-cicilan"
-                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/simulasi-cicilan')
+                                className={`h-full px-3.5 xl:px-4 flex items-center justify-center font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/simulasi-cicilan')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                        : 'text-slate-800 hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
                                     }`}
                             >
                                 <span className={`inline-block transition-transform duration-200 ${isActive('/simulasi-cicilan') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
@@ -172,27 +180,30 @@ export default function Navbar({ categoryBar = null }) {
                         {/* LAYANAN Dropdown */}
                         <div className="h-full flex items-center relative group">
                             <button
-                                className={`h-full px-3.5 flex items-center justify-center gap-1 text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap ${isActive('/layanan')
+                                className={`h-full px-3.5 xl:px-4 flex items-center justify-center gap-1.5 font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/layanan')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
                                         : 'text-slate-800 group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
                                     }`}
                             >
-                                <span className={`inline-flex items-center gap-1 transition-transform duration-200 ${isActive('/layanan') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
+                                <span className={`inline-flex items-center gap-1.5 transition-transform duration-200 ${isActive('/layanan') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
                                     }`}>
-                                    LAYANAN <span className="text-[10px] transition-transform duration-200 group-hover:rotate-180">▾</span>
+                                    LAYANAN
+                                    <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                                    </svg>
                                 </span>
                             </button>
                             <div className="absolute left-0 top-full hidden group-hover:block w-48 pt-1 z-50">
                                 <div className="bg-white rounded-xl shadow-xl border border-slate-100 py-2 space-y-1">
                                     <Link
                                         href="/layanan#booking"
-                                        className="block px-4 py-2.5 text-xs font-semibold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition border-b border-slate-100/60"
+                                        className="block px-4 py-2.5 font-sans text-sm text-slate-700 hover:text-blue-700 hover:bg-slate-50 transition border-b border-slate-100/60"
                                     >
                                         Service
                                     </Link>
                                     <Link
                                         href="/sparepart"
-                                        className="block px-4 py-2.5 text-xs font-semibold text-slate-800 hover:text-blue-700 hover:bg-slate-50 transition"
+                                        className="block px-4 py-2.5 font-sans text-sm text-slate-700 hover:text-blue-700 hover:bg-slate-50 transition"
                                     >
                                         Sparepart
                                     </Link>
@@ -204,9 +215,9 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/artikel"
-                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/artikel')
+                                className={`h-full px-3.5 xl:px-4 flex items-center justify-center font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/artikel')
                                         ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                        : 'text-slate-800 hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
                                     }`}
                             >
                                 <span className={`inline-block transition-transform duration-200 ${isActive('/artikel') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
@@ -215,26 +226,6 @@ export default function Navbar({ categoryBar = null }) {
                                 </span>
                             </Link>
                         </div>
-
-                        {/* LOYALTY (Disembunyikan sementara) */}
-                        {/*
-                        <div className="h-full flex items-center">
-                            <Link
-                                href="/loyalty"
-                                className={`h-full px-3.5 flex items-center justify-center text-[12px] md:text-[13px] font-semibold tracking-normal uppercase transition-all duration-200 whitespace-nowrap group ${
-                                    isActive('/loyalty')
-                                        ? 'bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-slate-800 hover-bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
-                                }`}
-                            >
-                                <span className={`inline-block transition-transform duration-200 ${
-                                    isActive('/loyalty') ? 'transform skew-x-12' : 'group-hover:transform group-hover:skew-x-12'
-                                }`}>
-                                    LOYALTY
-                                </span>
-                            </Link>
-                        </div>
-                        */}
                     </div>
 
                     {/* Desktop CTA Button */}
@@ -242,7 +233,7 @@ export default function Navbar({ categoryBar = null }) {
                         <Link
                             href="/layanan#booking"
                             style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                            className="text-white font-bold text-xs uppercase tracking-wider px-5 py-2.5 rounded-full shadow-md hover:brightness-110 transition duration-200 whitespace-nowrap"
+                            className="text-white font-play text-[17px] leading-[26px] font-normal uppercase px-5 py-2 rounded-full shadow-md hover:brightness-110 transition duration-200 whitespace-nowrap"
                         >
                             BOOKING SERVICE
                         </Link>
@@ -268,34 +259,33 @@ export default function Navbar({ categoryBar = null }) {
 
                 {/* Mobile Dropdown Menu */}
                 {mobileMenuOpen && (
-                    <div className="lg:hidden border-t border-slate-200 py-3 space-y-1 bg-white text-slate-800 font-semibold">
-                        <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-xs uppercase">BERANDA</Link>
+                    <div className="lg:hidden border-t border-slate-200 py-3 space-y-1 bg-white text-slate-800">
+                        <Link href="/" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 font-play font-bold text-[16px] leading-[27px] uppercase">BERANDA</Link>
 
                         <div className="px-4 py-2 space-y-1 bg-slate-50 rounded-xl my-1 border border-slate-100">
-                            <span className="text-[10px] text-blue-700 font-bold uppercase tracking-wider block">TENTANG KAMI</span>
-                            <Link href="/tentang-kami" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs">PT. Aspacindo Kedaton Motor</Link>
-                            <Link href="/lokasi-dealer" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs">Jaringan Dealer</Link>
-                            <Link href="/galeri-aktifitas" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs">Galeri &amp; Aktifitas</Link>
+                            <span className="font-play text-[14px] text-blue-700 font-bold uppercase tracking-wider block">TENTANG KAMI</span>
+                            <Link href="/tentang-kami" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-sm font-sans text-slate-700">PT. Aspacindo Kedaton Motor</Link>
+                            <Link href="/lokasi-dealer" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-sm font-sans text-slate-700">Jaringan Dealer</Link>
+                            <Link href="/galeri-aktifitas" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-sm font-sans text-slate-700">Galeri &amp; Aktifitas</Link>
                         </div>
 
-                        <Link href="/produk" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-xs uppercase">PRODUK</Link>
-                        <Link href="/simulasi-cicilan" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-xs uppercase">SIMULASI CICILAN</Link>
+                        <Link href="/produk" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 font-play font-bold text-[16px] leading-[27px] uppercase">PRODUK</Link>
+                        <Link href="/simulasi-cicilan" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 font-play font-bold text-[16px] leading-[27px] uppercase">SIMULASI CICILAN</Link>
 
                         <div className="px-4 py-2 space-y-1 bg-slate-50 rounded-xl my-1 border border-slate-100">
-                            <span className="text-[10px] text-blue-700 font-bold uppercase tracking-wider block">LAYANAN</span>
-                            <Link href="/layanan#booking" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs">Service</Link>
-                            <Link href="/sparepart" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-xs">Sparepart</Link>
+                            <span className="font-play text-[14px] text-blue-700 font-bold uppercase tracking-wider block">LAYANAN</span>
+                            <Link href="/layanan#booking" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-sm font-sans text-slate-700">Service</Link>
+                            <Link href="/sparepart" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-sm font-sans text-slate-700">Sparepart</Link>
                         </div>
 
-                        <Link href="/artikel" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-xs uppercase">ARTIKEL</Link>
-                        {/* <Link href="/loyalty" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 text-xs uppercase">LOYALTY</Link> */}
+                        <Link href="/artikel" onClick={() => setMobileMenuOpen(false)} className="block px-4 py-2 font-play font-bold text-[16px] leading-[27px] uppercase">ARTIKEL</Link>
 
                         <div className="pt-3 border-t border-slate-200 px-4 space-y-2">
                             <Link
                                 href="/layanan#booking"
                                 onClick={() => setMobileMenuOpen(false)}
                                 style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                                className="block w-full text-center text-white font-bold py-3 rounded-full text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition"
+                                className="block w-full text-center text-white font-play text-[17px] leading-[26px] font-normal py-2.5 rounded-full uppercase tracking-wider shadow-md hover:brightness-110 transition"
                             >
                                 BOOKING SERVICE
                             </Link>

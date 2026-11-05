@@ -150,7 +150,7 @@ export default function PublicLayout({
     ];
 
     return (
-        <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+        <div className="min-h-screen bg-white text-[#707070] flex flex-col font-sans selection:bg-blue-600 selection:text-white">
             <Head>
                 {/* Meta Title */}
                 <title>{cleanTitle}</title>

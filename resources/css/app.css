@@ -3,19 +3,123 @@
 @tailwind utilities;
 
 @layer base {
-    h2 {
-        text-transform: uppercase !important;
-        font-weight: 600 !important;
+    @font-face {
+        font-family: 'Play';
+        src: url('/fonts/Play-Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Play';
+        src: url('/fonts/Play-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Play-Bold';
+        src: url('/fonts/Play-Bold.ttf') format('truetype');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Noto Sans';
+        src: url('/fonts/NotoSans-Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'NotoSans-Regular';
+        src: url('/fonts/NotoSans-Regular.ttf') format('truetype');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    body {
+        font-family: 'Noto Sans', 'NotoSans-Regular', system-ui, -apple-system, sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        line-height: 21px !important;
+        color: #707070 !important;
+        background-color: #ffffff !important;
+    }
+
+    p, .body-text {
+        font-family: 'Noto Sans', 'NotoSans-Regular', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 21px;
+        color: #707070;
+    }
+
+    h1, .h1 {
+        font-family: 'Play-Bold', 'Play', sans-serif !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        line-height: 27px !important;
+        color: #ffffff;
+    }
+
+    /* Navbar Top-Level Nav Links */
+    header nav > div > div > div > a,
+    header nav > div > div > div > button,
+    .nav-play {
+        font-family: 'Play-Bold', 'Play', sans-serif !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        line-height: 27px !important;
+    }
+
+    /* Dropdown Sub-links */
+    header nav .group .absolute a, header nav .dropdown a {
+        font-family: 'Noto Sans', 'NotoSans-Regular', sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        line-height: 21px !important;
+        text-transform: none !important;
+        color: #334155 !important;
+    }
+    header nav .group .absolute a:hover {
+        color: #0d47a1 !important;
+    }
+
+    h2, h3, h4, h5, h6 {
+        font-family: 'Play-Bold', 'Play', sans-serif !important;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    /* SEMUA BUTTON - Font Family Play, 17px, line-height 26px */
+    button, .btn, a.btn, input[type="submit"], input[type="button"] {
+        font-family: 'Play', 'Play-Bold', sans-serif !important;
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 26px;
+    }
+
+    /* Action / CTA / Primary Buttons: white text */
+    button:not([class*="text-slate"]):not([class*="text-gray"]):not([class*="text-neutral"]):not([class*="text-blue"]):not([class*="bg-transparent"]):not([class*="bg-slate-100"]):not([class*="bg-slate-200"]),
+    .btn-primary,
+    .btn-yamaha,
+    a[class*="rounded-full"][class*="shadow"][class*="text-white"],
+    a[class*="rounded-2xl"][class*="shadow"][class*="text-white"],
+    a[class*="rounded-xl"][class*="shadow"][class*="text-white"],
+    input[type="submit"] {
+        color: #ffffff !important;
+        font-size: 17px !important;
+        font-weight: 400 !important;
+        line-height: 26px !important;
     }
 }
 
 @layer utilities {
-    .bg-yamaha-blue {
-        background: linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%) !important;
-    }
-    .hover-bg-yamaha-blue:hover {
-        background: linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%) !important;
-    }
+    .bg-yamaha-blue,
+    .hover\:bg-yamaha-blue:hover,
+    .hover-bg-yamaha-blue:hover,
     .group:hover .group-hover\:bg-yamaha-blue {
         background: linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%) !important;
     }
