@@ -112,7 +112,11 @@ export default function Index({
     );
 
     return (
-        <PublicLayout title={`Produk Motor Yamaha - OTR Area ${currentRegion}`} categoryBar={categoryBarNav}>
+        <PublicLayout
+            title={`Katalog Motor Yamaha - OTR Area ${currentRegion}`}
+            description={`Katalog lengkap sepeda motor baru Yamaha kategori MAXi, Classy, Matic, Sport, Moped OTR ${currentRegion}. Harga resmi & promo di Dealer Yamaha PT. Aspacindo Kedaton Motor.`}
+            categoryBar={categoryBarNav}
+        >
             {/* MAIN CATALOG SECTION */}
             <div className="bg-white py-10 sm:py-14 min-h-screen">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

@@ -174,7 +174,7 @@ export default function Show({
                                 </Link>
 
                                 <a
-                                    href={`https://wa.me/6281270001111?text=${encodeURIComponent(`Halo Yamaha Aspacindo, saya berminat dengan unit ${motorcycle.name} (${selectedColor?.color_name || ''}) untuk area ${currentRegion} dengan harga OTR ${formatRupiah(currentPrice)}. Mohon info penawaran promo terbarunya.`)}`}
+                                    href={`https://wa.me/6281262241100?text=${encodeURIComponent(`Halo Yamaha Aspacindo, saya berminat dengan unit ${motorcycle.name} (${selectedColor?.color_name || ''}) untuk area ${currentRegion} dengan harga OTR ${formatRupiah(currentPrice)}. Mohon info penawaran promo terbarunya.`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-2xl shadow-md transition text-sm uppercase tracking-wider"

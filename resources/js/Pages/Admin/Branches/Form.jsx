@@ -24,10 +24,15 @@ export default function Form({
         dealer_type: branch?.dealer_type || '3S',
         region: branch?.region || (isBranchAdmin && userBranch ? userBranch.region : defaultRegion),
         full_address: branch?.full_address || '',
-        whatsapp_number: branch?.whatsapp_number || '6281270001111',
+        whatsapp_number: branch?.whatsapp_number || '6281262241100',
         latitude: branch?.latitude || '',
         longitude: branch?.longitude || '',
         google_maps_url: branch?.google_maps_url || '',
+        social_media: {
+            instagram: branch?.social_media?.instagram || '',
+            facebook: branch?.social_media?.facebook || '',
+            tiktok: branch?.social_media?.tiktok || '',
+        },
         is_active: branch ? (branch.is_active ?? true) : true,
     });
 
@@ -204,7 +209,7 @@ export default function Form({
                         <input
                             type="text"
                             required
-                            placeholder="6281270001111"
+                            placeholder="6281262241100"
                             value={data.whatsapp_number}
                             onChange={(e) => setData('whatsapp_number', e.target.value)}
                             className="w-full text-sm border-slate-200 rounded-2xl p-3 font-mono focus:ring-blue-500 focus:border-blue-500"
@@ -225,6 +230,46 @@ export default function Form({
                             className="w-full text-sm border-slate-200 rounded-2xl p-3 focus:ring-blue-500 focus:border-blue-500"
                         />
                         {errors.google_maps_url && <p className="text-[11px] text-red-500">{errors.google_maps_url}</p>}
+                    </div>
+
+                    {/* Media Sosial Cabang */}
+                    <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                        <span className="text-xs font-bold text-slate-800 uppercase block tracking-wider">
+                            Media Sosial Resmi Cabang (Opsional)
+                        </span>
+
+                        <div className="space-y-1">
+                            <label className="text-[11px] font-bold text-slate-600">📷 Link Instagram</label>
+                            <input
+                                type="url"
+                                placeholder="https://instagram.com/..."
+                                value={data.social_media.instagram}
+                                onChange={(e) => setData('social_media', { ...data.social_media, instagram: e.target.value })}
+                                className="w-full text-xs border-slate-200 rounded-xl p-2.5 focus:ring-blue-500"
+                            />
+                        </div>
+
+                        <div className="space-y-1">
+                            <label className="text-[11px] font-bold text-slate-600">👥 Link Facebook</label>
+                            <input
+                                type="url"
+                                placeholder="https://facebook.com/..."
+                                value={data.social_media.facebook}
+                                onChange={(e) => setData('social_media', { ...data.social_media, facebook: e.target.value })}
+                                className="w-full text-xs border-slate-200 rounded-xl p-2.5 focus:ring-blue-500"
+                            />
+                        </div>
+
+                        <div className="space-y-1">
+                            <label className="text-[11px] font-bold text-slate-600">🎵 Link TikTok</label>
+                            <input
+                                type="text"
+                                placeholder="https://tiktok.com/@..."
+                                value={data.social_media.tiktok}
+                                onChange={(e) => setData('social_media', { ...data.social_media, tiktok: e.target.value })}
+                                className="w-full text-xs border-slate-200 rounded-xl p-2.5 focus:ring-blue-500"
+                            />
+                        </div>
                     </div>
 
                     {/* Active toggle */}

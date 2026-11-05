@@ -10,7 +10,10 @@ export default function Index({ articles, categories = [], selectedCategory = 'S
     };
 
     return (
-        <PublicLayout title="Blog, Berita & Tips Sepeda Motor Yamaha">
+        <PublicLayout
+            title="Blog, Berita & Tips Sepeda Motor Yamaha"
+            description="Kumpulan berita terkini, tips perawatan sepeda motor, panduan berkendara, serta info promo terbaru dari Dealer Resmi Yamaha Aspacindo Kedaton Motor."
+        >
             <div className="bg-slate-900 text-white py-12 border-b border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <span className="text-xs font-bold text-red-500 uppercase tracking-widest block">Artikel &amp; Edukasi</span>

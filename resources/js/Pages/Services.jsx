@@ -63,7 +63,10 @@ export default function Services({
     const currentPriceItems = servicePrices[activePriceTab] || [];
 
     return (
-        <PublicLayout title="Layanan Bengkel Resmi & Booking Service Yamaha">
+        <PublicLayout
+            title="Layanan Bengkel Resmi & Booking Service Yamaha"
+            description="Layanan purna jual bengkel resmi Yamaha PT. Aspacindo Kedaton Motor. Booking service online, Service Kunjung Yamaha (SKY), Fast Pit, dan suku cadang asli Yamalube."
+        >
             <div className="bg-slate-50 font-['Inter',sans-serif] min-h-screen pb-16">
                 {/* 1. IKLAN PROMO SERVICE HERO CAROUSEL BANNER */}
                 <div className="bg-white border-b border-slate-200 shadow-sm relative overflow-hidden">

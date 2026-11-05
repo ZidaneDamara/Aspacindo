@@ -117,7 +117,7 @@ export default function Show({ sparepart = {}, relatedSpareparts = [] }) {
                             {/* PESAN SEKARANG (WHATSAPP ORDER BUTTON) */}
                             <div className="pt-4">
                                 <a
-                                    href={`https://wa.me/6281270001111?text=${encodeURIComponent(`Halo Bengkel Yamaha Aspacindo, saya mau beli Sparepart Original: ${sparepart.name}`)}`}
+                                    href={`https://wa.me/6281262241100?text=${encodeURIComponent(`Halo Bengkel Yamaha Aspacindo, saya mau beli Sparepart Original: ${sparepart.name}`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 bg-[#28a745] hover:bg-[#218838] text-white font-extrabold px-8 py-3.5 rounded-xl shadow-md transition-all duration-200 text-sm uppercase tracking-wider hover:shadow-lg transform hover:-translate-y-0.5"

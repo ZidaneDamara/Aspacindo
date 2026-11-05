@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function FloatingWhatsApp({ phoneNumber = '6281270001111', message = 'Halo Yamaha Aspacindo, saya ingin bertanya tentang promo motor Yamaha...' }) {
+export default function FloatingWhatsApp({ phoneNumber = '6281262241100', message = 'Halo Yamaha Aspacindo, saya ingin bertanya tentang promo motor Yamaha...' }) {
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
     return (

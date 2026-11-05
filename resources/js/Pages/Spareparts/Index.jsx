@@ -288,7 +288,7 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                                     <p className="text-lg font-black text-blue-700">{formatPrice(selectedProduct.price)}</p>
                                 </div>
                                 <a
-                                    href={`https://wa.me/6281270001111?text=${encodeURIComponent(`Halo Bengkel Yamaha Aspacindo, saya berminat membeli Sparepart: ${selectedProduct.name}`)}`}
+                                    href={`https://wa.me/6281262241100?text=${encodeURIComponent(`Halo Bengkel Yamaha Aspacindo, saya berminat membeli Sparepart: ${selectedProduct.name}`)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl transition shadow-sm flex items-center gap-1.5"

@@ -12,6 +12,7 @@ export default function Home({
     latestArticles = [],
     activePromotions = [],
     featuredTestimonials = [],
+    branchesSummary = [],
     stats = {},
 }) {
     const defaultRegions = [
@@ -85,6 +86,131 @@ export default function Home({
         },
     ];
 
+    // Branch coverage data
+    const serviceAreas = [
+        {
+            city: 'Kota Pekanbaru',
+            coverage: 'Pusat (Jl. Riau Ujung No 88 A-E), Cabang Riau, Garuda Sakti',
+            tag: 'Kantor Pusat & Dealer 3S',
+        },
+        {
+            city: 'Kab. Pelalawan',
+            coverage: 'Pangkalan Kerinci, Sorek, Ukui',
+            tag: 'Sales & Service',
+        },
+        {
+            city: 'Kab. Siak',
+            coverage: 'Kandis, Siak Sri Indrapura, Perawang, Sabak Auh',
+            tag: 'Dealer 3S & Sparepart',
+        },
+        {
+            city: 'Kab. Kampar',
+            coverage: 'Bangkinang, Sungai Pagar, Petapahan, Lipat Kain',
+            tag: 'Jaringan Cabang',
+        },
+        {
+            city: 'Kab. Indragiri Hulu',
+            coverage: 'Air Molek, Belilas, Peranap',
+            tag: 'Dealer 3S',
+        },
+        {
+            city: 'Kab. Indragiri Hilir',
+            coverage: 'Tembilahan & Sekitarnya',
+            tag: 'Layanan Penjualan',
+        },
+        {
+            city: 'Sumatera Utara',
+            coverage: 'Kota Medan & Deli Serdang (Pancur Batu)',
+            tag: 'Jaringan Regional',
+        },
+    ];
+
+    const fallbackBranches = [
+        {
+            name: 'Aspacindo Riau Ujung (Kantor Pusat)',
+            region: 'Pekanbaru',
+            dealer_type: '3S',
+            full_address: 'Jl. Riau Ujung No 88 A-E, Tampan, Kec. Payung Sekaki, Pekanbaru, Riau 28292',
+            whatsapp_number: '081262241100',
+            google_maps_url: 'https://maps.google.com/?q=Aspacindo+Kedaton+Motor+Pekanbaru',
+        },
+        {
+            name: 'Aspacindo Pangkalan Kerinci',
+            region: 'Pelalawan',
+            dealer_type: '3S',
+            full_address: 'Jl. Lintas Timur, Pangkalan Kerinci, Kab. Pelalawan, Riau',
+            whatsapp_number: '081262241100',
+            google_maps_url: 'https://maps.google.com/?q=Aspacindo+Pangkalan+Kerinci',
+        },
+        {
+            name: 'Aspacindo Kandis',
+            region: 'Siak',
+            dealer_type: '3S',
+            full_address: 'Jl. Raya Pekanbaru - Duri KM 72, Kandis Kota, Kab. Siak, Riau',
+            whatsapp_number: '081262241100',
+            google_maps_url: 'https://maps.google.com/?q=Aspacindo+Kandis',
+        },
+        {
+            name: 'Aspacindo Bangkinang',
+            region: 'Kampar',
+            dealer_type: '3S',
+            full_address: 'Jl. Prof. M. Yamin SH, Bangkinang Kota, Kab. Kampar, Riau',
+            whatsapp_number: '081262241100',
+            google_maps_url: 'https://maps.google.com/?q=Aspacindo+Bangkinang',
+        },
+        {
+            name: 'Aspacindo Air Molek',
+            region: 'Indragiri Hulu',
+            dealer_type: '3S',
+            full_address: 'Jl. Jenderal Sudirman, Pasir Penyu, Air Molek, Kab. Indragiri Hulu, Riau',
+            whatsapp_number: '081262241100',
+            google_maps_url: 'https://maps.google.com/?q=Aspacindo+Air+Molek',
+        },
+        {
+            name: 'Aspacindo Medan',
+            region: 'Medan',
+            dealer_type: '3S',
+            full_address: 'Kota Medan & Deli Serdang, Sumatera Utara',
+            whatsapp_number: '081262241100',
+            google_maps_url: 'https://maps.google.com/?q=Aspacindo+Medan',
+        },
+    ];
+    const displayBranches = (branchesSummary && branchesSummary.length > 0) ? branchesSummary : fallbackBranches;
+
+    const fallbackArticles = [
+        {
+            id: 1,
+            title: 'Bedah Fitur Canggih Yamaha NMAX Turbo & Navigasi Y-Connect Terbaru',
+            slug: 'bedah-fitur-yamaha-nmax-turbo-y-connect',
+            category: 'MAXi',
+            author: 'Tim Redaksi Aspacindo',
+            excerpt: 'Ketahui keunggulan teknologi Y-ECVT sensasi berkendara turbo pada All New Yamaha NMAX serta kemudahan konektivitas smartphone melalui aplikasi Y-Connect.',
+            thumbnail: '/assets/images/promos/hero_banner_yamaha.webp',
+            published_at: '2026-05-15',
+        },
+        {
+            id: 2,
+            title: 'Panduan Servis Berkala & Manfaat Oli Asli Yamalube Garansi Mesin Awet',
+            slug: 'panduan-servis-berkala-oli-yamalube',
+            category: 'Perawatan',
+            author: 'Mekanik Kepala Bengkel',
+            excerpt: 'Merawat mesin motor injeksi Yamaha wajib menggunakan oli Yamalube original. Simak interval penggantian oli dan filter udara yang direkomendasikan pabrikan.',
+            thumbnail: '/assets/images/promos/hero_banner_yamaha.webp',
+            published_at: '2026-06-10',
+        },
+        {
+            id: 3,
+            title: 'Tips Lolos Pengajuan Kredit Motor Yamaha dengan Cicilan Murah & DP Ringan',
+            slug: 'tips-kredit-motor-yamaha-dp-ringan',
+            category: 'Tips Pembelian',
+            author: 'Konsultan Pembiayaan',
+            excerpt: 'Mau beli Yamaha Fazzio atau Aerox dengan kredit mudah? Berikut tips kelengkapan berkas leasing BAF, Adira, dan Oto agar disetujui cepat.',
+            thumbnail: '/assets/images/promos/hero_banner_yamaha.webp',
+            published_at: '2026-07-01',
+        },
+    ];
+    const displayArticles = (latestArticles && latestArticles.length > 0) ? latestArticles : fallbackArticles;
+
     // Carousel navigation logic
     const totalItems = featuredMotorcycles.length;
     const maxIndex = Math.max(0, totalItems - 3);
@@ -98,47 +224,50 @@ export default function Home({
     };
 
     return (
-        <PublicLayout title="Dealer Resmi Yamaha Terpercaya di Riau & Sumatera Utara">
+        <PublicLayout
+            title="Dealer Resmi Yamaha – Aspacindo Kedaton Motor"
+            description="Dealer Resmi Yamaha (PT. Aspacindo Kedaton Motor) - Penjualan sepeda motor Yamaha baru, bengkel resmi servis berkala, dan suku cadang asli di Pekanbaru, Pelalawan, Kampar, Siak, Inhu, Inhil (Riau) & Medan."
+        >
             {/* HERO BANNER SECTION - Full Image Carousel (Yamaha Official Style) */}
             <section className="relative bg-slate-950 text-white overflow-hidden">
                 <div className="w-full relative group">
                     <div className="w-full relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[24/9] overflow-hidden bg-slate-900">
                         <LazyImage
                             src="/assets/images/promos/hero_banner_yamaha.webp"
-                            alt="Yamaha Motor Indonesia - Semakin Di Depan"
+                            alt="Yamaha Motor Indonesia - PT Aspacindo Kedaton Motor Semakin Di Depan"
                             className="w-full h-full object-cover object-center"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div>
                     </div>
 
                     {/* Subtle Overlay Quick Badges Bar */}
-                    <div className="bg-slate-900/90 border-t border-slate-800 text-slate-300 py-3 px-4 backdrop-blur-md">
+                    <div className="bg-slate-900/95 border-t border-slate-800 text-slate-300 py-3 px-4 backdrop-blur-md">
                         <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-4">
                             <Link href="/produk" className="p-2.5 bg-slate-950/70 rounded-xl border border-slate-800 hover:border-blue-500 transition flex items-center justify-between group">
                                 <div>
-                                    <span className="text-[10px] text-slate-400 block font-medium uppercase">KATALOG</span>
-                                    <span className="text-xs font-bold text-white group-hover:text-blue-400">Unit Terbaru</span>
+                                    <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">KATALOG PRODUK</span>
+                                    <span className="text-xs font-bold text-white group-hover:text-blue-400">Motor Yamaha Terbaru</span>
                                 </div>
                                 <span className="text-blue-400 text-xs font-bold">&rarr;</span>
                             </Link>
                             <Link href="/simulasi-cicilan" className="p-2.5 bg-slate-950/70 rounded-xl border border-slate-800 hover:border-blue-500 transition flex items-center justify-between group">
                                 <div>
-                                    <span className="text-[10px] text-slate-400 block font-medium uppercase">KREDIT</span>
-                                    <span className="text-xs font-bold text-white group-hover:text-blue-400">Simulasi DP</span>
+                                    <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">SIMULASI KREDIT</span>
+                                    <span className="text-xs font-bold text-white group-hover:text-blue-400">DP &amp; Cicilan OTR</span>
                                 </div>
                                 <span className="text-blue-400 text-xs font-bold">&rarr;</span>
                             </Link>
-                            <Link href="/layanan#booking" className="p-2.5 bg-slate-950/70 rounded-xl border border-slate-800 hover:border-blue-500 transition flex items-center justify-between group">
+                            <Link href="/layanan" className="p-2.5 bg-slate-950/70 rounded-xl border border-slate-800 hover:border-blue-500 transition flex items-center justify-between group">
                                 <div>
-                                    <span className="text-[10px] text-slate-400 block font-medium uppercase">SERVIS</span>
-                                    <span className="text-xs font-bold text-red-400 group-hover:underline">Booking Service</span>
+                                    <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">LAYANAN BENGKEL</span>
+                                    <span className="text-xs font-bold text-red-400 group-hover:underline">Booking Service &amp; SKY</span>
                                 </div>
                                 <span className="text-red-400 text-xs font-bold">&rarr;</span>
                             </Link>
                             <Link href="/lokasi-dealer" className="p-2.5 bg-slate-950/70 rounded-xl border border-slate-800 hover:border-blue-500 transition flex items-center justify-between group">
                                 <div>
-                                    <span className="text-[10px] text-slate-400 block font-medium uppercase">JARINGAN</span>
-                                    <span className="text-xs font-bold text-amber-400 group-hover:underline">20+ Cabang</span>
+                                    <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">JARINGAN CABANG</span>
+                                    <span className="text-xs font-bold text-amber-400 group-hover:underline">20+ Dealer Resmi</span>
                                 </div>
                                 <span className="text-amber-400 text-xs font-bold">&rarr;</span>
                             </Link>
@@ -152,15 +281,15 @@ export default function Home({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-slate-100 pb-4">
                         <div>
-                            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Kategori Pilihan</span>
-                            <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Kategori Motor Yamaha</h2>
+                            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Kategori Pilihan Produk</span>
+                            <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Katalog Sepeda Motor Yamaha</h2>
                         </div>
                         <Link
                             href="/produk"
                             style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
                             className="text-white font-bold text-xs px-5 py-2.5 rounded-full uppercase tracking-wider shadow-md hover:brightness-110 transition whitespace-nowrap"
                         >
-                            Semua Produk &rarr;
+                            Lihat Semua Produk &rarr;
                         </Link>
                     </div>
 
@@ -223,7 +352,7 @@ export default function Home({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                         <div className="space-y-2">
-                            <span className="text-xs font-bold text-red-600 uppercase tracking-widest">Produk Unggulan</span>
+                            <span className="text-xs font-bold text-red-600 uppercase tracking-widest">Produk Unggulan Yamaha</span>
                             <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Motor Yamaha Paling Populer Hari Ini</h2>
                         </div>
 
@@ -322,8 +451,215 @@ export default function Home({
                 </div>
             </section>
 
-            {/* WHY CHOOSE US */}
+            {/* COMPANY PROFILE & SERVICE AREA SECTION (SEO FOUNDATION) */}
             <section className="py-16 bg-white border-t border-slate-100">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                        <div className="lg:col-span-7 space-y-5">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-extrabold uppercase tracking-wide">
+                                <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                                DEALER RESMI YAMAHA 3S (SALES, SERVICE, SPAREPART)
+                            </div>
+                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+                                Dealer Resmi Yamaha Terpercaya – PT. Aspacindo Kedaton Motor
+                            </h2>
+                            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+                                <strong>PT. Aspacindo Kedaton Motor</strong> merupakan dealer resmi sepeda motor Yamaha yang telah beroperasi selama lebih dari 15 tahun melayani kebutuhan transportasi masyarakat di Provinsi Riau dan Sumatera Utara. Kami menghadirkan solusi berkendara lengkap melalui penjualan motor Yamaha bergaransi resmi pabrikan, ketersediaan suku cadang asli Yamalube 100% original, serta layanan bengkel servis berkala berstandar teknisi Yamaha Motor Indonesia.
+                            </p>
+                            <p className="text-slate-600 text-sm leading-relaxed">
+                                Dengan didukung 20+ jaringan cabang resmi di Pekanbaru, Pelalawan, Siak, Kampar, Indragiri Hulu, Indragiri Hilir, hingga Medan, kami berkomitmen memberikan pelayanan terbaik, kemudahan proses kredit motor DP ringan, dan kepuasan purna jual untuk setiap pelanggan.
+                            </p>
+                            <div className="pt-2 flex flex-wrap gap-4">
+                                <Link
+                                    href="/tentang-kami"
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 transition shadow-sm uppercase tracking-wider"
+                                >
+                                    Profil Perusahaan &amp; Sejarah &rarr;
+                                </Link>
+                                <Link
+                                    href="/lokasi-dealer"
+                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 transition uppercase tracking-wider"
+                                >
+                                    Cari Cabang Terdekat &rarr;
+                                </Link>
+                            </div>
+                        </div>
+
+                        {/* Operational Area Coverage Box */}
+                        <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 to-blue-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
+                            <div className="border-b border-blue-900/60 pb-3">
+                                <span className="text-xs font-bold text-red-400 uppercase tracking-widest block">Wilayah Jangkauan Layanan</span>
+                                <h3 className="text-xl font-bold text-white mt-1">Cakupan Cabang Riau &amp; Sumatera Utara</h3>
+                            </div>
+                            <p className="text-xs text-blue-200 leading-relaxed">
+                                Jaringan dealer &amp; bengkel resmi Aspacindo Kedaton Motor tersebar strategis di berbagai kabupaten dan kota:
+                            </p>
+                            <div className="space-y-3">
+                                {serviceAreas.map((area, idx) => (
+                                    <div key={idx} className="p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition">
+                                        <div className="flex items-center justify-between">
+                                            <span className="font-bold text-sm text-amber-300">{area.city}</span>
+                                            <span className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded-md bg-blue-600/60 text-white">
+                                                {area.tag}
+                                            </span>
+                                        </div>
+                                        <p className="text-xs text-slate-300 mt-1">{area.coverage}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="pt-2">
+                                <Link
+                                    href="/lokasi-dealer"
+                                    className="block text-center w-full py-2.5 rounded-xl text-xs font-bold text-slate-900 bg-white hover:bg-slate-100 transition"
+                                >
+                                    Buka Peta &amp; Kontak Cabang Lengkap &rarr;
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* BRANCH NETWORK (CABANG) HIGHLIGHT SECTION */}
+            <section className="py-16 bg-slate-50 border-t border-slate-200">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+                        <div className="space-y-2">
+                            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Jaringan Dealer &amp; Bengkel</span>
+                            <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Cabang Resmi Yamaha Aspacindo</h2>
+                            <p className="text-sm text-slate-500 max-w-xl">
+                                Kunjungi cabang resmi kami untuk konsultasi pembelian unit baru, pengajuan kredit motor, maupun perawatan berkala sepeda motor Yamaha Anda.
+                            </p>
+                        </div>
+                        <Link
+                            href="/lokasi-dealer"
+                            style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                            className="text-white font-bold text-xs px-6 py-3 rounded-full uppercase tracking-wider shadow-md hover:brightness-110 transition whitespace-nowrap"
+                        >
+                            Seluruh Cabang (20+) &rarr;
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {displayBranches.map((branch, index) => (
+                            <div
+                                key={index}
+                                className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between space-y-4"
+                            >
+                                <div className="space-y-3">
+                                    <div className="flex items-center justify-between">
+                                        <span className="bg-blue-50 text-blue-700 text-[11px] font-black px-3 py-1 rounded-full uppercase">
+                                            {branch.region}
+                                        </span>
+                                        <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                                            {branch.dealer_type || '3S'} Dealer
+                                        </span>
+                                    </div>
+                                    <h3 className="text-base font-bold text-slate-900 leading-snug">{branch.name}</h3>
+                                    <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">
+                                        {branch.full_address}
+                                    </p>
+                                </div>
+
+                                <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                                    <a
+                                        href={`https://wa.me/${(branch.whatsapp_number || '081262241100').replace(/[^0-9]/g, '')}?text=Halo%20Yamaha%20Aspacindo,%20saya%20ingin%20info%20motor%20dan%20servis`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1.5"
+                                    >
+                                        <span>💬</span> Hubungi Cabang
+                                    </a>
+                                    {branch.google_maps_url ? (
+                                        <a
+                                            href={branch.google_maps_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-xs font-semibold text-blue-600 hover:underline"
+                                        >
+                                            Petunjuk Arah &rarr;
+                                        </a>
+                                    ) : (
+                                        <Link href="/lokasi-dealer" className="text-xs font-semibold text-blue-600 hover:underline">
+                                            Detail Cabang &rarr;
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* SERVICES & WORKSHOP (LAYANAN & SPAREPART) */}
+            <section className="py-16 bg-white border-t border-slate-200">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                    <div className="text-center max-w-3xl mx-auto space-y-3">
+                        <span className="text-xs font-bold text-red-600 uppercase tracking-widest">Layanan Purna Jual &amp; Bengkel Resmi</span>
+                        <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Perawatan Motor Berkala &amp; Sparepart Asli Yamaha</h2>
+                        <p className="text-sm text-slate-500">
+                            Bengkel resmi Yamaha Aspacindo didukung mekanik terlatih sertifikasi Yamaha Motor Indonesia, peralatan diagnosa injeksi modern (YDT), serta garansi suku cadang original Yamalube.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-blue-500 hover:shadow-md transition space-y-3">
+                            <div className="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xl">
+                                📅
+                            </div>
+                            <h3 className="text-base font-bold text-slate-900">Booking Service Online</h3>
+                            <p className="text-xs text-slate-500 leading-relaxed">
+                                Pesan antrean servis motor Anda secara online dari rumah tanpa perlu menunggu berjam-jam di bengkel.
+                            </p>
+                            <Link href="/layanan#booking" className="inline-block text-xs font-bold text-blue-600 hover:underline pt-2">
+                                Booking Servis &rarr;
+                            </Link>
+                        </div>
+
+                        <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-amber-500 hover:shadow-md transition space-y-3">
+                            <div className="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xl">
+                                🛵
+                            </div>
+                            <h3 className="text-base font-bold text-slate-900">Service Kunjung Yamaha (SKY)</h3>
+                            <p className="text-xs text-slate-500 leading-relaxed">
+                                Motor mogok atau tidak sempat ke bengkel? Teknisi berpengalaman kami siap datang ke rumah atau kantor Anda.
+                            </p>
+                            <Link href="/layanan" className="inline-block text-xs font-bold text-amber-600 hover:underline pt-2">
+                                Info Layanan SKY &rarr;
+                            </Link>
+                        </div>
+
+                        <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-emerald-500 hover:shadow-md transition space-y-3">
+                            <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xl">
+                                ⚡
+                            </div>
+                            <h3 className="text-base font-bold text-slate-900">Fast Pit Service</h3>
+                            <p className="text-xs text-slate-500 leading-relaxed">
+                                Layanan cepat khusus penggantian oli mesin Yamalube, oli gardan, kampas rem, busi, dan ban tanpa antre.
+                            </p>
+                            <Link href="/layanan" className="inline-block text-xs font-bold text-emerald-600 hover:underline pt-2">
+                                Pelajari Fast Pit &rarr;
+                            </Link>
+                        </div>
+
+                        <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/70 hover:border-red-500 hover:shadow-md transition space-y-3">
+                            <div className="w-12 h-12 rounded-xl bg-red-100 text-red-700 flex items-center justify-center font-bold text-xl">
+                                🛡️
+                            </div>
+                            <h3 className="text-base font-bold text-slate-900">Suku Cadang Asli &amp; Yamalube</h3>
+                            <p className="text-xs text-slate-500 leading-relaxed">
+                                Jaminan 100% Genuine Parts bergaransi resmi pabrik Yamaha untuk menjaga keawetan dan performa mesin sepeda motor.
+                            </p>
+                            <Link href="/sparepart" className="inline-block text-xs font-bold text-red-600 hover:underline pt-2">
+                                Katalog Sparepart &rarr;
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* WHY CHOOSE US */}
+            <section className="py-16 bg-slate-50 border-t border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                     <div className="text-center max-w-2xl mx-auto space-y-2">
                         <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Keunggulan Aspacindo</span>
@@ -332,14 +668,145 @@ export default function Home({
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {whyChooseUs.map((item, index) => (
-                            <div key={index} className="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-4 hover:shadow-md transition">
-                                <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center border border-slate-100">
+                            <div key={index} className="p-6 rounded-2xl bg-white border border-slate-200/70 space-y-4 hover:shadow-md transition">
+                                <div className="w-14 h-14 rounded-2xl bg-slate-50 shadow-sm flex items-center justify-center border border-slate-100">
                                     {item.icon}
                                 </div>
                                 <h3 className="text-lg font-bold text-slate-900">{item.title}</h3>
                                 <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
                             </div>
                         ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* LATEST ARTICLES & TIPS (ARTIKEL) */}
+            <section className="py-16 bg-white border-t border-slate-200">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-slate-100 pb-4">
+                        <div>
+                            <span className="text-xs font-bold text-red-600 uppercase tracking-widest">Edukasi &amp; Info Terkini</span>
+                            <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Artikel &amp; Tips Sepeda Motor Yamaha</h2>
+                        </div>
+                        <Link
+                            href="/artikel"
+                            className="text-xs font-bold text-blue-600 hover:text-blue-800 transition uppercase tracking-wider"
+                        >
+                            Lihat Semua Artikel &rarr;
+                        </Link>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {displayArticles.map((article) => (
+                            <div
+                                key={article.id}
+                                className="bg-slate-50 rounded-2xl border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col justify-between"
+                            >
+                                <div>
+                                    <div className="relative aspect-[16/9] overflow-hidden bg-slate-900">
+                                        <LazyImage
+                                            src={article.thumbnail || '/assets/images/promos/hero_banner_yamaha.webp'}
+                                            alt={article.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <span className="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                                            {article.category || 'Yamaha'}
+                                        </span>
+                                    </div>
+                                    <div className="p-5 space-y-2">
+                                        <h3 className="text-base font-bold text-slate-900 line-clamp-2 hover:text-blue-600 transition">
+                                            <Link href={`/artikel/${article.slug}`}>{article.title}</Link>
+                                        </h3>
+                                        <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                                            {article.excerpt}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="p-5 pt-0 flex items-center justify-between border-t border-slate-100 text-xs text-slate-400">
+                                    <span>{article.author || 'Admin Aspacindo'}</span>
+                                    <Link href={`/artikel/${article.slug}`} className="font-bold text-blue-600 hover:underline">
+                                        Baca Selengkapnya &rarr;
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* QUICK NAVIGATION DIRECTORY / GOOGLE SITELINKS ACCELERATOR SECTION */}
+            <section className="py-14 bg-slate-900 text-white border-t border-slate-800">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+                    <div className="text-center max-w-2xl mx-auto space-y-2">
+                        <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">Navigasi Utama Situs Baru</span>
+                        <h2 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-white">
+                            Pusat Navigasi Aspacindo Kedaton Motor
+                        </h2>
+                        <p className="text-xs text-slate-400">
+                            Akses langsung informasi perusahaan, daftar cabang dealer resmi, katalog sepeda motor baru, dan layanan servis bengkel.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <Link
+                            href="/tentang-kami"
+                            className="p-5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-blue-500 hover:bg-slate-800/60 transition group flex flex-col justify-between space-y-3"
+                        >
+                            <div>
+                                <span className="text-2xl block mb-2">🏢</span>
+                                <h3 className="text-sm font-bold text-white group-hover:text-blue-400 transition">Tentang Kami</h3>
+                                <p className="text-xs text-slate-400 mt-1">Profil PT. Aspacindo Kedaton Motor, visi misi &amp; sejarah dealer resmi.</p>
+                            </div>
+                            <span className="text-xs font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">Kunjungi Halaman &rarr;</span>
+                        </Link>
+
+                        <Link
+                            href="/lokasi-dealer"
+                            className="p-5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-amber-500 hover:bg-slate-800/60 transition group flex flex-col justify-between space-y-3"
+                        >
+                            <div>
+                                <span className="text-2xl block mb-2">📍</span>
+                                <h3 className="text-sm font-bold text-white group-hover:text-amber-400 transition">Cabang Dealer</h3>
+                                <p className="text-xs text-slate-400 mt-1">Daftar 20+ alamat cabang &amp; nomor kontak di Riau &amp; Sumatera Utara.</p>
+                            </div>
+                            <span className="text-xs font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">Kunjungi Halaman &rarr;</span>
+                        </Link>
+
+                        <Link
+                            href="/produk"
+                            className="p-5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-blue-500 hover:bg-slate-800/60 transition group flex flex-col justify-between space-y-3"
+                        >
+                            <div>
+                                <span className="text-2xl block mb-2">🏍️</span>
+                                <h3 className="text-sm font-bold text-white group-hover:text-blue-400 transition">Katalog Produk</h3>
+                                <p className="text-xs text-slate-400 mt-1">Pilihan motor Yamaha MAXi, Classy, Matic, Sport, Moped harga OTR.</p>
+                            </div>
+                            <span className="text-xs font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">Kunjungi Halaman &rarr;</span>
+                        </Link>
+
+                        <Link
+                            href="/layanan"
+                            className="p-5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-red-500 hover:bg-slate-800/60 transition group flex flex-col justify-between space-y-3"
+                        >
+                            <div>
+                                <span className="text-2xl block mb-2">🔧</span>
+                                <h3 className="text-sm font-bold text-white group-hover:text-red-400 transition">Layanan Bengkel</h3>
+                                <p className="text-xs text-slate-400 mt-1">Booking servis berkala, Fast Pit, Service Kunjung (SKY) &amp; sparepart.</p>
+                            </div>
+                            <span className="text-xs font-semibold text-red-400 group-hover:translate-x-1 transition-transform">Kunjungi Halaman &rarr;</span>
+                        </Link>
+
+                        <Link
+                            href="/artikel"
+                            className="p-5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-emerald-500 hover:bg-slate-800/60 transition group flex flex-col justify-between space-y-3"
+                        >
+                            <div>
+                                <span className="text-2xl block mb-2">📰</span>
+                                <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition">Artikel &amp; Berita</h3>
+                                <p className="text-xs text-slate-400 mt-1">Tips berkendara, panduan perawatan motor, dan promo spesial Yamaha.</p>
+                            </div>
+                            <span className="text-xs font-semibold text-emerald-400 group-hover:translate-x-1 transition-transform">Kunjungi Halaman &rarr;</span>
+                        </Link>
                     </div>
                 </div>
             </section>

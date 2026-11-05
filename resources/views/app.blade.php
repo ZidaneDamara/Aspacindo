@@ -4,7 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title inertia>{{ config('app.name', 'Aspacindo Kedaton Motor') }}</title>
+        <title inertia>{{ config('app.name', 'Dealer Resmi Yamaha | Aspacindo Kedaton Motor') }}</title>
+
+        <!-- Base SEO & Indexing Directives (No noindex, allow indexing) -->
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+        <meta name="author" content="PT. Aspacindo Kedaton Motor">
+        <meta name="geo.region" content="ID-RI">
+        <meta name="geo.placename" content="Pekanbaru, Riau, Indonesia">
 
         <!-- Favicon -->
         <link rel="icon" type="image/png" href="/favicon.png">

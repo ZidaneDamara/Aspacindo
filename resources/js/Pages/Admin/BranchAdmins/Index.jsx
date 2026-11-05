@@ -316,7 +316,7 @@ export default function BranchAdminsIndex({ admins = [], branches = [] }) {
                                     <label className="text-xs font-bold text-slate-700 uppercase">Nomor Telepon / WhatsApp</label>
                                     <input
                                         type="text"
-                                        placeholder="081270001111"
+                                        placeholder="081262241100"
                                         value={data.phone_number}
                                         onChange={(e) => setData('phone_number', e.target.value)}
                                         className="w-full text-xs border-slate-200 rounded-xl p-3 focus:ring-blue-500"

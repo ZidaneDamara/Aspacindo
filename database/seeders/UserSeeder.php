@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
                 'branch_slug' => 'aspacindo-kedaton-motor-riau-1-pekanbaru',
                 'name' => 'Admin Aspacindo Pekanbaru',
                 'email' => 'admin.pekanbaru@aspacindo.com',
-                'phone' => '081270001111',
+                'phone' => '081262241100',
             ],
             [
                 'region' => 'Pelalawan',

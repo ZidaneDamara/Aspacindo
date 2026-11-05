@@ -20,6 +20,7 @@ class Branch extends Model
         'longitude',
         'google_maps_url',
         'operating_hours',
+        'social_media',
         'whatsapp_number',
         'dealer_type',
         'has_service_center',
@@ -30,6 +31,7 @@ class Branch extends Model
     {
         return [
             'operating_hours' => 'array',
+            'social_media' => 'array',
             'latitude' => 'float',
             'longitude' => 'float',
             'has_service_center' => 'boolean',

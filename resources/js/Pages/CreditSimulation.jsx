@@ -632,7 +632,7 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
 
                         <div className="space-y-3 pt-2">
                             <a
-                                href={`https://wa.me/6281270001111?text=${encodeURIComponent(buildWhatsAppMessage())}`}
+                                href={`https://wa.me/6281262241100?text=${encodeURIComponent(buildWhatsAppMessage())}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-4 rounded-2xl shadow-lg hover:shadow-emerald-500/20 transition text-sm uppercase tracking-wider"

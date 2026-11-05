@@ -29,7 +29,7 @@ export default function Show({ promotion }) {
                     </p>
 
                     <a
-                        href={`https://wa.me/6281270001111?text=${encodeURIComponent(`Halo Yamaha Aspacindo, saya ingin klaim promo "${promotion.title}". Mohon bantuan informasinya.`)}`}
+                        href={`https://wa.me/6281262241100?text=${encodeURIComponent(`Halo Yamaha Aspacindo, saya ingin klaim promo "${promotion.title}". Mohon bantuan informasinya.`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-4 rounded-2xl shadow-lg transition text-sm uppercase tracking-wider"

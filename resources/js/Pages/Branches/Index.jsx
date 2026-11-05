@@ -8,7 +8,10 @@ export default function Index({ branches = [], regions = [], selectedRegion = 'S
     };
 
     return (
-        <PublicLayout title="Lokasi Dealer & Bengkel Resmi Yamaha Riau & Sumut">
+        <PublicLayout
+            title="Lokasi Dealer & Bengkel Resmi Yamaha Riau & Sumut"
+            description="Daftar 20+ alamat cabang dealer dan bengkel resmi Yamaha PT. Aspacindo Kedaton Motor di Pekanbaru, Pelalawan, Siak, Kampar, Inhu, Inhil, dan Medan."
+        >
             <div className="bg-slate-900 text-white py-12 border-b border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <span className="text-xs font-bold text-red-500 uppercase tracking-widest block">Jaringan Dealer</span>
@@ -72,18 +75,65 @@ export default function Index({ branches = [], regions = [], selectedRegion = 'S
                                         ))}
                                     </div>
                                 )}
+
+                                {/* Social Media Links */}
+                                {branch.social_media && (branch.social_media.instagram || branch.social_media.facebook || branch.social_media.tiktok) && (
+                                    <div className="pt-2">
+                                        <span className="font-bold text-slate-700 text-[10px] uppercase block tracking-wider mb-1.5">
+                                            Media Sosial
+                                        </span>
+                                        <div className="flex flex-wrap gap-2">
+                                            {branch.social_media.instagram && (
+                                                <a
+                                                    href={branch.social_media.instagram.startsWith('http') ? branch.social_media.instagram : `https://${branch.social_media.instagram}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-gradient-to-r from-purple-500 via-pink-500 to-amber-500 text-white shadow-sm hover:opacity-90 transition"
+                                                >
+                                                    <span>📷</span> Instagram
+                                                </a>
+                                            )}
+                                            {branch.social_media.facebook && (
+                                                <a
+                                                    href={branch.social_media.facebook.startsWith('http') ? branch.social_media.facebook : `https://${branch.social_media.facebook}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-[#1877F2] text-white shadow-sm hover:opacity-90 transition"
+                                                >
+                                                    <span>👥</span> Facebook
+                                                </a>
+                                            )}
+                                            {branch.social_media.tiktok && (
+                                                <a
+                                                    href={branch.social_media.tiktok.startsWith('http') ? branch.social_media.tiktok : `https://${branch.social_media.tiktok}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-slate-900 text-white shadow-sm hover:bg-black transition"
+                                                >
+                                                    <span>🎵</span> TikTok
+                                                </a>
+                                            )}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Contact & Map Links */}
                             <div className="space-y-2 pt-2 border-t border-slate-100">
-                                <a
-                                    href={`https://wa.me/${branch.whatsapp_number}?text=${encodeURIComponent(`Halo ${branch.name}, saya ingin menanyakan ketersediaan unit / promo motor Yamaha.`)}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider shadow-sm"
-                                >
-                                    Hubungi WhatsApp Dealer
-                                </a>
+                                {branch.whatsapp_number && (
+                                    <a
+                                        href={
+                                            branch.whatsapp_number.startsWith('http')
+                                                ? branch.whatsapp_number
+                                                : `https://wa.me/${branch.whatsapp_number.replace(/\D/g, '')}?text=${encodeURIComponent(`Halo ${branch.name}, saya ingin menanyakan ketersediaan unit / promo motor Yamaha.`)}`
+                                        }
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition text-xs uppercase tracking-wider shadow-sm"
+                                    >
+                                        Hubungi WhatsApp Dealer
+                                    </a>
+                                )}
                                 {branch.google_maps_url && (
                                     <a
                                         href={branch.google_maps_url}

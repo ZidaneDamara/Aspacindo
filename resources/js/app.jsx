@@ -5,10 +5,15 @@ import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Aspacindo Kedaton Motor';
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => {
+        const defaultTitle = 'Dealer Resmi Yamaha | Aspacindo Kedaton Motor';
+        if (!title) return defaultTitle;
+        if (title.includes('Aspacindo')) return title;
+        return `${title} | Aspacindo Kedaton Motor`;
+    },
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.jsx`,

@@ -70,6 +70,12 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
+        $branchesSummary = Branch::active()
+            ->select(['id', 'name', 'slug', 'region', 'full_address', 'dealer_type', 'whatsapp_number', 'google_maps_url'])
+            ->orderByRaw("CASE WHEN region = 'Pekanbaru' THEN 0 ELSE 1 END")
+            ->take(6)
+            ->get();
+
         $stats = [
             'years_operating' => Setting::get('stat_years_operating', '15+'),
             'branches_count' => Setting::get('stat_branches_count', '20+'),
@@ -86,6 +92,7 @@ class HomeController extends Controller
             'latestArticles' => $latestArticles,
             'activePromotions' => $activePromotions,
             'featuredTestimonials' => $featuredTestimonials,
+            'branchesSummary' => $branchesSummary,
             'stats' => $stats,
         ]);
     }

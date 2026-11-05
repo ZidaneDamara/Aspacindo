@@ -12,7 +12,10 @@ export default function About({ stats = {}, totalBranches = 20 }) {
     ];
 
     return (
-        <PublicLayout title="PT. Aspacindo Kedaton Motor - Tentang Kami">
+        <PublicLayout
+            title="PT. Aspacindo Kedaton Motor - Tentang Kami"
+            description="Profil resmi PT. Aspacindo Kedaton Motor, dealer resmi sepeda motor Yamaha sejak 1996 di Riau & Sumatera Utara. Melayani penjualan motor baru, bengkel servis berkala, dan suku cadang asli Yamalube."
+        >
             {/* PAGE HERO HEADER */}
             <div className="relative bg-slate-950 text-white py-20 border-b border-slate-800 overflow-hidden">
                 <div className="absolute inset-0 opacity-25">
@@ -46,10 +49,10 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                             </h2>
                             <div className="space-y-4 text-slate-600 text-sm leading-relaxed">
                                 <p>
-                                    PT. Aspacindo Kedaton Motor merupakan perusahaan yang bergerak di bidang penjualan sepeda motor merek YAMAHA, Sales, Sparepart dan Bengkel. Perusahaan berdiri pada 14 Desember 1996, berawal dari toko ruko dengan Dealer Yamaha Biasa. Seiring perkembangan dan peningkatan jualan, PT. Aspacindo Kedaton Motor berkembang dan membuka Yamaha 3S di beberapa cabang (Pekanbaru, Air Molek, Kerinci, Perawang dan Ujung Batu).
+                                    PT. Aspacindo Kedaton Motor merupakan perusahaan yang bergerak di bidang penjualan sepeda motor merek YAMAHA, Sales, Sparepart dan Bengkel. Perusahaan berdiri pada 19 Desember 1996, berawal dari toko ruko dengan Dealer Yamaha Biasa. Seiring perkembangan dan peningkatan jualan, PT. Aspacindo Kedaton Motor berkembang dan membuka Yamaha 3S di beberapa cabang (Pekanbaru, Air Molek, Kerinci, Perawang dan Sorek).
                                 </p>
                                 <p>
-                                    Pada tahun 1999 PT. Aspacindo Kedaton Motor dipimpin oleh Ibu Meisin Yunita Sari Dewi selaku Direktur dan Bapak Suparman C.Z., S.E., M.M. selaku Area Marketing Manager yang mana pengembangannya membuka beberapa cabang yaitu di Duri, Selatpanjang, Siak, Perawang, Ujung Batu, Dumai dan Bukittinggi. Pada tanggal 02 Januari 2012 PT. Aspacindo Kedaton Motor telah memiliki cabang di Riau dan Sumatera Utara.
+                                    Pada Tahun 2010 PT Aspacindo Kedaton Motor yang di Pimpin oleh Ibu Desi Yustra Sari Dewi selaku Direktur dan Bapak Suparman S.E., S.H., M.M selaku Area Manager. Perkembangan yang sangat pesat ini berhasil membuka beberapa cabang yaitu di Daerah Sorek, Kerinci, Sip. Beringin, Medan Johar Sungai Pagar, Bangkinang, Garuda Sakti dan Kubang. Tepat pada bulan Januari 2013 PT Aspacindo Kedaton Motor pindah dan membuka cabang di Jl. Riau Ujung No. 88 A-E sebagai kantor Pusat.
                                 </p>
                             </div>
                         </div>
@@ -270,60 +273,165 @@ export default function About({ stats = {}, totalBranches = 20 }) {
             </section>
 
             {/* STRUKTUR ORGANISASI SECTION */}
-            <section className="py-16 bg-slate-50 border-t border-slate-100">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-                    <div className="text-center max-w-xl mx-auto space-y-2">
+            <section className="py-16 bg-slate-50 border-t border-slate-200">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                    <div className="text-center max-w-2xl mx-auto space-y-2">
+                        <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Manajemen &amp; Kepemimpinan</span>
                         <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight uppercase">
                             <span className="text-blue-700 italic">STRUKTUR</span> PT. ASPACINDO KEDATON MOTOR
                         </h2>
+                        <p className="text-xs sm:text-sm text-slate-500">
+                            Struktur organisasi profesional yang menghubungkan kepemimpinan pusat, pengembangan operasional (Head Office), dan seluruh jajaran manajer cabang resmi.
+                        </p>
                     </div>
 
                     {/* Hierarchy Chart Tree */}
-                    <div className="flex flex-col items-center space-y-6">
-                        {/* Top: Direktur Utama */}
+                    <div className="flex flex-col items-center">
+                        {/* Level 1: Direktur Utama */}
                         <div
                             style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                            className="w-64 py-4 px-6 rounded-2xl text-white text-center shadow-lg space-y-1"
+                            className="w-64 py-4 px-6 rounded-2xl text-white text-center shadow-lg space-y-1 border border-blue-400/20"
                         >
-                            <h4 className="text-base font-bold uppercase">Husin</h4>
+                            <h4 className="text-base font-bold uppercase tracking-wide">Husin</h4>
                             <p className="text-xs text-blue-200 font-medium">Direktur Utama</p>
                         </div>
 
                         {/* Vertical Connector Line */}
                         <div className="w-0.5 h-8 bg-blue-700"></div>
 
-                        {/* Level 2: Direktur Operasional */}
+                        {/* Level 2: Direktur */}
                         <div
                             style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                            className="w-72 py-4 px-6 rounded-2xl text-white text-center shadow-lg space-y-1"
+                            className="w-72 py-4 px-6 rounded-2xl text-white text-center shadow-lg space-y-1 border border-blue-400/20"
                         >
-                            <h4 className="text-base font-bold uppercase">Desi Yustina Sari Dewi</h4>
-                            <p className="text-xs text-blue-200 font-medium">Direktur Operasional</p>
+                            <h4 className="text-base font-bold uppercase tracking-wide">Desi Yustra Sari Dewi</h4>
+                            <p className="text-xs text-blue-200 font-medium">Direktur</p>
                         </div>
 
                         {/* Vertical Connector Line */}
                         <div className="w-0.5 h-8 bg-blue-700"></div>
 
-                        {/* Level 3: Area Marketing Manager */}
-                        <div
-                            style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                            className="w-72 py-4 px-6 rounded-2xl text-white text-center shadow-lg space-y-1"
-                        >
-                            <h4 className="text-base font-bold uppercase">Suparman</h4>
-                            <p className="text-xs text-blue-200 font-medium">Area Marketing Manager</p>
-                        </div>
-
-                        {/* Horizontal & Vertical Connector to Auditor */}
-                        <div className="flex flex-col items-end w-full max-w-md">
-                            <div className="w-1/2 h-0.5 bg-blue-700"></div>
-                            <div className="w-0.5 h-6 bg-blue-700 mr-0"></div>
-                            {/* Auditor Box */}
+                        {/* Level 3: Area Manager & Auditor */}
+                        <div className="relative flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 w-full max-w-2xl">
+                            {/* Area Manager */}
                             <div
                                 style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                                className="w-64 py-3.5 px-6 rounded-2xl text-white text-center shadow-md space-y-0.5 mt-1"
+                                className="w-80 py-4 px-6 rounded-2xl text-white text-center shadow-lg space-y-1 border border-blue-400/20 z-10"
                             >
-                                <h4 className="text-sm font-bold uppercase">Alboin Efendy Sitompul</h4>
+                                <h4 className="text-base font-bold uppercase tracking-wide">Suparman, S.E., S.H., M.M.</h4>
+                                <p className="text-xs text-blue-200 font-medium">Area Manager</p>
+                            </div>
+
+                            {/* Horizontal staff connector line */}
+                            <div className="hidden sm:block absolute right-16 top-1/2 -translate-y-1/2 w-28 h-0.5 bg-blue-700 -z-0"></div>
+
+                            {/* Auditor (Staff Box) */}
+                            <div
+                                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                                className="w-64 py-4 px-5 rounded-2xl text-white text-center shadow-lg space-y-1 border border-blue-400/20 z-10"
+                            >
+                                <h4 className="text-base font-bold uppercase tracking-wide">Alboin Efendy Sitompul</h4>
                                 <p className="text-xs text-blue-200 font-medium">Auditor</p>
+                            </div>
+                        </div>
+
+                        {/* Vertical Connector Line from Area Manager */}
+                        <div className="w-0.5 h-10 bg-blue-700"></div>
+
+                        {/* Horizontal Split Line for BM & Head Office */}
+                        <div className="hidden md:block w-full max-w-4xl h-0.5 bg-blue-700"></div>
+
+                        {/* Vertical Drops to Both Wings */}
+                        <div className="hidden md:flex justify-between w-full max-w-4xl px-24">
+                            <div className="w-0.5 h-6 bg-blue-700"></div>
+                            <div className="w-0.5 h-6 bg-blue-700"></div>
+                        </div>
+
+                        {/* PARALLEL WINGS: BM ALL CABANG & HEAD OFFICE */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 w-full mt-4">
+                            {/* WING 1: BRANCH MANAGER*/}
+                            <div className="space-y-3.5 flex flex-col items-center">
+                                {/* Wing Header */}
+                                <div
+                                    style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 100%)' }}
+                                    className="w-full py-4 px-6 rounded-2xl text-white text-center shadow-sm border border-blue-900"
+                                >
+                                    <h3 className="text-base font-bold uppercase text-white tracking-wider">
+                                        Branch Manager (BM)
+                                    </h3>
+                                </div>
+
+                                {/* List of Branch Managers */}
+                                <div className="w-full space-y-2.5">
+                                    {[
+                                        { branch: 'Pekanbaru', name: 'Muss Ajief', role: 'Branch Manager' },
+                                        { branch: 'Sorek', name: 'Hendra Irawan', role: 'Branch Manager' },
+                                        { branch: 'Kandis', name: 'Fikri', role: 'Branch Manager' },
+                                        { branch: 'Air Molek', name: 'Adhi Yan Saputra', role: 'Branch Manager' },
+                                        { branch: 'Kandis', name: 'Ade Kurniawan', role: 'Branch Manager' },
+                                        { branch: 'Medan', name: 'Tata Suprata', role: 'Branch Manager' },
+                                        { branch: 'Tembilahan', name: 'Haidul Hendra', role: 'Branch Manager' },
+                                    ].map((bm, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="bg-white rounded-xl border border-slate-200/90 border-l-4 border-l-blue-700 p-4 shadow-2xs hover:shadow-sm hover:border-slate-300 transition flex items-center justify-between gap-4"
+                                        >
+                                            <div>
+                                                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 block">
+                                                    {bm.branch}
+                                                </span>
+                                                <h4 className="text-sm font-bold text-slate-900 tracking-tight mt-0.5">
+                                                    {bm.name}
+                                                </h4>
+                                            </div>
+                                            <span className="text-xs font-medium text-slate-600 bg-slate-50 px-3 py-1 rounded-lg border border-slate-200 whitespace-nowrap">
+                                                {bm.role}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* WING 2: HEAD OFFICE (AREA DEVELOPMENT) - SEJAJAR DENGAN BM */}
+                            <div className="space-y-3.5 flex flex-col items-center">
+                                {/* Wing Header */}
+                                <div
+                                    style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 100%)' }}
+                                    className="w-full py-4 px-6 rounded-2xl text-white text-center shadow-sm border border-blue-900"
+                                >
+                                    <h3 className="text-base font-bold uppercase text-white tracking-wider">
+                                        Head Office
+                                    </h3>
+                                </div>
+
+                                {/* List of Head Office Developments */}
+                                <div className="w-full space-y-2.5">
+                                    {[
+                                        { role: 'Area Part Development', name: 'Muhammad Rizqi Jovy' },
+                                        { role: 'Area Service Development', name: 'Angga Harsi Hanggara' },
+                                        { role: 'Area Marketing Development', name: '-' },
+                                        { role: 'Area Digital Marketing', name: 'Muhammad Zidane Damara' },
+                                        { role: 'Area Sosial Media', name: 'Amalia Poetri' },
+                                        { role: 'Area Corporate Development', name: 'Adinda Salsabila' },
+                                    ].map((ho, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="bg-white rounded-xl border border-slate-200/90 border-l-4 border-l-slate-700 p-4 shadow-2xs hover:shadow-sm hover:border-slate-300 transition flex items-center justify-between gap-4"
+                                        >
+                                            <div>
+                                                <h4 className="text-sm font-bold text-slate-900 tracking-tight mt-0.5">
+                                                    {ho.role}
+                                                </h4>
+                                            </div>
+                                            <span className={`text-xs font-semibold px-3 py-1 rounded-lg border whitespace-nowrap ${ho.name === '-'
+                                                ? 'bg-slate-50 text-slate-400 border-slate-200'
+                                                : 'bg-slate-50 text-slate-800 border-slate-200'
+                                                }`}>
+                                                {ho.name}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -41,6 +41,8 @@ class HandleInertiaRequests extends Middleware
                 'isSuperAdmin' => $user ? $user->isSuperAdmin() : false,
                 'isBranchAdmin' => $user ? $user->isBranchAdmin() : false,
             ],
+            'canonicalUrl' => $request->url(),
+            'siteUrl' => config('app.url') ?: $request->getSchemeAndHttpHost(),
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),

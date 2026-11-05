@@ -61,6 +61,16 @@ Route::get('/bengkel-resmi-yamaha-aspacindo', [ServiceController::class, 'index'
 
 Route::get('/lokasi-dealer', BranchController::class)->name('branches.index');
 
+// 301 Permanent Redirects for SEO, Legacy URLs & Google Sitelinks
+Route::redirect('/cabang', '/lokasi-dealer', 301);
+Route::redirect('/dealer', '/lokasi-dealer', 301);
+Route::redirect('/lokasi', '/lokasi-dealer', 301);
+Route::redirect('/motor', '/produk', 301);
+Route::redirect('/tentang', '/tentang-kami', 301);
+Route::redirect('/berita', '/artikel', 301);
+Route::redirect('/service', '/layanan', 301);
+Route::redirect('/hubungi-kami', '/tentang-kami', 301);
+
 Route::get('/tentang-kami', [CompanyController::class, 'about'])->name('about');
 Route::get('/galeri-aktifitas', [CompanyController::class, 'gallery'])->name('gallery');
 

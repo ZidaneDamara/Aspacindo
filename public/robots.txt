@@ -3,4 +3,6 @@ Allow: /
 Disallow: /admin/
 Disallow: /loyalty/dashboard/
 Disallow: /loyalty/complete-profile
-Sitemap: http://localhost/sitemap.xml
+
+Sitemap: https://aspacindo.com/sitemap.xml
+Sitemap: /sitemap.xml
