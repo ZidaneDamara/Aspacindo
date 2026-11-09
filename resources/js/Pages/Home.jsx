@@ -63,6 +63,14 @@ export default function Home({
             subtitle: 'Live The Legend – Naked Sport 150cc Deltabox dengan Assist & Slipper Clutch',
             link: '/produk/yamaha-all-new-vixion',
         },
+        {
+            id: 'xsr-155',
+            image: '/assets/images/promos/xsr-155-hero-banner.jpg',
+            alt: 'Yamaha All New XSR 155 - Born To Be Free',
+            title: 'Yamaha All New XSR 155',
+            subtitle: 'Born To Be Free – Sport Heritage Bergaya Neo-Retro dengan Mesin 155cc VVA',
+            link: '/produk/yamaha-all-new-xsr-155',
+        },
         ...(activePromotions.length > 0
             ? activePromotions.map((p) => ({
                   id: `promo-${p.id}`,

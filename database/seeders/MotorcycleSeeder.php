@@ -961,9 +961,11 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Metallic Silver', 'hex_code' => '#94A3B8'],
-                    ['color_name' => 'Matte Black Elegance', 'hex_code' => '#18181B'],
+                    ['color_name' => 'Matte Silver Premium', 'hex_code' => '#c8c8cc', 'image_path' => '/assets/images/motorcycles/xsr-155-matte-silver-premium.png'],
+                    ['color_name' => 'Metallic Black Elegance', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/xsr-155-metallic-black-elegance.png'],
+                    ['color_name' => 'Metallic Brown Authentic', 'hex_code' => '#2b2324', 'image_path' => '/assets/images/motorcycles/xsr-155-metallic-brown-authentic.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/xsr-155-matte-silver-premium.png',
             ],
             [
                 'name' => 'Yamaha New XSR 155 70th Livery',
@@ -983,8 +985,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => '70th Anniversary White Red', 'hex_code' => '#FFFFFF'],
+                    ['color_name' => '70th Livery', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/xsr-155-70th-livery.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/xsr-155-70th-livery.png',
             ],
             [
                 'name' => 'Yamaha All New R15 Connected',
