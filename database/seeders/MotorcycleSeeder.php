@@ -914,9 +914,11 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Matte Black', 'hex_code' => '#111827'],
-                    ['color_name' => 'Metallic Blue', 'hex_code' => '#1E40AF'],
+                    ['color_name' => 'Matte Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/all-new-vixion-matte-black.png'],
+                    ['color_name' => 'Matte Blue', 'hex_code' => '#203f66', 'image_path' => '/assets/images/motorcycles/all-new-vixion-matte-blue.png'],
+                    ['color_name' => 'Metallic Red', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/all-new-vixion-metallic-red.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/all-new-vixion-matte-black.png',
             ],
             [
                 'name' => 'Yamaha WR 155 R',

@@ -55,6 +55,14 @@ export default function Home({
             subtitle: 'King of Street – Edisi Balap MotoGP Prima Pramac Racing',
             link: '/produk/yamaha-mx-king-150-prima-pramac',
         },
+        {
+            id: 'all-new-vixion',
+            image: '/assets/images/promos/all-new-vixion-hero-banner.jpg',
+            alt: 'Yamaha All New Vixion - Live The Legend',
+            title: 'Yamaha All New Vixion',
+            subtitle: 'Live The Legend – Naked Sport 150cc Deltabox dengan Assist & Slipper Clutch',
+            link: '/produk/yamaha-all-new-vixion',
+        },
         ...(activePromotions.length > 0
             ? activePromotions.map((p) => ({
                   id: `promo-${p.id}`,
