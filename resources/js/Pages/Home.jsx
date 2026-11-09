@@ -39,6 +39,22 @@ export default function Home({
             subtitle: 'Motor Legendaris Indonesia – Yang Lain, Semakin Ketinggalan Lagi!',
             link: '/produk/yamaha-jupiter-z1',
         },
+        {
+            id: 'wr-155-r',
+            image: '/assets/images/promos/wr-155-r-hero-banner.jpg',
+            alt: 'Yamaha WR 155 R - The Real Adventure Partner',
+            title: 'Yamaha WR 155 R',
+            subtitle: 'The Real Adventure Partner – Tangguh di Segala Medan',
+            link: '/produk/yamaha-wr-155-r',
+        },
+        {
+            id: 'mx-king-150',
+            image: '/assets/images/promos/mx-king-hero-banner.jpg',
+            alt: 'Yamaha MX King 150 - King of Street',
+            title: 'Yamaha MX King 150',
+            subtitle: 'King of Street – Edisi Balap MotoGP Prima Pramac Racing',
+            link: '/produk/yamaha-mx-king-150-prima-pramac',
+        },
         ...(activePromotions.length > 0
             ? activePromotions.map((p) => ({
                   id: `promo-${p.id}`,

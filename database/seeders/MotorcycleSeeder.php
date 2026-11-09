@@ -936,9 +936,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Yamaha Blue', 'hex_code' => '#1D4ED8'],
-                    ['color_name' => 'Yamaha Black', 'hex_code' => '#111827'],
+                    ['color_name' => 'Blue', 'hex_code' => '#000087', 'image_path' => '/assets/images/motorcycles/wr-155-r-blue.png'],
+                    ['color_name' => 'Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/wr-155-r-black.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/wr-155-r-blue.png',
             ],
             [
                 'name' => 'Yamaha All New XSR 155',
