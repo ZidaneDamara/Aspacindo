@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, router } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import MotorcycleCard from '@/Components/MotorcycleCard';
@@ -28,6 +28,45 @@ export default function Home({
 
     const [currentRegion, setCurrentRegion] = useState(selectedRegion || 'Pekanbaru');
     const [carouselIndex, setCarouselIndex] = useState(0);
+    const [heroIndex, setHeroIndex] = useState(0);
+
+    const heroBanners = [
+        {
+            id: 'jupiter-z1',
+            image: '/assets/images/promos/jupiter-z1-hero-banner.jpg',
+            alt: 'Yamaha Jupiter Z1 - Motor Legendaris Indonesia, Yang Lain Semakin Ketinggalan Lagi!',
+            title: 'Yamaha Jupiter Z1',
+            subtitle: 'Motor Legendaris Indonesia – Yang Lain, Semakin Ketinggalan Lagi!',
+            link: '/produk/yamaha-jupiter-z1',
+        },
+        ...(activePromotions.length > 0
+            ? activePromotions.map((p) => ({
+                  id: `promo-${p.id}`,
+                  image: p.banner_image || p.image_path || '/assets/images/promos/hero_banner_yamaha.webp',
+                  alt: p.title || 'Promo Yamaha Aspacindo',
+                  title: p.title,
+                  subtitle: p.subtitle || p.short_description,
+                  link: `/promo/${p.slug}`,
+              }))
+            : [
+                  {
+                      id: 'official-yamaha',
+                      image: '/assets/images/promos/hero_banner_yamaha.webp',
+                      alt: 'Yamaha Motor Indonesia - PT Aspacindo Kedaton Motor Semakin Di Depan',
+                      title: 'PT. Aspacindo Kedaton Motor',
+                      subtitle: 'Dealer Resmi Yamaha Terpercaya di Riau & Sumatera Utara',
+                      link: '/produk',
+                  },
+              ]),
+    ];
+
+    useEffect(() => {
+        if (heroBanners.length <= 1) return;
+        const interval = setInterval(() => {
+            setHeroIndex((prev) => (prev + 1) % heroBanners.length);
+        }, 6000);
+        return () => clearInterval(interval);
+    }, [heroBanners.length]);
 
     const handleRegionChange = (e) => {
         const reg = e.target.value;
@@ -235,12 +274,66 @@ export default function Home({
                 </h1>
                 <div className="w-full relative group">
                     <div className="w-full relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[24/9] overflow-hidden bg-slate-900">
-                        <LazyImage
-                            src="/assets/images/promos/hero_banner_yamaha.webp"
-                            alt="Yamaha Motor Indonesia - PT Aspacindo Kedaton Motor Semakin Di Depan"
-                            className="w-full h-full object-cover object-center"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div>
+                        {heroBanners.map((banner, idx) => (
+                            <div
+                                key={banner.id}
+                                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                                    heroIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                                }`}
+                            >
+                                <Link href={banner.link} className="block w-full h-full relative group/slide">
+                                    <LazyImage
+                                        src={banner.image}
+                                        alt={banner.alt}
+                                        className="w-full h-full object-cover object-center"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div>
+                                </Link>
+                            </div>
+                        ))}
+
+                        {/* Slider Controls (Prev / Next Buttons) */}
+                        {heroBanners.length > 1 && (
+                            <>
+                                <button
+                                    type="button"
+                                    onClick={() => setHeroIndex((prev) => (prev === 0 ? heroBanners.length - 1 : prev - 1))}
+                                    aria-label="Previous Slide"
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-slate-950/60 hover:bg-slate-950/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg border border-white/20"
+                                >
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setHeroIndex((prev) => (prev + 1) % heroBanners.length)}
+                                    aria-label="Next Slide"
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-slate-950/60 hover:bg-slate-950/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg border border-white/20"
+                                >
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+
+                                {/* Dots Navigation */}
+                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+                                    {heroBanners.map((_, dotIdx) => (
+                                        <button
+                                            key={dotIdx}
+                                            type="button"
+                                            onClick={() => setHeroIndex(dotIdx)}
+                                            aria-label={`Slide ${dotIdx + 1}`}
+                                            className={`transition-all duration-300 rounded-full ${
+                                                heroIndex === dotIdx
+                                                    ? 'w-8 h-2.5 bg-blue-500 shadow-md'
+                                                    : 'w-2.5 h-2.5 bg-white/60 hover:bg-white'
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     {/* Subtle Overlay Quick Badges Bar */}

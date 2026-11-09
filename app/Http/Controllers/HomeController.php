@@ -34,6 +34,7 @@ class HomeController extends Controller
         $featuredMotorcycles = Motorcycle::active()
             ->featured()
             ->with(['primaryImage', 'colors'])
+            ->orderByRaw("CASE WHEN slug = 'yamaha-jupiter-z1' THEN 0 ELSE 1 END")
             ->take(8)
             ->get();
 

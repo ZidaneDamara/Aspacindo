@@ -803,8 +803,8 @@ class MotorcycleSeeder extends Seeder
                 'primary_image' => '/assets/images/motorcycles/vega-force-black-yellow.png',
             ],
             [
-                'name' => 'Yamaha Jupiter Z CW FI',
-                'slug' => 'yamaha-jupiter-z-cw-fi',
+                'name' => 'Yamaha Jupiter Z1',
+                'slug' => 'yamaha-jupiter-z1',
                 'category' => 'Moped',
                 'price_otr' => 24141000,
                 'regional_prices' => [
@@ -816,13 +816,15 @@ class MotorcycleSeeder extends Seeder
                     'Indragiri Hilir' => 24700000,
                     'Medan' => 23520000,
                 ],
-                'short_description' => 'Bebek sport legendaris Yamaha dengan teknologi Fuel Injection, bodi aerodinamis tajam, dan velg casting wheel kokoh.',
-                'is_featured' => false,
+                'short_description' => 'Motor bebek sport legendaris Yamaha dengan teknologi Fuel Injection, bodi aerodinamis tajam bertenaga, dan velg casting wheel kokoh.',
+                'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Racing Blue', 'hex_code' => '#1D4ED8'],
-                    ['color_name' => 'Sporty Black Red', 'hex_code' => '#7F1D1D'],
+                    ['color_name' => 'Metallic Cyan', 'hex_code' => '#008c8c', 'image_path' => '/assets/images/motorcycles/jupiter-z1-metallic-cyan.png'],
+                    ['color_name' => 'Metallic Red', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/jupiter-z1-metallic-red.png'],
+                    ['color_name' => 'Metallic Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/jupiter-z1-metallic-black.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/jupiter-z1-metallic-cyan.png',
             ],
             [
                 'name' => 'Yamaha MX King 150',
