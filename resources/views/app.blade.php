@@ -76,7 +76,7 @@
             }
 
             /* Body dan semua teks isi web */
-            p, span:not([class*="font-play"]):not([class*="text-white"]):not(.nav-link-item), li, input, select, textarea, label, td, th {
+            p, li, input, select, textarea, label, td, th {
                 font-family: 'Noto Sans', 'NotoSans-Regular', sans-serif;
                 font-size: 14px;
                 font-weight: 400;
@@ -93,18 +93,47 @@
                 color: #ffffff;
             }
 
-            /* Navbar Top-Level Nav Links */
-            header nav > div > div > div > a,
-            header nav > div > div > div > button,
+            /* Navbar Top-Level Nav Links & Texts: Play-bold, 18px, Black by default */
+            header nav .nav-link-item,
+            header nav .nav-link-item span,
+            header nav .nav-link-text,
             .nav-play {
                 font-family: 'Play-Bold', 'Play', sans-serif !important;
                 font-size: 18px !important;
                 font-weight: 700 !important;
                 line-height: 27px !important;
+                color: #000000 !important;
+            }
+
+            /* Navbar Top-Level Nav Links: White on Hover and Active */
+            header nav .nav-link-item:hover,
+            header nav .nav-link-item:hover span,
+            header nav .group:hover .nav-link-item,
+            header nav .group:hover .nav-link-item span,
+            header nav .group:hover .nav-link-text,
+            header nav .nav-link-item.active,
+            header nav .nav-link-item.active span {
+                color: #ffffff !important;
+            }
+
+            /* Navbar Chevron Icon: Black before hover, White on hover/active */
+            header nav .nav-link-item svg {
+                color: #000000;
+                stroke: #000000;
+                transition: stroke 0.2s ease, color 0.2s ease;
+            }
+            header nav .nav-link-item:hover svg,
+            header nav .group:hover .nav-link-item svg,
+            header nav .nav-link-item.active svg {
+                color: #ffffff !important;
+                stroke: #ffffff !important;
             }
 
             /* Dropdown Sub-links stay readable as regular menu items */
-            header nav .group .absolute a, header nav .dropdown a {
+            header nav .group .absolute a,
+            header nav .group .absolute a span,
+            header nav .dropdown a,
+            header nav .dropdown a span {
                 font-family: 'Noto Sans', 'NotoSans-Regular', sans-serif !important;
                 font-size: 14px !important;
                 font-weight: 400 !important;
@@ -112,7 +141,8 @@
                 text-transform: none !important;
                 color: #334155 !important;
             }
-            header nav .group .absolute a:hover {
+            header nav .group .absolute a:hover,
+            header nav .group .absolute a:hover span {
                 color: #0d47a1 !important;
             }
 
