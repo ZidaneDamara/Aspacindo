@@ -844,9 +844,13 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Cybercity Red Cyan', 'hex_code' => '#06B6D4'],
-                    ['color_name' => 'Racing Blue', 'hex_code' => '#1D4ED8'],
+                    ['color_name' => 'Prima Pramac', 'hex_code' => '#1b26cc', 'image_path' => '/assets/images/motorcycles/mx-king-prima-pramac.png'],
+                    ['color_name' => '70th Livery', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/mx-king-70th-livery.png'],
+                    ['color_name' => 'Blue', 'hex_code' => '#000087', 'image_path' => '/assets/images/motorcycles/mx-king-blue.png'],
+                    ['color_name' => 'Cybercity', 'hex_code' => '#5e50ab', 'image_path' => '/assets/images/motorcycles/mx-king-cybercity.png'],
+                    ['color_name' => 'Silver', 'hex_code' => '#999999', 'image_path' => '/assets/images/motorcycles/mx-king-silver.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/mx-king-prima-pramac.png',
             ],
             [
                 'name' => 'Yamaha MX King 150 Prima Pramac',
@@ -866,8 +870,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Prima Pramac Livery Purple Red', 'hex_code' => '#581C87'],
+                    ['color_name' => 'Prima Pramac', 'hex_code' => '#1b26cc', 'image_path' => '/assets/images/motorcycles/mx-king-prima-pramac.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/mx-king-prima-pramac.png',
             ],
             [
                 'name' => 'Yamaha MX King 150 70th Livery',
@@ -887,8 +892,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => '70th Anniversary White Red', 'hex_code' => '#FFFFFF'],
+                    ['color_name' => '70th Livery', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/mx-king-70th-livery.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/mx-king-70th-livery.png',
             ],
 
             // ==================== SPORT & OFF-ROAD ====================
