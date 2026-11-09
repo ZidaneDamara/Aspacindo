@@ -70,7 +70,7 @@ class CreditSimulationController extends Controller
             'region' => 'nullable|string|max:50',
             'dp_percent' => 'required|numeric|min:10|max:50',
             'tenor_months' => 'required|integer|in:12,24,36,48,60',
-            'leasing_partner' => 'required|string|max:255',
+            'leasing_partner' => 'nullable|string|max:255',
             'notes' => 'nullable|string|max:1000',
         ]);
 
@@ -80,6 +80,7 @@ class CreditSimulationController extends Controller
         $dpPercent = (int) $validated['dp_percent'];
         $dpAmount = ($priceOtr * $dpPercent) / 100;
         $principalLoan = $priceOtr - $dpAmount;
+        $leasingPartnerName = $validated['leasing_partner'] ?? 'Mitra Rekanan Resmi Yamaha';
 
         // Rate modifiers map
         $modifiers = [
@@ -91,8 +92,9 @@ class CreditSimulationController extends Controller
             'Adira Finance' => 1.02,
             'OTO Kredit Motor' => 1.03,
             'WOM Finance' => 1.01,
+            'Mitra Rekanan Resmi Yamaha' => 1.0,
         ];
-        $rateModifier = $modifiers[$validated['leasing_partner']] ?? 1.0;
+        $rateModifier = $modifiers[$leasingPartnerName] ?? 1.0;
         $tenorMonths = (int) $validated['tenor_months'];
 
         $baseInterestRate = 0.09 * $rateModifier;
@@ -115,7 +117,7 @@ class CreditSimulationController extends Controller
             'dp_amount' => $dpAmount,
             'dp_percent' => $dpPercent,
             'tenor_months' => $tenorMonths,
-            'leasing_partner' => $validated['leasing_partner'],
+            'leasing_partner' => $leasingPartnerName,
             'monthly_installment' => $monthlyPayment,
             'notes' => ($validated['notes'] ? $validated['notes'] . " | " : "") . "Wilayah OTR: " . $region,
             'status' => 'new',

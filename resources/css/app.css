@@ -10,6 +10,7 @@
         font-style: normal;
         font-display: swap;
     }
+
     @font-face {
         font-family: 'Play';
         src: url('/fonts/Play-Bold.ttf') format('truetype');
@@ -17,6 +18,7 @@
         font-style: normal;
         font-display: swap;
     }
+
     @font-face {
         font-family: 'Play-Bold';
         src: url('/fonts/Play-Bold.ttf') format('truetype');
@@ -24,6 +26,7 @@
         font-style: normal;
         font-display: swap;
     }
+
     @font-face {
         font-family: 'Noto Sans';
         src: url('/fonts/NotoSans-Regular.ttf') format('truetype');
@@ -31,6 +34,7 @@
         font-style: normal;
         font-display: swap;
     }
+
     @font-face {
         font-family: 'NotoSans-Regular';
         src: url('/fonts/NotoSans-Regular.ttf') format('truetype');
@@ -48,7 +52,8 @@
         background-color: #ffffff !important;
     }
 
-    p, .body-text {
+    p,
+    .body-text {
         font-family: 'Noto Sans', 'NotoSans-Regular', sans-serif;
         font-size: 14px;
         font-weight: 400;
@@ -56,7 +61,8 @@
         color: #707070;
     }
 
-    h1, .h1 {
+    h1,
+    .h1 {
         font-family: 'Play-Bold', 'Play', sans-serif !important;
         font-size: 18px !important;
         font-weight: 700 !important;
@@ -64,16 +70,16 @@
         color: #ffffff;
     }
 
-    /* Navbar Top-Level Nav Links & Texts: Play-bold, 18px, Black by default */
+    /* Navbar Top-Level Nav Links & Texts: Play-bold, 14px, Black by default */
     header nav .nav-link-item,
     header nav .nav-link-item span,
     header nav .nav-link-text,
     .nav-play {
         font-family: 'Play-Bold', 'Play', sans-serif !important;
-        font-size: 18px !important;
+        font-size: 14px !important;
         font-weight: 700 !important;
         line-height: 27px !important;
-        color: #000000 !important;
+        color: #182A61 !important;
     }
 
     /* Navbar Top-Level Nav Links: White on Hover and Active */
@@ -93,6 +99,7 @@
         stroke: #000000;
         transition: stroke 0.2s ease, color 0.2s ease;
     }
+
     header nav .nav-link-item:hover svg,
     header nav .group:hover .nav-link-item svg,
     header nav .nav-link-item.active svg {
@@ -112,19 +119,28 @@
         text-transform: none !important;
         color: #334155 !important;
     }
+
     header nav .group .absolute a:hover,
     header nav .group .absolute a:hover span {
         color: #0d47a1 !important;
     }
 
-    h2, h3, h4, h5, h6 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-family: 'Play-Bold', 'Play', sans-serif !important;
         text-transform: uppercase;
         font-weight: 700;
     }
 
     /* SEMUA BUTTON - Font Family Play, 17px, line-height 26px */
-    button, .btn, a.btn, input[type="submit"], input[type="button"] {
+    button,
+    .btn,
+    a.btn,
+    input[type="submit"],
+    input[type="button"] {
         font-family: 'Play', 'Play-Bold', sans-serif !important;
         font-size: 17px;
         font-weight: 400;
@@ -144,36 +160,67 @@
         font-weight: 400 !important;
         line-height: 26px !important;
     }
+
+    /* Dark sections & Visi Misi: text and li must be white */
+    .bg-slate-900 li,
+    .bg-slate-950 li,
+    .bg-slate-900 p,
+    .bg-slate-950 p,
+    li.text-white,
+    p.text-white {
+        color: #ffffff !important;
+    }
+
+    /* FOOTER - All text elements in footer MUST be pure white */
+    footer,
+    footer p,
+    footer li,
+    footer a,
+    footer strong,
+    footer div,
+    footer span:not([class*="bg-red"]):not([class*="text-emerald"]) {
+        color: #ffffff !important;
+    }
+    footer a:hover {
+        color: #93c5fd !important;
+    }
 }
 
 @layer utilities {
+
     .bg-yamaha-blue,
     .hover\:bg-yamaha-blue:hover,
     .hover-bg-yamaha-blue:hover,
     .group:hover .group-hover\:bg-yamaha-blue {
         background: linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%) !important;
     }
+
     .btn-yamaha {
         background: linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%) !important;
         color: #ffffff !important;
         transition: all 0.2s ease-in-out;
     }
+
     .btn-yamaha:hover {
         filter: brightness(1.15);
         box-shadow: 0 10px 20px -3px rgba(10, 40, 114, 0.4);
     }
+
     .btn-yamaha-gradient {
         background: linear-gradient(298deg, #0A2872 0%, #0A73BA 97%) !important;
         color: #ffffff !important;
         transition: all 0.2s ease-in-out;
     }
+
     .btn-yamaha-gradient:hover {
         filter: brightness(1.15);
         box-shadow: 0 4px 12px rgba(10, 40, 114, 0.35);
     }
+
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
+
     .no-scrollbar {
         -ms-overflow-style: none;
         scrollbar-width: none;
@@ -181,8 +228,13 @@
 }
 
 @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .animate-marquee {
@@ -359,4 +411,3 @@
     padding: 0.75rem 1rem;
     border: 1px solid #e2e8f0;
 }
-

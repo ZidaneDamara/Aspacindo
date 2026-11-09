@@ -172,6 +172,30 @@
                 font-weight: 400 !important;
                 line-height: 26px !important;
             }
+
+            /* Dark sections & Visi Misi: text and li must be white */
+            .bg-slate-900 li,
+            .bg-slate-950 li,
+            .bg-slate-900 p,
+            .bg-slate-950 p,
+            li.text-white,
+            p.text-white {
+                color: #ffffff !important;
+            }
+
+            /* FOOTER - All text elements in footer MUST be pure white */
+            footer,
+            footer p,
+            footer li,
+            footer a,
+            footer strong,
+            footer div,
+            footer span:not([class*="bg-red"]):not([class*="text-emerald"]) {
+                color: #ffffff !important;
+            }
+            footer a:hover {
+                color: #93c5fd !important;
+            }
         </style>
 
         <!-- Scripts -->

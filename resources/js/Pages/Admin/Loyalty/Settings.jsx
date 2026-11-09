@@ -115,7 +115,7 @@ export default function Settings({ settings = {} }) {
                         disabled={processing}
                         className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-lg"
                     >
-                        {processing ? 'Menyimpan Settings...' : 'Simpan Pengaturan Aturan Loyalty &rarr;'}
+                        {processing ? 'Menyimpan Settings...' : 'Simpan Pengaturan Aturan Loyalty'}
                     </button>
                 </form>
             </div>

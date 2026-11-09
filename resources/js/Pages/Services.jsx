@@ -270,7 +270,7 @@ export default function Services({
                                     style={{ background: 'linear-gradient(135deg, #071C52 0%, #0A2872 65%, #0A54AA 100%)' }}
                                     className="w-full text-white font-extrabold py-4 rounded-2xl shadow-lg transition text-sm uppercase tracking-wider disabled:opacity-50 hover:brightness-110"
                                 >
-                                    {processing ? 'Memproses Booking...' : 'Kirim Reservasi Service &rarr;'}
+                                    {processing ? 'Memproses Booking...' : 'Kirim Reservasi Service'}
                                 </button>
                             </div>
                         </form>

@@ -27,7 +27,7 @@ export default function CreditSimulation({
     const [selectedMotorcycle, setSelectedMotorcycle] = useState(defaultBike);
     const [dpPercent, setDpPercent] = useState(20);
     const [tenorMonths, setTenorMonths] = useState(36);
-    const [selectedPartner, setSelectedPartner] = useState(leasingPartners[0] || { id: 'baf', code: 'BAF', name: 'Busan Auto Finance (BAF)', rate_modifier: 1.0 });
+    const [selectedPartner] = useState({ id: 'resmi', code: 'YAMAHA', name: 'Mitra Rekanan Resmi Yamaha', rate_modifier: 1.0 });
 
     const [dpAmount, setDpAmount] = useState(0);
     const [loanAmount, setLoanAmount] = useState(0);
@@ -47,7 +47,7 @@ export default function CreditSimulation({
         region: selectedRegion || 'Pekanbaru',
         dp_percent: 20,
         tenor_months: 36,
-        leasing_partner: leasingPartners[0]?.name || 'Busan Auto Finance (BAF)',
+        leasing_partner: 'Mitra Rekanan Resmi Yamaha',
         notes: '',
     });
 
@@ -410,85 +410,6 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                 </div>
                             </div>
 
-                            {/* Leasing Partner Select */}
-                            <div className="space-y-3 pt-2">
-                                <div className="flex justify-between items-center">
-                                    <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
-                                        Pilih Mitra Finance Leasing
-                                    </label>
-                                    <span className="text-[11px] font-bold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-100">
-                                        4 Mitra Rekanan Resmi
-                                    </span>
-                                </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    {leasingPartners.map((partner) => {
-                                        const isSelected = selectedPartner?.name === partner.name;
-                                        return (
-                                            <button
-                                                key={partner.id}
-                                                type="button"
-                                                onClick={() => setSelectedPartner(partner)}
-                                                className={`text-left p-3.5 rounded-2xl border transition-all duration-200 flex items-center justify-between group ${
-                                                    isSelected
-                                                        ? 'bg-blue-50/80 border-blue-600 ring-2 ring-blue-600/20 shadow-sm'
-                                                        : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50'
-                                                }`}
-                                            >
-                                                <div className="flex items-center gap-3">
-                                                    <div
-                                                        className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-xs transition ${
-                                                            isSelected
-                                                                ? 'bg-blue-600 text-white shadow-md shadow-blue-500/25'
-                                                                : 'bg-slate-100 text-slate-700 group-hover:bg-slate-200'
-                                                        }`}
-                                                    >
-                                                        {partner.code || partner.id?.toUpperCase()}
-                                                    </div>
-                                                    <div>
-                                                        <p className={`text-sm font-bold leading-tight ${isSelected ? 'text-blue-900' : 'text-slate-800'}`}>
-                                                            {partner.name}
-                                                        </p>
-                                                        <span className="text-[11px] text-slate-400 font-medium">
-                                                            {isSelected ? 'Leasing Terpilih' : 'Mitra Resmi Yamaha'}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div
-                                                    className={`w-5 h-5 rounded-full border flex items-center justify-center transition ${
-                                                        isSelected
-                                                            ? 'border-blue-600 bg-blue-600 text-white'
-                                                            : 'border-slate-300 bg-white'
-                                                    }`}
-                                                >
-                                                    {isSelected && (
-                                                        <svg className="w-3 h-3 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                                        </svg>
-                                                    )}
-                                                </div>
-                                            </button>
-                                        );
-                                    })}
-                                </div>
-
-                                <select
-                                    value={selectedPartner.name}
-                                    onChange={(e) => {
-                                        const p = leasingPartners.find((item) => item.name === e.target.value);
-                                        if (p) setSelectedPartner(p);
-                                    }}
-                                    className="sr-only"
-                                    aria-label="Pilih Mitra Finance Leasing"
-                                >
-                                    {leasingPartners.map((partner) => (
-                                        <option key={partner.id} value={partner.name}>
-                                            {partner.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
                             {/* Catatan Tambahan */}
                             <div className="space-y-1.5 pt-2">
                                 <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
@@ -553,10 +474,6 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                         <div className="flex justify-between">
                                             <span className="text-blue-100">Pokok Pinjaman:</span>
                                             <span className="font-bold">{formatRupiah(loanAmount)}</span>
-                                        </div>
-                                        <div className="flex justify-between">
-                                            <span className="text-blue-100">Mitra Leasing:</span>
-                                            <span className="font-bold text-white">{selectedPartner.name}</span>
                                         </div>
                                     </div>
 

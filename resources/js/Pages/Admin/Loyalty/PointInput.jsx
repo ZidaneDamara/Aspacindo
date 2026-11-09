@@ -162,7 +162,7 @@ export default function PointInput({ member = null, search = '', rules = {} }) {
                                 disabled={processing || calculatedPoints <= 0}
                                 className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-2xl text-xs uppercase tracking-wider shadow-lg transition disabled:opacity-50"
                             >
-                                {processing ? 'Memproses Input...' : 'Tambahkan Poin Ke Member &rarr;'}
+                                {processing ? 'Memproses Input...' : 'Tambahkan Poin Ke Member'}
                             </button>
                         </form>
                     </div>

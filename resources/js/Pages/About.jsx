@@ -112,7 +112,7 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                                     </div>
                                     <h3 className="text-xl font-bold uppercase text-amber-400">VISI</h3>
                                 </div>
-                                <p className="text-slate-200 text-sm font-semibold pl-13 leading-relaxed">
+                                <p className="text-white text-sm font-semibold pl-13 leading-relaxed">
                                     Menjadi Dealer Terbaik &amp; Terpercaya di Sepeda Motor Yamaha.
                                 </p>
                             </div>
@@ -127,13 +127,13 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                                     </div>
                                     <h3 className="text-xl font-bold uppercase text-amber-400">MISI</h3>
                                 </div>
-                                <ul className="space-y-2 text-xs text-slate-300 pl-4 list-disc marker:text-blue-400 leading-relaxed">
-                                    <li>Melayani pembeli Sepeda Motor Yamaha</li>
-                                    <li>Operasional yang efektif dan unggul</li>
-                                    <li>Memaksimalkan Potensi Karyawan PT. Aspacindo Kedaton Motor</li>
-                                    <li>Sinergi Antara Cabang Dan Merek Yamaha (Teknologi dan Sistem)</li>
-                                    <li>Mengembangkan dan meningkatkan Market Share Yamaha</li>
-                                    <li>Mendapat Kepuasan Dari Pembeli</li>
+                                <ul className="space-y-2 text-sm text-white pl-4 list-disc marker:text-amber-400 leading-relaxed font-medium">
+                                    <li className="text-white">Melayani pembeli Sepeda Motor Yamaha</li>
+                                    <li className="text-white">Operasional yang efektif dan unggul</li>
+                                    <li className="text-white">Memaksimalkan Potensi Karyawan PT. Aspacindo Kedaton Motor</li>
+                                    <li className="text-white">Sinergi Antara Cabang Dan Merek Yamaha (Teknologi dan Sistem)</li>
+                                    <li className="text-white">Mengembangkan dan meningkatkan Market Share Yamaha</li>
+                                    <li className="text-white">Mendapat Kepuasan Dari Pembeli</li>
                                 </ul>
                             </div>
                         </div>

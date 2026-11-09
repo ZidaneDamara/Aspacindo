@@ -45,7 +45,7 @@ export default function CompleteProfile({ user }) {
                             disabled={processing}
                             className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-black py-4 rounded-2xl shadow-lg transition text-sm uppercase tracking-wider disabled:opacity-50"
                         >
-                            {processing ? 'Menyimpan...' : 'Aktifkan Akun Loyalty Saya &rarr;'}
+                            {processing ? 'Menyimpan...' : 'Aktifkan Akun Loyalty Saya'}
                         </button>
                     </form>
                 </div>

@@ -24,7 +24,7 @@ export default function Footer() {
                                 className="h-10 w-auto object-contain bg-white p-1 rounded-xl shadow-sm"
                             />
                         </div>
-                        <p className="text-sm text-blue-100 leading-relaxed">
+                        <p className="text-sm text-white leading-relaxed">
                             Dealer Resmi Yamaha terpercaya di Riau &amp; Sumatera Utara. Menyediakan unit motor terbaru, suku cadang original, dan layanan servis berkala bergaransi.
                         </p>
                         <div className="flex flex-wrap items-center gap-2 pt-2">
@@ -40,52 +40,51 @@ export default function Footer() {
                     {/* Quick Navigation */}
                     <div className="space-y-3">
                         <h4 className="text-white font-bold text-base uppercase tracking-wider">Navigasi Utama</h4>
-                        <ul className="space-y-2 text-sm text-blue-100">
-                            <li><Link href="/produk" className="hover:text-white transition">Katalog Motor Yamaha</Link></li>
-                            <li><Link href="/simulasi-cicilan" className="hover:text-white transition">Simulasi Cicilan OTR</Link></li>
-                            <li><Link href="/layanan" className="hover:text-white transition">Booking Service &amp; SKY</Link></li>
-                            <li><Link href="/lokasi-dealer" className="hover:text-white transition">Lokasi Dealer &amp; Bengkel</Link></li>
-                            <li><Link href="/promo" className="hover:text-white transition">Promo Spesial Yamaha</Link></li>
-                            {/* <li><Link href="/loyalty" className="hover:text-white font-bold text-amber-300 transition">Aspacindo Loyalty Club</Link></li> */}
+                        <ul className="space-y-2 text-sm text-white">
+                            <li><Link href="/produk" className="text-white hover:text-blue-200 transition">Katalog Motor Yamaha</Link></li>
+                            <li><Link href="/simulasi-cicilan" className="text-white hover:text-blue-200 transition">Simulasi Cicilan OTR</Link></li>
+                            <li><Link href="/layanan" className="text-white hover:text-blue-200 transition">Booking Service &amp; SKY</Link></li>
+                            <li><Link href="/lokasi-dealer" className="text-white hover:text-blue-200 transition">Lokasi Dealer &amp; Bengkel</Link></li>
+                            <li><Link href="/promo" className="text-white hover:text-blue-200 transition">Promo Spesial Yamaha</Link></li>
                         </ul>
                     </div>
 
                     {/* Operational Regions */}
                     <div className="space-y-3">
                         <h4 className="text-white font-bold text-base uppercase tracking-wider">Jaringan Wilayah</h4>
-                        <ul className="space-y-2 text-sm text-blue-100">
-                            <li>• Pekanbaru (Riau Ujung, Riau, Garuda Sakti)</li>
-                            <li>• Pelalawan (Sorek, Pangkalan Kerinci, Ukui)</li>
-                            <li>• Siak (Kandis, Siak Sri Indrapura, Perawang, Sabak auh)</li>
-                            <li>• Kampar (Sungai Pagar, Bangkinang, Petapahan, Lipat Kain)</li>
-                            <li>• Indragiri Hulu (Air Molek, Belilas, Peranap)</li>
-                            <li>• Medan (Medan, Pancur Batu)</li>
-                            <li>• Indragiri Hilir (Tembilahan)</li>
+                        <ul className="space-y-2 text-sm text-white">
+                            <li className="text-white">• Pekanbaru (Riau Ujung, Riau, Garuda Sakti)</li>
+                            <li className="text-white">• Pelalawan (Sorek, Pangkalan Kerinci, Ukui)</li>
+                            <li className="text-white">• Siak (Kandis, Siak Sri Indrapura, Perawang, Sabak auh)</li>
+                            <li className="text-white">• Kampar (Sungai Pagar, Bangkinang, Petapahan, Lipat Kain)</li>
+                            <li className="text-white">• Indragiri Hulu (Air Molek, Belilas, Peranap)</li>
+                            <li className="text-white">• Medan (Medan, Pancur Batu)</li>
+                            <li className="text-white">• Indragiri Hilir (Tembilahan)</li>
                         </ul>
                     </div>
 
                     {/* Operational Info & Contact */}
                     <div className="space-y-3">
                         <h4 className="text-white font-bold text-base uppercase tracking-wider">Jam Operasional</h4>
-                        <div className="text-sm text-blue-100 space-y-1">
-                            <p><strong className="text-white">Senin - Sabtu:</strong> 08:00 - 17:00 WIB</p>
-                            <p><strong className="text-white">Minggu:</strong> 09:00 - 15:00 WIB (Cabang Tertentu)</p>
+                        <div className="text-sm text-white space-y-1">
+                            <p className="text-white"><strong className="text-white">Senin - Sabtu:</strong> 08:00 - 17:00 WIB</p>
+                            <p className="text-white"><strong className="text-white">Minggu:</strong> 09:00 - 15:00 WIB (Cabang Tertentu)</p>
                         </div>
                         <div className="pt-3">
-                            <h5 className="text-xs uppercase text-blue-200 font-bold tracking-wider opacity-90">Customer Service</h5>
+                            <h5 className="text-xs uppercase text-white font-bold tracking-wider opacity-90">Customer Service</h5>
                             <p className="text-xl font-extrabold text-emerald-300 tracking-wide">0812-6224-1100</p>
-                            <p className="text-xs text-blue-100">cs@aspacindo.com</p>
+                            <p className="text-xs text-white">cs@aspacindo.com</p>
                         </div>
                     </div>
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-blue-200 gap-4">
-                    <p>&copy; {new Date().getFullYear()} PT Aspacindo Kedaton Motor. Hak Cipta Dilindungi.</p>
-                    <div className="flex items-center gap-6">
-                        <Link href="/tentang-kami" className="hover:text-white transition">Tentang Kami</Link>
-                        <Link href="/karir" className="hover:text-white transition">Karir</Link>
-                        <Link href="/artikel" className="hover:text-white transition">Blog &amp; Berita</Link>
+                <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white gap-4">
+                    <p className="text-white">&copy; {new Date().getFullYear()} PT Aspacindo Kedaton Motor. Hak Cipta Dilindungi.</p>
+                    <div className="flex items-center gap-6 text-white">
+                        <Link href="/tentang-kami" className="text-white hover:text-blue-200 transition">Tentang Kami</Link>
+                        <Link href="/karir" className="text-white hover:text-blue-200 transition">Karir</Link>
+                        <Link href="/artikel" className="text-white hover:text-blue-200 transition">Blog &amp; Berita</Link>
                     </div>
                 </div>
             </div>
