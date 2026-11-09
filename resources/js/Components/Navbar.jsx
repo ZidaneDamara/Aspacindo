@@ -91,14 +91,14 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/"
-                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/')
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[14px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/')
                                         ? 'active bg-yamaha-blue text-white transform -skew-x-12'
-                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
+                                        : 'text-[#182A61] hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-block font-play font-bold transition-transform duration-200 ${isActive('/')
                                         ? 'text-white transform skew-x-12'
-                                        : 'text-black group-hover:text-white group-hover:transform group-hover:skew-x-12'
+                                        : 'text-[#182A61] group-hover:text-white group-hover:transform group-hover:skew-x-12'
                                     }`}>
                                     BERANDA
                                 </span>
@@ -108,20 +108,20 @@ export default function Navbar({ categoryBar = null }) {
                         {/* TENTANG KAMI Dropdown */}
                         <div className="h-full flex items-center relative group">
                             <button
-                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center gap-1.5 font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center gap-1.5 font-play font-bold text-[14px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
                                         ? 'active bg-yamaha-blue text-white transform -skew-x-12'
-                                        : 'text-black group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12'
+                                        : 'text-[#182A61] group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-flex items-center gap-1.5 font-play font-bold transition-transform duration-200 ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
                                         ? 'text-white transform skew-x-12'
-                                        : 'text-black group-hover:text-white group-hover:transform group-hover:skew-x-12'
+                                        : 'text-[#182A61] group-hover:text-white group-hover:transform group-hover:skew-x-12'
                                     }`}>
                                     TENTANG KAMI
                                     <svg
                                         className={`w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
                                                 ? 'text-white stroke-white'
-                                                : 'text-black stroke-black group-hover:text-white group-hover:stroke-white'
+                                                : 'text-[#182A61] stroke-[#182A61] group-hover:text-white group-hover:stroke-white'
                                             }`}
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -159,14 +159,14 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/produk"
-                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/produk')
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[14px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/produk')
                                         ? 'active bg-yamaha-blue text-white transform -skew-x-12'
-                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
+                                        : 'text-[#182A61] hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-block font-play font-bold transition-transform duration-200 ${isActive('/produk')
                                         ? 'text-white transform skew-x-12'
-                                        : 'text-black group-hover:text-white group-hover:transform group-hover:skew-x-12'
+                                        : 'text-[#182A61] group-hover:text-white group-hover:transform group-hover:skew-x-12'
                                     }`}>
                                     PRODUK
                                 </span>
@@ -177,14 +177,14 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/simulasi-cicilan"
-                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/simulasi-cicilan')
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[14px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/simulasi-cicilan')
                                         ? 'active bg-yamaha-blue text-white transform -skew-x-12'
-                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
+                                        : 'text-[#182A61] hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-block font-play font-bold transition-transform duration-200 ${isActive('/simulasi-cicilan')
                                         ? 'text-white transform skew-x-12'
-                                        : 'text-black group-hover:text-white group-hover:transform group-hover:skew-x-12'
+                                        : 'text-[#182A61] group-hover:text-white group-hover:transform group-hover:skew-x-12'
                                     }`}>
                                     SIMULASI CICILAN
                                 </span>
@@ -194,20 +194,20 @@ export default function Navbar({ categoryBar = null }) {
                         {/* LAYANAN Dropdown */}
                         <div className="h-full flex items-center relative group">
                             <button
-                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center gap-1.5 font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/layanan')
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center gap-1.5 font-play font-bold text-[14px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/layanan')
                                         ? 'active bg-yamaha-blue text-white transform -skew-x-12'
-                                        : 'text-black group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12'
+                                        : 'text-[#182A61] group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-flex items-center gap-1.5 font-play font-bold transition-transform duration-200 ${isActive('/layanan')
                                         ? 'text-white transform skew-x-12'
-                                        : 'text-black group-hover:text-white group-hover:transform group-hover:skew-x-12'
+                                        : 'text-[#182A61] group-hover:text-white group-hover:transform group-hover:skew-x-12'
                                     }`}>
                                     LAYANAN
                                     <svg
                                         className={`w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 ${isActive('/layanan')
                                                 ? 'text-white stroke-white'
-                                                : 'text-black stroke-black group-hover:text-white group-hover:stroke-white'
+                                                : 'text-[#182A61] stroke-[#182A61] group-hover:text-white group-hover:stroke-white'
                                             }`}
                                         fill="none"
                                         viewBox="0 0 24 24"
@@ -239,14 +239,14 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/artikel"
-                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/artikel')
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[14px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/artikel')
                                         ? 'active bg-yamaha-blue text-white transform -skew-x-12'
-                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
+                                        : 'text-[#182A61] hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-block font-play font-bold transition-transform duration-200 ${isActive('/artikel')
                                         ? 'text-white transform skew-x-12'
-                                        : 'text-black group-hover:text-white group-hover:transform group-hover:skew-x-12'
+                                        : 'text-[#182A61] group-hover:text-white group-hover:transform group-hover:skew-x-12'
                                     }`}>
                                     ARTIKEL
                                 </span>

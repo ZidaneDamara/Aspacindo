@@ -70,25 +70,16 @@
         color: #ffffff;
     }
 
-    /* Navbar Top-Level Nav Links & Texts: Play-bold, 15px (18px on XL), Black by default */
+    /* Navbar Top-Level Nav Links & Texts: Play-bold, 14px, Navy #182A61 by default */
     header nav .nav-link-item,
     header nav .nav-link-item span,
     header nav .nav-link-text,
     .nav-play {
         font-family: 'Play-Bold', 'Play', sans-serif !important;
-        font-size: 15px !important;
+        font-size: 14px !important;
         font-weight: 700 !important;
         line-height: 27px !important;
-        color: #000000 !important;
-    }
-
-    @media (min-width: 1280px) {
-        header nav .nav-link-item,
-        header nav .nav-link-item span,
-        header nav .nav-link-text,
-        .nav-play {
-            font-size: 18px !important;
-        }
+        color: #182A61 !important;
     }
 
     /* Navbar Top-Level Nav Links: White on Hover and Active */
@@ -102,10 +93,10 @@
         color: #ffffff !important;
     }
 
-    /* Navbar Chevron Icon: Black before hover, White on hover/active */
+    /* Navbar Chevron Icon: Navy #182A61 before hover, White on hover/active */
     header nav .nav-link-item svg {
-        color: #000000;
-        stroke: #000000;
+        color: #182A61;
+        stroke: #182A61;
         transition: stroke 0.2s ease, color 0.2s ease;
     }
 
@@ -190,6 +181,7 @@
     footer span:not([class*="bg-red"]):not([class*="text-emerald"]) {
         color: #ffffff !important;
     }
+
     footer a:hover {
         color: #93c5fd !important;
     }
