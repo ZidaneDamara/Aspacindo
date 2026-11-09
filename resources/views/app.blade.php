@@ -93,16 +93,25 @@
                 color: #ffffff;
             }
 
-            /* Navbar Top-Level Nav Links & Texts: Play-bold, 18px, Black by default */
+            /* Navbar Top-Level Nav Links & Texts: Play-bold, 15px (18px on XL), Black by default */
             header nav .nav-link-item,
             header nav .nav-link-item span,
             header nav .nav-link-text,
             .nav-play {
                 font-family: 'Play-Bold', 'Play', sans-serif !important;
-                font-size: 18px !important;
+                font-size: 15px !important;
                 font-weight: 700 !important;
                 line-height: 27px !important;
                 color: #000000 !important;
+            }
+
+            @media (min-width: 1280px) {
+                header nav .nav-link-item,
+                header nav .nav-link-item span,
+                header nav .nav-link-text,
+                .nav-play {
+                    font-size: 18px !important;
+                }
             }
 
             /* Navbar Top-Level Nav Links: White on Hover and Active */

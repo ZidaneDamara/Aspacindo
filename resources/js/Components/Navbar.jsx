@@ -85,15 +85,15 @@ export default function Navbar({ categoryBar = null }) {
                         />
                     </Link>
 
-                    {/* Desktop Navigation Links - Centered with Balanced Spacing */}
-                    <div className="hidden lg:flex items-center justify-center h-20 gap-0 xl:gap-1 flex-1">
+                    {/* Desktop Navigation Links - Centered with Seamless Connecting Tabs */}
+                    <div className="hidden lg:flex items-center justify-center h-20 gap-0 -space-x-px flex-1">
                         {/* BERANDA */}
                         <div className="h-full flex items-center">
                             <Link
                                 href="/"
-                                className={`nav-link-item h-full px-3.5 xl:px-4 flex items-center justify-center font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/')
-                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/')
+                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12'
+                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-block font-play font-bold transition-transform duration-200 ${isActive('/')
@@ -108,9 +108,9 @@ export default function Navbar({ categoryBar = null }) {
                         {/* TENTANG KAMI Dropdown */}
                         <div className="h-full flex items-center relative group">
                             <button
-                                className={`nav-link-item h-full px-3.5 xl:px-4 flex items-center justify-center gap-1.5 font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
-                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-black group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center gap-1.5 font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
+                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12'
+                                        : 'text-black group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-flex items-center gap-1.5 font-play font-bold transition-transform duration-200 ${isActive('/tentang-kami') || isActive('/lokasi-dealer') || isActive('/galeri-aktifitas')
@@ -159,9 +159,9 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/produk"
-                                className={`nav-link-item h-full px-3.5 xl:px-4 flex items-center justify-center font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/produk')
-                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/produk')
+                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12'
+                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-block font-play font-bold transition-transform duration-200 ${isActive('/produk')
@@ -177,9 +177,9 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/simulasi-cicilan"
-                                className={`nav-link-item h-full px-3.5 xl:px-4 flex items-center justify-center font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/simulasi-cicilan')
-                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/simulasi-cicilan')
+                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12'
+                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-block font-play font-bold transition-transform duration-200 ${isActive('/simulasi-cicilan')
@@ -194,9 +194,9 @@ export default function Navbar({ categoryBar = null }) {
                         {/* LAYANAN Dropdown */}
                         <div className="h-full flex items-center relative group">
                             <button
-                                className={`nav-link-item h-full px-3.5 xl:px-4 flex items-center justify-center gap-1.5 font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/layanan')
-                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-black group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12 group-hover:px-5'
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center gap-1.5 font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap ${isActive('/layanan')
+                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12'
+                                        : 'text-black group-hover:bg-yamaha-blue group-hover:text-white group-hover:transform group-hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-flex items-center gap-1.5 font-play font-bold transition-transform duration-200 ${isActive('/layanan')
@@ -239,9 +239,9 @@ export default function Navbar({ categoryBar = null }) {
                         <div className="h-full flex items-center">
                             <Link
                                 href="/artikel"
-                                className={`nav-link-item h-full px-3.5 xl:px-4 flex items-center justify-center font-play font-bold text-[16px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/artikel')
-                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12 px-5 shadow-sm'
-                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12 hover:px-5'
+                                className={`nav-link-item h-full px-4 xl:px-5 flex items-center justify-center font-play font-bold text-[15px] xl:text-[18px] leading-[27px] uppercase transition-all duration-200 whitespace-nowrap group ${isActive('/artikel')
+                                        ? 'active bg-yamaha-blue text-white transform -skew-x-12'
+                                        : 'text-black hover:bg-yamaha-blue hover:text-white hover:transform hover:-skew-x-12'
                                     }`}
                             >
                                 <span className={`nav-link-text inline-block font-play font-bold transition-transform duration-200 ${isActive('/artikel')
