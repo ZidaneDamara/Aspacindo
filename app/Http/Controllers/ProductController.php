@@ -98,12 +98,22 @@ class ProductController extends Controller
         $motorcycle->price_otr = $motorcycle->getPriceForRegion($region);
         $motorcycle->selected_region = $region;
 
+        $familyData = $this->getFamilyData($motorcycle, $region);
+
         $relatedProducts = Motorcycle::active()
             ->where('category', $motorcycle->category)
-            ->where('id', '!=', $motorcycle->id)
+            ->whereNotIn('id', $familyData['familyVariants']->pluck('id'))
             ->with('primaryImage')
             ->take(4)
             ->get();
+
+        if ($relatedProducts->isEmpty()) {
+            $relatedProducts = Motorcycle::active()
+                ->where('id', '!=', $motorcycle->id)
+                ->with('primaryImage')
+                ->take(4)
+                ->get();
+        }
 
         $relatedProducts->transform(function ($item) use ($region) {
             $item->price_otr = $item->getPriceForRegion($region);
@@ -113,9 +123,89 @@ class ProductController extends Controller
 
         return Inertia::render('Products/Show', [
             'motorcycle' => $motorcycle,
+            'familyName' => $familyData['familyName'],
+            'familyVariants' => $familyData['familyVariants'],
             'relatedProducts' => $relatedProducts,
             'regions' => self::VALID_REGIONS,
             'selectedRegion' => $region,
         ]);
+    }
+
+    protected function getFamilyData(Motorcycle $motorcycle, string $region): array
+    {
+        $patterns = [
+            'NMAX' => ['NMAX', 'N-MAX'],
+            'Aerox' => ['Aerox'],
+            'XMAX' => ['XMAX', 'X-MAX'],
+            'Lexi' => ['Lexi'],
+            'Fazzio' => ['Fazzio'],
+            'Grand Filano' => ['Grand Filano', 'Filano'],
+            'Gear' => ['Gear'],
+            'FreeGo' => ['FreeGo', 'Freego'],
+            'Mio' => ['Mio'],
+            'X-Ride' => ['X-Ride', 'Xride'],
+            'MX King' => ['MX King'],
+            'Jupiter' => ['Jupiter'],
+            'Vega' => ['Vega'],
+            'R15' => ['R15', 'R-15', 'YZF-R15'],
+            'R25' => ['R25', 'R-25'],
+            'MT-25' => ['MT-25', 'MT25'],
+            'XSR' => ['XSR'],
+            'Vixion' => ['Vixion'],
+            'WR 155' => ['WR 155', 'WR155'],
+        ];
+
+        $matchedFamily = null;
+        foreach ($patterns as $family => $aliases) {
+            foreach ($aliases as $alias) {
+                if (stripos($motorcycle->name, $alias) !== false) {
+                    $matchedFamily = $family;
+                    break 2;
+                }
+            }
+        }
+
+        if (!$matchedFamily) {
+            $familyName = $motorcycle->name;
+            $variants = collect([$motorcycle]);
+        } else {
+            $familyName = 'Yamaha ' . $matchedFamily;
+            $variants = Motorcycle::active()
+                ->where(function ($q) use ($patterns, $matchedFamily) {
+                    foreach ($patterns[$matchedFamily] as $alias) {
+                        $q->orWhere('name', 'like', "%{$alias}%");
+                    }
+                })
+                ->with(['colors', 'primaryImage', 'images'])
+                ->orderBy('price_otr', 'desc')
+                ->get();
+        }
+
+        $variants->transform(function ($item) use ($region, $matchedFamily) {
+            $item->price_otr = $item->getPriceForRegion($region);
+            $item->selected_region = $region;
+
+            // Generate clean variant label
+            $raw = preg_replace('/^Yamaha\s+/i', '', $item->name);
+            if ($matchedFamily) {
+                $raw = preg_replace('/^(New\s+)?' . preg_quote($matchedFamily, '/') . '\s*/i', '', $raw);
+                $raw = preg_replace('/^(All\s+New\s+)?' . preg_quote($matchedFamily, '/') . '\s*/i', '', $raw);
+            }
+            $raw = trim($raw);
+            if (empty($raw)) {
+                $raw = 'Standard';
+            }
+            if (stripos($raw, 'Turbo') !== false && !str_starts_with($raw, '"TURBO"')) {
+                $raw = preg_replace('/Turbo\s*/i', '"TURBO" ', $raw);
+                $raw = trim($raw);
+            }
+            $item->variant_label = $raw;
+            return $item;
+        });
+
+        return [
+            'familyName' => $familyName,
+            'familyVariants' => $variants,
+        ];
     }
 }

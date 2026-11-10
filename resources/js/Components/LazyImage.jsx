@@ -4,6 +4,7 @@ export default function LazyImage({
     src,
     alt,
     className = '',
+    imgClassName = '',
     placeholderSrc = null,
     aspectRatio = 'aspect-video',
     bgClassName = 'bg-white',
@@ -33,8 +34,11 @@ export default function LazyImage({
         };
     }, []);
 
+    const isContain = className.includes('object-contain') || imgClassName.includes('object-contain');
+    const objectFitClass = isContain ? 'object-contain' : 'object-cover';
+
     return (
-        <div ref={imgRef} className={`relative overflow-hidden ${bgClassName} ${aspectRatio} ${className}`}>
+        <div ref={imgRef} className={`relative overflow-hidden ${bgClassName} ${aspectRatio ? aspectRatio : ''} ${className}`}>
             {!isLoaded && (
                 <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-slate-100 via-white to-slate-100" />
             )}
@@ -44,9 +48,9 @@ export default function LazyImage({
                     alt={alt}
                     loading="lazy"
                     onLoad={() => setIsLoaded(true)}
-                    className={`w-full h-full object-cover transition-opacity duration-500 ease-in-out ${
+                    className={`w-full h-full ${objectFitClass} transition-opacity duration-500 ease-in-out ${
                         isLoaded ? 'opacity-100' : 'opacity-0'
-                    }`}
+                    } ${imgClassName}`}
                     {...props}
                 />
             )}

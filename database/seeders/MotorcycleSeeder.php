@@ -164,8 +164,8 @@ class MotorcycleSeeder extends Seeder
                 'primary_image' => '/assets/images/motorcycles/freego-125-connected-magma-black.png',
             ],
             [
-                'name' => 'Yamaha Mio M3 125 CW',
-                'slug' => 'yamaha-mio-m3-125-cw',
+                'name' => 'Yamaha Mio M3 125',
+                'slug' => 'yamaha-mio-m3-125',
                 'category' => 'Matic',
                 'price_otr' => 20757000,
                 'regional_prices' => [
@@ -189,8 +189,8 @@ class MotorcycleSeeder extends Seeder
                 'primary_image' => '/assets/images/motorcycles/mio-m3-cw-metallic-cyan.png',
             ],
             [
-                'name' => 'Yamaha All New X-Ride 125 AKS',
-                'slug' => 'yamaha-all-new-x-ride-125-aks',
+                'name' => 'Yamaha All New X-Ride 125',
+                'slug' => 'yamaha-all-new-x-ride-125',
                 'category' => 'Matic',
                 'price_otr' => 22650000,
                 'regional_prices' => [
@@ -206,9 +206,11 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Sand Khaki', 'hex_code' => '#C2B280'],
-                    ['color_name' => 'Black Red', 'hex_code' => '#7F1D1D'],
+                    ['color_name' => 'Black Red', 'hex_code' => '#1A1A1A', 'image_path' => '/assets/images/motorcycles/x-ride-125-black-red.png'],
+                    ['color_name' => 'Blue', 'hex_code' => '#0077c8', 'image_path' => '/assets/images/motorcycles/x-ride-125-blue.png'],
+                    ['color_name' => 'Sand', 'hex_code' => '#B8A37E', 'image_path' => '/assets/images/motorcycles/x-ride-125-sand.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/x-ride-125-black-red.png',
             ],
 
             // ==================== CLASSY YAMAHA ====================
@@ -306,27 +308,6 @@ class MotorcycleSeeder extends Seeder
                     ['color_name' => 'Starry Night', 'hex_code' => '#798fd1', 'image_path' => '/assets/images/motorcycles/fazzio-starry-night.png'],
                 ],
                 'primary_image' => '/assets/images/motorcycles/fazzio-starry-night.png',
-            ],
-            [
-                'name' => 'Yamaha Fazzio Sunset Blue',
-                'slug' => 'yamaha-fazzio-sunset-blue',
-                'category' => 'Classy',
-                'price_otr' => 24248000,
-                'regional_prices' => [
-                    'Pekanbaru' => 24248000,
-                    'Siak' => 24575000,
-                    'Kampar' => 24575000,
-                    'Pelalawan' => 24575000,
-                    'Indragiri Hulu' => 24575000,
-                    'Indragiri Hilir' => 24575000,
-                    'Medan' => 24248000,
-                ],
-                'short_description' => 'Edisi warna Sunset Blue yang memancarkan energi kehangatan senja dipadukan dengan akselerasi ramah lingkungan Blue Core Hybrid.',
-                'is_featured' => false,
-                'is_active' => true,
-                'colors' => [
-                    ['color_name' => 'Sunset Blue', 'hex_code' => '#0284C7'],
-                ],
             ],
             [
                 'name' => 'Yamaha Grand Filano Hybrid Neo',
