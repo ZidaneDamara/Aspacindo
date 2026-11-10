@@ -41,9 +41,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Matte Grey', 'hex_code' => '#5A5D64'],
-                    ['color_name' => 'Metallic Black', 'hex_code' => '#1A1A1A'],
+                    ['color_name' => 'Putih', 'hex_code' => '#FFFFFF', 'image_path' => '/assets/images/motorcycles/gear-ultima-putih.png'],
+                    ['color_name' => 'Hitam', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/gear-ultima-hitam.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/gear-ultima-putih.png',
             ],
             [
                 'name' => 'Yamaha Gear Ultima 125 Hybrid S',
@@ -63,9 +64,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Matte Blue', 'hex_code' => '#154889'],
-                    ['color_name' => 'Matte Red', 'hex_code' => '#A62626'],
+                    ['color_name' => 'Magma Black', 'hex_code' => '#2b2324', 'image_path' => '/assets/images/motorcycles/gear-ultima-s-magma-black.png'],
+                    ['color_name' => 'Matte Blue', 'hex_code' => '#154889', 'image_path' => '/assets/images/motorcycles/gear-ultima-s-matte-blue.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/gear-ultima-s-magma-black.png',
             ],
             [
                 'name' => 'Yamaha Gear Ultima 125 Hybrid Solid',
@@ -85,9 +87,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Solid White', 'hex_code' => '#F4F5F7'],
-                    ['color_name' => 'Solid Green', 'hex_code' => '#2E5A36'],
+                    ['color_name' => 'Solid Orange', 'hex_code' => '#c43e12', 'image_path' => '/assets/images/motorcycles/gear-ultima-solid-orange.png'],
+                    ['color_name' => 'Solid Blue', 'hex_code' => '#2072c9', 'image_path' => '/assets/images/motorcycles/gear-ultima-solid-blue.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/gear-ultima-solid-orange.png',
             ],
             [
                 'name' => 'Yamaha Gear Ultima 125 Hybrid Smart',
@@ -220,9 +223,12 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Neo Red', 'hex_code' => '#DC2626'],
-                    ['color_name' => 'Neo Mint', 'hex_code' => '#6EE7B7'],
+                    ['color_name' => 'Blue White', 'hex_code' => '#294561', 'image_path' => '/assets/images/motorcycles/fazzio-hybrid-blue-white.png'],
+                    ['color_name' => 'Black Red', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/fazzio-hybrid-black-red.png'],
+                    ['color_name' => 'Grayceful Pink', 'hex_code' => '#cca49f', 'image_path' => '/assets/images/motorcycles/fazzio-hybrid-grayceful-pink.png'],
+                    ['color_name' => 'Yolo Black', 'hex_code' => '#edd98e', 'image_path' => '/assets/images/motorcycles/fazzio-hybrid-yolo-black.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/fazzio-hybrid-blue-white.png',
             ],
             [
                 'name' => 'Yamaha Fazzio Hybrid Neo',
@@ -242,10 +248,12 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Neo Dull Blue', 'hex_code' => '#2563EB'],
-                    ['color_name' => 'Neo Orange', 'hex_code' => '#EA580C'],
-                    ['color_name' => 'Neo Cyan', 'hex_code' => '#06B6D4'],
+                    ['color_name' => 'Neo Dull Blue', 'hex_code' => '#8B90D5', 'image_path' => '/assets/images/motorcycles/fazzio-neo-dull-blue.png'],
+                    ['color_name' => 'Neo Green', 'hex_code' => '#C2D0B8', 'image_path' => '/assets/images/motorcycles/fazzio-neo-green.png'],
+                    ['color_name' => 'Neo Pink Mauve', 'hex_code' => '#CCA49F', 'image_path' => '/assets/images/motorcycles/fazzio-neo-pink-mauve.png'],
+                    ['color_name' => 'Neo White', 'hex_code' => '#FFFFFF', 'image_path' => '/assets/images/motorcycles/fazzio-neo-white.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/fazzio-neo-dull-blue.png',
             ],
             [
                 'name' => 'Yamaha Fazzio Hybrid Lux',
@@ -265,9 +273,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Lux White Pearl', 'hex_code' => '#F8FAFC'],
-                    ['color_name' => 'Lux Prestige Silver', 'hex_code' => '#94A3B8'],
+                    ['color_name' => 'Greenish Grey', 'hex_code' => '#b0cbcf', 'image_path' => '/assets/images/motorcycles/fazzio-lux-greenish-grey.png'],
+                    ['color_name' => 'Titan', 'hex_code' => '#c8c8cc', 'image_path' => '/assets/images/motorcycles/fazzio-lux-titan.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/fazzio-lux-greenish-grey.png',
             ],
             [
                 'name' => 'Yamaha Fazzio Starry Night',
@@ -287,8 +296,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Starry Night Dark Blue', 'hex_code' => '#1E1B4B'],
+                    ['color_name' => 'Starry Night', 'hex_code' => '#798fd1', 'image_path' => '/assets/images/motorcycles/fazzio-starry-night.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/fazzio-starry-night.png',
             ],
             [
                 'name' => 'Yamaha Fazzio Sunset Blue',
