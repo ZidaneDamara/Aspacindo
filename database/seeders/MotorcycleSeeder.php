@@ -181,10 +181,12 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Metallic Cyan', 'hex_code' => '#06B6D4'],
-                    ['color_name' => 'Metallic Red', 'hex_code' => '#DC2626'],
-                    ['color_name' => 'Metallic Black', 'hex_code' => '#111827'],
+                    ['color_name' => 'Metallic Cyan', 'hex_code' => '#008c8c', 'image_path' => '/assets/images/motorcycles/mio-m3-cw-metallic-cyan.png'],
+                    ['color_name' => 'Metallic White', 'hex_code' => '#FFFFFF', 'image_path' => '/assets/images/motorcycles/mio-m3-cw-metallic-white.png'],
+                    ['color_name' => 'Metallic Red', 'hex_code' => '#DC2626', 'image_path' => '/assets/images/motorcycles/mio-m3-cw-metallic-red.png'],
+                    ['color_name' => 'Metallic Black', 'hex_code' => '#111827', 'image_path' => '/assets/images/motorcycles/mio-m3-cw-metallic-black.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/mio-m3-cw-metallic-cyan.png',
             ],
             [
                 'name' => 'Yamaha All New X-Ride 125 AKS',
