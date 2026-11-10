@@ -71,6 +71,22 @@ export default function Home({
             subtitle: 'Born To Be Free – Sport Heritage Bergaya Neo-Retro dengan Mesin 155cc VVA',
             link: '/produk/yamaha-all-new-xsr-155',
         },
+        {
+            id: 'r15-connected',
+            image: '/assets/images/promos/r15-connected-hero-banner.jpg',
+            alt: 'Yamaha All New R15 Connected - Connect With R Spirit',
+            title: 'Yamaha All New R15 Connected',
+            subtitle: 'Connect With R Spirit – Sensasi Balap Sejati dengan Fitur Y-Connect & Traction Control',
+            link: '/produk/yamaha-all-new-r15-connected',
+        },
+        {
+            id: 'r25-abs',
+            image: '/assets/images/promos/r25-hero-banner.jpg',
+            alt: 'Yamaha R25 ABS - Rev Your Limit',
+            title: 'Yamaha R25 ABS',
+            subtitle: 'Rev Your Limit – Supersport 250cc 2-Silinder DOHC dengan Suspensi Upside Down & ABS',
+            link: '/produk/yamaha-r-25-abs',
+        },
         ...(activePromotions.length > 0
             ? activePromotions.map((p) => ({
                   id: `promo-${p.id}`,

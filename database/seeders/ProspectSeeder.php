@@ -15,9 +15,9 @@ class ProspectSeeder extends Seeder
             return;
         }
 
-        $nmax = $motorcycles->firstWhere('name', 'NMAX Turbo') ?? $motorcycles->first();
-        $aerox = $motorcycles->firstWhere('name', 'Aerox 155 CyberCity') ?? $motorcycles->skip(1)->first() ?? $nmax;
-        $fazzio = $motorcycles->firstWhere('name', 'Fazzio Hybrid Lux') ?? $motorcycles->last() ?? $nmax;
+        $nmax = $motorcycles->firstWhere('slug', 'yamaha-nmax-turbo') ?? $motorcycles->first();
+        $aerox = $motorcycles->firstWhere('slug', 'yamaha-all-new-aerox-155-cybercity') ?? $motorcycles->firstWhere('name', 'Yamaha All New Aerox 155 CyberCity') ?? $motorcycles->first();
+        $fazzio = $motorcycles->firstWhere('slug', 'yamaha-fazzio-hybrid-lux') ?? $motorcycles->last() ?? $nmax;
 
         $prospects = [
             [

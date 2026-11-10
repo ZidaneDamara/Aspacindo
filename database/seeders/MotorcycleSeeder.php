@@ -10,6 +10,17 @@ class MotorcycleSeeder extends Seeder
 {
     public function run(): void
     {
+        // Cleanup legacy / obsolete motorcycle records
+        $obsoleteSlugs = [
+            'yamaha-xmax-250-tech-max',
+            'yamaha-aerox-155-cybercity',
+        ];
+        Motorcycle::whereIn('slug', $obsoleteSlugs)->each(function ($m) {
+            $m->colors()->delete();
+            $m->images()->delete();
+            $m->delete();
+        });
+
         $bikes = [
             // ==================== MATIC & HYBRID ====================
             [
@@ -365,9 +376,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Metallic Black', 'hex_code' => '#111827'],
-                    ['color_name' => 'Matte Grey', 'hex_code' => '#4B5563'],
+                    ['color_name' => 'Matte Green', 'hex_code' => '#84947f', 'image_path' => '/assets/images/motorcycles/lexi-lx-155-matte-green.png'],
+                    ['color_name' => 'Metallic Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/lexi-lx-155-metallic-black.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/lexi-lx-155-matte-green.png',
             ],
             [
                 'name' => 'Yamaha Lexi LX 155 S Connected',
@@ -387,9 +399,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Magma Black', 'hex_code' => '#18181B'],
-                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#64748B'],
+                    ['color_name' => 'Sand', 'hex_code' => '#b5a89c', 'image_path' => '/assets/images/motorcycles/lexi-lx-155-s-sand.png'],
+                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#c8c8cc', 'image_path' => '/assets/images/motorcycles/lexi-lx-155-s-elixir-dark-silver.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/lexi-lx-155-s-sand.png',
             ],
             [
                 'name' => 'Yamaha All New Aerox 155',
@@ -409,9 +422,12 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Cyber City Livery', 'hex_code' => '#1E3A8A'],
-                    ['color_name' => 'Racing White', 'hex_code' => '#F8FAFC'],
+                    ['color_name' => 'Dull Blue Orange', 'hex_code' => '#ff8040', 'image_path' => '/assets/images/motorcycles/aerox-155-dull-blue-orange.png'],
+                    ['color_name' => 'Silver Cyan', 'hex_code' => '#008c8c', 'image_path' => '/assets/images/motorcycles/aerox-155-silver-cyan.png'],
+                    ['color_name' => 'Metallic Red', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/aerox-155-metallic-red.png'],
+                    ['color_name' => 'Black Grey', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/aerox-155-black-grey.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/aerox-155-dull-blue-orange.png',
             ],
             [
                 'name' => 'Yamaha All New Aerox 155 CyberCity',
@@ -431,8 +447,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'CyberCity Multi-tone', 'hex_code' => '#4338CA'],
+                    ['color_name' => 'Cyber City Livery', 'hex_code' => '#000087', 'image_path' => '/assets/images/motorcycles/aerox-155-cybercity-livery.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/aerox-155-cybercity-livery.png',
             ],
             [
                 'name' => 'Yamaha Aerox Alpha',
@@ -452,9 +469,11 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Alpha Metallic Black', 'hex_code' => '#0F172A'],
-                    ['color_name' => 'Alpha Silver Storm', 'hex_code' => '#94A3B8'],
+                    ['color_name' => 'Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/aerox-alpha-black.png'],
+                    ['color_name' => 'Red', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/aerox-alpha-red.png'],
+                    ['color_name' => 'Blue', 'hex_code' => '#000087', 'image_path' => '/assets/images/motorcycles/aerox-alpha-blue.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/aerox-alpha-black.png',
             ],
             [
                 'name' => 'Yamaha Aerox Alpha CyberCity',
@@ -474,8 +493,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Cyber Neon Cyan', 'hex_code' => '#06B6D4'],
+                    ['color_name' => 'Matte Blue Red', 'hex_code' => '#000087', 'image_path' => '/assets/images/motorcycles/aerox-alpha-cybercity-matte-blue-red.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/aerox-alpha-cybercity-matte-blue-red.png',
             ],
             [
                 'name' => 'Yamaha Aerox Alpha CyberCity ABS',
@@ -495,8 +515,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'CyberCity ABS Special', 'hex_code' => '#312E81'],
+                    ['color_name' => 'Matte Purple Black', 'hex_code' => '#5642ad', 'image_path' => '/assets/images/motorcycles/aerox-alpha-cybercity-abs-matte-purple-black.png'],
+                    ['color_name' => 'White Pearl Blue', 'hex_code' => '#798fd1', 'image_path' => '/assets/images/motorcycles/aerox-alpha-cybercity-abs-white-pearl-blue.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/aerox-alpha-cybercity-abs-matte-purple-black.png',
             ],
             [
                 'name' => 'Yamaha Aerox Alpha Turbo',
@@ -516,9 +538,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Turbo Magma Black', 'hex_code' => '#18181B'],
-                    ['color_name' => 'Turbo Matte Silver', 'hex_code' => '#64748B'],
+                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#c8c8cc', 'image_path' => '/assets/images/motorcycles/aerox-alpha-turbo-elixir-dark-silver.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/aerox-alpha-turbo-elixir-dark-silver.png',
             ],
             [
                 'name' => 'Yamaha Aerox Alpha Turbo Ultimate',
@@ -538,8 +560,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Ultimate Dark Shadow', 'hex_code' => '#09090B'],
+                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#c8c8cc', 'image_path' => '/assets/images/motorcycles/aerox-alpha-turbo-ultimate-elixir-dark-silver.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/aerox-alpha-turbo-ultimate-elixir-dark-silver.png',
             ],
             [
                 'name' => 'Yamaha New Aerox Alpha Turbo 70th Livery',
@@ -559,8 +582,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => '70th Anniversary Racing White', 'hex_code' => '#FFFFFF'],
+                    ['color_name' => '70th Livery', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/aerox-alpha-turbo-70th-livery.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/aerox-alpha-turbo-70th-livery.png',
             ],
             [
                 'name' => 'Yamaha NMAX Neo',
@@ -580,10 +604,12 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Dull Blue', 'hex_code' => '#1D4ED8'],
-                    ['color_name' => 'Red', 'hex_code' => '#B91C1C'],
-                    ['color_name' => 'Black', 'hex_code' => '#111827'],
+                    ['color_name' => 'Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/nmax-neo-black.png'],
+                    ['color_name' => 'White', 'hex_code' => '#ffffff', 'image_path' => '/assets/images/motorcycles/nmax-neo-white.png'],
+                    ['color_name' => 'Red', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/nmax-neo-red.png'],
+                    ['color_name' => 'Matte Blue', 'hex_code' => '#203f66', 'image_path' => '/assets/images/motorcycles/nmax-neo-matte-blue.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/nmax-neo-black.png',
             ],
             [
                 'name' => 'Yamaha NMAX Neo S',
@@ -603,9 +629,12 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#475569'],
-                    ['color_name' => 'Magma Black', 'hex_code' => '#18181B'],
+                    ['color_name' => 'Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/nmax-neo-black.png'],
+                    ['color_name' => 'White', 'hex_code' => '#ffffff', 'image_path' => '/assets/images/motorcycles/nmax-neo-white.png'],
+                    ['color_name' => 'Red', 'hex_code' => '#ff0000', 'image_path' => '/assets/images/motorcycles/nmax-neo-red.png'],
+                    ['color_name' => 'Matte Blue', 'hex_code' => '#203f66', 'image_path' => '/assets/images/motorcycles/nmax-neo-matte-blue.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/nmax-neo-black.png',
             ],
             [
                 'name' => 'Yamaha New NMAX Neo Special Livery',
@@ -625,8 +654,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Special Livery Edition', 'hex_code' => '#1E293B'],
+                    ['color_name' => 'Black Max', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/nmax-neo-black-max.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/nmax-neo-black-max.png',
             ],
             [
                 'name' => 'Yamaha New NMAX Neo S Special Livery',
@@ -646,8 +676,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Special Livery Gold Accents', 'hex_code' => '#0F172A'],
+                    ['color_name' => 'Black Max', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/nmax-neo-black-max.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/nmax-neo-black-max.png',
             ],
             [
                 'name' => 'Yamaha NMAX Turbo',
@@ -667,9 +698,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#3D4148'],
-                    ['color_name' => 'Magma Black', 'hex_code' => '#1A1A1A'],
+                    ['color_name' => 'Ceramic Grey', 'hex_code' => '#999999', 'image_path' => '/assets/images/motorcycles/nmax-turbo-ceramic-grey.png'],
+                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#c8c8cc', 'image_path' => '/assets/images/motorcycles/nmax-turbo-elixir-dark-silver.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/nmax-turbo-ceramic-grey.png',
             ],
             [
                 'name' => 'Yamaha NMAX Turbo Tech MAX',
@@ -689,8 +721,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Magma Black Gold', 'hex_code' => '#171717'],
+                    ['color_name' => 'Ceramic Grey', 'hex_code' => '#999999', 'image_path' => '/assets/images/motorcycles/nmax-turbo-ceramic-grey.png'],
+                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#c8c8cc', 'image_path' => '/assets/images/motorcycles/nmax-turbo-elixir-dark-silver.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/nmax-turbo-ceramic-grey.png',
             ],
             [
                 'name' => 'Yamaha NMAX Turbo Tech MAX Ultimate',
@@ -710,8 +744,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Ultimate Magma Black', 'hex_code' => '#0A0A0A'],
+                    ['color_name' => 'Ceramic Grey', 'hex_code' => '#999999', 'image_path' => '/assets/images/motorcycles/nmax-turbo-ceramic-grey.png'],
+                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#c8c8cc', 'image_path' => '/assets/images/motorcycles/nmax-turbo-elixir-dark-silver.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/nmax-turbo-ceramic-grey.png',
             ],
             [
                 'name' => 'Yamaha XMAX Connected',
@@ -731,9 +767,12 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Icon Black', 'hex_code' => '#171717'],
-                    ['color_name' => 'Metallic Red', 'hex_code' => '#991B1B'],
+                    ['color_name' => 'Metallic Blue', 'hex_code' => '#000087', 'image_path' => '/assets/images/motorcycles/xmax-connected-metallic-blue.png'],
+                    ['color_name' => 'Metallic Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/xmax-connected-metallic-black.png'],
+                    ['color_name' => 'Elixir Dark Silver', 'hex_code' => '#c8c8cc', 'image_path' => '/assets/images/motorcycles/xmax-connected-elixir-dark-silver.png'],
+                    ['color_name' => 'Ceramic Grey', 'hex_code' => '#999999', 'image_path' => '/assets/images/motorcycles/xmax-connected-ceramic-grey.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/xmax-connected-metallic-black.png',
             ],
             [
                 'name' => 'Yamaha XMAX Tech MAX',
@@ -753,8 +792,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Magma Black Tech MAX', 'hex_code' => '#1F2937'],
+                    ['color_name' => 'Ceramic Grey', 'hex_code' => '#999999', 'image_path' => '/assets/images/motorcycles/xmax-tech-max-ceramic-grey.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/xmax-tech-max-ceramic-grey.png',
             ],
             [
                 'name' => 'Yamaha New X-MAX Special Livery',
@@ -774,8 +814,9 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Special Livery Tourer', 'hex_code' => '#0F172A'],
+                    ['color_name' => 'Black MAX', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/xmax-special-livery-black-max.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/xmax-special-livery-black-max.png',
             ],
 
             // ==================== MOPED / BEBEK ====================
@@ -1007,9 +1048,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Racing Blue', 'hex_code' => '#1D4ED8'],
-                    ['color_name' => 'Metallic Black', 'hex_code' => '#111827'],
+                    ['color_name' => 'Blue', 'hex_code' => '#000087', 'image_path' => '/assets/images/motorcycles/r15-connected-blue.png'],
+                    ['color_name' => 'Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/r15-connected-black.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/r15-connected-blue.png',
             ],
             [
                 'name' => 'Yamaha R-25 ABS',
@@ -1029,9 +1071,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Racing Blue', 'hex_code' => '#1E40AF'],
-                    ['color_name' => 'Metallic Black', 'hex_code' => '#0F172A'],
+                    ['color_name' => 'Blue', 'hex_code' => '#000087', 'image_path' => '/assets/images/motorcycles/r25-abs-blue.png'],
+                    ['color_name' => 'Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/r25-abs-black.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/r25-abs-blue.png',
             ],
             [
                 'name' => 'Yamaha MT-25 ABS',
@@ -1051,9 +1094,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Metallic Dark Grey', 'hex_code' => '#334155'],
-                    ['color_name' => 'Metallic Blue', 'hex_code' => '#2563EB'],
+                    ['color_name' => 'Matte Black', 'hex_code' => '#000000', 'image_path' => '/assets/images/motorcycles/mt-25-matte-black.png'],
+                    ['color_name' => 'Metallic Light Grey', 'hex_code' => '#cad0de', 'image_path' => '/assets/images/motorcycles/mt-25-metallic-light-grey.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/mt-25-matte-black.png',
             ],
         ];
 
