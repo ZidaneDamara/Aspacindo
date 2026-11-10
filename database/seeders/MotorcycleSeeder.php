@@ -110,9 +110,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Smart Prestige Silver', 'hex_code' => '#9DA3A6'],
-                    ['color_name' => 'Smart Dark Cyan', 'hex_code' => '#0F606B'],
+                    ['color_name' => 'Magma Black', 'hex_code' => '#2b2324', 'image_path' => '/assets/images/motorcycles/gear-ultima-s-magma-black.png'],
+                    ['color_name' => 'Matte Blue', 'hex_code' => '#154889', 'image_path' => '/assets/images/motorcycles/gear-ultima-s-matte-blue.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/gear-ultima-s-magma-black.png',
             ],
             [
                 'name' => 'Yamaha FreeGo 125',
@@ -132,9 +133,12 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Metallic Blue', 'hex_code' => '#1D4ED8'],
-                    ['color_name' => 'Matte Black', 'hex_code' => '#18181B'],
+                    ['color_name' => 'White', 'hex_code' => '#FFFFFF', 'image_path' => '/assets/images/motorcycles/freego-125-white.png'],
+                    ['color_name' => 'Red', 'hex_code' => '#C7242A', 'image_path' => '/assets/images/motorcycles/freego-125-red.png'],
+                    ['color_name' => 'Sand', 'hex_code' => '#968A7D', 'image_path' => '/assets/images/motorcycles/freego-125-sand.png'],
+                    ['color_name' => 'Black', 'hex_code' => '#18181B', 'image_path' => '/assets/images/motorcycles/freego-125-black.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/freego-125-white.png',
             ],
             [
                 'name' => 'Yamaha FreeGo 125 Connected',
@@ -154,9 +158,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => false,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Matte Green', 'hex_code' => '#283618'],
-                    ['color_name' => 'Prestige Silver', 'hex_code' => '#C0C0C0'],
+                    ['color_name' => 'Magma Black', 'hex_code' => '#2b2324', 'image_path' => '/assets/images/motorcycles/freego-125-connected-magma-black.png'],
+                    ['color_name' => 'Silver', 'hex_code' => '#C0C0C0', 'image_path' => '/assets/images/motorcycles/freego-125-connected-silver.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/freego-125-connected-magma-black.png',
             ],
             [
                 'name' => 'Yamaha Mio M3 125 CW',
