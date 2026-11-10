@@ -329,10 +329,12 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Neo Dull Blue', 'hex_code' => '#3B82F6'],
-                    ['color_name' => 'Neo Red', 'hex_code' => '#B91C1C'],
-                    ['color_name' => 'Neo Beige', 'hex_code' => '#D6D3D1'],
+                    ['color_name' => 'Essential White', 'hex_code' => '#ffffff', 'image_path' => '/assets/images/motorcycles/grand-filano-neo-essential-white.png'],
+                    ['color_name' => 'Greenish Gray', 'hex_code' => '#abc8cc', 'image_path' => '/assets/images/motorcycles/grand-filano-neo-greenish-gray.png'],
+                    ['color_name' => 'Pink Mauve', 'hex_code' => '#d8b2ad', 'image_path' => '/assets/images/motorcycles/grand-filano-neo-pink-mauve.png'],
+                    ['color_name' => 'Prime Gray', 'hex_code' => '#bac1cc', 'image_path' => '/assets/images/motorcycles/grand-filano-neo-prime-gray.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/grand-filano-neo-essential-white.png',
             ],
             [
                 'name' => 'Yamaha Grand Filano Hybrid Lux',
@@ -352,9 +354,10 @@ class MotorcycleSeeder extends Seeder
                 'is_featured' => true,
                 'is_active' => true,
                 'colors' => [
-                    ['color_name' => 'Lux White Pearl', 'hex_code' => '#F8FAFC'],
-                    ['color_name' => 'Lux Elixir Dark Silver', 'hex_code' => '#475569'],
+                    ['color_name' => 'Royal Iron', 'hex_code' => '#c0d5f0', 'image_path' => '/assets/images/motorcycles/grand-filano-lux-royal-iron.png'],
+                    ['color_name' => 'Magma Black', 'hex_code' => '#2b2324', 'image_path' => '/assets/images/motorcycles/grand-filano-lux-magma-black.png'],
                 ],
+                'primary_image' => '/assets/images/motorcycles/grand-filano-lux-royal-iron.png',
             ],
 
             // ==================== MAXI YAMAHA ====================

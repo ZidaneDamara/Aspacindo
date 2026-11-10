@@ -87,6 +87,14 @@ export default function Home({
             subtitle: 'Rev Your Limit – Supersport 250cc 2-Silinder DOHC dengan Suspensi Upside Down & ABS',
             link: '/produk/yamaha-r-25-abs',
         },
+        {
+            id: 'grand-filano-hybrid',
+            image: '/assets/images/promos/grand-filano-hero-banner.jpg',
+            alt: "Yamaha Grand Filano Hybrid - It's Time To Ride The Kalcer",
+            title: 'Yamaha Grand Filano Hybrid',
+            subtitle: "It's Time To Ride The Kalcer – Skuter Fashionable Classy Yamaha dengan Mesin Blue Core Hybrid 125cc",
+            link: '/produk/yamaha-grand-filano-hybrid-neo',
+        },
         ...(activePromotions.length > 0
             ? activePromotions.map((p) => ({
                   id: `promo-${p.id}`,
