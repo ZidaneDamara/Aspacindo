@@ -68,7 +68,7 @@ export default function Footer() {
                         <h4 className="text-white font-bold text-base uppercase tracking-wider">Jam Operasional</h4>
                         <div className="text-sm text-white space-y-1">
                             <p className="text-white"><strong className="text-white">Senin - Sabtu:</strong> 08:00 - 17:00 WIB</p>
-                            <p className="text-white"><strong className="text-white">Minggu:</strong> 09:00 - 15:00 WIB (Cabang Tertentu)</p>
+                            <p className="text-white"><strong className="text-white">Minggu:</strong> 09:00 - 14:00 WIB</p>
                         </div>
                         <div className="pt-3">
                             <h5 className="text-xs uppercase text-white font-bold tracking-wider opacity-90">Customer Service</h5>

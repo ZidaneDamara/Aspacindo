@@ -18,12 +18,17 @@ class BranchSeeder extends Seeder
                 'full_address' => 'Jl. Riau No. 1, Pekanbaru, Riau',
                 'latitude' => 0.53120000,
                 'longitude' => 101.43980000,
-                'google_maps_url' => 'https://maps.google.com/?q=Aspacindo+Kedaton+Motor+Riau+1+Pekanbaru',
+                'google_maps_url' => 'https://maps.app.goo.gl/KEg7AKyv4n3y7Adh7',
                 'operating_hours' => [
                     'Senin - Sabtu' => '08:00 - 17:00 WIB',
-                    'Minggu' => '09:00 - 15:00 WIB',
+                    'Minggu' => '09:00 - 14:00 WIB',
                 ],
-                'whatsapp_number' => '6281262241100',
+                'social_media' => [
+                    'instagram' => 'https://www.instagram.com/aspacindopekanbaru?utm_source=ig_web_button_share_sheet&obrf=ZDNlZDc0MzIxNw==',
+                    'facebook' => 'https://www.facebook.com/share/1CaH6NVEMd/',
+                    'tiktok' => 'https://www.tiktok.com/@aspacindopekanbaru?_r=1&_t=ZS-9AhpzW7gbAq',
+                ],
+                'whatsapp_number' => 'https://wa.me/message/EPGP67RFURADH1',
                 'has_service_center' => true,
                 'is_active' => true,
             ],
@@ -35,10 +40,10 @@ class BranchSeeder extends Seeder
                 'full_address' => 'Jl. Lintas Timur Sorek, Pelalawan, Riau',
                 'latitude' => 0.17420000,
                 'longitude' => 102.04890000,
-                'google_maps_url' => 'https://share.google/pc1lU2dbirln9LMRP',
+                'google_maps_url' => 'https://maps.app.goo.gl/pyGnMYDyniRJR45o9',
                 'operating_hours' => [
                     'Senin - Sabtu' => '08:00 - 17:00 WIB',
-                    'Minggu' => 'Libur',
+                    'Minggu' => '09:00 - 14:00 WIB',
                 ],
                 'social_media' => [
                     'instagram' => 'https://www.instagram.com/aspacindosorek?exln=MXZiMTJobm9teXVuOQ%3D%3D&utm_source=qr',
@@ -60,7 +65,7 @@ class BranchSeeder extends Seeder
                 'google_maps_url' => 'https://maps.google.com/?q=Aspacindo+Kedaton+Motor+Sungai+Pagar+Kampar',
                 'operating_hours' => [
                     'Senin - Sabtu' => '08:00 - 17:00 WIB',
-                    'Minggu' => 'Libur',
+                    'Minggu' => '09:00 - 14:00 WIB',
                 ],
                 'whatsapp_number' => '6281270003333',
                 'has_service_center' => true,
@@ -77,7 +82,7 @@ class BranchSeeder extends Seeder
                 'google_maps_url' => 'https://maps.google.com/?q=Aspacindo+Kedaton+Motor+Tembilahan',
                 'operating_hours' => [
                     'Senin - Sabtu' => '08:00 - 17:00 WIB',
-                    'Minggu' => 'Libur',
+                    'Minggu' => '09:00 - 14:00 WIB',
                 ],
                 'whatsapp_number' => '6281270004444',
                 'has_service_center' => true,
@@ -94,7 +99,7 @@ class BranchSeeder extends Seeder
                 'google_maps_url' => 'https://share.google/BM9HJtM77m1Yvk9Z6',
                 'operating_hours' => [
                     'Senin - Sabtu' => '08:00 - 17:00 WIB',
-                    'Minggu' => 'Libur',
+                    'Minggu' => '09:00 - 14:00 WIB',
                 ],
                 'social_media' => [
                     'instagram' => 'https://www.instagram.com/aspacindoairmolek?dlrf=MTBueWhrdDZuNGlxaw%3D%3D&utm_source=qr',
@@ -116,7 +121,7 @@ class BranchSeeder extends Seeder
                 'google_maps_url' => 'https://maps.app.goo.gl/km6wEvBVEFXyWinX9',
                 'operating_hours' => [
                     'Senin - Sabtu' => '08:00 - 17:00 WIB',
-                    'Minggu' => 'Libur',
+                    'Minggu' => '09:00 - 14:00 WIB',
                 ],
                 'social_media' => [
                     'instagram' => 'https://www.instagram.com/aspacindokandis?psln=bmRqMGY1OXN1OWp4y',
@@ -138,7 +143,7 @@ class BranchSeeder extends Seeder
                 'google_maps_url' => 'https://maps.google.com/?q=Aspacindo+Kedaton+Motor+Medan',
                 'operating_hours' => [
                     'Senin - Sabtu' => '08:00 - 17:00 WIB',
-                    'Minggu' => '09:00 - 15:00 WIB',
+                    'Minggu' => '09:00 - 14:00 WIB',
                 ],
                 'whatsapp_number' => '6281270007777',
                 'has_service_center' => true,
