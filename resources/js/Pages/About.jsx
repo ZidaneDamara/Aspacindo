@@ -42,6 +42,11 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                     <img
                         src="/assets/images/promos/hero_banner_yamaha.webp"
                         alt="Background Showroom Aspacindo"
+                        width={1200}
+                        height={400}
+                        loading="eager"
+                        fetchpriority="high"
+                        decoding="async"
                         className="w-full h-full object-cover"
                     />
                 </div>
@@ -84,6 +89,10 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                                     <img
                                         src="/assets/images/promos/hero_banner_yamaha.webp"
                                         alt="Gedung Showroom Utama Aspacindo"
+                                        width={450}
+                                        height={224}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="w-full h-56 object-cover"
                                     />
                                 </div>
@@ -91,6 +100,10 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                                     <img
                                         src="/assets/images/placeholder_bike.webp"
                                         alt="Showroom Motor Yamaha Aspacindo"
+                                        width={450}
+                                        height={192}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="w-full h-48 object-contain bg-white p-4"
                                     />
                                 </div>
@@ -106,6 +119,10 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                     <img
                         src="/assets/images/promos/hero_banner_yamaha.webp"
                         alt="Showroom Background"
+                        width={1200}
+                        height={600}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                     />
                 </div>
@@ -251,6 +268,10 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                     <img
                         src="/assets/images/promos/hero_banner_yamaha.webp"
                         alt="Showroom Partner Background"
+                        width={1200}
+                        height={400}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                     />
                 </div>
@@ -282,7 +303,10 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                                     <img
                                         src={partner.logo}
                                         alt={`Logo ${partner.name}`}
+                                        width={160}
+                                        height={60}
                                         loading="lazy"
+                                        decoding="async"
                                         className="max-h-16 sm:max-h-20 max-w-[85%] object-contain filter group-hover:scale-105 transition-transform duration-300 select-none pointer-events-none"
                                     />
                                 </div>

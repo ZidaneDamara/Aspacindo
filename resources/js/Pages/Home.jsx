@@ -39,7 +39,8 @@ export default function Home({
     const heroBanners = [
         {
             id: 'jupiter-z1',
-            image: '/assets/images/promos/jupiter-z1-hero-banner.jpg',
+            image: '/assets/images/promos/jupiter-z1-hero-banner.webp',
+            mobileImage: '/assets/images/promos/jupiter-z1-hero-banner-mobile.webp',
             alt: 'Yamaha Jupiter Z1 - Motor Legendaris Indonesia, Yang Lain Semakin Ketinggalan Lagi!',
             title: 'Yamaha Jupiter Z1',
             subtitle: 'Motor Legendaris Indonesia – Yang Lain, Semakin Ketinggalan Lagi!',
@@ -47,7 +48,8 @@ export default function Home({
         },
         {
             id: 'wr-155-r',
-            image: '/assets/images/promos/wr-155-r-hero-banner.jpg',
+            image: '/assets/images/promos/wr-155-r-hero-banner.webp',
+            mobileImage: '/assets/images/promos/wr-155-r-hero-banner-mobile.webp',
             alt: 'Yamaha WR 155 R - The Real Adventure Partner',
             title: 'Yamaha WR 155 R',
             subtitle: 'The Real Adventure Partner – Tangguh di Segala Medan',
@@ -55,7 +57,8 @@ export default function Home({
         },
         {
             id: 'mx-king-150',
-            image: '/assets/images/promos/mx-king-hero-banner.jpg',
+            image: '/assets/images/promos/mx-king-hero-banner.webp',
+            mobileImage: '/assets/images/promos/mx-king-hero-banner-mobile.webp',
             alt: 'Yamaha MX King 150 - King of Street',
             title: 'Yamaha MX King 150',
             subtitle: 'King of Street – Edisi Balap MotoGP Prima Pramac Racing',
@@ -63,7 +66,8 @@ export default function Home({
         },
         {
             id: 'all-new-vixion',
-            image: '/assets/images/promos/all-new-vixion-hero-banner.jpg',
+            image: '/assets/images/promos/all-new-vixion-hero-banner.webp',
+            mobileImage: '/assets/images/promos/all-new-vixion-hero-banner-mobile.webp',
             alt: 'Yamaha All New Vixion - Live The Legend',
             title: 'Yamaha All New Vixion',
             subtitle: 'Live The Legend – Naked Sport 150cc Deltabox dengan Assist & Slipper Clutch',
@@ -71,7 +75,8 @@ export default function Home({
         },
         {
             id: 'xsr-155',
-            image: '/assets/images/promos/xsr-155-hero-banner.jpg',
+            image: '/assets/images/promos/xsr-155-hero-banner.webp',
+            mobileImage: '/assets/images/promos/xsr-155-hero-banner-mobile.webp',
             alt: 'Yamaha All New XSR 155 - Born To Be Free',
             title: 'Yamaha All New XSR 155',
             subtitle: 'Born To Be Free – Sport Heritage Bergaya Neo-Retro dengan Mesin 155cc VVA',
@@ -79,7 +84,8 @@ export default function Home({
         },
         {
             id: 'r15-connected',
-            image: '/assets/images/promos/r15-connected-hero-banner.jpg',
+            image: '/assets/images/promos/r15-connected-hero-banner.webp',
+            mobileImage: '/assets/images/promos/r15-connected-hero-banner-mobile.webp',
             alt: 'Yamaha All New R15 Connected - Connect With R Spirit',
             title: 'Yamaha All New R15 Connected',
             subtitle: 'Connect With R Spirit – Sensasi Balap Sejati dengan Fitur Y-Connect & Traction Control',
@@ -87,7 +93,8 @@ export default function Home({
         },
         {
             id: 'r25-abs',
-            image: '/assets/images/promos/r25-hero-banner.jpg',
+            image: '/assets/images/promos/r25-hero-banner.webp',
+            mobileImage: '/assets/images/promos/r25-hero-banner-mobile.webp',
             alt: 'Yamaha R25 ABS - Rev Your Limit',
             title: 'Yamaha R25 ABS',
             subtitle: 'Rev Your Limit – Supersport 250cc 2-Silinder DOHC dengan Suspensi Upside Down & ABS',
@@ -95,7 +102,8 @@ export default function Home({
         },
         {
             id: 'grand-filano-hybrid',
-            image: '/assets/images/promos/grand-filano-hero-banner.jpg',
+            image: '/assets/images/promos/grand-filano-hero-banner.webp',
+            mobileImage: '/assets/images/promos/grand-filano-hero-banner-mobile.webp',
             alt: "Yamaha Grand Filano Hybrid - It's Time To Ride The Kalcer",
             title: 'Yamaha Grand Filano Hybrid',
             subtitle: "It's Time To Ride The Kalcer – Skuter Fashionable Classy Yamaha dengan Mesin Blue Core Hybrid 125cc",
@@ -105,6 +113,7 @@ export default function Home({
             ? activePromotions.map((p) => ({
                   id: `promo-${p.id}`,
                   image: p.banner_image || p.image_path || '/assets/images/promos/hero_banner_yamaha.webp',
+                  mobileImage: p.banner_image || p.image_path || '/assets/images/promos/hero_banner_yamaha-mobile.webp',
                   alt: p.title || 'Promo Yamaha Aspacindo',
                   title: p.title,
                   subtitle: p.subtitle || p.short_description,
@@ -114,6 +123,7 @@ export default function Home({
                   {
                       id: 'official-yamaha',
                       image: '/assets/images/promos/hero_banner_yamaha.webp',
+                      mobileImage: '/assets/images/promos/hero_banner_yamaha-mobile.webp',
                       alt: 'Yamaha Motor Indonesia - PT Aspacindo Kedaton Motor Semakin Di Depan',
                       title: 'PT. Aspacindo Kedaton Motor',
                       subtitle: 'Dealer Resmi Yamaha Terpercaya di Riau & Sumatera Utara',
@@ -300,11 +310,30 @@ export default function Home({
                                 }`}
                             >
                                 <Link href={banner.link} className="block w-full h-full relative">
-                                    <LazyImage
-                                        src={banner.image}
-                                        alt={banner.alt}
-                                        className="w-full h-full object-contain sm:object-cover object-center"
-                                    />
+                                    {idx === 0 ? (
+                                        <picture>
+                                            <source media="(max-width: 640px)" srcSet={banner.mobileImage || banner.image} type="image/webp" />
+                                            <source srcSet={banner.image} type="image/webp" />
+                                            <img
+                                                src={banner.image}
+                                                alt={banner.alt}
+                                                width={1024}
+                                                height={575}
+                                                loading="eager"
+                                                fetchpriority="high"
+                                                decoding="async"
+                                                className="w-full h-full object-contain sm:object-cover object-center"
+                                            />
+                                        </picture>
+                                    ) : (
+                                        <LazyImage
+                                            src={banner.image}
+                                            alt={banner.alt}
+                                            width={1024}
+                                            height={575}
+                                            className="w-full h-full object-contain sm:object-cover object-center"
+                                        />
+                                    )}
                                 </Link>
                             </div>
                         ))}
@@ -356,6 +385,10 @@ export default function Home({
                             <img
                                 src="/assets/images/categories/chevron-left.png"
                                 alt="Previous"
+                                width={44}
+                                height={44}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 drop-shadow-md select-none"
                             />
                         </button>
@@ -409,7 +442,10 @@ export default function Home({
                                                 <img
                                                     src={cat.image}
                                                     alt={`Kategori Yamaha ${cat.name}`}
+                                                    width={280}
+                                                    height={160}
                                                     loading="lazy"
+                                                    decoding="async"
                                                     className="w-full h-auto object-contain block select-none pointer-events-none"
                                                 />
                                             </div>
@@ -429,6 +465,10 @@ export default function Home({
                             <img
                                 src="/assets/images/categories/chevron-right.png"
                                 alt="Next"
+                                width={44}
+                                height={44}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 drop-shadow-md select-none"
                             />
                         </button>
@@ -850,6 +890,8 @@ export default function Home({
                                         <LazyImage
                                             src={article.thumbnail || '/assets/images/promos/hero_banner_yamaha.webp'}
                                             alt={article.title}
+                                            width={400}
+                                            height={225}
                                             className="w-full h-full object-cover"
                                         />
                                         <span className="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">

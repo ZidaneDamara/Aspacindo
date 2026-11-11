@@ -22,6 +22,8 @@ export default function Gallery({ galleries = [] }) {
                             <LazyImage
                                 src={item.image}
                                 alt={item.title}
+                                width={400}
+                                height={250}
                                 aspectRatio="aspect-[16/10]"
                             />
                             <div className="p-6 space-y-2">

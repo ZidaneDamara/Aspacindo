@@ -39,10 +39,12 @@ export default function MotorcycleCard({ motorcycle, selectedRegion }) {
                             <LazyImage
                                 src={primaryImage}
                                 alt={motorcycle.name}
+                                width={340}
+                                height={240}
                                 aspectRatio=""
                                 bgClassName="bg-transparent"
                                 className="w-full h-full"
-                                imgClassName="w-full h-full object-contain filter drop-shadow-[0_10px_16px_rgba(0,0,0,0.15)] group-hover:scale-105 transition-transform duration-500"
+                                imgClassName="w-full h-full object-contain filter drop-shadow-[0_8px_14px_rgba(0,0,0,0.12)] group-hover:scale-105 transition-transform duration-500"
                             />
                         </div>
                     </Link>

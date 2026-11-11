@@ -25,6 +25,8 @@ export default function Index({ promotions }) {
                                     <LazyImage
                                         src={promo.banner_image || '/assets/images/placeholder_promo.webp'}
                                         alt={promo.title}
+                                        width={400}
+                                        height={225}
                                         aspectRatio="aspect-[16/9]"
                                     />
                                     <div className="p-6 space-y-3">

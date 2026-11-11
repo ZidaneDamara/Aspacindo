@@ -101,6 +101,10 @@ export default function Services({
                                             <img
                                                 src={servicePromos[currentPromoIndex]?.image_url}
                                                 alt={servicePromos[currentPromoIndex]?.title}
+                                                width={384}
+                                                height={224}
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="w-full h-48 sm:h-56 object-cover rounded-xl transform hover:scale-105 transition duration-500"
                                             />
                                         </div>

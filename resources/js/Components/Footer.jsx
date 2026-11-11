@@ -15,12 +15,20 @@ export default function Footer() {
                             <img
                                 src="/images/logo-aspacindo.png"
                                 alt="PT. Aspacindo Kedaton Motor"
+                                width={180}
+                                height={48}
+                                loading="lazy"
+                                decoding="async"
                                 className="h-12 w-auto object-contain bg-white p-1 rounded-xl shadow-sm"
                             />
                             <div className="h-8 w-px bg-white/20"></div>
                             <img
                                 src="/images/logo-yamaha.png"
                                 alt="Yamaha Motor Indonesia"
+                                width={140}
+                                height={40}
+                                loading="lazy"
+                                decoding="async"
                                 className="h-10 w-auto object-contain bg-white p-1 rounded-xl shadow-sm"
                             />
                         </div>

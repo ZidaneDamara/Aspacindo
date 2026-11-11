@@ -98,6 +98,10 @@ export default function Index({
                                 <img
                                     src={item.icon}
                                     alt={item.label}
+                                    width={36}
+                                    height={36}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-7 h-7 sm:w-9 sm:h-9 object-contain mb-1 filter brightness-0 invert pointer-events-none"
                                 />
                             )}

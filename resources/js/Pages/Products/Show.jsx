@@ -384,6 +384,11 @@ export default function Show({
                                     <img
                                         src={bikeImage}
                                         alt={`${activeVariant.name} - ${color.color_name}`}
+                                        width={800}
+                                        height={500}
+                                        loading={activeColorIndex === idx ? "eager" : "lazy"}
+                                        fetchpriority={activeColorIndex === idx ? "high" : "low"}
+                                        decoding="async"
                                         className="w-full h-auto max-h-[250px] sm:max-h-[330px] md:max-h-[390px] lg:max-h-[430px] object-contain transition-transform duration-300"
                                         draggable={false}
                                     />

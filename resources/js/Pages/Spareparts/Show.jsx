@@ -39,6 +39,11 @@ export default function Show({ sparepart = {}, relatedSpareparts = [] }) {
                                 <img
                                     src={images[activeImageIndex]}
                                     alt={sparepart.name}
+                                    width={320}
+                                    height={288}
+                                    loading="eager"
+                                    fetchpriority="high"
+                                    decoding="async"
                                     className="max-h-72 object-contain transition-all duration-300"
                                 />
                             </div>
@@ -54,7 +59,7 @@ export default function Show({ sparepart = {}, relatedSpareparts = [] }) {
                                             activeImageIndex === idx ? 'border-blue-600 shadow-md scale-105' : 'border-slate-200 hover:border-slate-400'
                                         }`}
                                     >
-                                        <img src={img} alt="thumbnail" className="w-full h-full object-contain" />
+                                        <img src={img} alt="thumbnail" width={64} height={64} loading="lazy" decoding="async" className="w-full h-full object-contain" />
                                     </button>
                                 ))}
                                 <div className="w-16 h-16 rounded-xl border border-slate-200 bg-white p-1 flex items-center justify-center text-[10px] font-black text-red-600 text-center uppercase leading-tight shadow-sm">
@@ -156,6 +161,10 @@ export default function Show({ sparepart = {}, relatedSpareparts = [] }) {
                                             <img
                                                 src={item.image_url || 'https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&w=300&q=80'}
                                                 alt={item.name}
+                                                width={150}
+                                                height={140}
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="max-h-36 object-contain group-hover:scale-105 transition-transform duration-300"
                                             />
                                         </div>

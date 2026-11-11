@@ -139,6 +139,11 @@ export default function Show({ article, recentArticles = [], relatedArticles = [
                                     <img
                                         src={article.thumbnail}
                                         alt={article.title}
+                                        width={800}
+                                        height={450}
+                                        loading="eager"
+                                        fetchpriority="high"
+                                        decoding="async"
                                         className="w-full h-auto max-h-[480px] object-cover"
                                     />
                                 </div>
@@ -197,6 +202,10 @@ export default function Show({ article, recentArticles = [], relatedArticles = [
                                                     <img
                                                         src={item.thumbnail || 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=200&q=80'}
                                                         alt={item.title}
+                                                        width={80}
+                                                        height={64}
+                                                        loading="lazy"
+                                                        decoding="async"
                                                         className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
                                                     />
                                                 </Link>
@@ -239,6 +248,10 @@ export default function Show({ article, recentArticles = [], relatedArticles = [
                                                 <img
                                                     src={rel.thumbnail || 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=400&q=80'}
                                                     alt={rel.title}
+                                                    width={400}
+                                                    height={176}
+                                                    loading="lazy"
+                                                    decoding="async"
                                                     className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                                                 />
                                                 <span className="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow">

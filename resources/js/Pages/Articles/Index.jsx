@@ -52,6 +52,8 @@ export default function Index({ articles, categories = [], selectedCategory = 'S
                                         <LazyImage
                                             src={article.thumbnail || '/assets/images/placeholder_article.webp'}
                                             alt={article.title}
+                                            width={400}
+                                            height={225}
                                             aspectRatio="aspect-[16/9]"
                                         />
                                         <span className="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase">

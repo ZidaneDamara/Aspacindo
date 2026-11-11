@@ -75,12 +75,18 @@ export default function Navbar({ categoryBar = null }) {
                         <img
                             src="/images/logo-aspacindo.png"
                             alt="PT. Aspacindo Kedaton Motor"
+                            width={180}
+                            height={48}
+                            decoding="async"
                             className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="h-7 sm:h-9 w-px bg-slate-200"></div>
                         <img
                             src="/images/logo-yamaha.png"
                             alt="Yamaha Motor Indonesia - Semakin Di Depan"
+                            width={140}
+                            height={40}
+                            decoding="async"
                             className="h-8 sm:h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                         />
                     </Link>

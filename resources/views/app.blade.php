@@ -17,52 +17,55 @@
         <link rel="shortcut icon" href="/favicon.ico">
         <link rel="apple-touch-icon" href="/favicon.png">
 
-        <!-- Google Fonts: Play & Noto Sans -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Play:wght@400;700&display=swap" rel="stylesheet">
+        <!-- Critical LCP Preload: Hero Banner Image (WebP Desktop & Mobile) -->
+        <link rel="preload" as="image" href="/assets/images/promos/jupiter-z1-hero-banner-mobile.webp" media="(max-width: 640px)" fetchpriority="high" type="image/webp">
+        <link rel="preload" as="image" href="/assets/images/promos/jupiter-z1-hero-banner.webp" media="(min-width: 641px)" fetchpriority="high" type="image/webp">
+
+        <!-- Critical Font Preload (Ultra-light WOFF2 format) -->
+        <link rel="preload" href="/fonts/Play-Bold.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="/fonts/NotoSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
         <style>
-            /* Local font declarations ensuring 100% offline & local server reliability */
+            /* Fast local WOFF2 font declarations (Zero Render-Blocking) */
             @font-face {
                 font-family: 'Play';
                 font-style: normal;
                 font-weight: 400;
                 font-display: swap;
-                src: url('/fonts/Play-Regular.ttf') format('truetype'),
-                     url('https://fonts.gstatic.com/s/play/v21/6aez4K2oVqwIjtI.ttf') format('truetype');
+                src: url('/fonts/Play-Regular.woff2') format('woff2'),
+                     url('/fonts/Play-Regular.ttf') format('truetype');
             }
             @font-face {
                 font-family: 'Play';
                 font-style: normal;
                 font-weight: 700;
                 font-display: swap;
-                src: url('/fonts/Play-Bold.ttf') format('truetype'),
-                     url('https://fonts.gstatic.com/s/play/v21/6ae84K2oVqwItm4TOpc.ttf') format('truetype');
+                src: url('/fonts/Play-Bold.woff2') format('woff2'),
+                     url('/fonts/Play-Bold.ttf') format('truetype');
             }
             @font-face {
                 font-family: 'Play-Bold';
                 font-style: normal;
                 font-weight: 700;
                 font-display: swap;
-                src: url('/fonts/Play-Bold.ttf') format('truetype'),
-                     url('https://fonts.gstatic.com/s/play/v21/6ae84K2oVqwItm4TOpc.ttf') format('truetype');
+                src: url('/fonts/Play-Bold.woff2') format('woff2'),
+                     url('/fonts/Play-Bold.ttf') format('truetype');
             }
             @font-face {
                 font-family: 'Noto Sans';
                 font-style: normal;
                 font-weight: 400;
                 font-display: swap;
-                src: url('/fonts/NotoSans-Regular.ttf') format('truetype'),
-                     url('https://fonts.gstatic.com/s/notosans/v42/o-0mIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A99d.ttf') format('truetype');
+                src: url('/fonts/NotoSans-Regular.woff2') format('woff2'),
+                     url('/fonts/NotoSans-Regular.ttf') format('truetype');
             }
             @font-face {
                 font-family: 'NotoSans-Regular';
                 font-style: normal;
                 font-weight: 400;
                 font-display: swap;
-                src: url('/fonts/NotoSans-Regular.ttf') format('truetype'),
-                     url('https://fonts.gstatic.com/s/notosans/v42/o-0mIpQlx3QUlC5A4PNB6Ryti20_6n1iPHjcz6L1SoM-jCpoiyD9A99d.ttf') format('truetype');
+                src: url('/fonts/NotoSans-Regular.woff2') format('woff2'),
+                     url('/fonts/NotoSans-Regular.ttf') format('truetype');
             }
 
             /* GLOBAL FONT & COLOR SPECIFICATIONS - ALL PAGES */

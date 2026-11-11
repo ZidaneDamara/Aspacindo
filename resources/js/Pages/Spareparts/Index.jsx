@@ -90,6 +90,10 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                                             <img
                                                 src={promos[currentSlide]?.image_url || 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80'}
                                                 alt={promos[currentSlide]?.title}
+                                                width={384}
+                                                height={224}
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="w-full h-48 sm:h-56 object-cover rounded-xl transform hover:scale-105 transition duration-500"
                                             />
                                         </div>
@@ -190,6 +194,10 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                                                 <img
                                                     src={item.image_url || 'https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&w=300&q=80'}
                                                     alt={item.name}
+                                                    width={150}
+                                                    height={140}
+                                                    loading="lazy"
+                                                    decoding="async"
                                                     className="max-h-36 object-contain group-hover:scale-105 transition-transform duration-300"
                                                 />
                                             </div>
@@ -282,6 +290,10 @@ export default function Index({ promos = [], spareparts = { data: [], links: [] 
                             <img
                                 src={selectedProduct.image_url || 'https://images.unsplash.com/photo-1600080972464-8e5f35f63d08?auto=format&fit=crop&w=400&q=80'}
                                 alt={selectedProduct.name}
+                                width={200}
+                                height={192}
+                                loading="lazy"
+                                decoding="async"
                                 className="max-h-48 object-contain"
                             />
                         </div>
