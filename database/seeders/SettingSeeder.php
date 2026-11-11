@@ -11,7 +11,7 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             // Company stats (used on homepage stats counter)
-            ['key' => 'stat_years_operating', 'value' => '15+', 'group' => 'company'],
+            ['key' => 'stat_years_operating', 'value' => '30+', 'group' => 'company'],
             ['key' => 'stat_branches_count', 'value' => '20+', 'group' => 'company'],
             ['key' => 'stat_employees_count', 'value' => '150+', 'group' => 'company'],
             ['key' => 'stat_satisfied_customers', 'value' => '50,000+', 'group' => 'company'],

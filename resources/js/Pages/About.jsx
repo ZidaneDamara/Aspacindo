@@ -4,11 +4,31 @@ import PublicLayout from '@/Layouts/PublicLayout';
 
 export default function About({ stats = {}, totalBranches = 20 }) {
     const partnerLogos = [
-        { name: 'Busan Auto Finance', label: 'BAF', color: 'border-blue-600 text-blue-700 bg-blue-50' },
-        { name: 'Adira Finance', label: 'ADIRA', color: 'border-amber-500 text-amber-600 bg-amber-50' },
-        { name: 'Indomobil Finance', label: 'IMFI', color: 'border-blue-700 text-blue-800 bg-blue-50' },
-        { name: 'Summit Oto Finance', label: 'SOF / OTO', color: 'border-red-600 text-red-700 bg-red-50' },
-        { name: 'Alfa Scorpii', label: 'ALFA SCORPII', color: 'border-slate-800 text-slate-900 bg-slate-100' },
+        {
+            name: 'Alfa Scorpii',
+            label: 'ALFA SCORPII',
+            logo: '/assets/images/partners/alfa-scorpii.png',
+        },
+        {
+            name: 'Adira Finance',
+            label: 'ADIRA FINANCE',
+            logo: '/assets/images/partners/adira-finance.png',
+        },
+        {
+            name: 'Bussan Auto Finance',
+            label: 'BAF',
+            logo: '/assets/images/partners/baf.png',
+        },
+        {
+            name: 'Indomobil Finance',
+            label: 'IMFI',
+            logo: '/assets/images/partners/imfi.webp',
+        },
+        {
+            name: 'Summit Oto Finance',
+            label: 'OTO KREDIT MOTOR',
+            logo: '/assets/images/partners/oto-finance.jpg',
+        },
     ];
 
     return (
@@ -252,19 +272,19 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                         <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none"></div>
                         <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
 
-                        <div className="animate-marquee gap-6 flex items-center">
-                            {/* Duplicate array twice for seamless 100% smooth loop */}
-                            {[...partnerLogos, ...partnerLogos, ...partnerLogos].map((partner, idx) => (
+                        <div className="animate-marquee gap-6 sm:gap-8 flex items-center">
+                            {/* Duplicate array for seamless 100% smooth continuous loop */}
+                            {[...partnerLogos, ...partnerLogos, ...partnerLogos, ...partnerLogos].map((partner, idx) => (
                                 <div
                                     key={idx}
-                                    className="w-56 sm:w-64 h-28 bg-white rounded-2xl p-6 flex flex-col items-center justify-center shadow-lg border border-slate-100 flex-shrink-0 transition-transform duration-300 hover:scale-105 group"
+                                    className="w-56 sm:w-64 h-28 sm:h-32 bg-white rounded-2xl p-5 flex items-center justify-center shadow-lg border border-slate-100 flex-shrink-0 transition-all duration-300 hover:scale-105 hover:shadow-2xl group"
                                 >
-                                    <span className={`font-black text-lg tracking-wider ${partner.color.includes('red') ? 'text-red-600' : partner.color.includes('amber') ? 'text-amber-600' : partner.color.includes('blue') ? 'text-blue-700' : 'text-slate-900'}`}>
-                                        {partner.label}
-                                    </span>
-                                    <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-widest mt-1">
-                                        OFFICIAL PARTNER
-                                    </span>
+                                    <img
+                                        src={partner.logo}
+                                        alt={`Logo ${partner.name}`}
+                                        loading="lazy"
+                                        className="max-h-16 sm:max-h-20 max-w-[85%] object-contain filter group-hover:scale-105 transition-transform duration-300 select-none pointer-events-none"
+                                    />
                                 </div>
                             ))}
                         </div>
@@ -311,32 +331,17 @@ export default function About({ stats = {}, totalBranches = 20 }) {
                         {/* Vertical Connector Line */}
                         <div className="w-0.5 h-8 bg-blue-700"></div>
 
-                        {/* Level 3: Area Manager & Auditor */}
-                        <div className="relative flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 w-full max-w-2xl">
-                            {/* Area Manager */}
-                            <div
-                                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                                className="w-80 py-4 px-6 rounded-2xl text-white text-center shadow-lg space-y-1 border border-blue-400/20 z-10"
-                            >
-                                <h4 className="text-base font-bold uppercase tracking-wide">Suparman, S.E., S.H., M.M.</h4>
-                                <p className="text-xs text-blue-200 font-medium">Area Manager</p>
-                            </div>
-
-                            {/* Horizontal staff connector line */}
-                            <div className="hidden sm:block absolute right-16 top-1/2 -translate-y-1/2 w-28 h-0.5 bg-blue-700 -z-0"></div>
-
-                            {/* Auditor (Staff Box) */}
-                            <div
-                                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                                className="w-64 py-4 px-5 rounded-2xl text-white text-center shadow-lg space-y-1 border border-blue-400/20 z-10"
-                            >
-                                <h4 className="text-base font-bold uppercase tracking-wide">Alboin Efendy Sitompul</h4>
-                                <p className="text-xs text-blue-200 font-medium">Auditor</p>
-                            </div>
+                        {/* Level 3: Area Manager */}
+                        <div
+                            style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                            className="w-80 py-4 px-6 rounded-2xl text-white text-center shadow-lg space-y-1 border border-blue-400/20 z-10"
+                        >
+                            <h4 className="text-base font-bold uppercase tracking-wide">Suparman, S.E., S.H., M.M.</h4>
+                            <p className="text-xs text-blue-200 font-medium">Area Manager</p>
                         </div>
 
                         {/* Vertical Connector Line from Area Manager */}
-                        <div className="w-0.5 h-10 bg-blue-700"></div>
+                        <div className="w-0.5 h-8 bg-blue-700"></div>
 
                         {/* Horizontal Split Line for BM & Head Office */}
                         <div className="hidden md:block w-full max-w-4xl h-0.5 bg-blue-700"></div>

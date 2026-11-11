@@ -71,17 +71,17 @@ export default function Navbar({ categoryBar = null }) {
             <nav className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 border-b border-slate-100">
                 <div className="flex justify-between items-center h-20 w-full gap-4 lg:gap-8 xl:gap-12">
                     {/* Brand Logos (Aspacindo Kedaton Motor & Yamaha Official) - Flush Left */}
-                    <Link href="/" className="flex items-center gap-3 md:gap-4 flex-shrink-0 py-1.5 group">
+                    <Link href="/" className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-shrink-0 py-1.5 group">
                         <img
                             src="/images/logo-aspacindo.png"
                             alt="PT. Aspacindo Kedaton Motor"
-                            className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                            className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                         />
-                        <div className="h-9 w-px bg-slate-200"></div>
+                        <div className="h-7 sm:h-9 w-px bg-slate-200"></div>
                         <img
                             src="/images/logo-yamaha.png"
                             alt="Yamaha Motor Indonesia - Semakin Di Depan"
-                            className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                            className="h-8 sm:h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                         />
                     </Link>
 

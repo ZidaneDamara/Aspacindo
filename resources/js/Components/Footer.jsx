@@ -32,7 +32,7 @@ export default function Footer() {
                                 20+ Jaringan Cabang
                             </span>
                             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-600/80 text-white border border-red-500/30 shadow-sm">
-                                15+ Tahun Pengalaman
+                                30+ Tahun Pengalaman
                             </span>
                         </div>
                     </div>

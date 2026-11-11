@@ -3,6 +3,10 @@ import { Link, router } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import MotorcycleCard from '@/Components/MotorcycleCard';
 import LazyImage from '@/Components/LazyImage';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export default function Home({
     featuredMotorcycles = [],
@@ -27,7 +31,9 @@ export default function Home({
     const allRegions = regions.length > 0 ? regions : defaultRegions;
 
     const [currentRegion, setCurrentRegion] = useState(selectedRegion || 'Pekanbaru');
-    const [carouselIndex, setCarouselIndex] = useState(0);
+    const [featuredSwiper, setFeaturedSwiper] = useState(null);
+    const [isBeginning, setIsBeginning] = useState(true);
+    const [isEnd, setIsEnd] = useState(false);
     const [heroIndex, setHeroIndex] = useState(0);
 
     const heroBanners = [
@@ -133,13 +139,15 @@ export default function Home({
         router.get('/', { region: reg !== 'Pekanbaru' ? reg : undefined }, { preserveState: true, preserveScroll: true, replace: true });
     };
 
+    const [categorySwiper, setCategorySwiper] = useState(null);
+
     const categoryList = [
-        { name: 'MAXi', desc: 'Skuter Premium VVA', color: 'from-blue-900 to-slate-900', count: categories.MAXi || 0 },
-        { name: 'Classy', desc: 'Skuter Stylish Hybrid', color: 'from-amber-600 to-amber-800', count: categories.Classy || 0 },
-        { name: 'Matic', desc: 'Praktis & Irit Harian', color: 'from-cyan-700 to-blue-900', count: categories.Matic || 0 },
-        { name: 'Sport', desc: 'Performa Balap Sejati', color: 'from-red-700 to-slate-950', count: categories.Sport || 0 },
-        { name: 'Off-Road', desc: 'Tangguh Jelajah Medan', color: 'from-emerald-700 to-slate-900', count: categories['Off-Road'] ?? categories.OffRoad ?? 0 },
-        { name: 'Moped', desc: 'Bebek Handal & Robust', color: 'from-slate-700 to-slate-900', count: categories.Moped || 0 },
+        { name: 'MAXi', image: '/assets/images/categories/category-maxi.webp', count: categories.MAXi || 0 },
+        { name: 'Classy', image: '/assets/images/categories/category-classy.webp', count: categories.Classy || 0 },
+        { name: 'Matic', image: '/assets/images/categories/category-matic.webp', count: categories.Matic || 0 },
+        { name: 'Sport', image: '/assets/images/categories/category-sport.webp', count: categories.Sport || 0 },
+        { name: 'Off-Road', image: '/assets/images/categories/category-offroad.webp', count: categories['Off-Road'] ?? categories.OffRoad ?? 0 },
+        { name: 'Moped', image: '/assets/images/categories/category-moped.webp', count: categories.Moped || 0 },
     ];
 
     const whyChooseUs = [
@@ -178,45 +186,6 @@ export default function Home({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
             ),
-        },
-    ];
-
-    // Branch coverage data
-    const serviceAreas = [
-        {
-            city: 'Kota Pekanbaru',
-            coverage: 'Pusat (Jl. Riau Ujung No 88 A-E), Cabang Riau, Garuda Sakti',
-            tag: 'Kantor Pusat & Dealer 3S',
-        },
-        {
-            city: 'Kab. Pelalawan',
-            coverage: 'Pangkalan Kerinci, Sorek, Ukui',
-            tag: 'Sales & Service',
-        },
-        {
-            city: 'Kab. Siak',
-            coverage: 'Kandis, Siak Sri Indrapura, Perawang, Sabak Auh',
-            tag: 'Dealer 3S & Sparepart',
-        },
-        {
-            city: 'Kab. Kampar',
-            coverage: 'Bangkinang, Sungai Pagar, Petapahan, Lipat Kain',
-            tag: 'Jaringan Cabang',
-        },
-        {
-            city: 'Kab. Indragiri Hulu',
-            coverage: 'Air Molek, Belilas, Peranap',
-            tag: 'Dealer 3S',
-        },
-        {
-            city: 'Kab. Indragiri Hilir',
-            coverage: 'Tembilahan & Sekitarnya',
-            tag: 'Layanan Penjualan',
-        },
-        {
-            city: 'Sumatera Utara',
-            coverage: 'Kota Medan & Deli Serdang (Pancur Batu)',
-            tag: 'Jaringan Regional',
         },
     ];
 
@@ -262,12 +231,17 @@ export default function Home({
             google_maps_url: 'https://maps.google.com/?q=Aspacindo+Air+Molek',
         },
         {
-            name: 'Aspacindo Medan',
+            name: 'ASPACINDO KEDATON MOTOR MEDAN',
             region: 'Medan',
             dealer_type: '3S',
-            full_address: 'Kota Medan & Deli Serdang, Sumatera Utara',
-            whatsapp_number: '081262241100',
-            google_maps_url: 'https://maps.google.com/?q=Aspacindo+Medan',
+            full_address: 'Jl. S. Parman No. 102, Medan, Sumatera Utara',
+            whatsapp_number: '085290906680',
+            google_maps_url: 'https://share.google/foXmdNxIQtmXQztJB',
+            social_media: {
+                tiktok: 'https://www.tiktok.com/@aspacindokedatonmedan?_r=1&_t=ZS-99Hc3GdbYhO',
+                instagram: 'https://www.instagram.com/aspacindokedatonmedan?igsi=MTNuN2gzbjRjb3FxdA==',
+                facebook: 'https://www.facebook.com/share/19FTbhKD5L/?mibextid=wwXIfr',
+            },
         },
     ];
     const displayBranches = (branchesSummary && branchesSummary.length > 0) ? branchesSummary : fallbackBranches;
@@ -306,18 +280,6 @@ export default function Home({
     ];
     const displayArticles = (latestArticles && latestArticles.length > 0) ? latestArticles : fallbackArticles;
 
-    // Carousel navigation logic
-    const totalItems = featuredMotorcycles.length;
-    const maxIndex = Math.max(0, totalItems - 3);
-
-    const prevSlide = () => {
-        setCarouselIndex((prev) => Math.max(0, prev - 1));
-    };
-
-    const nextSlide = () => {
-        setCarouselIndex((prev) => Math.min(maxIndex, prev + 1));
-    };
-
     return (
         <PublicLayout
             title="Dealer Resmi Yamaha – Aspacindo Kedaton Motor"
@@ -328,8 +290,8 @@ export default function Home({
                 <h1 className="sr-only font-play font-bold text-[18px] leading-[27px] uppercase text-white">
                     Dealer Resmi Yamaha – Aspacindo Kedaton Motor
                 </h1>
-                <div className="w-full relative group">
-                    <div className="w-full relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[24/9] overflow-hidden bg-slate-900">
+                <div className="w-full relative">
+                    <div className="w-full relative aspect-[16/9] overflow-hidden bg-slate-950">
                         {heroBanners.map((banner, idx) => (
                             <div
                                 key={banner.id}
@@ -337,137 +299,139 @@ export default function Home({
                                     heroIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
                                 }`}
                             >
-                                <Link href={banner.link} className="block w-full h-full relative group/slide">
+                                <Link href={banner.link} className="block w-full h-full relative">
                                     <LazyImage
                                         src={banner.image}
                                         alt={banner.alt}
-                                        className="w-full h-full object-cover object-center"
+                                        className="w-full h-full object-contain sm:object-cover object-center"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div>
                                 </Link>
                             </div>
                         ))}
 
-                        {/* Slider Controls (Prev / Next Buttons) */}
+                        {/* Dots Navigation */}
                         {heroBanners.length > 1 && (
-                            <>
-                                <button
-                                    type="button"
-                                    onClick={() => setHeroIndex((prev) => (prev === 0 ? heroBanners.length - 1 : prev - 1))}
-                                    aria-label="Previous Slide"
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-slate-950/60 hover:bg-slate-950/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg border border-white/20"
-                                >
-                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-                                    </svg>
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={() => setHeroIndex((prev) => (prev + 1) % heroBanners.length)}
-                                    aria-label="Next Slide"
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-slate-950/60 hover:bg-slate-950/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg border border-white/20"
-                                >
-                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </button>
-
-                                {/* Dots Navigation */}
-                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-                                    {heroBanners.map((_, dotIdx) => (
-                                        <button
-                                            key={dotIdx}
-                                            type="button"
-                                            onClick={() => setHeroIndex(dotIdx)}
-                                            aria-label={`Slide ${dotIdx + 1}`}
-                                            className={`transition-all duration-300 rounded-full ${
-                                                heroIndex === dotIdx
-                                                    ? 'w-8 h-2.5 bg-blue-500 shadow-md'
-                                                    : 'w-2.5 h-2.5 bg-white/60 hover:bg-white'
-                                            }`}
-                                        />
-                                    ))}
-                                </div>
-                            </>
+                            <div className="absolute bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+                                {heroBanners.map((_, dotIdx) => (
+                                    <button
+                                        key={dotIdx}
+                                        type="button"
+                                        onClick={() => setHeroIndex(dotIdx)}
+                                        aria-label={`Slide ${dotIdx + 1}`}
+                                        className={`transition-all duration-300 rounded-full ${
+                                            heroIndex === dotIdx
+                                                ? 'w-8 h-2.5 bg-blue-500 shadow-md'
+                                                : 'w-2.5 h-2.5 bg-white/60 hover:bg-white'
+                                        }`}
+                                    />
+                                ))}
+                            </div>
                         )}
-                    </div>
-
-                    {/* Subtle Overlay Quick Badges Bar */}
-                    <div className="bg-slate-900/95 border-t border-slate-800 text-slate-300 py-3 px-4 backdrop-blur-md">
-                        <div className="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            <Link href="/produk" className="p-2.5 bg-slate-950/70 rounded-xl border border-slate-800 hover:border-blue-500 transition flex items-center justify-between group">
-                                <div>
-                                    <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">KATALOG PRODUK</span>
-                                    <span className="text-xs font-bold text-white group-hover:text-blue-400">Motor Yamaha Terbaru</span>
-                                </div>
-                                <span className="text-blue-400 text-xs font-bold">&rarr;</span>
-                            </Link>
-                            <Link href="/simulasi-cicilan" className="p-2.5 bg-slate-950/70 rounded-xl border border-slate-800 hover:border-blue-500 transition flex items-center justify-between group">
-                                <div>
-                                    <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">SIMULASI KREDIT</span>
-                                    <span className="text-xs font-bold text-white group-hover:text-blue-400">DP &amp; Cicilan OTR</span>
-                                </div>
-                                <span className="text-blue-400 text-xs font-bold">&rarr;</span>
-                            </Link>
-                            <Link href="/layanan" className="p-2.5 bg-slate-950/70 rounded-xl border border-slate-800 hover:border-blue-500 transition flex items-center justify-between group">
-                                <div>
-                                    <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">LAYANAN BENGKEL</span>
-                                    <span className="text-xs font-bold text-red-400 group-hover:underline">Booking Service &amp; SKY</span>
-                                </div>
-                                <span className="text-red-400 text-xs font-bold">&rarr;</span>
-                            </Link>
-                            <Link href="/lokasi-dealer" className="p-2.5 bg-slate-950/70 rounded-xl border border-slate-800 hover:border-blue-500 transition flex items-center justify-between group">
-                                <div>
-                                    <span className="text-[10px] text-slate-400 block font-medium uppercase tracking-wider">JARINGAN CABANG</span>
-                                    <span className="text-xs font-bold text-amber-400 group-hover:underline">20+ Dealer Resmi</span>
-                                </div>
-                                <span className="text-amber-400 text-xs font-bold">&rarr;</span>
-                            </Link>
-                        </div>
                     </div>
                 </div>
             </section>
 
             {/* CATEGORY EXPLORER */}
-            <section className="py-16 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-slate-100 pb-4">
-                        <div>
-                            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Kategori Pilihan Produk</span>
-                            <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Katalog Sepeda Motor Yamaha</h2>
-                        </div>
-                        <Link
-                            href="/produk"
-                            style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                            className="text-white font-bold text-xs px-5 py-2.5 rounded-full uppercase tracking-wider shadow-md hover:brightness-110 transition whitespace-nowrap"
-                        >
-                            Lihat Semua Produk &rarr;
-                        </Link>
+            <section className="py-10 sm:py-16 bg-white overflow-hidden">
+                <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
+                    {/* Centered Title matching reference */}
+                    <div className="text-center space-y-1 mb-2 sm:mb-6">
+                        <p className="text-xs sm:text-sm font-extrabold text-[#0A2872] tracking-[0.2em] uppercase">
+                            YAMAHA ASPACINDO KEDATON MOTOR
+                        </p>
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#0A2872] tracking-tight uppercase">
+                            PRODUCT CATEGORY
+                        </h2>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                        {categoryList.map((cat, idx) => (
-                            <Link
-                                key={idx}
-                                href={`/produk?category=${cat.name}`}
-                                className="group p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-blue-500 hover:bg-blue-50/50 hover:shadow-lg transition-all duration-300 flex flex-col justify-between"
+                    {/* Carousel Container */}
+                    <div className="relative flex items-center justify-center max-w-[1300px] mx-auto">
+                        {/* Left Arrow Button (Visible on Desktop/Tablet) */}
+                        <button
+                            type="button"
+                            onClick={() => categorySwiper?.slidePrev()}
+                            aria-label="Previous Category"
+                            className="hidden md:flex flex-shrink-0 z-20 p-1 hover:scale-110 active:scale-95 transition-transform duration-200 cursor-pointer focus:outline-none mr-2 sm:mr-3 lg:mr-4"
+                        >
+                            <img
+                                src="/assets/images/categories/chevron-left.png"
+                                alt="Previous"
+                                className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 drop-shadow-md select-none"
+                            />
+                        </button>
+
+                        {/* Swiper Viewport */}
+                        <div className="flex-1 overflow-hidden py-3 sm:py-6">
+                            <Swiper
+                                onSwiper={setCategorySwiper}
+                                modules={[Autoplay]}
+                                slidesPerView={1.25}
+                                centeredSlides={true}
+                                spaceBetween={-20}
+                                breakpoints={{
+                                    480: {
+                                        slidesPerView: 1.35,
+                                        centeredSlides: true,
+                                        spaceBetween: -25,
+                                    },
+                                    640: {
+                                        slidesPerView: 2.4,
+                                        centeredSlides: false,
+                                        spaceBetween: -30,
+                                    },
+                                    768: {
+                                        slidesPerView: 3,
+                                        centeredSlides: false,
+                                        spaceBetween: -40,
+                                    },
+                                    1024: {
+                                        slidesPerView: 4,
+                                        centeredSlides: false,
+                                        spaceBetween: -45,
+                                    },
+                                    1280: {
+                                        slidesPerView: 4,
+                                        centeredSlides: false,
+                                        spaceBetween: -60,
+                                    },
+                                }}
+                                loop={true}
+                                autoplay={{ delay: 5000, disableOnInteraction: false }}
+                                className="w-full"
                             >
-                                <div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="font-black text-lg text-slate-900 group-hover:text-blue-700 transition">
-                                            {cat.name}
-                                        </span>
-                                        <span className="text-xs font-bold text-slate-400 bg-white px-2 py-0.5 rounded-full border border-slate-200">
-                                            {cat.count} Unit
-                                        </span>
-                                    </div>
-                                    <p className="text-xs text-slate-500 mt-2">{cat.desc}</p>
-                                </div>
-                                <div className="mt-6 text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform">
-                                    Jelajahi &rarr;
-                                </div>
-                            </Link>
-                        ))}
+                                {categoryList.map((cat, idx) => (
+                                    <SwiperSlide key={idx} className="overflow-visible">
+                                        <Link
+                                            href={`/produk?category=${encodeURIComponent(cat.name)}${currentRegion ? `&region=${encodeURIComponent(currentRegion)}` : ''}`}
+                                            className="group block relative transition-all duration-300 transform hover:-translate-y-2 hover:scale-[1.03] focus:outline-none"
+                                        >
+                                            <div className="relative overflow-visible filter drop-shadow-sm group-hover:drop-shadow-2xl transition-all duration-300">
+                                                <img
+                                                    src={cat.image}
+                                                    alt={`Kategori Yamaha ${cat.name}`}
+                                                    loading="lazy"
+                                                    className="w-full h-auto object-contain block select-none pointer-events-none"
+                                                />
+                                            </div>
+                                        </Link>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </div>
+
+                        {/* Right Arrow Button (Visible on Desktop/Tablet) */}
+                        <button
+                            type="button"
+                            onClick={() => categorySwiper?.slideNext()}
+                            aria-label="Next Category"
+                            className="hidden md:flex flex-shrink-0 z-20 p-1 hover:scale-110 active:scale-95 transition-transform duration-200 cursor-pointer focus:outline-none ml-2 sm:mr-0 ml-2 sm:ml-3 lg:ml-4"
+                        >
+                            <img
+                                src="/assets/images/categories/chevron-right.png"
+                                alt="Next"
+                                className="w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 drop-shadow-md select-none"
+                            />
+                        </button>
                     </div>
                 </div>
             </section>
@@ -480,7 +444,7 @@ export default function Home({
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                         <div className="space-y-1">
-                            <p className="text-4xl sm:text-5xl font-bold text-white tracking-tight">{stats.years_operating || '15+'}</p>
+                            <p className="text-4xl sm:text-5xl font-bold text-white tracking-tight">{stats.years_operating || '30+'}</p>
                             <p className="text-xs sm:text-sm font-normal uppercase tracking-wider text-white">Tahun Pengalaman</p>
                         </div>
                         <div className="space-y-1">
@@ -505,11 +469,11 @@ export default function Home({
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                         <div className="space-y-2">
                             <span className="text-xs font-bold text-red-600 uppercase tracking-widest">Produk Unggulan Yamaha</span>
-                            <h2 className="text-3xl font-semibold text-slate-900 tracking-tight uppercase">Motor Yamaha Paling Populer Hari Ini</h2>
+                            <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight uppercase">Motor Yamaha Paling Populer Hari Ini</h2>
                         </div>
 
                         {/* Region Selector & Carousel Navigation Buttons */}
-                        <div className="flex flex-wrap items-center gap-3">
+                        <div className="flex items-center justify-between sm:justify-start gap-3 w-full md:w-auto">
                             <div className="flex items-center gap-2 bg-white border border-slate-200 px-3 py-1.5 rounded-xl shadow-xs">
                                 <svg className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -529,22 +493,24 @@ export default function Home({
 
                             <div className="flex items-center gap-2">
                                 <button
-                                    onClick={prevSlide}
-                                    disabled={carouselIndex === 0}
+                                    type="button"
+                                    onClick={() => featuredSwiper?.slidePrev()}
+                                    disabled={isBeginning}
                                     style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                                    className={`w-10 h-10 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
-                                        carouselIndex === 0 ? 'opacity-40 cursor-not-allowed' : ''
+                                    className={`w-9 sm:w-10 h-9 sm:h-10 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
+                                        isBeginning ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer active:scale-95'
                                     }`}
                                     aria-label="Previous slide"
                                 >
                                     &#10094;
                                 </button>
                                 <button
-                                    onClick={nextSlide}
-                                    disabled={carouselIndex >= maxIndex}
+                                    type="button"
+                                    onClick={() => featuredSwiper?.slideNext()}
+                                    disabled={isEnd}
                                     style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                                    className={`w-10 h-10 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
-                                        carouselIndex >= maxIndex ? 'opacity-40 cursor-not-allowed' : ''
+                                    className={`w-9 sm:w-10 h-9 sm:h-10 rounded-full text-white flex items-center justify-center shadow-md transition hover:brightness-110 ${
+                                        isEnd ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer active:scale-95'
                                     }`}
                                     aria-label="Next slide"
                                 >
@@ -555,41 +521,61 @@ export default function Home({
                     </div>
 
                     {/* Carousel Container */}
-                    <div className="relative overflow-hidden py-2">
-                        <div
-                            className="flex transition-transform duration-500 ease-out gap-6"
-                            style={{
-                                transform: `translateX(-${carouselIndex * (100 / (totalItems > 3 ? 3 : totalItems))}%)`,
+                    <div className="relative py-2">
+                        <Swiper
+                            modules={[Pagination]}
+                            onSwiper={(swiper) => {
+                                setFeaturedSwiper(swiper);
+                                setIsBeginning(swiper.isBeginning);
+                                setIsEnd(swiper.isEnd);
                             }}
+                            onSlideChange={(swiper) => {
+                                setIsBeginning(swiper.isBeginning);
+                                setIsEnd(swiper.isEnd);
+                            }}
+                            onBreakpoint={(swiper) => {
+                                setIsBeginning(swiper.isBeginning);
+                                setIsEnd(swiper.isEnd);
+                            }}
+                            onReachBeginning={() => setIsBeginning(true)}
+                            onReachEnd={() => setIsEnd(true)}
+                            onFromEdge={(swiper) => {
+                                setIsBeginning(swiper.isBeginning);
+                                setIsEnd(swiper.isEnd);
+                            }}
+                            speed={450}
+                            slidesPerView={1}
+                            spaceBetween={16}
+                            breakpoints={{
+                                640: {
+                                    slidesPerView: 2,
+                                    spaceBetween: 20,
+                                },
+                                1024: {
+                                    slidesPerView: 3,
+                                    spaceBetween: 24,
+                                },
+                                1280: {
+                                    slidesPerView: 4,
+                                    spaceBetween: 24,
+                                },
+                            }}
+                            pagination={{
+                                el: '.featured-swiper-pagination',
+                                clickable: true,
+                            }}
+                            className="w-full !py-3 !px-1"
                         >
                             {featuredMotorcycles.map((motorcycle) => (
-                                <div
-                                    key={motorcycle.id}
-                                    className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0"
-                                >
+                                <SwiperSlide key={motorcycle.id} className="h-auto pb-1">
                                     <MotorcycleCard motorcycle={motorcycle} selectedRegion={currentRegion} />
-                                </div>
+                                </SwiperSlide>
                             ))}
-                        </div>
+                        </Swiper>
                     </div>
 
                     {/* Pagination Dots */}
-                    {maxIndex > 0 && (
-                        <div className="flex justify-center items-center gap-2 pt-2">
-                            {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => setCarouselIndex(idx)}
-                                    className={`h-2.5 rounded-full transition-all duration-300 ${
-                                        carouselIndex === idx
-                                            ? 'w-8 bg-blue-700'
-                                            : 'w-2.5 bg-slate-300 hover:bg-slate-400'
-                                    }`}
-                                    aria-label={`Go to slide ${idx + 1}`}
-                                />
-                            ))}
-                        </div>
-                    )}
+                    <div className="featured-swiper-pagination flex justify-center items-center gap-1.5 pt-2" />
 
                     <div className="text-center pt-4">
                         <Link
@@ -603,71 +589,35 @@ export default function Home({
                 </div>
             </section>
 
-            {/* COMPANY PROFILE & SERVICE AREA SECTION (SEO FOUNDATION) */}
+            {/* COMPANY PROFILE SECTION (SEO & DEALER OVERVIEW) */}
             <section className="py-16 bg-white border-t border-slate-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-                        <div className="lg:col-span-7 space-y-5">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-extrabold uppercase tracking-wide">
-                                <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                                DEALER RESMI YAMAHA 3S (SALES, SERVICE, SPAREPART)
-                            </div>
-                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-                                Dealer Resmi Yamaha Terpercaya – PT. Aspacindo Kedaton Motor
-                            </h2>
-                            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                                <strong>PT. Aspacindo Kedaton Motor</strong> merupakan dealer resmi sepeda motor Yamaha yang telah beroperasi selama lebih dari 15 tahun melayani kebutuhan transportasi masyarakat di Provinsi Riau dan Sumatera Utara. Kami menghadirkan solusi berkendara lengkap melalui penjualan motor Yamaha bergaransi resmi pabrikan, ketersediaan suku cadang asli Yamalube 100% original, serta layanan bengkel servis berkala berstandar teknisi Yamaha Motor Indonesia.
-                            </p>
-                            <p className="text-slate-600 text-sm leading-relaxed">
-                                Dengan didukung 20+ jaringan cabang resmi di Pekanbaru, Pelalawan, Siak, Kampar, Indragiri Hulu, Indragiri Hilir, hingga Medan, kami berkomitmen memberikan pelayanan terbaik, kemudahan proses kredit motor DP ringan, dan kepuasan purna jual untuk setiap pelanggan.
-                            </p>
-                            <div className="pt-2 flex flex-wrap gap-4">
-                                <Link
-                                    href="/tentang-kami"
-                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 transition shadow-sm uppercase tracking-wider"
-                                >
-                                    Profil Perusahaan &amp; Sejarah &rarr;
-                                </Link>
-                                <Link
-                                    href="/lokasi-dealer"
-                                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 transition uppercase tracking-wider"
-                                >
-                                    Cari Cabang Terdekat &rarr;
-                                </Link>
-                            </div>
-                        </div>
-
-                        {/* Operational Area Coverage Box */}
-                        <div className="lg:col-span-5 bg-gradient-to-br from-slate-900 to-blue-950 text-white rounded-3xl p-6 sm:p-8 shadow-xl space-y-5">
-                            <div className="border-b border-blue-900/60 pb-3">
-                                <span className="text-xs font-bold text-red-400 uppercase tracking-widest block">Wilayah Jangkauan Layanan</span>
-                                <h3 className="text-xl font-bold text-white mt-1">Cakupan Cabang Riau &amp; Sumatera Utara</h3>
-                            </div>
-                            <p className="text-xs text-blue-200 leading-relaxed">
-                                Jaringan dealer &amp; bengkel resmi Aspacindo Kedaton Motor tersebar strategis di berbagai kabupaten dan kota:
-                            </p>
-                            <div className="space-y-3">
-                                {serviceAreas.map((area, idx) => (
-                                    <div key={idx} className="p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition">
-                                        <div className="flex items-center justify-between">
-                                            <span className="font-bold text-sm text-amber-300">{area.city}</span>
-                                            <span className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded-md bg-blue-600/60 text-white">
-                                                {area.tag}
-                                            </span>
-                                        </div>
-                                        <p className="text-xs text-slate-300 mt-1">{area.coverage}</p>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="pt-2">
-                                <Link
-                                    href="/lokasi-dealer"
-                                    className="block text-center w-full py-2.5 rounded-xl text-xs font-bold text-slate-900 bg-white hover:bg-slate-100 transition"
-                                >
-                                    Buka Peta &amp; Kontak Cabang Lengkap &rarr;
-                                </Link>
-                            </div>
-                        </div>
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-extrabold uppercase tracking-wide">
+                        <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                        DEALER RESMI YAMAHA 3S (SALES, SERVICE, SPAREPART)
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
+                        Dealer Resmi Yamaha Terpercaya – PT. Aspacindo Kedaton Motor
+                    </h2>
+                    <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-4xl mx-auto">
+                        <strong>PT. Aspacindo Kedaton Motor</strong> merupakan dealer resmi sepeda motor Yamaha yang telah beroperasi selama lebih dari 30 tahun melayani kebutuhan transportasi masyarakat di Provinsi Riau dan Sumatera Utara. Kami menghadirkan solusi berkendara lengkap melalui penjualan motor Yamaha bergaransi resmi pabrikan, ketersediaan suku cadang asli Yamalube 100% original, serta layanan bengkel servis berkala berstandar teknisi Yamaha Motor Indonesia.
+                    </p>
+                    <p className="text-slate-600 text-sm leading-relaxed max-w-3xl mx-auto">
+                        Dengan didukung 20+ jaringan cabang resmi di Pekanbaru, Pelalawan, Siak, Kampar, Indragiri Hulu, Indragiri Hilir, hingga Medan, kami berkomitmen memberikan pelayanan terbaik, kemudahan proses kredit motor DP ringan, dan kepuasan purna jual untuk setiap pelanggan.
+                    </p>
+                    <div className="pt-2 flex flex-wrap justify-center gap-4">
+                        <Link
+                            href="/tentang-kami"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-white bg-slate-900 hover:bg-slate-800 transition shadow-sm uppercase tracking-wider"
+                        >
+                            Profil Perusahaan &amp; Sejarah &rarr;
+                        </Link>
+                        <Link
+                            href="/lokasi-dealer"
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold text-blue-700 bg-blue-50 border border-blue-200 hover:bg-blue-100 transition uppercase tracking-wider"
+                        >
+                            Cari Cabang Terdekat &rarr;
+                        </Link>
                     </div>
                 </div>
             </section>
@@ -711,6 +661,36 @@ export default function Home({
                                     <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">
                                         {branch.full_address}
                                     </p>
+
+                                    {/* Social Media Links if present */}
+                                    {branch.social_media && (branch.social_media.instagram || branch.social_media.facebook || branch.social_media.tiktok) && (
+                                        <div className="flex items-center gap-2 pt-1 border-t border-slate-100/70">
+                                            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Medsos:</span>
+                                            <div className="flex items-center gap-2.5">
+                                                {branch.social_media.instagram && (
+                                                    <a href={branch.social_media.instagram} target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:scale-110 transition-transform" title="Instagram">
+                                                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                                                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                                        </svg>
+                                                    </a>
+                                                )}
+                                                {branch.social_media.facebook && (
+                                                    <a href={branch.social_media.facebook} target="_blank" rel="noopener noreferrer" className="text-[#1877F2] hover:scale-110 transition-transform" title="Facebook">
+                                                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                                                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                                        </svg>
+                                                    </a>
+                                                )}
+                                                {branch.social_media.tiktok && (
+                                                    <a href={branch.social_media.tiktok} target="_blank" rel="noopener noreferrer" className="text-slate-900 hover:scale-110 transition-transform" title="TikTok">
+                                                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                                                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.86 4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-3.04-1.52z"/>
+                                                        </svg>
+                                                    </a>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">

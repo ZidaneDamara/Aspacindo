@@ -25,8 +25,8 @@ export default function CreditSimulation({
 
     const [currentRegion, setCurrentRegion] = useState(selectedRegion || 'Pekanbaru');
     const [selectedMotorcycle, setSelectedMotorcycle] = useState(defaultBike);
-    const [dpPercent, setDpPercent] = useState(20);
-    const [tenorMonths, setTenorMonths] = useState(36);
+    const [dpPercent, setDpPercent] = useState(10);
+    const [tenorMonths, setTenorMonths] = useState(30);
     const [selectedPartner] = useState({ id: 'resmi', code: 'YAMAHA', name: 'Mitra Rekanan Resmi Yamaha', rate_modifier: 1.0 });
 
     const [dpAmount, setDpAmount] = useState(0);
@@ -45,8 +45,8 @@ export default function CreditSimulation({
         current_motorcycle: 'Belum Punya Motor',
         motorcycle_id: defaultBike?.id || '',
         region: selectedRegion || 'Pekanbaru',
-        dp_percent: 20,
-        tenor_months: 36,
+        dp_percent: 10,
+        tenor_months: 30,
         leasing_partner: 'Mitra Rekanan Resmi Yamaha',
         notes: '',
     });
@@ -74,16 +74,23 @@ export default function CreditSimulation({
 
         const price = getPriceForCurrentRegion(selectedMotorcycle, currentRegion);
         const calculatedDp = (price * dpPercent) / 100;
-        const principalLoan = price - calculatedDp;
 
-        const baseInterestRate = 0.09 * (selectedPartner.rate_modifier || 1.0);
-        const totalInterest = principalLoan * (baseInterestRate * (tenorMonths / 12));
-        const totalLoanWithInterest = principalLoan + totalInterest;
+        // Multifinance calculation benchmarked strictly against Yamaha NMAX Neo:
+        // At minimum DP (10%): OTR 37.570.000 -> 30 months installment = Rp 1.961.000 / month, Total = Rp 58.830.000
+        // Monthly rate = (58.830.000 / 37.570.000 - 1) / 30 = 0.018862565877029543 per month
+        // When DP increases, monthly payment decreases proportionally according to remaining principal ratio:
+        const baseDpPercent = 10;
+        const dpFactor = (1 - (dpPercent / 100)) / (1 - (baseDpPercent / 100));
+        const ratePerMonth = (58830000 / 37570000 - 1) / 30;
+        const markupRate = tenorMonths * ratePerMonth;
+        const baseTotalCredit = price * (1 + markupRate);
+        const adjustedTotalCredit = baseTotalCredit * dpFactor;
 
-        const monthlyPayment = Math.round(totalLoanWithInterest / tenorMonths);
+        const monthlyPayment = Math.round(adjustedTotalCredit / tenorMonths / 1000) * 1000;
+        const totalCredit = monthlyPayment * tenorMonths;
 
         setDpAmount(calculatedDp);
-        setLoanAmount(principalLoan);
+        setLoanAmount(totalCredit);
         setMonthlyInstallment(monthlyPayment);
 
         // Keep useForm synced with interactive parameters
@@ -392,8 +399,8 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                 <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
                                     Jangka Waktu Tenor Kredit
                                 </label>
-                                <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                                    {[12, 24, 36, 48].map((months) => (
+                                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3">
+                                    {[12, 18, 24, 30, 36].map((months) => (
                                         <button
                                             key={months}
                                             type="button"
@@ -472,7 +479,7 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                             <span className="font-bold">{formatRupiah(dpAmount)}</span>
                                         </div>
                                         <div className="flex justify-between">
-                                            <span className="text-blue-100">Pokok Pinjaman:</span>
+                                            <span className="text-blue-100">Total Kredit ({tenorMonths} Bulan):</span>
                                             <span className="font-bold">{formatRupiah(loanAmount)}</span>
                                         </div>
                                     </div>

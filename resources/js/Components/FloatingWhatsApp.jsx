@@ -9,7 +9,7 @@ export default function FloatingWhatsApp({ phoneNumber = '6281262241100', messag
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chat WhatsApp"
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-emerald-500 hover:bg-emerald-600 text-white font-play text-[17px] leading-[26px] font-normal px-5 py-3 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+            className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex items-center justify-center gap-2.5 sm:gap-3 bg-emerald-500 hover:bg-emerald-600 text-white font-play text-[17px] leading-[26px] font-normal p-3.5 sm:px-5 sm:py-3 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 group"
         >
             <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>

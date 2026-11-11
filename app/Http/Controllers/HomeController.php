@@ -72,13 +72,13 @@ class HomeController extends Controller
             ->get();
 
         $branchesSummary = Branch::active()
-            ->select(['id', 'name', 'slug', 'region', 'full_address', 'dealer_type', 'whatsapp_number', 'google_maps_url'])
+            ->select(['id', 'name', 'slug', 'region', 'full_address', 'dealer_type', 'whatsapp_number', 'google_maps_url', 'social_media'])
             ->orderByRaw("CASE WHEN region = 'Pekanbaru' THEN 0 ELSE 1 END")
             ->take(6)
             ->get();
 
         $stats = [
-            'years_operating' => Setting::get('stat_years_operating', '15+'),
+            'years_operating' => Setting::get('stat_years_operating', '30+'),
             'branches_count' => Setting::get('stat_branches_count', '20+'),
             'employees_count' => Setting::get('stat_employees_count', '150+'),
             'satisfied_customers' => Setting::get('stat_satisfied_customers', '50,000+'),

@@ -20,46 +20,58 @@ export default function MotorcycleCard({ motorcycle, selectedRegion }) {
     const targetUrl = `/produk/${motorcycle.slug}?region=${encodeURIComponent(regionName)}`;
 
     return (
-        <div className="bg-white rounded-[24px] sm:rounded-[28px] border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden group flex flex-row sm:flex-col items-center sm:items-stretch justify-between p-4 sm:p-6 pb-14 sm:pb-16 min-h-[160px] sm:min-h-[360px]">
-            {/* Bike Photo Cutout (Left side on mobile, Top on desktop) */}
-            <Link href={targetUrl} className="w-5/12 sm:w-full flex-shrink-0 block pt-1 sm:pt-2">
-                <div className="w-full h-28 sm:h-52 flex items-center justify-center p-2 sm:p-3 overflow-hidden">
-                    <LazyImage
-                        src={primaryImage}
-                        alt={motorcycle.name}
-                        aspectRatio=""
-                        bgClassName="bg-transparent"
-                        className="w-full h-full"
-                        imgClassName="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                    />
-                </div>
-            </Link>
+        <div className="relative pt-6 sm:pt-8 pb-2 h-full flex flex-col group select-none">
+            {/* The Outer Card Container */}
+            <div className="relative flex-1 flex flex-col justify-between">
+                
+                {/* 1. White Card Background: Starts ~40px-48px down so bike sticks out above it */}
+                <div className="absolute inset-x-0 bottom-0 top-10 sm:top-12 bg-white rounded-[26px] sm:rounded-[30px] border border-slate-200/90 shadow-[0_8px_25px_rgba(0,0,0,0.06)] group-hover:shadow-[0_16px_35px_rgba(0,0,0,0.12)] transition-shadow duration-300 z-0" />
 
-            {/* Title & OTR Price (Right side on mobile, Bottom on desktop) */}
-            <div className="w-7/12 sm:w-full space-y-1.5 pl-3 sm:pl-0 my-auto sm:my-0 sm:pt-2">
-                <Link href={targetUrl} className="block">
-                    <h3 className="text-sm sm:text-lg font-play font-bold text-slate-900 tracking-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[2.5rem] flex items-center">
-                        {motorcycle.name}
-                    </h3>
+                {/* 2. Card Content (z-10 in normal flow on top of background) */}
+                <div className="relative z-10 flex flex-col justify-between h-full p-4 sm:p-5 pb-14 sm:pb-16">
+                    
+                    {/* Bike Image: Sits at the top and naturally extends above the white background */}
+                    <Link
+                        href={targetUrl}
+                        className="block w-full flex justify-center group-hover:-translate-y-1.5 transition-transform duration-300"
+                    >
+                        <div className="w-full h-36 sm:h-44 flex items-center justify-center">
+                            <LazyImage
+                                src={primaryImage}
+                                alt={motorcycle.name}
+                                aspectRatio=""
+                                bgClassName="bg-transparent"
+                                className="w-full h-full"
+                                imgClassName="w-full h-full object-contain filter drop-shadow-[0_10px_16px_rgba(0,0,0,0.15)] group-hover:scale-105 transition-transform duration-500"
+                            />
+                        </div>
+                    </Link>
+
+                    {/* Bike Information: Name, OTR, Price (Flows naturally below the image - never overlaps) */}
+                    <div className="mt-3 sm:mt-4 space-y-1 text-left px-1">
+                        <Link href={targetUrl} className="block">
+                            <h3 className="text-base sm:text-lg font-play font-bold text-slate-900 tracking-tight group-hover:text-blue-700 transition line-clamp-1">
+                                {motorcycle.name}
+                            </h3>
+                        </Link>
+                        <p className="text-[11px] sm:text-xs text-slate-400 font-medium tracking-tight">
+                            *OTR {regionName}, Mulai Dari
+                        </p>
+                        <p className="text-base sm:text-lg font-bold font-play text-slate-900">
+                            {formatRupiah(displayPrice)}
+                        </p>
+                    </div>
+                </div>
+
+                {/* 3. Details Button: Snapped to bottom right */}
+                <Link
+                    href={targetUrl}
+                    style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
+                    className="absolute bottom-0 right-0 text-white font-play text-sm sm:text-base font-semibold uppercase px-6 sm:px-7 py-2 sm:py-2.5 rounded-tl-2xl sm:rounded-tl-3xl rounded-br-[26px] sm:rounded-br-[30px] shadow-sm hover:brightness-110 active:scale-95 transition-all duration-200 tracking-wider z-20"
+                >
+                    Details
                 </Link>
-                <div>
-                    <span className="text-[10px] sm:text-[11px] text-slate-400 font-medium tracking-tight block">
-                        *OTR {regionName}
-                    </span>
-                    <span className="text-xs sm:text-base font-bold font-play text-slate-900">
-                        {formatRupiah(displayPrice)}
-                    </span>
-                </div>
             </div>
-
-            {/* Bottom Right "Details" Pill Button */}
-            <Link
-                href={targetUrl}
-                style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
-                className="absolute bottom-0 right-0 text-white font-play text-[15px] sm:text-[17px] leading-[26px] font-normal uppercase px-5 sm:px-6 py-1.5 sm:py-2 rounded-tl-xl sm:rounded-tl-2xl rounded-br-[24px] sm:rounded-br-[28px] shadow-md hover:brightness-110 transition duration-200 tracking-wider"
-            >
-                Details
-            </Link>
         </div>
     );
 }

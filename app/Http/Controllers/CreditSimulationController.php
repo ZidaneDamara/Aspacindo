@@ -69,7 +69,7 @@ class CreditSimulationController extends Controller
             'motorcycle_id' => 'required|exists:motorcycles,id',
             'region' => 'nullable|string|max:50',
             'dp_percent' => 'required|numeric|min:10|max:50',
-            'tenor_months' => 'required|integer|in:12,24,36,48,60',
+            'tenor_months' => 'required|integer|in:12,18,24,30,36',
             'leasing_partner' => 'nullable|string|max:255',
             'notes' => 'nullable|string|max:1000',
         ]);
@@ -97,9 +97,17 @@ class CreditSimulationController extends Controller
         $rateModifier = $modifiers[$leasingPartnerName] ?? 1.0;
         $tenorMonths = (int) $validated['tenor_months'];
 
-        $baseInterestRate = 0.09 * $rateModifier;
-        $totalInterest = $principalLoan * ($baseInterestRate * ($tenorMonths / 12));
-        $monthlyPayment = round(($principalLoan + $totalInterest) / $tenorMonths);
+        // Multifinance calculation benchmarked strictly against Yamaha NMAX Neo:
+        // At minimum DP (10%): OTR 37.570.000 -> 30 months installment = Rp 1.961.000 / month, Total = Rp 58.830.000
+        // Monthly rate = (58.830.000 / 37.570.000 - 1) / 30 = 0.018862565877029543 per month
+        // When DP increases, monthly payment decreases proportionally according to remaining principal ratio:
+        $baseDpPercent = 10;
+        $dpFactor = (1 - ($dpPercent / 100)) / (1 - ($baseDpPercent / 100));
+        $ratePerMonth = (58830000 / 37570000 - 1) / 30;
+        $markupRate = $tenorMonths * $ratePerMonth;
+        $baseTotalCredit = $priceOtr * (1 + $markupRate);
+        $adjustedTotalCredit = $baseTotalCredit * $dpFactor;
+        $monthlyPayment = (int) round($adjustedTotalCredit / $tenorMonths / 1000) * 1000;
 
         $ticketNumber = Prospect::generateTicketNumber();
 
