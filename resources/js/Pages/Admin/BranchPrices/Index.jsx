@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Head, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
-import { Building2, Lock, Shield, Search, Save } from 'lucide-react';
+import { Building2, Lock, Shield, Search, Save, Info } from 'lucide-react';
 
 export default function BranchPricesIndex({
     selectedBranch,
@@ -94,43 +94,43 @@ export default function BranchPricesIndex({
         <AdminLayout title={`Harga OTR - ${selectedBranch?.name}`}>
             <Head title={`Harga OTR Cabang ${selectedBranch?.name}`} />
 
-            <div className="space-y-6 max-w-7xl mx-auto">
+            <div className="space-y-6">
                 {/* Branch Header Banner */}
-                <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white p-6 sm:p-8 rounded-3xl shadow-xl relative overflow-hidden border border-slate-800">
+                <div className="bg-zinc-900 text-white p-5 rounded-xl border border-zinc-800 shadow-xs relative overflow-hidden">
                     <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div className="space-y-2">
+                        <div className="space-y-1.5">
                             <div className="flex items-center gap-2">
-                                <span className="bg-zinc-800 text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md inline-flex items-center gap-1">
+                                <span className="bg-zinc-800 text-white text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md inline-flex items-center gap-1 border border-zinc-700">
                                     <Building2 className="w-3 h-3 text-zinc-400" />
                                     {selectedBranch.region}
                                 </span>
                                 {isBranchAdmin ? (
-                                    <span className="bg-zinc-800/60 text-zinc-300 border border-zinc-700 text-[10px] font-semibold px-2.5 py-1 rounded-md inline-flex items-center gap-1">
+                                    <span className="bg-zinc-800 text-zinc-300 border border-zinc-700 text-[10px] font-semibold px-2 py-0.5 rounded-md inline-flex items-center gap-1">
                                         <Lock className="w-3 h-3 text-zinc-400" /> Khusus Admin Cabang
                                     </span>
                                 ) : (
-                                    <span className="bg-zinc-100 text-zinc-800 border border-zinc-200 text-[10px] font-semibold px-2.5 py-1 rounded-md inline-flex items-center gap-1">
-                                        <Shield className="w-3 h-3 text-zinc-600" /> Akses Super Admin
+                                    <span className="bg-zinc-100 text-zinc-900 border border-zinc-200 text-[10px] font-semibold px-2 py-0.5 rounded-md inline-flex items-center gap-1">
+                                        <Shield className="w-3 h-3 text-zinc-700" /> Akses Super Admin
                                     </span>
                                 )}
                             </div>
-                            <h2 className="text-2xl sm:text-3xl font-black tracking-tight">{selectedBranch.name}</h2>
-                            <p className="text-xs text-slate-300 max-w-2xl">{selectedBranch.full_address}</p>
-                            <p className="text-xs text-slate-400">
-                                WhatsApp: <span className="font-mono text-white font-bold">{selectedBranch.whatsapp_number}</span>
+                            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">{selectedBranch.name}</h2>
+                            <p className="text-xs text-zinc-400 max-w-2xl">{selectedBranch.full_address}</p>
+                            <p className="text-xs text-zinc-400">
+                                WhatsApp: <span className="font-mono text-zinc-200 font-semibold">{selectedBranch.whatsapp_number}</span>
                             </p>
                         </div>
 
                         {/* Branch Switcher (Only visible to Super Admin) */}
                         {isSuperAdmin && (
-                            <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 min-w-[280px]">
-                                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-300 block mb-1.5">
+                            <div className="bg-zinc-800/80 p-3.5 rounded-xl border border-zinc-700 min-w-[280px]">
+                                <label className="text-[11px] font-semibold uppercase tracking-wider text-zinc-300 block mb-1.5">
                                     Pilih Cabang Lain:
                                 </label>
                                 <select
                                     value={selectedBranch.id}
                                     onChange={(e) => handleBranchSwitch(e.target.value)}
-                                    className="w-full bg-slate-800 text-white text-xs font-bold rounded-xl border border-slate-700 p-2.5 focus:ring-2 focus:ring-blue-500"
+                                    className="w-full bg-zinc-900 text-white text-xs font-medium rounded-lg border border-zinc-700 p-2 focus:ring-1 focus:ring-white"
                                 >
                                     {availableBranches.map((b) => (
                                         <option key={b.id} value={b.id}>
@@ -145,20 +145,20 @@ export default function BranchPricesIndex({
 
                 {/* Notice Card for Branch Admin */}
                 {isBranchAdmin && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-start gap-3">
-                        <span className="text-xl">ℹ️</span>
-                        <div className="text-xs text-blue-900 leading-relaxed">
-                            <p className="font-bold">Ketentuan Pengelolaan OTR Wilayah {selectedBranch.region}:</p>
-                            <p className="text-blue-800 mt-0.5">
-                                Setiap admin bertanggung jawab mengupdate harga OTR per wilayah. Perubahan harga yang Anda simpan di sini akan otomatis menjadi acuan OTR untuk wilayah <strong>{selectedBranch.region}</strong> dan seluruh cabang (3S, 2S, 1S) di wilayah ini.
+                    <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-4 flex items-start gap-3">
+                        <Info className="w-4 h-4 text-zinc-600 mt-0.5 shrink-0" />
+                        <div className="text-xs text-zinc-700 leading-relaxed">
+                            <p className="font-semibold text-zinc-900">Ketentuan Pengelolaan OTR Wilayah {selectedBranch.region}:</p>
+                            <p className="text-zinc-600 mt-0.5">
+                                Setiap admin bertanggung jawab memperbarui harga OTR per wilayah. Perubahan harga yang Anda simpan di sini akan otomatis menjadi acuan OTR untuk wilayah <strong>{selectedBranch.region}</strong> dan seluruh cabang di wilayah ini.
                             </p>
                         </div>
                     </div>
                 )}
 
                 {/* Filters & Actions Bar */}
-                <div className="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
-                    <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+                <div className="bg-white p-3.5 rounded-xl border border-zinc-200 shadow-2xs flex flex-col md:flex-row justify-between items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
                         <div className="relative w-full sm:w-64">
                             <input
                                 type="text"
@@ -173,7 +173,7 @@ export default function BranchPricesIndex({
                         <select
                             value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}
-                            className="text-xs border-slate-200 rounded-xl px-3 py-2.5 font-bold text-slate-700"
+                            className="text-xs border border-zinc-300 rounded-lg px-3 py-2 font-medium text-zinc-800 bg-white"
                         >
                             {categories.map((c) => (
                                 <option key={c} value={c}>
@@ -184,14 +184,14 @@ export default function BranchPricesIndex({
                     </div>
 
                     <div className="flex items-center gap-3 w-full md:w-auto justify-end">
-                        <span className="text-xs text-slate-500 font-medium">
+                        <span className="text-xs text-zinc-500 font-medium">
                             Menampilkan {filteredMotorcycles.length} dari {motorcycles.length} motor
                         </span>
                         <button
                             type="button"
                             onClick={handleSaveAll}
                             disabled={savingAll}
-                            className="bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white font-semibold text-xs px-4 py-2 rounded-lg transition flex items-center gap-2"
+                            className="bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white font-semibold text-xs px-4 py-2 rounded-lg transition flex items-center gap-1.5 shadow-xs"
                         >
                             {savingAll ? (
                                 <span>Menyimpan Semua...</span>
@@ -206,31 +206,31 @@ export default function BranchPricesIndex({
                 </div>
 
                 {/* Table of Motorcycles */}
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div className="bg-white rounded-xl border border-zinc-200 shadow-2xs overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left text-xs text-slate-700">
-                            <thead className="bg-slate-50 uppercase font-black text-slate-700 border-b border-slate-200">
+                        <table className="w-full text-left text-xs text-zinc-600">
+                            <thead className="bg-zinc-50/75 uppercase font-semibold text-[11px] text-zinc-700 border-b border-zinc-200">
                                 <tr>
-                                    <th className="p-4">Motor</th>
-                                    <th className="p-4">Kategori</th>
-                                    <th className="p-4">OTR Pusat (Pekanbaru)</th>
-                                    <th className="p-4">Harga OTR Cabang Ini</th>
-                                    <th className="p-4">Selisih vs Pusat</th>
-                                    <th className="p-4 text-right">Aksi Simpan</th>
+                                    <th className="px-4 py-3">Motor</th>
+                                    <th className="px-4 py-3">Kategori</th>
+                                    <th className="px-4 py-3">OTR Pusat (Pekanbaru)</th>
+                                    <th className="px-4 py-3">Harga OTR Cabang Ini</th>
+                                    <th className="px-4 py-3">Selisih vs Pusat</th>
+                                    <th className="px-4 py-3 text-right">Aksi Simpan</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-100 font-sans">
+                            <tbody className="divide-y divide-zinc-200">
                                 {filteredMotorcycles.map((bike) => {
                                     const currentInputVal = prices[bike.id] !== undefined ? prices[bike.id] : bike.price_branch_current;
                                     const diff = (parseInt(currentInputVal, 10) || 0) - bike.price_otr_base;
                                     const isRowSaving = savingRowId === bike.id;
 
                                     return (
-                                        <tr key={bike.id} className="hover:bg-slate-50/80 transition">
+                                        <tr key={bike.id} className="hover:bg-zinc-50/60 transition-colors">
                                             {/* Motor name & image */}
-                                            <td className="p-4">
+                                            <td className="px-4 py-3">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-12 h-12 bg-slate-50 rounded-xl border border-slate-200 p-1 flex items-center justify-center flex-shrink-0">
+                                                    <div className="w-10 h-10 bg-zinc-50 rounded-lg border border-zinc-200 p-1 flex items-center justify-center shrink-0">
                                                         <img
                                                             src={bike.image_url}
                                                             alt={bike.name}
@@ -238,69 +238,69 @@ export default function BranchPricesIndex({
                                                         />
                                                     </div>
                                                     <div>
-                                                        <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm">{bike.name}</h4>
-                                                        <span className="text-[10px] text-slate-400 font-mono">ID: {bike.id}</span>
+                                                        <h4 className="font-semibold text-zinc-900 text-xs">{bike.name}</h4>
+                                                        <span className="text-[10px] text-zinc-400 font-mono">ID: {bike.id}</span>
                                                     </div>
                                                 </div>
                                             </td>
 
                                             {/* Category */}
-                                            <td className="p-4">
-                                                <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-[10px] font-bold">
+                                            <td className="px-4 py-3">
+                                                <span className="px-2 py-0.5 bg-zinc-100 text-zinc-800 rounded-md text-[10px] font-semibold border border-zinc-200">
                                                     {bike.category}
                                                 </span>
                                             </td>
 
                                             {/* Base Price OTR */}
-                                            <td className="p-4 text-slate-500 font-medium font-mono">
+                                            <td className="px-4 py-3 text-zinc-500 font-medium font-mono">
                                                 {formatRupiah(bike.price_otr_base)}
                                             </td>
 
                                             {/* Branch OTR Input */}
-                                            <td className="p-4">
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-slate-400 font-bold text-xs">Rp</span>
+                                            <td className="px-4 py-3">
+                                                <div className="flex items-center gap-1.5">
+                                                    <span className="text-zinc-400 font-semibold text-xs">Rp</span>
                                                     <input
                                                         type="number"
                                                         value={currentInputVal}
                                                         onChange={(e) => handlePriceChange(bike.id, e.target.value)}
-                                                        className="w-36 text-xs font-bold text-blue-900 border-slate-300 rounded-xl p-2 focus:ring-blue-500 focus:border-blue-500 font-mono"
+                                                        className="w-32 text-xs font-semibold text-zinc-900 border border-zinc-300 rounded-lg py-1 px-2 focus:outline-none focus:ring-1 focus:ring-zinc-900 font-mono bg-white"
                                                     />
                                                     {bike.price_regional && bike.price_regional !== currentInputVal && (
                                                         <button
                                                             type="button"
                                                             onClick={() => handleResetToRegional(bike.id, bike.price_regional)}
                                                             title={`Samakan dengan OTR Region ${selectedBranch.region} (${formatRupiah(bike.price_regional)})`}
-                                                            className="text-[10px] text-slate-400 hover:text-blue-600 underline font-semibold"
+                                                            className="text-[10px] text-zinc-500 hover:text-zinc-900 underline font-medium"
                                                         >
-                                                            Reset ke Regional
+                                                            Reset
                                                         </button>
                                                     )}
                                                 </div>
                                             </td>
 
                                             {/* Difference */}
-                                            <td className="p-4">
+                                            <td className="px-4 py-3">
                                                 {diff === 0 ? (
-                                                    <span className="text-slate-400 font-medium text-[11px]">Sama dengan Pusat</span>
+                                                    <span className="text-zinc-400 font-medium text-[11px]">Sama dengan Pusat</span>
                                                 ) : diff > 0 ? (
-                                                    <span className="text-emerald-600 font-bold font-mono text-[11px]">
+                                                    <span className="text-emerald-700 font-semibold font-mono text-[11px]">
                                                         +{formatRupiah(diff)}
                                                     </span>
                                                 ) : (
-                                                    <span className="text-red-600 font-bold font-mono text-[11px]">
+                                                    <span className="text-rose-700 font-semibold font-mono text-[11px]">
                                                         {formatRupiah(diff)}
                                                     </span>
                                                 )}
                                             </td>
 
                                             {/* Single Action */}
-                                            <td className="p-4 text-right">
+                                            <td className="px-4 py-3 text-right">
                                                 <button
                                                     type="button"
                                                     onClick={() => handleSaveSingle(bike.id)}
                                                     disabled={isRowSaving || savingAll}
-                                                    className="bg-slate-900 hover:bg-blue-600 text-white font-bold text-[11px] px-3.5 py-1.5 rounded-xl transition shadow-sm disabled:opacity-50"
+                                                    className="bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs px-3 py-1.5 rounded-md transition shadow-2xs disabled:opacity-50"
                                                 >
                                                     {isRowSaving ? 'Menyimpan...' : 'Simpan'}
                                                 </button>
@@ -313,7 +313,7 @@ export default function BranchPricesIndex({
                     </div>
 
                     {filteredMotorcycles.length === 0 && (
-                        <div className="p-12 text-center text-slate-400 text-xs font-medium">
+                        <div className="p-12 text-center text-zinc-400 text-xs font-medium">
                             Tidak ada motor yang cocok dengan pencarian.
                         </div>
                     )}
@@ -325,7 +325,7 @@ export default function BranchPricesIndex({
                         type="button"
                         onClick={handleSaveAll}
                         disabled={savingAll}
-                        className="bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white font-semibold text-xs px-5 py-2.5 rounded-lg transition flex items-center gap-2"
+                        className="bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white font-semibold text-xs px-5 py-2.5 rounded-lg transition flex items-center gap-2 shadow-xs"
                     >
                         {savingAll ? (
                             <span>Menyimpan Semua Harga OTR Cabang...</span>

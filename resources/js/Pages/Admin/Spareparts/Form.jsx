@@ -121,51 +121,51 @@ export default function Form({ sparepart = null }) {
                             type="file"
                             accept="image/*"
                             onChange={handleFileChange}
-                            className="w-full text-xs text-slate-600 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer"
+                            className="w-full text-xs text-zinc-600 file:mr-4 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-900 file:text-white hover:file:bg-zinc-800 cursor-pointer"
                         />
-                        <p className="text-[11px] text-slate-500">Format gambar: PNG, JPG, WEBP. Maksimal 5MB.</p>
+                        <p className="text-[11px] text-zinc-400">Format gambar: PNG, JPG, WEBP. Maksimal 5MB.</p>
 
                         {imagePreview && (
                             <div className="pt-2 flex items-center gap-4">
-                                <div className="w-20 h-20 bg-white p-2 rounded-2xl border border-slate-300 shadow-sm flex items-center justify-center overflow-hidden">
+                                <div className="w-16 h-16 bg-white p-1.5 rounded-lg border border-zinc-200 shadow-2xs flex items-center justify-center overflow-hidden">
                                     <img src={imagePreview} alt="Preview Sparepart" className="max-h-full object-contain" />
                                 </div>
-                                <div className="text-xs space-y-1">
-                                    <p className="font-bold text-slate-800">Preview Foto Sparepart</p>
-                                    <p className="text-slate-500 truncate max-w-xs">{data.image_url || 'File Baru Diupload'}</p>
+                                <div className="text-xs space-y-0.5">
+                                    <p className="font-semibold text-zinc-800">Preview Foto Sparepart</p>
+                                    <p className="text-zinc-400 text-[11px] truncate max-w-xs">{data.image_url || 'File Baru Diupload'}</p>
                                 </div>
                             </div>
                         )}
                     </div>
 
                     <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-700 uppercase">Deskripsi / Keunggulan / Spesifikasi</label>
+                        <label className="text-xs font-semibold text-zinc-700 uppercase">Deskripsi / Keunggulan / Spesifikasi</label>
                         <textarea
                             rows="4"
                             placeholder="Tuliskan deskripsi keunggulan dan spesifikasi sparepart..."
                             value={data.description}
                             onChange={(e) => setData('description', e.target.value)}
-                            className="w-full text-sm border-slate-200 rounded-2xl p-3"
+                            className="w-full text-xs border border-zinc-300 rounded-lg p-2.5 focus:outline-none focus:ring-1 focus:ring-zinc-900"
                         />
                     </div>
 
                     <div className="flex items-center gap-6 pt-2">
-                        <label className="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                        <label className="flex items-center gap-2 text-xs font-semibold text-zinc-700 cursor-pointer">
                             <input
                                 type="checkbox"
                                 checked={data.is_new}
                                 onChange={(e) => setData('is_new', e.target.checked)}
-                                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                                className="rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900"
                             />
                             Beri Badge "NEW"
                         </label>
 
-                        <label className="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
+                        <label className="flex items-center gap-2 text-xs font-semibold text-zinc-700 cursor-pointer">
                             <input
                                 type="checkbox"
                                 checked={data.is_active}
                                 onChange={(e) => setData('is_active', e.target.checked)}
-                                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                                className="rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900"
                             />
                             Status Produk Aktif
                         </label>
@@ -174,7 +174,7 @@ export default function Form({ sparepart = null }) {
                     <button
                         type="submit"
                         disabled={processing}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-md"
+                        className="w-full bg-zinc-900 hover:bg-zinc-800 text-white font-semibold py-3 rounded-lg text-xs tracking-wider transition shadow-xs disabled:opacity-50"
                     >
                         {processing ? 'Menyimpan...' : (isEditing ? 'Simpan Perubahan Sparepart' : 'Tambah Sparepart Baru')}
                     </button>

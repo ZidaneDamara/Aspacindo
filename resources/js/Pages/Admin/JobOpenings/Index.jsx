@@ -1,62 +1,132 @@
 import React from 'react';
-import { Link, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import Pagination from '@/Components/Pagination';
+import { Plus, Edit2, Trash2, Briefcase, Building2, Calendar } from 'lucide-react';
 
 export default function Index({ jobs }) {
-    const handleDelete = (id) => {
-        if (confirm('Hapus lowongan kerja ini?')) {
+    const handleDelete = (id, title) => {
+        if (confirm(`Apakah Anda yakin ingin menghapus lowongan "${title || 'ini'}"?`)) {
             router.delete(`/admin/job-openings/${id}`);
         }
     };
 
     return (
         <AdminLayout title="Kelola Lowongan Kerja HR">
+            <Head title="Kelola Lowongan Kerja HR | Admin" />
+
             <div className="space-y-6">
-                <div className="flex justify-between items-center">
-                    <h2 className="text-xl font-black text-slate-900">Daftar Lowongan ({jobs.total})</h2>
-                    <Link href="/admin/job-openings/create" className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl shadow">
-                        + Tambah Lowongan Baru
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-200 pb-4">
+                    <div>
+                        <h2 className="text-xl font-bold tracking-tight text-zinc-900">
+                            Daftar Lowongan Kerja ({jobs.total})
+                        </h2>
+                        <p className="text-xs text-zinc-500 mt-0.5">
+                            Kelola rekrutmen SDM dealership: Sales Counter, Mekanik Servis Yamaha, Partman, Kasir, dan Administrasi.
+                        </p>
+                    </div>
+                    <Link
+                        href="/admin/job-openings/create"
+                        className="inline-flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-xs px-4 py-2 rounded-lg transition shadow-xs"
+                    >
+                        <Plus className="w-4 h-4" />
+                        Tambah Lowongan Baru
                     </Link>
                 </div>
 
-                <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                    <table className="w-full text-left text-xs text-slate-700">
-                        <thead className="bg-slate-100 uppercase font-black text-slate-900 border-b border-slate-200">
-                            <tr>
-                                <th className="p-4">Posisi</th>
-                                <th className="p-4">Cabang Penempatan</th>
-                                <th className="p-4">Tipe Kerja</th>
-                                <th className="p-4">Tgl Tutup</th>
-                                <th className="p-4">Status</th>
-                                <th className="p-4 text-right">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-100">
-                            {jobs.data.map((item) => (
-                                <tr key={item.id} className="hover:bg-slate-50">
-                                    <td className="p-4 font-bold text-slate-900">{item.title}</td>
-                                    <td className="p-4 font-semibold text-blue-600">{item.branch ? item.branch.name : 'Semua Cabang'}</td>
-                                    <td className="p-4 font-mono">{item.employment_type}</td>
-                                    <td className="p-4 font-mono">{item.closes_at || 'Terbuka'}</td>
-                                    <td className="p-4">
-                                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                                            item.is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-500'
-                                        }`}>
-                                            {item.is_active ? 'Aktif' : 'Nonaktif'}
-                                        </span>
-                                    </td>
-                                    <td className="p-4 text-right space-x-2">
-                                        <Link href={`/admin/job-openings/${item.id}/edit`} className="text-blue-600 font-bold hover:underline">Edit</Link>
-                                        <button onClick={() => handleDelete(item.id)} className="text-red-600 font-bold hover:underline">Hapus</button>
-                                    </td>
+                <div className="bg-white rounded-xl border border-zinc-200 overflow-hidden shadow-2xs">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left text-xs text-zinc-600">
+                            <thead className="bg-zinc-50/75 uppercase font-semibold text-[11px] text-zinc-700 border-b border-zinc-200">
+                                <tr>
+                                    <th className="px-4 py-3">Posisi Pekerjaan</th>
+                                    <th className="px-4 py-3">Cabang Penempatan</th>
+                                    <th className="px-4 py-3">Tipe Kerja</th>
+                                    <th className="px-4 py-3">Tgl Tutup</th>
+                                    <th className="px-4 py-3">Status</th>
+                                    <th className="px-4 py-3 text-right">Aksi</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-zinc-200">
+                                {jobs.data.length === 0 ? (
+                                    <tr>
+                                        <td colSpan="6" className="text-center py-16 px-4">
+                                            <div className="flex flex-col items-center justify-center text-center">
+                                                <div className="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400 mb-3 border border-zinc-200">
+                                                    <Briefcase className="w-6 h-6 text-zinc-400" />
+                                                </div>
+                                                <h3 className="text-sm font-semibold text-zinc-900">Belum ada lowongan kerja aktif</h3>
+                                                <p className="text-xs text-zinc-500 mt-1 max-w-sm">
+                                                    Publikasikan rekrutmen posisi Sales Counter, Mekanik Yamaha, Kepala Bengkel, atau Administrasi.
+                                                </p>
+                                                <div className="mt-4">
+                                                    <Link
+                                                        href="/admin/job-openings/create"
+                                                        className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-900 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-zinc-800 transition"
+                                                    >
+                                                        <Plus className="w-4 h-4" />
+                                                        Tambah Lowongan Baru
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    jobs.data.map((item) => (
+                                        <tr key={item.id} className="hover:bg-zinc-50/60 transition-colors">
+                                            <td className="px-4 py-3 font-semibold text-zinc-900 max-w-xs truncate">
+                                                {item.title}
+                                            </td>
+                                            <td className="px-4 py-3 text-zinc-700 font-medium">
+                                                {item.branch ? item.branch.name : 'Semua Cabang'}
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                <span className="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-zinc-100 text-zinc-800 border border-zinc-200">
+                                                    {item.employment_type || 'Full Time'}
+                                                </span>
+                                            </td>
+                                            <td className="px-4 py-3 font-mono text-zinc-500">
+                                                {item.closes_at ? new Date(item.closes_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Terbuka'}
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                <span
+                                                    className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
+                                                        item.is_active
+                                                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                                                            : 'bg-zinc-100 text-zinc-500 border-zinc-200'
+                                                    }`}
+                                                >
+                                                    {item.is_active ? 'Aktif' : 'Ditutup'}
+                                                </span>
+                                            </td>
+                                            <td className="px-4 py-3 text-right">
+                                                <div className="inline-flex items-center justify-end gap-1">
+                                                    <Link
+                                                        href={`/admin/job-openings/${item.id}/edit`}
+                                                        className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900 transition shadow-2xs"
+                                                        title="Edit Lowongan"
+                                                    >
+                                                        <Edit2 className="w-3.5 h-3.5" />
+                                                    </Link>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleDelete(item.id, item.title)}
+                                                        className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-zinc-200 bg-white text-zinc-400 hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition shadow-2xs"
+                                                        title="Hapus Lowongan"
+                                                    >
+                                                        <Trash2 className="w-3.5 h-3.5" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
-                <Pagination links={jobs.links} />
+                {jobs.links && <Pagination links={jobs.links} />}
             </div>
         </AdminLayout>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import Pagination from '@/Components/Pagination';
-import { Building, Bike, Plus, Edit2, Trash2, MapPin } from 'lucide-react';
+import { Building, Bike, Plus, Edit2, Trash2, MapPin, ExternalLink } from 'lucide-react';
 
 export default function Index({ branches, userBranch = null, isBranchAdmin = false }) {
     const handleDelete = (id, name) => {
@@ -16,7 +16,7 @@ export default function Index({ branches, userBranch = null, isBranchAdmin = fal
             case '1S':
                 return {
                     label: '1S (Sales)',
-                    bg: 'bg-zinc-100 text-zinc-800 border-zinc-200',
+                    bg: 'bg-zinc-100 text-zinc-700 border-zinc-200',
                 };
             case '2S':
                 return {
@@ -26,7 +26,7 @@ export default function Index({ branches, userBranch = null, isBranchAdmin = fal
             default:
                 return {
                     label: '3S (Dealer Utama)',
-                    bg: 'bg-zinc-900 text-white border-zinc-900',
+                    bg: 'bg-zinc-100 text-zinc-900 border-zinc-300 font-semibold',
                 };
         }
     };
@@ -100,49 +100,101 @@ export default function Index({ branches, userBranch = null, isBranchAdmin = fal
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-zinc-200">
-                            {branches.data.map((item) => {
-                                const badge = getDealerBadge(item.dealer_type);
-                                return (
-                                    <tr key={item.id} className="hover:bg-zinc-50/60 transition-colors">
-                                        <td className="px-4 py-3 font-semibold text-zinc-900">{item.name}</td>
-                                        <td className="px-4 py-3">
-                                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${badge.bg}`}>
-                                                {badge.label}
-                                            </span>
-                                        </td>
-                                        <td className="px-4 py-3 font-medium text-zinc-800">{item.region}</td>
-                                        <td className="px-4 py-3 text-zinc-500 max-w-xs truncate">{item.full_address}</td>
-                                        <td className="px-4 py-3 font-mono font-medium">{item.whatsapp_number}</td>
-                                        <td className="px-4 py-3">
-                                            <span
-                                                className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
-                                                    item.is_active ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-zinc-100 text-zinc-500 border-zinc-200'
-                                                }`}
-                                            >
-                                                {item.is_active ? 'Aktif' : 'Nonaktif'}
-                                            </span>
-                                        </td>
-                                        <td className="px-4 py-3 text-right">
-                                            <div className="inline-flex items-center gap-1">
-                                                <Link
-                                                    href={`/admin/branches/${item.id}/edit`}
-                                                    className="p-1.5 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 rounded-md transition"
-                                                    title="Edit"
-                                                >
-                                                    <Edit2 className="w-3.5 h-3.5" />
-                                                </Link>
-                                                <button
-                                                    onClick={() => handleDelete(item.id, item.name)}
-                                                    className="p-1.5 text-zinc-400 hover:text-red-600 hover:bg-red-50 rounded-md transition"
-                                                    title="Hapus"
-                                                >
-                                                    <Trash2 className="w-3.5 h-3.5" />
-                                                </button>
+                            {branches.data.length === 0 ? (
+                                <tr>
+                                    <td colSpan="7" className="text-center py-16 px-4">
+                                        <div className="flex flex-col items-center justify-center text-center">
+                                            <div className="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400 mb-3 border border-zinc-200">
+                                                <Building className="w-6 h-6 text-zinc-400" />
                                             </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
+                                            <h3 className="text-sm font-semibold text-zinc-900">Belum ada data cabang dealer</h3>
+                                            <p className="text-xs text-zinc-500 mt-1 max-w-sm">
+                                                Silakan tambahkan cabang dealer utama 3S, 2S, atau pos penjualan 1S baru.
+                                            </p>
+                                            <div className="mt-4">
+                                                <Link
+                                                    href="/admin/branches/create"
+                                                    className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-900 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-zinc-800 transition"
+                                                >
+                                                    <Plus className="w-4 h-4" />
+                                                    Tambah Cabang Baru
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ) : (
+                                branches.data.map((item) => {
+                                    const badge = getDealerBadge(item.dealer_type);
+                                    return (
+                                        <tr key={item.id} className="hover:bg-zinc-50/60 transition-colors">
+                                            <td className="px-4 py-3 font-semibold text-zinc-900">{item.name}</td>
+                                            <td className="px-4 py-3">
+                                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${badge.bg}`}>
+                                                    {badge.label}
+                                                </span>
+                                            </td>
+                                            <td className="px-4 py-3 font-medium text-zinc-800">{item.region}</td>
+                                            <td className="px-4 py-3 text-zinc-500 max-w-xs truncate">{item.full_address}</td>
+                                            <td className="px-4 py-3">
+                                                {item.whatsapp_number ? (
+                                                    item.whatsapp_number.startsWith('http') ? (
+                                                        <a
+                                                            href={item.whatsapp_number}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-1 text-[11px] font-medium text-zinc-800 hover:text-zinc-950 bg-zinc-100 hover:bg-zinc-200 px-2.5 py-1 rounded-md transition border border-zinc-200"
+                                                        >
+                                                            <span>Link WA</span>
+                                                            <ExternalLink className="w-3 h-3 text-zinc-500" />
+                                                        </a>
+                                                    ) : (
+                                                        <a
+                                                            href={`https://wa.me/${item.whatsapp_number.replace(/[^0-9]/g, '')}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-1 font-mono text-zinc-800 hover:text-zinc-950"
+                                                        >
+                                                            <span>{item.whatsapp_number}</span>
+                                                            <ExternalLink className="w-3 h-3 text-zinc-400" />
+                                                        </a>
+                                                    )
+                                                ) : (
+                                                    <span className="text-zinc-400">-</span>
+                                                )}
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                <span
+                                                    className={`px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
+                                                        item.is_active ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-zinc-100 text-zinc-500 border-zinc-200'
+                                                    }`}
+                                                >
+                                                    {item.is_active ? 'Aktif' : 'Nonaktif'}
+                                                </span>
+                                            </td>
+                                            <td className="px-4 py-3 text-right">
+                                                <div className="inline-flex items-center justify-end gap-1">
+                                                    <Link
+                                                        href={`/admin/branches/${item.id}/edit`}
+                                                        className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900 transition shadow-2xs"
+                                                        title="Edit Cabang"
+                                                    >
+                                                        <Edit2 className="w-3.5 h-3.5" />
+                                                    </Link>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleDelete(item.id, item.name)}
+                                                        className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-zinc-200 bg-white text-zinc-400 hover:text-rose-600 hover:border-rose-200 hover:bg-rose-50 transition shadow-2xs"
+                                                        title="Hapus Cabang"
+                                                    >
+                                                        <Trash2 className="w-3.5 h-3.5" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            )}
                         </tbody>
                     </table>
                 </div>

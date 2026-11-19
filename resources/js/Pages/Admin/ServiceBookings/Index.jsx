@@ -66,8 +66,16 @@ export default function Index({ bookings, branches = [], filters = {} }) {
                         <tbody className="divide-y divide-zinc-200">
                             {bookings.data.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="text-center py-10 text-zinc-400">
-                                        Tidak ada data booking servis yang cocok dengan filter.
+                                    <td colSpan={6} className="text-center py-16 px-4">
+                                        <div className="flex flex-col items-center justify-center text-center">
+                                            <div className="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400 mb-3 border border-zinc-200">
+                                                <Wrench className="w-6 h-6 text-zinc-400" />
+                                            </div>
+                                            <h3 className="text-sm font-semibold text-zinc-900">Tidak ada antrean booking service</h3>
+                                            <p className="text-xs text-zinc-500 mt-1 max-w-sm">
+                                                Antrean pendaftaran servis berkala online dari pelanggan bengkel akan muncul di sini.
+                                            </p>
+                                        </div>
                                     </td>
                                 </tr>
                             ) : (

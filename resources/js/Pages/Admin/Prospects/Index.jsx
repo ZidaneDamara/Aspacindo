@@ -212,13 +212,13 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                 </div>
 
                 {/* Filter & Search Bar */}
-                <div className="bg-white p-4 rounded-xl border border-zinc-200 shadow-2xs flex flex-col sm:flex-row gap-3 items-center justify-between">
-                    <form onSubmit={handleSearch} className="flex gap-2 w-full sm:w-auto flex-1">
-                        <div className="relative flex-1 sm:max-w-md">
+                <div className="bg-white p-3.5 rounded-xl border border-zinc-200 shadow-2xs flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between">
+                    <form onSubmit={handleSearch} className="flex gap-2 flex-1 max-w-md">
+                        <div className="relative flex-1">
                             <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
                             <input
                                 type="text"
-                                placeholder="Cari nama, no. HP, tiket, atau nama motor..."
+                                placeholder="Cari nama, no. HP, tiket, atau motor..."
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 className="w-full text-xs pl-9 pr-3 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-900 bg-zinc-50/50"
@@ -226,14 +226,14 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                         </div>
                         <button
                             type="submit"
-                            className="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold px-4 py-2 rounded-lg text-xs transition"
+                            className="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold px-4 py-2 rounded-lg text-xs transition shadow-xs"
                         >
                             Cari
                         </button>
                     </form>
 
-                    <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto text-xs">
-                        <span className="text-[11px] font-medium text-zinc-400 whitespace-nowrap pr-1">Status:</span>
+                    <div className="flex items-center gap-1 bg-zinc-100 p-1 rounded-lg border border-zinc-200 overflow-x-auto">
+                        <span className="text-[11px] font-semibold text-zinc-500 uppercase px-2 whitespace-nowrap">Status:</span>
                         {[
                             { label: 'Semua', val: '' },
                             { label: 'Baru', val: 'new' },
@@ -244,11 +244,12 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                         ].map((btn) => (
                             <button
                                 key={btn.val}
+                                type="button"
                                 onClick={() => handleFilterStatus(btn.val)}
-                                className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition ${
+                                className={`px-3 py-1.5 rounded-md text-xs font-semibold whitespace-nowrap transition ${
                                     statusFilter === btn.val
-                                        ? 'bg-zinc-900 text-white'
-                                        : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900'
+                                        ? 'bg-zinc-900 text-white shadow-xs'
+                                        : 'text-zinc-700 hover:text-zinc-950 hover:bg-zinc-200/70'
                                 }`}
                             >
                                 {btn.label}
@@ -275,8 +276,16 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                             <tbody className="divide-y divide-zinc-200">
                                 {prospects.data.length === 0 ? (
                                     <tr>
-                                        <td colSpan="7" className="text-center py-10 text-zinc-400">
-                                            Belum ada data prospect leads yang ditemukan.
+                                        <td colSpan="7" className="text-center py-16 px-4">
+                                            <div className="flex flex-col items-center justify-center text-center">
+                                                <div className="w-12 h-12 rounded-full bg-zinc-100 flex items-center justify-center text-zinc-400 mb-3 border border-zinc-200">
+                                                    <Filter className="w-6 h-6 text-zinc-400" />
+                                                </div>
+                                                <h3 className="text-sm font-semibold text-zinc-900">Tidak ada data prospect leads</h3>
+                                                <p className="text-xs text-zinc-500 mt-1 max-w-sm">
+                                                    Belum ada pengajuan simulasi kredit yang sesuai dengan kriteria pencarian atau filter yang dipilih.
+                                                </p>
+                                            </div>
                                         </td>
                                     </tr>
                                 ) : (
@@ -306,26 +315,28 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                                             <td className="px-4 py-3 font-medium text-zinc-700">{p.leasing_partner}</td>
                                             <td className="px-4 py-3">{getStatusBadge(p.status)}</td>
                                             <td className="px-4 py-3 text-right">
-                                                <div className="inline-flex items-center gap-1.5">
+                                                <div className="inline-flex items-center justify-end gap-1.5">
                                                     <a
                                                         href={buildWhatsAppUrl(p)}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         title="Hubungi via WhatsApp"
-                                                        className="inline-flex items-center gap-1 px-2.5 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-md font-semibold text-[11px] transition"
+                                                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900 text-xs font-medium transition shadow-2xs"
                                                     >
-                                                        <MessageSquare className="w-3 h-3" />
-                                                        WA
+                                                        <MessageSquare className="w-3.5 h-3.5 text-zinc-500" />
+                                                        <span>WA</span>
                                                     </a>
                                                     <button
+                                                        type="button"
                                                         onClick={() => openFollowUpModal(p)}
-                                                        className="px-2.5 py-1 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md font-medium text-[11px] transition"
+                                                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-zinc-900 text-white hover:bg-zinc-800 text-xs font-medium transition shadow-xs"
                                                     >
-                                                        Follow Up
+                                                        <span>Follow Up</span>
                                                     </button>
                                                     <button
+                                                        type="button"
                                                         onClick={() => handleDelete(p.id, p.name)}
-                                                        className="p-1 text-zinc-400 hover:text-red-600 hover:bg-red-50 rounded-md transition"
+                                                        className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-transparent text-zinc-400 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-200 transition"
                                                         title="Hapus"
                                                     >
                                                         <Trash2 className="w-3.5 h-3.5" />

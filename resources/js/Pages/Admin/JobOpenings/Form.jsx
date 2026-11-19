@@ -112,7 +112,7 @@ export default function Form({ job = null, branches = [] }) {
                                 type="checkbox"
                                 checked={data.is_active}
                                 onChange={(e) => setData('is_active', e.target.checked)}
-                                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                                className="rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900"
                             />
                             Status Lowongan Buka (Aktif)
                         </label>
@@ -121,7 +121,7 @@ export default function Form({ job = null, branches = [] }) {
                     <button
                         type="submit"
                         disabled={processing}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider transition"
+                        className="w-full bg-zinc-900 hover:bg-zinc-800 text-white font-semibold py-3 rounded-lg text-xs tracking-wider transition shadow-xs disabled:opacity-50"
                     >
                         {isEditing ? 'Simpan Perubahan' : 'Terbitkan Lowongan'}
                     </button>

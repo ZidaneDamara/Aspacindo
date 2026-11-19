@@ -365,7 +365,7 @@ export default function Form({ article = null }) {
                                         type="checkbox"
                                         checked={data.is_active}
                                         onChange={(e) => setData('is_active', e.target.checked)}
-                                        className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                                        className="rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900"
                                     />
                                     Publikasikan Artikel Ini (Tampil Publik)
                                 </label>
@@ -373,7 +373,7 @@ export default function Form({ article = null }) {
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl text-xs uppercase tracking-wider transition shadow-md hover:shadow-lg disabled:opacity-50"
+                                    className="w-full bg-zinc-900 hover:bg-zinc-800 text-white font-semibold py-3 rounded-lg text-xs tracking-wider transition shadow-xs disabled:opacity-50"
                                 >
                                     {processing ? 'Menyimpan...' : (isEditing ? 'Simpan Perubahan Artikel' : 'Publikasikan Artikel')}
                                 </button>
