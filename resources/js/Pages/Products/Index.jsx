@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { router } from '@inertiajs/react';
 import PublicLayout from '@/Layouts/PublicLayout';
 import MotorcycleCard from '@/Components/MotorcycleCard';
@@ -28,6 +28,15 @@ export default function Index({
     const [sort, setSort] = useState(filters.sort || 'newest');
     const [minPrice, setMinPrice] = useState(filters.min_price || '');
     const [maxPrice, setMaxPrice] = useState(filters.max_price || '');
+
+    const subCategoriesRef = useRef(null);
+
+    const handleScrollSubCategories = (direction) => {
+        if (subCategoriesRef.current) {
+            const scrollAmount = direction === 'left' ? -260 : 260;
+            subCategoriesRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    };
 
     useEffect(() => {
         setSelectedCategory(filters.category || 'Semua');
@@ -293,8 +302,22 @@ export default function Index({
 
                     {/* SUB-CATEGORY / MOTORCYCLE MODEL TABS (Yamaha Trapezoid Design) */}
                     {currentSubCategories && currentSubCategories.length > 0 && (
-                        <div className="w-full flex flex-col items-center justify-center space-y-2 py-1">
+                        <div className="relative w-full flex items-center justify-center py-2 max-w-7xl mx-auto">
+                            {/* Left Scroll Arrow Button (Desktop Mode) */}
+                            <button
+                                type="button"
+                                onClick={() => handleScrollSubCategories('left')}
+                                aria-label="Geser pilihan motor ke kiri"
+                                className="hidden md:flex flex-shrink-0 w-9 h-9 rounded-full bg-white hover:bg-slate-100 text-[#0A2872] shadow-md border border-slate-200 items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer z-20 mr-2 focus:outline-none"
+                            >
+                                <svg className="w-4 h-4 text-[#0A2872]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </button>
+
+                            {/* Scrollable Tabs Track */}
                             <div
+                                ref={subCategoriesRef}
                                 className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scroll-smooth px-2 py-2 max-w-full touch-pan-x"
                                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                             >
@@ -305,13 +328,18 @@ export default function Index({
                                             key={sub.value}
                                             type="button"
                                             onClick={() => handleSubCategoryChange(sub.value)}
-                                            className={`group relative flex-shrink-0 px-5 sm:px-7 py-2.5 transition-all duration-200 transform -skew-x-[20deg] cursor-pointer select-none ${
+                                            className={`group relative flex-shrink-0 px-5 sm:px-7 py-2.5 transition-all duration-200 transform -skew-x-[20deg] cursor-pointer select-none text-slate-900 ${
                                                 isActive
-                                                    ? 'bg-[#153278] text-white shadow-md z-10 ring-1 ring-[#153278]'
-                                                    : 'bg-[#eaedf0] text-[#153278] hover:bg-[#dfe3e8]'
+                                                    ? 'bg-[#153278] shadow-md z-10 ring-1 ring-[#153278]'
+                                                    : 'bg-[#eaedf0] hover:bg-[#dfe3e8]'
                                             }`}
                                         >
-                                            <span className="block transform skew-x-[20deg] font-play font-bold text-xs sm:text-[13px] uppercase tracking-wider whitespace-nowrap">
+                                            <span
+                                                style={{ color: isActive ? '#ffffff' : '#0A2872' }}
+                                                className={`block transform skew-x-[20deg] font-play font-bold text-xs sm:text-[13px] uppercase tracking-wider whitespace-nowrap ${
+                                                    isActive ? '!text-white' : '!text-[#0A2872]'
+                                                }`}
+                                            >
                                                 {sub.label}
                                             </span>
                                             {isActive && (
@@ -321,6 +349,18 @@ export default function Index({
                                     );
                                 })}
                             </div>
+
+                            {/* Right Scroll Arrow Button (Desktop Mode) */}
+                            <button
+                                type="button"
+                                onClick={() => handleScrollSubCategories('right')}
+                                aria-label="Geser pilihan motor ke kanan"
+                                className="hidden md:flex flex-shrink-0 w-9 h-9 rounded-full bg-white hover:bg-slate-100 text-[#0A2872] shadow-md border border-slate-200 items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer z-20 ml-2 focus:outline-none"
+                            >
+                                <svg className="w-4 h-4 text-[#0A2872]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
                         </div>
                     )}
 

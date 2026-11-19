@@ -163,7 +163,7 @@
             }
 
             /* Action / CTA / Primary Buttons: white text */
-            button:not([class*="text-slate"]):not([class*="text-gray"]):not([class*="text-neutral"]):not([class*="text-blue"]):not([class*="bg-transparent"]):not([class*="bg-slate-100"]):not([class*="bg-slate-200"]),
+            button:not([class*="text-slate"]):not([class*="text-gray"]):not([class*="text-neutral"]):not([class*="text-blue"]):not([class*="bg-transparent"]):not([class*="bg-slate-100"]):not([class*="bg-slate-200"]):not([class*="bg-[#eaedf0]"]),
             .btn-primary,
             .btn-yamaha,
             a[class*="rounded-full"][class*="shadow"][class*="text-white"],

@@ -713,7 +713,7 @@
     ]
   },
   "resources/js/Pages/Products/Index.jsx": {
-    "file": "assets/Index-BlEFFeV6.js",
+    "file": "assets/Index-D4x5h-yH.js",
     "name": "Index",
     "src": "resources/js/Pages/Products/Index.jsx",
     "isDynamicEntry": true,
@@ -892,7 +892,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-jG82_Hgl.js",
+    "file": "assets/app-D0wwkkD4.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
@@ -962,7 +962,7 @@
       "resources/js/Pages/Welcome.jsx"
     ],
     "css": [
-      "assets/app-BB_hKsJb.css"
+      "assets/app-02NPS329.css"
     ]
   }
 }
