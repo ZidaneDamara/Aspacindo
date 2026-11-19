@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, Link } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
+import { ArrowLeft, Building2, MapPin, Globe, Share2, Check } from 'lucide-react';
 
 export default function Form({
     branch = null,
@@ -46,252 +47,283 @@ export default function Form({
     };
 
     return (
-        <AdminLayout title={isEditing ? `Edit ${branch.name}` : 'Tambah Cabang Dealer Baru'}>
-            <div className="max-w-3xl bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
-                <div className="flex justify-between items-center border-b border-slate-100 pb-4">
+        <AdminLayout title={isEditing ? `Edit Cabang: ${branch.name}` : 'Tambah Cabang Dealer'}>
+            <div className="max-w-3xl space-y-6">
+                <div className="flex items-center gap-3 border-b border-zinc-200 pb-4">
+                    <Link
+                        href="/admin/branches"
+                        className="p-2 rounded-lg text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 transition"
+                    >
+                        <ArrowLeft className="w-5 h-5" />
+                    </Link>
                     <div>
-                        <h2 className="text-xl font-black text-slate-900">
-                            {isEditing ? `Edit Cabang: ${branch.name}` : 'Form Tambah Cabang Dealer / Pos Cabang'}
+                        <h2 className="text-xl font-bold tracking-tight text-zinc-900">
+                            {isEditing ? `Edit Cabang: ${branch.name}` : 'Tambah Cabang Dealer / Pos Cabang'}
                         </h2>
                         {isBranchAdmin && userBranch && (
-                            <p className="text-xs text-blue-600 font-semibold mt-1">
-                                🏢 Input Cabang untuk Wilayah: <strong>{userBranch.region}</strong>
+                            <p className="text-xs text-zinc-500 mt-0.5">
+                                Input Cabang untuk Wilayah: <strong>{userBranch.region}</strong>
                             </p>
                         )}
                     </div>
-                    <Link href="/admin/branches" className="text-xs font-bold text-slate-500 hover:text-slate-900">
-                        &larr; Kembali
-                    </Link>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
-                    {/* Dealer Type Radio Buttons (3S, 2S, 1S) */}
-                    <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
-                        <div>
-                            <label className="text-xs font-black text-slate-900 uppercase tracking-wider block">
-                                Tipe Dealer / Fasilitas (Pilih salah satu)
-                            </label>
-                            <p className="text-[11px] text-slate-500 mt-0.5">
-                                Menentukan klasifikasi layanan dealer Yamaha:
-                            </p>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="bg-white border border-zinc-200 rounded-xl p-6 shadow-2xs space-y-5">
+                        {/* Dealer Type Radio Buttons (3S, 2S, 1S) */}
+                        <div className="bg-zinc-50/70 p-4 rounded-xl border border-zinc-200 space-y-3">
+                            <div>
+                                <label className="text-xs font-semibold text-zinc-800 uppercase tracking-wider block">
+                                    Tipe Fasilitas Dealer (Pilih salah satu)
+                                </label>
+                                <p className="text-[11px] text-zinc-500 mt-0.5">
+                                    Klasifikasi resmi fasilitas dealer Yamaha:
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                                {/* 3S */}
+                                <label
+                                    className={`flex flex-col p-3.5 rounded-xl border cursor-pointer transition ${
+                                        data.dealer_type === '3S'
+                                            ? 'border-zinc-900 bg-white shadow-2xs'
+                                            : 'border-zinc-200 bg-white/60 hover:border-zinc-300'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-1">
+                                        <span className="font-bold text-sm text-zinc-900">3S</span>
+                                        <input
+                                            type="radio"
+                                            name="dealer_type"
+                                            value="3S"
+                                            checked={data.dealer_type === '3S'}
+                                            onChange={(e) => setData('dealer_type', e.target.value)}
+                                            className="text-zinc-900 focus:ring-zinc-900 w-4 h-4"
+                                        />
+                                    </div>
+                                    <span className="font-semibold text-xs text-zinc-800">Sales, Service, Sparepart</span>
+                                    <span className="text-[10px] text-zinc-400 mt-0.5">Dealer Utama Lengkap</span>
+                                </label>
+
+                                {/* 2S */}
+                                <label
+                                    className={`flex flex-col p-3.5 rounded-xl border cursor-pointer transition ${
+                                        data.dealer_type === '2S'
+                                            ? 'border-zinc-900 bg-white shadow-2xs'
+                                            : 'border-zinc-200 bg-white/60 hover:border-zinc-300'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-1">
+                                        <span className="font-bold text-sm text-zinc-900">2S</span>
+                                        <input
+                                            type="radio"
+                                            name="dealer_type"
+                                            value="2S"
+                                            checked={data.dealer_type === '2S'}
+                                            onChange={(e) => setData('dealer_type', e.target.value)}
+                                            className="text-zinc-900 focus:ring-zinc-900 w-4 h-4"
+                                        />
+                                    </div>
+                                    <span className="font-semibold text-xs text-zinc-800">Sales &amp; Service</span>
+                                    <span className="text-[10px] text-zinc-400 mt-0.5">Penjualan &amp; Bengkel</span>
+                                </label>
+
+                                {/* 1S */}
+                                <label
+                                    className={`flex flex-col p-3.5 rounded-xl border cursor-pointer transition ${
+                                        data.dealer_type === '1S'
+                                            ? 'border-zinc-900 bg-white shadow-2xs'
+                                            : 'border-zinc-200 bg-white/60 hover:border-zinc-300'
+                                    }`}
+                                >
+                                    <div className="flex items-center justify-between mb-1">
+                                        <span className="font-bold text-sm text-zinc-900">1S</span>
+                                        <input
+                                            type="radio"
+                                            name="dealer_type"
+                                            value="1S"
+                                            checked={data.dealer_type === '1S'}
+                                            onChange={(e) => setData('dealer_type', e.target.value)}
+                                            className="text-zinc-900 focus:ring-zinc-900 w-4 h-4"
+                                        />
+                                    </div>
+                                    <span className="font-semibold text-xs text-zinc-800">Sales</span>
+                                    <span className="text-[10px] text-zinc-400 mt-0.5">Pos / Showroom Penjualan</span>
+                                </label>
+                            </div>
+                            {errors.dealer_type && <p className="text-[11px] text-red-500">{errors.dealer_type}</p>}
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-                            {/* 3S */}
-                            <label
-                                className={`flex flex-col p-4 rounded-2xl border-2 cursor-pointer transition ${
-                                    data.dealer_type === '3S'
-                                        ? 'border-blue-600 bg-blue-50/50 shadow-sm'
-                                        : 'border-slate-200 bg-white hover:border-slate-300'
-                                }`}
-                            >
-                                <div className="flex items-center justify-between mb-1.5">
-                                    <span className="font-black text-sm text-slate-900">3S</span>
-                                    <input
-                                        type="radio"
-                                        name="dealer_type"
-                                        value="3S"
-                                        checked={data.dealer_type === '3S'}
-                                        onChange={(e) => setData('dealer_type', e.target.value)}
-                                        className="text-blue-600 focus:ring-blue-500 w-4 h-4"
-                                    />
-                                </div>
-                                <span className="font-bold text-xs text-blue-900">Sales, Service, Sparepart</span>
-                                <span className="text-[10px] text-slate-500 mt-1">Dealer Utama Lengkap</span>
-                            </label>
+                        {/* Nama Cabang & Region */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="space-y-1">
+                                <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block">
+                                    Nama Cabang / Pos Dealer
+                                </label>
+                                <input
+                                    type="text"
+                                    required
+                                    placeholder="Contoh: Aspacindo Kedaton Pos Lipat Kain"
+                                    value={data.name}
+                                    onChange={(e) => setData('name', e.target.value)}
+                                    className="w-full text-xs border border-zinc-300 rounded-lg p-2.5 focus:outline-none focus:ring-1 focus:ring-zinc-900 bg-zinc-50/50"
+                                />
+                                {errors.name && <p className="text-[11px] text-red-500">{errors.name}</p>}
+                            </div>
 
-                            {/* 2S */}
-                            <label
-                                className={`flex flex-col p-4 rounded-2xl border-2 cursor-pointer transition ${
-                                    data.dealer_type === '2S'
-                                        ? 'border-blue-600 bg-blue-50/50 shadow-sm'
-                                        : 'border-slate-200 bg-white hover:border-slate-300'
-                                }`}
-                            >
-                                <div className="flex items-center justify-between mb-1.5">
-                                    <span className="font-black text-sm text-slate-900">2S</span>
-                                    <input
-                                        type="radio"
-                                        name="dealer_type"
-                                        value="2S"
-                                        checked={data.dealer_type === '2S'}
-                                        onChange={(e) => setData('dealer_type', e.target.value)}
-                                        className="text-blue-600 focus:ring-blue-500 w-4 h-4"
-                                    />
-                                </div>
-                                <span className="font-bold text-xs text-slate-800">Sales, Service</span>
-                                <span className="text-[10px] text-slate-500 mt-1">Penjualan &amp; Bengkel</span>
-                            </label>
-
-                            {/* 1S */}
-                            <label
-                                className={`flex flex-col p-4 rounded-2xl border-2 cursor-pointer transition ${
-                                    data.dealer_type === '1S'
-                                        ? 'border-blue-600 bg-blue-50/50 shadow-sm'
-                                        : 'border-slate-200 bg-white hover:border-slate-300'
-                                }`}
-                            >
-                                <div className="flex items-center justify-between mb-1.5">
-                                    <span className="font-black text-sm text-slate-900">1S</span>
-                                    <input
-                                        type="radio"
-                                        name="dealer_type"
-                                        value="1S"
-                                        checked={data.dealer_type === '1S'}
-                                        onChange={(e) => setData('dealer_type', e.target.value)}
-                                        className="text-blue-600 focus:ring-blue-500 w-4 h-4"
-                                    />
-                                </div>
-                                <span className="font-bold text-xs text-slate-800">Sales</span>
-                                <span className="text-[10px] text-slate-500 mt-1">Pos / Showroom Penjualan</span>
-                            </label>
+                            <div className="space-y-1">
+                                <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block">
+                                    Wilayah / Region
+                                </label>
+                                {isBranchAdmin && userBranch ? (
+                                    <div className="p-2.5 bg-zinc-100 rounded-lg border border-zinc-200 text-xs font-medium text-zinc-800 flex items-center gap-1.5">
+                                        <MapPin className="w-3.5 h-3.5 text-zinc-500" />
+                                        <span>{userBranch.region}</span>
+                                        <span className="text-zinc-400 text-[11px]">(Sesuai wilayah penugasan)</span>
+                                    </div>
+                                ) : (
+                                    <select
+                                        value={data.region}
+                                        onChange={(e) => setData('region', e.target.value)}
+                                        className="w-full text-xs border border-zinc-300 rounded-lg p-2.5 focus:outline-none focus:ring-1 focus:ring-zinc-900 bg-zinc-50/50 text-zinc-800"
+                                    >
+                                        {regions.map((reg) => (
+                                            <option key={reg} value={reg}>
+                                                {reg}
+                                            </option>
+                                        ))}
+                                    </select>
+                                )}
+                                {errors.region && <p className="text-[11px] text-red-500">{errors.region}</p>}
+                            </div>
                         </div>
-                        {errors.dealer_type && <p className="text-[11px] text-red-500">{errors.dealer_type}</p>}
-                    </div>
 
-                    {/* Nama Cabang & Region */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {/* Alamat Lengkap */}
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-slate-700 uppercase">Nama Cabang / Pos Dealer</label>
+                            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block">
+                                Alamat Lengkap Cabang
+                            </label>
+                            <textarea
+                                rows="3"
+                                required
+                                placeholder="Jl. Raya Lintas..., No..., Kelurahan..., Kecamatan..."
+                                value={data.full_address}
+                                onChange={(e) => setData('full_address', e.target.value)}
+                                className="w-full text-xs border border-zinc-300 rounded-lg p-2.5 focus:outline-none focus:ring-1 focus:ring-zinc-900 bg-zinc-50/50"
+                            />
+                            {errors.full_address && <p className="text-[11px] text-red-500">{errors.full_address}</p>}
+                        </div>
+
+                        {/* WhatsApp */}
+                        <div className="space-y-1">
+                            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block">
+                                Nomor WhatsApp Kontak Dealer (Format: 628...)
+                            </label>
                             <input
                                 type="text"
                                 required
-                                placeholder="Contoh: Aspacindo Kedaton Pos Lipat Kain"
-                                value={data.name}
-                                onChange={(e) => setData('name', e.target.value)}
-                                className="w-full text-sm border-slate-200 rounded-2xl p-3 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="6281262241100"
+                                value={data.whatsapp_number}
+                                onChange={(e) => setData('whatsapp_number', e.target.value)}
+                                className="w-full text-xs border border-zinc-300 rounded-lg p-2.5 font-mono focus:outline-none focus:ring-1 focus:ring-zinc-900 bg-zinc-50/50"
                             />
-                            {errors.name && <p className="text-[11px] text-red-500">{errors.name}</p>}
+                            {errors.whatsapp_number && <p className="text-[11px] text-red-500">{errors.whatsapp_number}</p>}
                         </div>
 
+                        {/* Google Maps URL */}
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-slate-700 uppercase">Wilayah / Region</label>
-                            {isBranchAdmin && userBranch ? (
-                                <div className="p-3 bg-slate-100 rounded-2xl border border-slate-200 text-xs font-bold text-slate-800">
-                                    📍 {userBranch.region} <span className="text-slate-400 font-normal">(Sesuai wilayah Anda)</span>
-                                </div>
-                            ) : (
-                                <select
-                                    value={data.region}
-                                    onChange={(e) => setData('region', e.target.value)}
-                                    className="w-full text-sm border-slate-200 rounded-2xl p-3 focus:ring-blue-500 focus:border-blue-500 font-bold text-slate-700"
-                                >
-                                    {regions.map((reg) => (
-                                        <option key={reg} value={reg}>
-                                            {reg}
-                                        </option>
-                                    ))}
-                                </select>
-                            )}
-                            {errors.region && <p className="text-[11px] text-red-500">{errors.region}</p>}
-                        </div>
-                    </div>
-
-                    {/* Alamat Lengkap */}
-                    <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-700 uppercase">Alamat Lengkap Cabang</label>
-                        <textarea
-                            rows="3"
-                            required
-                            placeholder="Jl. Raya Lintas..., No..., Kelurahan..., Kecamatan..."
-                            value={data.full_address}
-                            onChange={(e) => setData('full_address', e.target.value)}
-                            className="w-full text-sm border-slate-200 rounded-2xl p-3 focus:ring-blue-500 focus:border-blue-500"
-                        />
-                        {errors.full_address && <p className="text-[11px] text-red-500">{errors.full_address}</p>}
-                    </div>
-
-                    {/* WhatsApp */}
-                    <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-700 uppercase">
-                            Nomor WhatsApp Kontak Dealer (Format: 628...)
-                        </label>
-                        <input
-                            type="text"
-                            required
-                            placeholder="6281262241100"
-                            value={data.whatsapp_number}
-                            onChange={(e) => setData('whatsapp_number', e.target.value)}
-                            className="w-full text-sm border-slate-200 rounded-2xl p-3 font-mono focus:ring-blue-500 focus:border-blue-500"
-                        />
-                        {errors.whatsapp_number && <p className="text-[11px] text-red-500">{errors.whatsapp_number}</p>}
-                    </div>
-
-                    {/* Google Maps URL */}
-                    <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-700 uppercase">
-                            Google Maps URL (Petunjuk Arah Lokasi)
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="https://maps.google.com/?q=..."
-                            value={data.google_maps_url}
-                            onChange={(e) => setData('google_maps_url', e.target.value)}
-                            className="w-full text-sm border-slate-200 rounded-2xl p-3 focus:ring-blue-500 focus:border-blue-500"
-                        />
-                        {errors.google_maps_url && <p className="text-[11px] text-red-500">{errors.google_maps_url}</p>}
-                    </div>
-
-                    {/* Media Sosial Cabang */}
-                    <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
-                        <span className="text-xs font-bold text-slate-800 uppercase block tracking-wider">
-                            Media Sosial Resmi Cabang (Opsional)
-                        </span>
-
-                        <div className="space-y-1">
-                            <label className="text-[11px] font-bold text-slate-600">📷 Link Instagram</label>
-                            <input
-                                type="url"
-                                placeholder="https://instagram.com/..."
-                                value={data.social_media.instagram}
-                                onChange={(e) => setData('social_media', { ...data.social_media, instagram: e.target.value })}
-                                className="w-full text-xs border-slate-200 rounded-xl p-2.5 focus:ring-blue-500"
-                            />
-                        </div>
-
-                        <div className="space-y-1">
-                            <label className="text-[11px] font-bold text-slate-600">👥 Link Facebook</label>
-                            <input
-                                type="url"
-                                placeholder="https://facebook.com/..."
-                                value={data.social_media.facebook}
-                                onChange={(e) => setData('social_media', { ...data.social_media, facebook: e.target.value })}
-                                className="w-full text-xs border-slate-200 rounded-xl p-2.5 focus:ring-blue-500"
-                            />
-                        </div>
-
-                        <div className="space-y-1">
-                            <label className="text-[11px] font-bold text-slate-600">🎵 Link TikTok</label>
+                            <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider block">
+                                Google Maps URL (Petunjuk Arah Lokasi)
+                            </label>
                             <input
                                 type="text"
-                                placeholder="https://tiktok.com/@..."
-                                value={data.social_media.tiktok}
-                                onChange={(e) => setData('social_media', { ...data.social_media, tiktok: e.target.value })}
-                                className="w-full text-xs border-slate-200 rounded-xl p-2.5 focus:ring-blue-500"
+                                placeholder="https://maps.google.com/?q=..."
+                                value={data.google_maps_url}
+                                onChange={(e) => setData('google_maps_url', e.target.value)}
+                                className="w-full text-xs border border-zinc-300 rounded-lg p-2.5 focus:outline-none focus:ring-1 focus:ring-zinc-900 bg-zinc-50/50"
                             />
+                            {errors.google_maps_url && <p className="text-[11px] text-red-500">{errors.google_maps_url}</p>}
+                        </div>
+
+                        {/* Media Sosial Cabang */}
+                        <div className="p-4 bg-zinc-50 border border-zinc-200 rounded-xl space-y-3">
+                            <span className="text-xs font-semibold text-zinc-800 uppercase tracking-wider block">
+                                Media Sosial Resmi Cabang (Opsional)
+                            </span>
+
+                            <div className="space-y-1">
+                                <label className="text-[11px] font-medium text-zinc-600 flex items-center gap-1.5">
+                                    <Globe className="w-3.5 h-3.5 text-zinc-500" />
+                                    Link Instagram
+                                </label>
+                                <input
+                                    type="url"
+                                    placeholder="https://instagram.com/..."
+                                    value={data.social_media.instagram}
+                                    onChange={(e) => setData('social_media', { ...data.social_media, instagram: e.target.value })}
+                                    className="w-full text-xs border border-zinc-300 rounded-lg p-2 bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900"
+                                />
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="text-[11px] font-medium text-zinc-600 flex items-center gap-1.5">
+                                    <Share2 className="w-3.5 h-3.5 text-zinc-500" />
+                                    Link Facebook
+                                </label>
+                                <input
+                                    type="url"
+                                    placeholder="https://facebook.com/..."
+                                    value={data.social_media.facebook}
+                                    onChange={(e) => setData('social_media', { ...data.social_media, facebook: e.target.value })}
+                                    className="w-full text-xs border border-zinc-300 rounded-lg p-2 bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900"
+                                />
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="text-[11px] font-medium text-zinc-600 flex items-center gap-1.5">
+                                    <Globe className="w-3.5 h-3.5 text-zinc-500" />
+                                    Link TikTok
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="https://tiktok.com/@..."
+                                    value={data.social_media.tiktok}
+                                    onChange={(e) => setData('social_media', { ...data.social_media, tiktok: e.target.value })}
+                                    className="w-full text-xs border border-zinc-300 rounded-lg p-2 bg-white focus:outline-none focus:ring-1 focus:ring-zinc-900"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Active toggle */}
+                        <div className="pt-2">
+                            <label className="flex items-center gap-2.5 text-xs font-semibold text-zinc-700 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={data.is_active}
+                                    onChange={(e) => setData('is_active', e.target.checked)}
+                                    className="rounded border-zinc-300 text-zinc-900 focus:ring-zinc-900 w-4 h-4"
+                                />
+                                Status Cabang Aktif (Tampil di website publik)
+                            </label>
                         </div>
                     </div>
 
-                    {/* Active toggle */}
-                    <div className="pt-2">
-                        <label className="flex items-center gap-2 text-xs font-bold text-slate-700 cursor-pointer">
-                            <input
-                                type="checkbox"
-                                checked={data.is_active}
-                                onChange={(e) => setData('is_active', e.target.checked)}
-                                className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
-                            />
-                            Status Cabang Aktif (Tampil di website)
-                        </label>
+                    <div className="flex items-center justify-end gap-3">
+                        <Link
+                            href="/admin/branches"
+                            className="px-4 py-2 text-xs font-semibold text-zinc-600 hover:text-zinc-900 bg-zinc-100 hover:bg-zinc-200 rounded-lg transition"
+                        >
+                            Batal
+                        </Link>
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="inline-flex items-center gap-2 px-5 py-2 text-xs font-semibold text-white bg-zinc-900 hover:bg-zinc-800 rounded-lg transition shadow-xs disabled:opacity-50"
+                        >
+                            <Check className="w-4 h-4" />
+                            {processing ? 'Menyimpan...' : (isEditing ? 'Simpan Perubahan' : 'Tambah Cabang')}
+                        </button>
                     </div>
-
-                    <button
-                        type="submit"
-                        disabled={processing}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider transition shadow-md disabled:opacity-50"
-                    >
-                        {processing ? 'Menyimpan...' : (isEditing ? 'Simpan Perubahan Cabang' : 'Tambah Cabang Dealer')}
-                    </button>
                 </form>
             </div>
         </AdminLayout>

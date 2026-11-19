@@ -129,6 +129,8 @@ class ProductController extends Controller
             ->with(['images', 'colors'])
             ->firstOrFail();
 
+        $motorcycle->increment('views_count');
+
         $motorcycle->price_otr = $motorcycle->getPriceForRegion($region);
         $motorcycle->selected_region = $region;
 

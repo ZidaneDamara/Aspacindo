@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminActivityController;
 use App\Http\Controllers\Admin\AdminArticleController;
 use App\Http\Controllers\Admin\AdminBranchController;
 use App\Http\Controllers\Admin\AdminDashboardController;
@@ -151,6 +152,10 @@ Route::middleware(['auth', EnsureAdminOrStaff::class])->prefix('admin')->name('a
 
         // Spareparts
         Route::resource('spareparts', AdminSparepartController::class);
+
+        // Activities & Gallery Management
+        Route::resource('activities', AdminActivityController::class);
+        Route::post('activities/{id}/toggle', [AdminActivityController::class, 'toggle'])->name('activities.toggle');
 
         // Articles
         Route::resource('articles', AdminArticleController::class);

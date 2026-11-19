@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useForm, Link, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import WysiwygEditor from '@/Components/WysiwygEditor/WysiwygEditor';
+import { Image as ImageIcon, FileText, Search, CheckCircle2, AlertCircle, XCircle } from 'lucide-react';
 
 export default function Form({ article = null }) {
     const isEditing = !!article;
@@ -229,43 +230,45 @@ export default function Form({ article = null }) {
                                 </div>
 
                                 {/* Header Featured Image */}
-                                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
-                                    <label className="text-xs font-extrabold text-slate-800 uppercase block">
-                                        📸 Foto Header Utama (Thumbnail Artikel)
+                                <div className="bg-zinc-50 p-4 rounded-xl border border-zinc-200 space-y-2">
+                                    <label className="text-xs font-semibold text-zinc-800 uppercase tracking-wider block flex items-center gap-1.5">
+                                        <ImageIcon className="w-4 h-4 text-zinc-500" />
+                                        Foto Header Utama (Thumbnail Artikel)
                                     </label>
                                     <input
                                         type="file"
                                         accept="image/*"
                                         onChange={handleFileChange}
-                                        className="w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer"
+                                        className="w-full text-xs text-zinc-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-900 file:text-white hover:file:bg-zinc-800 cursor-pointer"
                                     />
                                     {imagePreview && (
                                         <div className="pt-2 flex items-center gap-3">
-                                            <img src={imagePreview} alt="Preview Header" className="w-24 h-16 object-cover rounded-xl border shadow-xs" />
-                                            <span className="text-[11px] text-slate-500">Preview foto cover artikel</span>
+                                            <img src={imagePreview} alt="Preview Header" className="w-24 h-16 object-cover rounded-lg border border-zinc-200 shadow-2xs" />
+                                            <span className="text-[11px] text-zinc-500">Preview foto cover artikel</span>
                                         </div>
                                     )}
                                 </div>
 
                                 {/* Excerpt */}
                                 <div className="space-y-1">
-                                    <label className="text-xs font-bold text-slate-700 uppercase">Ringkasan Singkat (Excerpt)</label>
+                                    <label className="text-xs font-semibold text-zinc-700 uppercase tracking-wider">Ringkasan Singkat (Excerpt)</label>
                                     <textarea
                                         rows="2"
                                         placeholder="Ringkasan singkat yang tampil di beranda & kartu artikel..."
                                         value={data.excerpt}
                                         onChange={(e) => setData('excerpt', e.target.value)}
-                                        className="w-full text-sm border-slate-200 rounded-2xl p-3 focus:ring-blue-500"
+                                        className="w-full text-xs border-zinc-300 rounded-lg p-2.5 focus:ring-1 focus:ring-zinc-900 bg-zinc-50/50"
                                     />
                                 </div>
 
                                 {/* WYSIWYG CONTENT EDITOR (WordPress Style) */}
-                                <div className="space-y-2 pt-2 border-t border-slate-100">
+                                <div className="space-y-2 pt-2 border-t border-zinc-200">
                                     <div className="flex justify-between items-center mb-1">
-                                        <label className="text-xs font-extrabold text-slate-900 uppercase">
-                                            📝 Editor Konten Artikel (WordPress Classic WYSIWYG)
+                                        <label className="text-xs font-semibold text-zinc-900 uppercase tracking-wider flex items-center gap-1.5">
+                                            <FileText className="w-4 h-4 text-zinc-500" />
+                                            Editor Konten Artikel
                                         </label>
-                                        <span className="text-xs font-bold text-blue-600">
+                                        <span className="text-xs font-medium text-zinc-500">
                                             {seoAnalysis.wordCount} Kata
                                         </span>
                                     </div>
@@ -284,10 +287,11 @@ export default function Form({ article = null }) {
                         {/* YOAST SEO ANALYZER SIDEBAR (4 Columns) */}
                         <div className="lg:col-span-4 space-y-6">
                             {/* SEO SCORE METER WIDGET */}
-                            <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                                <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                                        <span>🔍</span> Yoast SEO Analysis
+                            <div className="bg-white p-6 rounded-2xl border border-zinc-200 shadow-2xs space-y-4">
+                                <div className="flex justify-between items-center border-b border-zinc-200 pb-3">
+                                    <h3 className="text-sm font-bold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+                                        <Search className="w-4 h-4 text-zinc-500" />
+                                        <span>Analisis SEO Artikel</span>
                                     </h3>
                                     <span className={`px-3 py-1 rounded-full text-xs font-black uppercase ${seoAnalysis.scoreColor}`}>
                                         {seoAnalysis.score} / 100%
@@ -342,10 +346,10 @@ export default function Form({ article = null }) {
                                     <ul className="space-y-2 text-xs">
                                         {seoAnalysis.results.map((res, idx) => (
                                             <li key={idx} className="flex items-start gap-2 leading-tight">
-                                                {res.type === 'good' && <span className="text-emerald-500 font-bold">🟢</span>}
-                                                {res.type === 'warning' && <span className="text-amber-500 font-bold">🟡</span>}
-                                                {res.type === 'bad' && <span className="text-red-500 font-bold">🔴</span>}
-                                                <span className={res.type === 'good' ? 'text-slate-800 font-medium' : 'text-slate-600'}>
+                                                {res.type === 'good' && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0 mt-0.5" />}
+                                                {res.type === 'warning' && <AlertCircle className="w-3.5 h-3.5 text-amber-500 flex-shrink-0 mt-0.5" />}
+                                                {res.type === 'bad' && <XCircle className="w-3.5 h-3.5 text-rose-500 flex-shrink-0 mt-0.5" />}
+                                                <span className={res.type === 'good' ? 'text-zinc-800 font-medium' : 'text-zinc-600'}>
                                                     {res.text}
                                                 </span>
                                             </li>

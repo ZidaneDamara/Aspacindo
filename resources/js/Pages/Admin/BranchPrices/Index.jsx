@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Head, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
+import { Building2, Lock, Shield, Search, Save } from 'lucide-react';
 
 export default function BranchPricesIndex({
     selectedBranch,
@@ -99,16 +100,17 @@ export default function BranchPricesIndex({
                     <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                         <div className="space-y-2">
                             <div className="flex items-center gap-2">
-                                <span className="bg-blue-500 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full">
-                                    🏢 {selectedBranch.region}
+                                <span className="bg-zinc-800 text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md inline-flex items-center gap-1">
+                                    <Building2 className="w-3 h-3 text-zinc-400" />
+                                    {selectedBranch.region}
                                 </span>
                                 {isBranchAdmin ? (
-                                    <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                                        🔒 Khusus Admin Cabang Ini
+                                    <span className="bg-zinc-800/60 text-zinc-300 border border-zinc-700 text-[10px] font-semibold px-2.5 py-1 rounded-md inline-flex items-center gap-1">
+                                        <Lock className="w-3 h-3 text-zinc-400" /> Khusus Admin Cabang
                                     </span>
                                 ) : (
-                                    <span className="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-[10px] font-bold px-3 py-1 rounded-full">
-                                        👑 Akses Super Admin
+                                    <span className="bg-zinc-100 text-zinc-800 border border-zinc-200 text-[10px] font-semibold px-2.5 py-1 rounded-md inline-flex items-center gap-1">
+                                        <Shield className="w-3 h-3 text-zinc-600" /> Akses Super Admin
                                     </span>
                                 )}
                             </div>
@@ -163,9 +165,9 @@ export default function BranchPricesIndex({
                                 placeholder="Cari nama motor..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full text-xs border-slate-200 rounded-xl pl-9 pr-3 py-2.5 focus:ring-blue-500 focus:border-blue-500"
+                                className="w-full text-xs border border-zinc-300 rounded-lg pl-9 pr-3 py-2 bg-zinc-50/50 focus:ring-1 focus:ring-zinc-900"
                             />
-                            <span className="absolute left-3 top-2.5 text-slate-400 text-xs">🔍</span>
+                            <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
                         </div>
 
                         <select
@@ -189,13 +191,13 @@ export default function BranchPricesIndex({
                             type="button"
                             onClick={handleSaveAll}
                             disabled={savingAll}
-                            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider px-5 py-2.5 rounded-xl shadow-md transition flex items-center gap-2"
+                            className="bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white font-semibold text-xs px-4 py-2 rounded-lg transition flex items-center gap-2"
                         >
                             {savingAll ? (
                                 <span>Menyimpan Semua...</span>
                             ) : (
                                 <>
-                                    <span>💾</span>
+                                    <Save className="w-3.5 h-3.5" />
                                     <span>Simpan Semua Perubahan</span>
                                 </>
                             )}
@@ -323,13 +325,13 @@ export default function BranchPricesIndex({
                         type="button"
                         onClick={handleSaveAll}
                         disabled={savingAll}
-                        className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-2xl shadow-lg transition flex items-center gap-2"
+                        className="bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white font-semibold text-xs px-5 py-2.5 rounded-lg transition flex items-center gap-2"
                     >
                         {savingAll ? (
                             <span>Menyimpan Semua Harga OTR Cabang...</span>
                         ) : (
                             <>
-                                <span>💾</span>
+                                <Save className="w-3.5 h-3.5" />
                                 <span>Simpan Semua Perubahan Harga Cabang</span>
                             </>
                         )}

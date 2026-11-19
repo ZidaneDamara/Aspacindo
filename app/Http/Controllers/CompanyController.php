@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\Branch;
 use App\Models\Setting;
 use Inertia\Inertia;
@@ -29,39 +30,26 @@ class CompanyController extends Controller
 
     public function gallery(): Response
     {
-        $galleries = [
-            [
-                'id' => 1,
-                'title' => 'Grand Opening Cabang Sudirman Pekanbaru',
-                'category' => 'Acara & Event',
-                'image' => '/assets/images/gallery/opening_sudirman.webp',
-                'date' => '15 Mei 2025',
-            ],
-            [
-                'id' => 2,
-                'title' => 'Yamaha MAXi Day Riau Touring & Gathering',
-                'category' => 'Komunitas',
-                'image' => '/assets/images/gallery/maxi_day.webp',
-                'date' => '20 Februari 2025',
-            ],
-            [
-                'id' => 3,
-                'title' => 'Pelatihan & Sertifikasi Teknisi Yamaha SKY',
-                'category' => 'Edukasi & Servis',
-                'image' => '/assets/images/gallery/sky_training.webp',
-                'date' => '10 Januari 2025',
-            ],
-            [
-                'id' => 4,
-                'title' => 'Penyerahan Unit Pertama Yamaha NMAX Turbo',
-                'category' => 'Serah Terima Unit',
-                'image' => '/assets/images/gallery/handover_nmax.webp',
-                'date' => '05 Juli 2024',
-            ],
-        ];
+        $galleries = Activity::active()
+            ->orderBy('sort_order', 'asc')
+            ->orderBy('event_date', 'desc')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'title' => $item->title,
+                    'category' => $item->category,
+                    'image' => $item->image_url,
+                    'date' => $item->formatted_date,
+                    'description' => $item->description,
+                ];
+            });
+
+        $categories = ['Semua', 'Acara & Event', 'Komunitas', 'Edukasi & Servis', 'Serah Terima Unit', 'Sosial & CSR'];
 
         return Inertia::render('Gallery', [
             'galleries' => $galleries,
+            'categories' => $categories,
         ]);
     }
 }

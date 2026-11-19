@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, Link, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
+import { UploadCloud } from 'lucide-react';
 
 export default function Form({ sparepart = null }) {
     const isEditing = !!sparepart;
@@ -112,8 +113,9 @@ export default function Form({ sparepart = null }) {
 
                     {/* Direct File Upload Component */}
                     <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-3">
-                        <label className="text-xs font-extrabold text-slate-900 uppercase tracking-wider block">
-                            📸 Upload Foto Produk Sparepart (Dari Perangkat / Laptop)
+                        <label className="text-xs font-semibold text-zinc-800 uppercase tracking-wider block flex items-center gap-1.5">
+                            <UploadCloud className="w-4 h-4 text-zinc-500" />
+                            Upload Foto Produk Sparepart (Dari Perangkat / Laptop)
                         </label>
                         <input
                             type="file"

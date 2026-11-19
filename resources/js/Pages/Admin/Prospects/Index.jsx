@@ -1,6 +1,23 @@
 import React, { useState } from 'react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, router, useForm } from '@inertiajs/react';
+import {
+    Search,
+    MessageSquare,
+    Trash2,
+    CheckCircle2,
+    XCircle,
+    PhoneCall,
+    Sparkles,
+    Flame,
+    User,
+    Bike,
+    Calendar,
+    CreditCard,
+    ExternalLink,
+    X,
+    Filter,
+} from 'lucide-react';
 
 export default function ProspectIndex({ prospects, stats, filters }) {
     const [search, setSearch] = useState(filters.search || '');
@@ -18,7 +35,7 @@ export default function ProspectIndex({ prospects, stats, filters }) {
             style: 'currency',
             currency: 'IDR',
             maximumFractionDigits: 0,
-        }).format(number);
+        }).format(number || 0);
     };
 
     const formatDate = (dateString) => {
@@ -73,17 +90,46 @@ export default function ProspectIndex({ prospects, stats, filters }) {
     const getStatusBadge = (status) => {
         switch (status) {
             case 'new':
-                return <span className="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full font-bold">🌟 Baru</span>;
+                return (
+                    <span className="inline-flex items-center gap-1 bg-zinc-100 text-zinc-900 border border-zinc-200 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                        <Sparkles className="w-3 h-3 text-zinc-700" />
+                        Baru
+                    </span>
+                );
             case 'contacted':
-                return <span className="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-bold">📞 Dihubungi</span>;
+                return (
+                    <span className="inline-flex items-center gap-1 bg-zinc-100 text-zinc-800 border border-zinc-200 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                        <PhoneCall className="w-3 h-3 text-zinc-600" />
+                        Dihubungi
+                    </span>
+                );
             case 'prospect':
-                return <span className="bg-purple-100 text-purple-800 text-xs px-2.5 py-1 rounded-full font-bold">🔥 Prospek Hot</span>;
+                return (
+                    <span className="inline-flex items-center gap-1 bg-zinc-100 text-zinc-900 border border-zinc-300 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                        <Flame className="w-3 h-3 text-zinc-700" />
+                        Prospek Hot
+                    </span>
+                );
             case 'deal':
-                return <span className="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">✅ Deal / SPK</span>;
+                return (
+                    <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                        Deal / SPK
+                    </span>
+                );
             case 'rejected':
-                return <span className="bg-red-100 text-red-800 text-xs px-2.5 py-1 rounded-full font-bold">❌ Batal</span>;
+                return (
+                    <span className="inline-flex items-center gap-1 bg-rose-50 text-rose-800 border border-rose-200 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                        <XCircle className="w-3 h-3 text-rose-600" />
+                        Batal
+                    </span>
+                );
             default:
-                return <span className="bg-slate-100 text-slate-800 text-xs px-2.5 py-1 rounded-full font-bold">{status}</span>;
+                return (
+                    <span className="bg-zinc-100 text-zinc-800 border border-zinc-200 text-[10px] px-2 py-0.5 rounded-full font-semibold">
+                        {status}
+                    </span>
+                );
         }
     };
 
@@ -93,192 +139,196 @@ export default function ProspectIndex({ prospects, stats, filters }) {
         if (cleanPhone.startsWith('0')) {
             cleanPhone = '62' + cleanPhone.slice(1);
         }
-        const text = `Halo Kak ${p.name}, saya dari Sales Yamaha Aspacindo Riau. Menindaklanjuti pengajuan simulasi kredit motor ${p.motorcycle_name} dengan DP ${p.dp_percent}% (Kode Tiket: ${p.ticket_number}). Apakah ada yang bisa kami bantu untuk pengurusan berkas & survey-nya?`;
+        const text = `Halo Kak ${p.name}, saya dari Sales Yamaha Aspacindo. Menindaklanjuti pengajuan simulasi kredit motor ${p.motorcycle_name} dengan DP ${p.dp_percent}% (Kode Tiket: ${p.ticket_number}). Apakah ada yang bisa kami bantu untuk pengurusan berkas & survey-nya?`;
         return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(text)}`;
     };
 
     return (
-        <AdminLayout title="Manajemen Prospect Customer & Leads Simulasi Kredit">
-            <Head title="Data Prospect Leads | Admin Aspacindo" />
+        <AdminLayout title="Manajemen Prospek & Leads Simulasi Kredit">
+            <Head title="Data Prospect Leads | Admin" />
 
             <div className="space-y-6">
-                {/* Header & Metrics */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                    <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-                        <span className="text-slate-400 text-xs font-bold uppercase">Total Leads</span>
-                        <p className="text-2xl font-black text-slate-900 mt-1">{stats.total}</p>
+                {/* Header & Metrics in Shadcn Monochrome Style */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                    <div className="bg-white p-4 rounded-xl border border-zinc-200 shadow-2xs">
+                        <span className="text-zinc-400 text-[11px] font-semibold uppercase tracking-wider block">Total Leads</span>
+                        <p className="text-2xl font-bold text-zinc-900 mt-1">{stats.total}</p>
                     </div>
                     <div
                         onClick={() => handleFilterStatus('new')}
-                        className="bg-blue-50 p-4 rounded-2xl border border-blue-200 shadow-sm cursor-pointer hover:bg-blue-100 transition"
+                        className={`p-4 rounded-xl border transition cursor-pointer shadow-2xs ${
+                            statusFilter === 'new' ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white hover:bg-zinc-50 border-zinc-200 text-zinc-900'
+                        }`}
                     >
-                        <span className="text-blue-600 text-xs font-bold uppercase">Prospek Baru</span>
-                        <p className="text-2xl font-black text-blue-900 mt-1">{stats.new}</p>
+                        <span className={`text-[11px] font-semibold uppercase tracking-wider block ${statusFilter === 'new' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                            Prospek Baru
+                        </span>
+                        <p className="text-2xl font-bold mt-1">{stats.new}</p>
                     </div>
                     <div
                         onClick={() => handleFilterStatus('contacted')}
-                        className="bg-amber-50 p-4 rounded-2xl border border-amber-200 shadow-sm cursor-pointer hover:bg-amber-100 transition"
+                        className={`p-4 rounded-xl border transition cursor-pointer shadow-2xs ${
+                            statusFilter === 'contacted' ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white hover:bg-zinc-50 border-zinc-200 text-zinc-900'
+                        }`}
                     >
-                        <span className="text-amber-600 text-xs font-bold uppercase">Dihubungi</span>
-                        <p className="text-2xl font-black text-amber-900 mt-1">{stats.contacted}</p>
+                        <span className={`text-[11px] font-semibold uppercase tracking-wider block ${statusFilter === 'contacted' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                            Dihubungi
+                        </span>
+                        <p className="text-2xl font-bold mt-1">{stats.contacted}</p>
                     </div>
                     <div
                         onClick={() => handleFilterStatus('prospect')}
-                        className="bg-purple-50 p-4 rounded-2xl border border-purple-200 shadow-sm cursor-pointer hover:bg-purple-100 transition"
+                        className={`p-4 rounded-xl border transition cursor-pointer shadow-2xs ${
+                            statusFilter === 'prospect' ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white hover:bg-zinc-50 border-zinc-200 text-zinc-900'
+                        }`}
                     >
-                        <span className="text-purple-600 text-xs font-bold uppercase">Prospek Hot</span>
-                        <p className="text-2xl font-black text-purple-900 mt-1">{stats.prospect}</p>
+                        <span className={`text-[11px] font-semibold uppercase tracking-wider block ${statusFilter === 'prospect' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                            Prospek Hot
+                        </span>
+                        <p className="text-2xl font-bold mt-1">{stats.prospect}</p>
                     </div>
                     <div
                         onClick={() => handleFilterStatus('deal')}
-                        className="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 shadow-sm cursor-pointer hover:bg-emerald-100 transition"
+                        className={`p-4 rounded-xl border transition cursor-pointer shadow-2xs ${
+                            statusFilter === 'deal' ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white hover:bg-zinc-50 border-zinc-200 text-zinc-900'
+                        }`}
                     >
-                        <span className="text-emerald-600 text-xs font-bold uppercase">Deal / Closing</span>
-                        <p className="text-2xl font-black text-emerald-900 mt-1">{stats.deal}</p>
+                        <span className={`text-[11px] font-semibold uppercase tracking-wider block ${statusFilter === 'deal' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                            Deal / SPK
+                        </span>
+                        <p className="text-2xl font-bold mt-1">{stats.deal}</p>
                     </div>
                     <div
                         onClick={() => handleFilterStatus('rejected')}
-                        className="bg-red-50 p-4 rounded-2xl border border-red-200 shadow-sm cursor-pointer hover:bg-red-100 transition"
+                        className={`p-4 rounded-xl border transition cursor-pointer shadow-2xs ${
+                            statusFilter === 'rejected' ? 'bg-zinc-900 text-white border-zinc-900' : 'bg-white hover:bg-zinc-50 border-zinc-200 text-zinc-900'
+                        }`}
                     >
-                        <span className="text-red-600 text-xs font-bold uppercase">Batal / Cancel</span>
-                        <p className="text-2xl font-black text-red-900 mt-1">{stats.rejected}</p>
+                        <span className={`text-[11px] font-semibold uppercase tracking-wider block ${statusFilter === 'rejected' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                            Batal
+                        </span>
+                        <p className="text-2xl font-bold mt-1">{stats.rejected}</p>
                     </div>
                 </div>
 
                 {/* Filter & Search Bar */}
-                <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div className="bg-white p-4 rounded-xl border border-zinc-200 shadow-2xs flex flex-col sm:flex-row gap-3 items-center justify-between">
                     <form onSubmit={handleSearch} className="flex gap-2 w-full sm:w-auto flex-1">
-                        <input
-                            type="text"
-                            placeholder="Cari nama, no. HP, tiket, atau nama motor..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                            className="w-full sm:max-w-md text-sm border-slate-200 rounded-xl px-4 py-2.5 focus:ring-blue-500 focus:border-blue-500"
-                        />
+                        <div className="relative flex-1 sm:max-w-md">
+                            <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                            <input
+                                type="text"
+                                placeholder="Cari nama, no. HP, tiket, atau nama motor..."
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                                className="w-full text-xs pl-9 pr-3 py-2 border border-zinc-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-zinc-900 bg-zinc-50/50"
+                            />
+                        </div>
                         <button
                             type="submit"
-                            className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition"
+                            className="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold px-4 py-2 rounded-lg text-xs transition"
                         >
                             Cari
                         </button>
                     </form>
 
-                    <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto">
-                        <span className="text-xs font-bold text-slate-500 whitespace-nowrap">Filter Status:</span>
-                        <button
-                            onClick={() => handleFilterStatus('')}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition ${
-                                statusFilter === '' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                            }`}
-                        >
-                            Semua
-                        </button>
-                        <button
-                            onClick={() => handleFilterStatus('new')}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition ${
-                                statusFilter === 'new' ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                            }`}
-                        >
-                            Baru
-                        </button>
-                        <button
-                            onClick={() => handleFilterStatus('contacted')}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition ${
-                                statusFilter === 'contacted' ? 'bg-amber-500 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                            }`}
-                        >
-                            Dihubungi
-                        </button>
-                        <button
-                            onClick={() => handleFilterStatus('prospect')}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition ${
-                                statusFilter === 'prospect' ? 'bg-purple-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                            }`}
-                        >
-                            Prospek Hot
-                        </button>
-                        <button
-                            onClick={() => handleFilterStatus('deal')}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition ${
-                                statusFilter === 'deal' ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                            }`}
-                        >
-                            Deal
-                        </button>
+                    <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto text-xs">
+                        <span className="text-[11px] font-medium text-zinc-400 whitespace-nowrap pr-1">Status:</span>
+                        {[
+                            { label: 'Semua', val: '' },
+                            { label: 'Baru', val: 'new' },
+                            { label: 'Dihubungi', val: 'contacted' },
+                            { label: 'Hot', val: 'prospect' },
+                            { label: 'Deal', val: 'deal' },
+                            { label: 'Batal', val: 'rejected' },
+                        ].map((btn) => (
+                            <button
+                                key={btn.val}
+                                onClick={() => handleFilterStatus(btn.val)}
+                                className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition ${
+                                    statusFilter === btn.val
+                                        ? 'bg-zinc-900 text-white'
+                                        : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 hover:text-zinc-900'
+                                }`}
+                            >
+                                {btn.label}
+                            </button>
+                        ))}
                     </div>
                 </div>
 
                 {/* Prospects Data Table */}
-                <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div className="bg-white rounded-xl border border-zinc-200 shadow-2xs overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left text-xs">
-                            <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase tracking-wider font-extrabold">
+                        <table className="w-full text-left text-xs text-zinc-600">
+                            <thead className="bg-zinc-50/75 border-b border-zinc-200 text-zinc-700 uppercase tracking-wider font-semibold text-[11px]">
                                 <tr>
-                                    <th className="p-4">Kode Tiket / Tgl</th>
-                                    <th className="p-4">Data Customer</th>
-                                    <th className="p-4">Motor Impian</th>
-                                    <th className="p-4">Rincian Kredit</th>
-                                    <th className="p-4">Leasing</th>
-                                    <th className="p-4">Status</th>
-                                    <th className="p-4 text-center">Aksi & Follow Up</th>
+                                    <th className="px-4 py-3">Kode Tiket / Tgl</th>
+                                    <th className="px-4 py-3">Data Calon Pembeli</th>
+                                    <th className="px-4 py-3">Motor Impian</th>
+                                    <th className="px-4 py-3">Rincian Kredit</th>
+                                    <th className="px-4 py-3">Leasing</th>
+                                    <th className="px-4 py-3">Status</th>
+                                    <th className="px-4 py-3 text-right">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-100">
+                            <tbody className="divide-y divide-zinc-200">
                                 {prospects.data.length === 0 ? (
                                     <tr>
-                                        <td colSpan="7" className="text-center p-8 text-slate-400 font-bold">
+                                        <td colSpan="7" className="text-center py-10 text-zinc-400">
                                             Belum ada data prospect leads yang ditemukan.
                                         </td>
                                     </tr>
                                 ) : (
                                     prospects.data.map((p) => (
-                                        <tr key={p.id} className="hover:bg-slate-50 transition">
-                                            <td className="p-4 font-mono">
-                                                <span className="font-extrabold text-blue-600 block">{p.ticket_number}</span>
-                                                <span className="text-[11px] text-slate-400 block">{formatDate(p.created_at)}</span>
+                                        <tr key={p.id} className="hover:bg-zinc-50/60 transition-colors">
+                                            <td className="px-4 py-3 font-mono">
+                                                <span className="font-semibold text-zinc-900 block">{p.ticket_number}</span>
+                                                <span className="text-[11px] text-zinc-400 block">{formatDate(p.created_at)}</span>
                                             </td>
-                                            <td className="p-4">
-                                                <div className="font-bold text-slate-900 text-sm">{p.name}</div>
-                                                <div className="text-slate-600 font-medium">{p.phone}</div>
-                                                <div className="text-[11px] text-slate-400">{p.city || p.email || 'Riau'}</div>
+                                            <td className="px-4 py-3">
+                                                <div className="font-semibold text-zinc-900 text-sm">{p.name}</div>
+                                                <div className="text-zinc-600 font-medium">{p.phone}</div>
+                                                <div className="text-[11px] text-zinc-400">{p.city || p.email || 'Riau'}</div>
                                             </td>
-                                            <td className="p-4">
-                                                <div className="font-extrabold text-slate-800">{p.motorcycle_name}</div>
-                                                <div className="text-[11px] text-slate-500">OTR: {formatRupiah(p.price_otr)}</div>
+                                            <td className="px-4 py-3">
+                                                <div className="font-semibold text-zinc-900">{p.motorcycle_name}</div>
+                                                <div className="text-[11px] text-zinc-400">OTR: {formatRupiah(p.price_otr)}</div>
                                             </td>
-                                            <td className="p-4">
-                                                <div className="font-black text-emerald-600 text-xs">
-                                                    Cicilan: {formatRupiah(p.monthly_installment)} /bln
+                                            <td className="px-4 py-3">
+                                                <div className="font-semibold text-zinc-900">
+                                                    {formatRupiah(p.monthly_installment)} /bln
                                                 </div>
-                                                <div className="text-[11px] text-slate-500">
-                                                    DP: {p.dp_percent}% ({formatRupiah(p.dp_amount)}) — Tenor: {p.tenor_months} Bln
+                                                <div className="text-[11px] text-zinc-400">
+                                                    DP: {p.dp_percent}% ({formatRupiah(p.dp_amount)}) &bull; {p.tenor_months} Bln
                                                 </div>
                                             </td>
-                                            <td className="p-4 font-semibold text-slate-700">{p.leasing_partner}</td>
-                                            <td className="p-4">{getStatusBadge(p.status)}</td>
-                                            <td className="p-4">
-                                                <div className="flex items-center justify-center gap-2">
+                                            <td className="px-4 py-3 font-medium text-zinc-700">{p.leasing_partner}</td>
+                                            <td className="px-4 py-3">{getStatusBadge(p.status)}</td>
+                                            <td className="px-4 py-3 text-right">
+                                                <div className="inline-flex items-center gap-1.5">
                                                     <a
                                                         href={buildWhatsAppUrl(p)}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        title="Chat via WhatsApp"
-                                                        className="p-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-xl font-bold transition text-xs flex items-center gap-1"
+                                                        title="Hubungi via WhatsApp"
+                                                        className="inline-flex items-center gap-1 px-2.5 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-md font-semibold text-[11px] transition"
                                                     >
-                                                        📱 WA
+                                                        <MessageSquare className="w-3 h-3" />
+                                                        WA
                                                     </a>
                                                     <button
                                                         onClick={() => openFollowUpModal(p)}
-                                                        className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition text-xs shadow-sm"
+                                                        className="px-2.5 py-1 bg-zinc-900 hover:bg-zinc-800 text-white rounded-md font-medium text-[11px] transition"
                                                     >
                                                         Follow Up
                                                     </button>
                                                     <button
                                                         onClick={() => handleDelete(p.id, p.name)}
-                                                        className="p-1.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl transition text-xs font-bold"
+                                                        className="p-1 text-zinc-400 hover:text-red-600 hover:bg-red-50 rounded-md transition"
                                                         title="Hapus"
                                                     >
-                                                        🗑️
+                                                        <Trash2 className="w-3.5 h-3.5" />
                                                     </button>
                                                 </div>
                                             </td>
@@ -291,8 +341,8 @@ export default function ProspectIndex({ prospects, stats, filters }) {
 
                     {/* Pagination Links */}
                     {prospects.links && prospects.links.length > 3 && (
-                        <div className="p-4 border-t border-slate-200 flex justify-between items-center bg-slate-50">
-                            <span className="text-xs text-slate-500">
+                        <div className="p-3.5 border-t border-zinc-200 flex justify-between items-center text-xs text-zinc-500 bg-zinc-50/50">
+                            <span>
                                 Menampilkan {prospects.from} - {prospects.to} dari {prospects.total} prospect
                             </span>
                             <div className="flex gap-1">
@@ -302,12 +352,12 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                                         disabled={!link.url}
                                         onClick={() => link.url && router.get(link.url)}
                                         dangerouslySetInnerHTML={{ __html: link.label }}
-                                        className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
+                                        className={`px-2.5 py-1 rounded-md text-xs font-medium transition ${
                                             link.active
-                                                ? 'bg-blue-600 text-white'
+                                                ? 'bg-zinc-900 text-white'
                                                 : link.url
-                                                ? 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'
-                                                : 'text-slate-300 cursor-not-allowed'
+                                                ? 'bg-white text-zinc-700 hover:bg-zinc-100 border border-zinc-200'
+                                                : 'text-zinc-300 cursor-not-allowed'
                                         }`}
                                     />
                                 ))}
@@ -317,159 +367,156 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                 </div>
             </div>
 
-            {/* Follow Up & Detail Modal */}
+            {/* Follow Up & Detail Modal (Monochrome Shadcn) */}
             {showModal && selectedProspect && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm overflow-y-auto">
-                    <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
-                        <div className="flex justify-between items-start border-b border-slate-100 pb-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/60 backdrop-blur-xs overflow-y-auto">
+                    <div className="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-6 shadow-xl border border-zinc-200 relative my-8">
+                        <div className="flex justify-between items-start border-b border-zinc-200 pb-4">
                             <div>
-                                <span className="text-xs font-extrabold text-blue-600 uppercase tracking-widest block font-mono">
+                                <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-widest block font-mono">
                                     TIKET: {selectedProspect.ticket_number}
                                 </span>
-                                <h3 className="text-xl font-black text-slate-900 mt-1">Detail Prospect Customer</h3>
+                                <h3 className="text-lg font-bold text-zinc-900 mt-0.5">Detail Prospect Customer</h3>
                             </div>
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="text-slate-400 hover:text-slate-600 font-extrabold text-lg p-1"
+                                className="text-zinc-400 hover:text-zinc-700 p-1 rounded-lg transition"
                             >
-                                ✕
+                                <X className="w-5 h-5" />
                             </button>
                         </div>
 
                         {/* Customer & Credit Info Summary */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                            <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-2">
-                                <h4 className="font-extrabold text-slate-900 uppercase text-[11px] text-blue-600 tracking-wider">
-                                    👤 Data Diri Customer
+                            <div className="bg-zinc-50 p-4 rounded-xl border border-zinc-200 space-y-2">
+                                <h4 className="font-semibold text-zinc-900 uppercase text-[11px] tracking-wider flex items-center gap-1.5">
+                                    <User className="w-3.5 h-3.5 text-zinc-500" />
+                                    Data Diri Customer
                                 </h4>
                                 <div>
-                                    <span className="text-slate-400 block">Nama Lengkap:</span>
-                                    <span className="font-bold text-slate-900 text-sm">{selectedProspect.name}</span>
+                                    <span className="text-zinc-400 block">Nama Lengkap:</span>
+                                    <span className="font-semibold text-zinc-900 text-sm">{selectedProspect.name}</span>
                                 </div>
                                 <div>
-                                    <span className="text-slate-400 block">No. HP / WhatsApp:</span>
-                                    <span className="font-bold text-slate-900">{selectedProspect.phone}</span>
+                                    <span className="text-zinc-400 block">No. HP / WhatsApp:</span>
+                                    <span className="font-semibold text-zinc-900">{selectedProspect.phone}</span>
                                 </div>
                                 {selectedProspect.email && (
                                     <div>
-                                        <span className="text-slate-400 block">Email:</span>
-                                        <span className="font-semibold text-slate-700">{selectedProspect.email}</span>
+                                        <span className="text-zinc-400 block">Email:</span>
+                                        <span className="font-medium text-zinc-700">{selectedProspect.email}</span>
                                     </div>
                                 )}
                                 <div>
-                                    <span className="text-slate-400 block">Kota / Alamat:</span>
-                                    <span className="font-semibold text-slate-700">
+                                    <span className="text-zinc-400 block">Kota / Alamat:</span>
+                                    <span className="font-medium text-zinc-700">
                                         {selectedProspect.city || '-'} — {selectedProspect.address || ''}
                                     </span>
                                 </div>
-                                {selectedProspect.current_motorcycle && (
-                                    <div>
-                                        <span className="text-slate-400 block">Motor yang Dimiliki Sekarang:</span>
-                                        <span className="font-semibold text-slate-800">{selectedProspect.current_motorcycle}</span>
-                                    </div>
-                                )}
                             </div>
 
-                            <div className="bg-blue-50/60 p-4 rounded-2xl border border-blue-100 space-y-2">
-                                <h4 className="font-extrabold text-blue-900 uppercase text-[11px] tracking-wider">
-                                    🏍️ Rincian Simulasi Kredit
+                            <div className="bg-zinc-50 p-4 rounded-xl border border-zinc-200 space-y-2">
+                                <h4 className="font-semibold text-zinc-900 uppercase text-[11px] tracking-wider flex items-center gap-1.5">
+                                    <Bike className="w-3.5 h-3.5 text-zinc-500" />
+                                    Rincian Simulasi Kredit
                                 </h4>
                                 <div>
-                                    <span className="text-blue-500 block">Motor Impian:</span>
-                                    <span className="font-bold text-slate-900 text-sm">{selectedProspect.motorcycle_name}</span>
+                                    <span className="text-zinc-400 block">Motor Impian:</span>
+                                    <span className="font-semibold text-zinc-900 text-sm">{selectedProspect.motorcycle_name}</span>
                                 </div>
                                 <div>
-                                    <span className="text-blue-500 block">Harga OTR:</span>
-                                    <span className="font-bold text-slate-900">{formatRupiah(selectedProspect.price_otr)}</span>
+                                    <span className="text-zinc-400 block">Harga OTR:</span>
+                                    <span className="font-semibold text-zinc-900">{formatRupiah(selectedProspect.price_otr)}</span>
                                 </div>
                                 <div>
-                                    <span className="text-blue-500 block">Uang Muka (DP):</span>
-                                    <span className="font-bold text-slate-900">
+                                    <span className="text-zinc-400 block">Uang Muka (DP):</span>
+                                    <span className="font-semibold text-zinc-900">
                                         {selectedProspect.dp_percent}% ({formatRupiah(selectedProspect.dp_amount)})
                                     </span>
                                 </div>
                                 <div>
-                                    <span className="text-blue-500 block">Tenor & Estimasi Cicilan:</span>
-                                    <span className="font-extrabold text-emerald-700 text-sm block">
+                                    <span className="text-zinc-400 block">Tenor &amp; Cicilan:</span>
+                                    <span className="font-bold text-zinc-900 block">
                                         {formatRupiah(selectedProspect.monthly_installment)} /bln ({selectedProspect.tenor_months} Bulan)
                                     </span>
                                 </div>
                                 <div>
-                                    <span className="text-blue-500 block">Mitra Leasing:</span>
-                                    <span className="font-bold text-slate-800">{selectedProspect.leasing_partner}</span>
+                                    <span className="text-zinc-400 block">Mitra Leasing:</span>
+                                    <span className="font-medium text-zinc-800">{selectedProspect.leasing_partner}</span>
                                 </div>
                             </div>
                         </div>
 
                         {selectedProspect.notes && (
-                            <div className="bg-amber-50 border border-amber-200 p-3.5 rounded-2xl text-xs text-amber-900">
-                                <span className="font-bold block">Catatan Customer:</span>
+                            <div className="bg-zinc-50 border border-zinc-200 p-3 rounded-lg text-xs text-zinc-700">
+                                <span className="font-semibold block text-zinc-900">Catatan Customer:</span>
                                 <p className="mt-0.5">{selectedProspect.notes}</p>
                             </div>
                         )}
 
                         {/* Direct WA Action */}
-                        <div className="flex justify-between items-center bg-slate-900 text-white p-4 rounded-2xl">
+                        <div className="flex justify-between items-center bg-zinc-900 text-white p-4 rounded-xl">
                             <div>
-                                <span className="text-xs font-bold text-slate-300 block">Hubungi Langsung:</span>
-                                <span className="text-sm font-black">{selectedProspect.name} ({selectedProspect.phone})</span>
+                                <span className="text-xs text-zinc-400 block">Hubungi Langsung:</span>
+                                <span className="text-sm font-bold">{selectedProspect.name} ({selectedProspect.phone})</span>
                             </div>
                             <a
                                 href={buildWhatsAppUrl(selectedProspect)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="bg-emerald-500 hover:bg-emerald-600 text-white font-black px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 transition"
+                                className="bg-white hover:bg-zinc-100 text-zinc-950 font-semibold px-4 py-2 rounded-lg text-xs flex items-center gap-1.5 transition"
                             >
-                                💬 Chat WhatsApp Sales
+                                <MessageSquare className="w-3.5 h-3.5" />
+                                Chat WhatsApp
                             </a>
                         </div>
 
                         {/* Status Update Form */}
-                        <form onSubmit={handleSubmitFollowUp} className="space-y-4 pt-2 border-t border-slate-100">
-                            <h4 className="font-extrabold text-slate-900 text-sm">Update Status Follow-Up CRM</h4>
+                        <form onSubmit={handleSubmitFollowUp} className="space-y-4 pt-2 border-t border-zinc-200">
+                            <h4 className="font-semibold text-zinc-900 text-xs uppercase tracking-wider">Update Status Follow-Up CRM</h4>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="text-xs font-bold text-slate-600 block mb-1">Status Prospek</label>
+                                    <label className="text-xs font-semibold text-zinc-700 block mb-1">Status Prospek</label>
                                     <select
                                         value={data.status}
                                         onChange={(e) => setData('status', e.target.value)}
-                                        className="w-full text-xs border-slate-200 rounded-xl p-2.5 font-bold focus:ring-blue-500"
+                                        className="w-full text-xs border border-zinc-300 rounded-lg p-2.5 font-medium focus:ring-1 focus:ring-zinc-900 bg-white"
                                     >
-                                        <option value="new">🌟 Baru (Belum dihubungi)</option>
-                                        <option value="contacted">📞 Dihubungi (Follow up berjalan)</option>
-                                        <option value="prospect">🔥 Prospek Hot (Menunggu Berkas/Survey)</option>
-                                        <option value="deal">✅ Deal / SPK (ACC Leasing / Beli)</option>
-                                        <option value="rejected">❌ Batal / Rejected</option>
+                                        <option value="new">Baru (Belum dihubungi)</option>
+                                        <option value="contacted">Dihubungi (Follow up berjalan)</option>
+                                        <option value="prospect">Prospek Hot (Menunggu Berkas/Survey)</option>
+                                        <option value="deal">Deal / SPK (ACC Leasing / Beli)</option>
+                                        <option value="rejected">Batal / Rejected</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div>
-                                <label className="text-xs font-bold text-slate-600 block mb-1">Catatan Follow Up Internal Sales</label>
+                                <label className="text-xs font-semibold text-zinc-700 block mb-1">Catatan Follow Up Internal Sales</label>
                                 <textarea
                                     rows="3"
                                     placeholder="Tuliskan catatan hasil telepon, janji survey, kelengkapan berkas, dll..."
                                     value={data.follow_up_notes}
                                     onChange={(e) => setData('follow_up_notes', e.target.value)}
-                                    className="w-full text-xs border-slate-200 rounded-xl p-3 focus:ring-blue-500"
+                                    className="w-full text-xs border border-zinc-300 rounded-lg p-3 focus:ring-1 focus:ring-zinc-900"
                                 ></textarea>
                             </div>
 
-                            <div className="flex justify-end gap-3 pt-2">
+                            <div className="flex justify-end gap-2.5 pt-2">
                                 <button
                                     type="button"
                                     onClick={() => setShowModal(false)}
-                                    className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-50"
+                                    className="px-4 py-2 rounded-lg border border-zinc-200 text-zinc-600 font-semibold text-xs hover:bg-zinc-50"
                                 >
                                     Batal
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-extrabold text-xs shadow-md transition disabled:opacity-50"
+                                    className="px-5 py-2 bg-zinc-900 hover:bg-zinc-800 text-white rounded-lg font-semibold text-xs transition disabled:opacity-50"
                                 >
-                                    {processing ? 'Menyimpan...' : 'Simpan Pembaruan'}
+                                    {processing ? 'Menyimpan...' : 'Simpan Status'}
                                 </button>
                             </div>
                         </form>

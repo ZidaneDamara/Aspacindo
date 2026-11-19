@@ -21,6 +21,7 @@ class Motorcycle extends Model
         'branch_prices',
         'short_description',
         'full_specifications',
+        'views_count',
         'is_featured',
         'is_active',
     ];
@@ -32,6 +33,7 @@ class Motorcycle extends Model
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
             'price_otr' => 'integer',
+            'views_count' => 'integer',
             'regional_prices' => 'array',
             'branch_prices' => 'array',
         ];

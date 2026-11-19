@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, Link, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
+import { Building2, Coins, Zap, UploadCloud, Palette, Check, ArrowLeft } from 'lucide-react';
 
 export default function Form({
     motorcycle = null,
@@ -198,8 +199,9 @@ export default function Form({
                 {isBranchAdmin && userBranch ? (
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="bg-blue-50 border border-blue-200 p-5 rounded-2xl space-y-2">
-                            <span className="text-[10px] uppercase font-black tracking-wider text-blue-700 bg-blue-100 px-2 py-0.5 rounded-md inline-block">
-                                🏢 Pengaturan OTR Khusus Wilayah: {userBranch.region}
+                            <span className="text-[10px] uppercase font-semibold tracking-wider text-zinc-800 bg-zinc-100 border border-zinc-200 px-2 py-0.5 rounded-md inline-flex items-center gap-1">
+                                <Building2 className="w-3 h-3 text-zinc-500" />
+                                Pengaturan OTR Khusus Wilayah: {userBranch.region}
                             </span>
                             <h3 className="text-base font-extrabold text-blue-950">{motorcycle.name}</h3>
                             <p className="text-xs text-blue-800">
@@ -288,11 +290,11 @@ export default function Form({
                         <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
                             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                                 <div>
-                                    <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
-                                        <span>💰</span>
+                                    <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+                                        <Coins className="w-4 h-4 text-zinc-600" />
                                         <span>Pengaturan Harga OTR untuk Seluruh Wilayah (7 Wilayah)</span>
                                     </h3>
-                                    <p className="text-[11px] text-slate-500">
+                                    <p className="text-[11px] text-zinc-500">
                                         Tentukan harga OTR khusus per wilayah atau gunakan bantuan tombol preset.
                                     </p>
                                 </div>
@@ -301,9 +303,10 @@ export default function Form({
                                     <button
                                         type="button"
                                         onClick={handleSyncAllWithBase}
-                                        className="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-[10px] font-bold px-3 py-1.5 rounded-xl transition shadow-2xs"
+                                        className="bg-white hover:bg-zinc-100 text-zinc-700 border border-zinc-300 text-[10px] font-semibold px-2.5 py-1 rounded-md transition shadow-2xs inline-flex items-center gap-1"
                                     >
-                                        ⚡ Samakan dgn OTR Pusat
+                                        <Zap className="w-3 h-3 text-zinc-500" />
+                                        Samakan dgn OTR Pusat
                                     </button>
                                     <button
                                         type="button"
@@ -328,11 +331,12 @@ export default function Form({
                                             className="bg-white p-3.5 rounded-2xl border border-slate-200 space-y-1 shadow-2xs"
                                         >
                                             <div className="flex justify-between items-center">
-                                                <span className="text-[11px] font-bold text-slate-800">
-                                                    🏢 {reg}
+                                                <span className="text-[11px] font-semibold text-zinc-800 inline-flex items-center gap-1">
+                                                    <Building2 className="w-3 h-3 text-zinc-500" />
+                                                    {reg}
                                                 </span>
                                                 {reg === 'Pekanbaru' && (
-                                                    <span className="text-[9px] bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded font-mono font-bold">
+                                                    <span className="text-[9px] bg-zinc-100 text-zinc-800 px-1.5 py-0.2 rounded font-mono font-bold">
                                                         Pusat
                                                     </span>
                                                 )}
@@ -353,44 +357,46 @@ export default function Form({
                         </div>
 
                         {/* Primary Image Upload Field */}
-                        <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-3">
-                            <label className="text-xs font-extrabold text-slate-900 uppercase tracking-wider block">
-                                📸 Upload Gambar Utama Motor (Dari File Komputer / Laptop)
+                        <div className="bg-zinc-50 p-6 rounded-2xl border border-zinc-200 space-y-3">
+                            <label className="text-xs font-bold text-zinc-900 uppercase tracking-wider block flex items-center gap-2">
+                                <UploadCloud className="w-4 h-4 text-zinc-600" />
+                                Upload Gambar Utama Motor (Dari File Komputer / Laptop)
                             </label>
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={handlePrimaryFileChange}
-                                className="w-full text-xs text-slate-600 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer"
+                                className="w-full text-xs text-zinc-600 file:mr-4 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-900 file:text-white hover:file:bg-zinc-800 cursor-pointer"
                             />
-                            <p className="text-[11px] text-slate-500">Format yang didukung: JPG, PNG, WEBP, GIF. Maksimal 5MB.</p>
+                            <p className="text-[11px] text-zinc-400">Format yang didukung: JPG, PNG, WEBP, GIF. Maksimal 5MB.</p>
 
                             {imagePreview && (
                                 <div className="pt-2 flex items-center gap-4">
-                                    <div className="w-24 h-24 bg-white p-2 rounded-2xl border border-slate-300 shadow-sm flex items-center justify-center overflow-hidden">
+                                    <div className="w-24 h-24 bg-white p-2 rounded-xl border border-zinc-200 shadow-2xs flex items-center justify-center overflow-hidden">
                                         <img src={imagePreview} alt="Preview Motor" className="max-h-full object-contain" />
                                     </div>
                                     <div className="text-xs space-y-1">
-                                        <p className="font-bold text-slate-800">Preview Gambar Utama</p>
-                                        <p className="text-slate-500 truncate max-w-xs">{data.image_path || 'File Baru Diupload'}</p>
+                                        <p className="font-semibold text-zinc-800">Preview Gambar Utama</p>
+                                        <p className="text-zinc-500 truncate max-w-xs">{data.image_path || 'File Baru Diupload'}</p>
                                     </div>
                                 </div>
                             )}
                         </div>
 
                         {/* Colors Variant Management */}
-                        <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
+                        <div className="bg-zinc-50 p-6 rounded-2xl border border-zinc-200 space-y-4">
                             <div className="flex justify-between items-center">
                                 <div>
-                                    <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
-                                        🎨 Varian Warna &amp; Upload Foto Warna Motor
+                                    <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
+                                        <Palette className="w-4 h-4 text-zinc-600" />
+                                        Varian Warna &amp; Upload Foto Warna Motor
                                     </h3>
-                                    <p className="text-[11px] text-slate-500">Tambahkan nama warna, warna hex, dan foto motor untuk tiap varian.</p>
+                                    <p className="text-[11px] text-zinc-500">Tambahkan nama warna, warna hex, dan foto motor untuk tiap varian.</p>
                                 </div>
                                 <button
                                     type="button"
                                     onClick={handleAddColor}
-                                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition"
+                                    className="bg-zinc-900 hover:bg-zinc-800 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition"
                                 >
                                     + Tambah Warna
                                 </button>

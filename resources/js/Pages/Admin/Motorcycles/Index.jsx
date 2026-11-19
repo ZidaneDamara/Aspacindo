@@ -2,6 +2,19 @@ import React, { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import Pagination from '@/Components/Pagination';
+import {
+    Save,
+    Trash2,
+    Edit2,
+    Search,
+    Building2,
+    Globe,
+    MapPin,
+    Lock,
+    Shield,
+    Plus,
+    X,
+} from 'lucide-react';
 
 export default function Index({
     motorcycles,
@@ -154,11 +167,11 @@ export default function Index({
                         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                             <div className="space-y-2">
                                 <div className="flex items-center gap-2">
-                                    <span className="bg-blue-500 text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full">
-                                        🏢 Wilayah: {userBranch.region}
+                                    <span className="bg-zinc-800 text-white text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md inline-flex items-center gap-1">
+                                        <Building2 className="w-3 h-3 text-zinc-400" /> Wilayah: {userBranch.region}
                                     </span>
-                                    <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                                        🔒 Hak Akses Admin Cabang
+                                    <span className="bg-zinc-800/60 text-zinc-300 border border-zinc-700 text-[10px] font-semibold px-2.5 py-1 rounded-md inline-flex items-center gap-1">
+                                        <Lock className="w-3 h-3 text-zinc-400" /> Hak Akses Cabang
                                     </span>
                                 </div>
                                 <h2 className="text-2xl sm:text-3xl font-black tracking-tight">{userBranch.name}</h2>
@@ -178,7 +191,7 @@ export default function Index({
                                     <span>Menyimpan Semua...</span>
                                 ) : (
                                     <>
-                                        <span>💾</span>
+                                        <Save className="w-3.5 h-3.5" />
                                         <span>Simpan Semua OTR {userBranch.region}</span>
                                     </>
                                 )}
@@ -192,8 +205,8 @@ export default function Index({
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-xs">
                         <div>
                             <div className="flex items-center gap-2">
-                                <span className="bg-amber-500/10 text-amber-700 border border-amber-300 text-[10px] font-black uppercase tracking-wider px-3 py-0.5 rounded-full">
-                                    👑 Super Administrator
+                                <span className="bg-zinc-100 text-zinc-800 border border-zinc-200 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-md inline-flex items-center gap-1">
+                                    <Shield className="w-3 h-3 text-zinc-600" /> Super Administrator
                                 </span>
                             </div>
                             <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
@@ -226,26 +239,27 @@ export default function Index({
                             <button
                                 type="button"
                                 onClick={() => handleRegionTabChange('Semua')}
-                                className={`px-4 py-2 rounded-xl text-xs font-black transition ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition inline-flex items-center gap-1.5 ${
                                     currentRegionFilter === 'Semua'
-                                        ? 'bg-slate-900 text-white shadow-sm'
-                                        : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                                        ? 'bg-zinc-900 text-white shadow-2xs'
+                                        : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
                                 }`}
                             >
-                                🌐 Semua Wilayah (Ringkasan)
+                                <Globe className="w-3.5 h-3.5" />
+                                <span>Semua Wilayah</span>
                             </button>
                             {regions.map((reg) => (
                                 <button
                                     key={reg}
                                     type="button"
                                     onClick={() => handleRegionTabChange(reg)}
-                                    className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+                                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${
                                         currentRegionFilter === reg
-                                            ? 'bg-blue-600 text-white shadow-sm'
-                                            : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                                            ? 'bg-zinc-900 text-white shadow-2xs'
+                                            : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
                                     }`}
                                 >
-                                    <span>🏢</span>
+                                    <Building2 className="w-3.5 h-3.5" />
                                     <span>{reg}</span>
                                     {reg === 'Pekanbaru' && (
                                         <span className="text-[9px] bg-white/20 px-1.5 py-0.2 rounded font-mono">Pusat</span>
@@ -267,7 +281,7 @@ export default function Index({
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 className="w-full text-xs border-slate-200 rounded-xl pl-9 pr-3 py-2.5 focus:ring-blue-500 focus:border-blue-500"
                             />
-                            <span className="absolute left-3 top-2.5 text-slate-400 text-xs">🔍</span>
+                            <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
                         </div>
 
                         <select
@@ -311,9 +325,9 @@ export default function Index({
                                 type="button"
                                 onClick={handleSaveAllRegional}
                                 disabled={savingAll}
-                                className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs uppercase px-4 py-2.5 rounded-xl shadow-xs transition flex items-center gap-1.5"
+                                className="bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white font-semibold text-xs px-3.5 py-2 rounded-lg shadow-2xs transition flex items-center gap-1.5"
                             >
-                                <span>💾</span>
+                                <Save className="w-3.5 h-3.5" />
                                 <span>Simpan Semua OTR {activeRegion}</span>
                             </button>
                         )}
@@ -443,9 +457,9 @@ export default function Index({
                                                         <button
                                                             type="button"
                                                             onClick={() => setDetailOtrModalItem(bike)}
-                                                            className="px-3 py-1 bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 border border-slate-200"
+                                                            className="px-2.5 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 rounded-md text-[11px] font-medium transition inline-flex items-center gap-1.5 border border-zinc-200"
                                                         >
-                                                            <span>📍</span>
+                                                            <MapPin className="w-3 h-3 text-zinc-500" />
                                                             <span>Lihat 7 Wilayah OTR</span>
                                                         </button>
                                                     </td>
@@ -454,10 +468,10 @@ export default function Index({
                                                 {/* Status */}
                                                 <td className="p-4">
                                                     <span
-                                                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                                                        className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${
                                                             bike.is_active
-                                                                ? 'bg-emerald-100 text-emerald-800'
-                                                                : 'bg-slate-100 text-slate-500'
+                                                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                                                                : 'bg-zinc-100 text-zinc-500 border border-zinc-200'
                                                         }`}
                                                     >
                                                         {bike.is_active ? 'Aktif' : 'Nonaktif'}
@@ -467,24 +481,24 @@ export default function Index({
                                                 {/* Featured */}
                                                 <td className="p-4">
                                                     {bike.is_featured ? (
-                                                        <span className="text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded-md text-[10px]">
-                                                            ★ Unggulan
+                                                        <span className="text-zinc-900 font-semibold bg-zinc-100 border border-zinc-200 px-2 py-0.5 rounded text-[10px]">
+                                                            Unggulan
                                                         </span>
                                                     ) : (
-                                                        <span className="text-slate-400">-</span>
+                                                        <span className="text-zinc-400">-</span>
                                                     )}
                                                 </td>
 
                                                 {/* Actions */}
                                                 <td className="p-4 text-right">
-                                                    <div className="flex items-center justify-end gap-2">
+                                                    <div className="flex items-center justify-end gap-1.5">
                                                         {/* Quick Single Save for regional price */}
                                                         {activeRegion && activeRegion !== 'Semua' && (
                                                             <button
                                                                 type="button"
                                                                 onClick={() => handleSaveSingleRegional(bike.id)}
                                                                 disabled={isRowSaving || savingAll}
-                                                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] px-3 py-1.5 rounded-xl transition shadow-2xs disabled:opacity-50"
+                                                                className="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-[11px] px-2.5 py-1 rounded-md transition disabled:opacity-50"
                                                             >
                                                                 {isRowSaving ? 'Menyimpan...' : 'Simpan OTR'}
                                                             </button>
@@ -495,16 +509,18 @@ export default function Index({
                                                             <>
                                                                 <Link
                                                                     href={`/admin/motorcycles/${bike.id}/edit`}
-                                                                    className="px-3 py-1.5 bg-slate-100 hover:bg-slate-900 text-slate-700 hover:text-white rounded-xl text-xs font-bold transition shadow-2xs flex items-center gap-1"
+                                                                    className="px-2.5 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 rounded-md text-xs font-medium transition inline-flex items-center gap-1"
                                                                 >
-                                                                    ✏️ Edit
+                                                                    <Edit2 className="w-3 h-3 text-zinc-500" />
+                                                                    Edit
                                                                 </Link>
                                                                 <button
                                                                     type="button"
                                                                     onClick={() => setDeleteModalItem(bike)}
-                                                                    className="px-3 py-1.5 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white rounded-xl text-xs font-bold transition shadow-2xs flex items-center gap-1"
+                                                                    className="px-2.5 py-1 bg-zinc-100 hover:bg-red-50 text-zinc-600 hover:text-red-600 rounded-md text-xs font-medium transition inline-flex items-center gap-1"
                                                                 >
-                                                                    🗑️ Hapus
+                                                                    <Trash2 className="w-3 h-3" />
+                                                                    Hapus
                                                                 </button>
                                                             </>
                                                         )}
@@ -554,9 +570,12 @@ export default function Index({
                                         return (
                                             <div key={reg} className="p-3 flex justify-between items-center text-xs hover:bg-slate-50">
                                                 <div className="flex items-center gap-2">
-                                                    <span className="font-bold text-slate-800">🏢 {reg}</span>
+                                                    <span className="font-semibold text-zinc-800 inline-flex items-center gap-1">
+                                                        <Building2 className="w-3.5 h-3.5 text-zinc-500" />
+                                                        {reg}
+                                                    </span>
                                                     {reg === 'Pekanbaru' && (
-                                                        <span className="text-[10px] text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded font-mono">Pusat</span>
+                                                        <span className="text-[10px] text-zinc-700 bg-zinc-100 px-1.5 py-0.5 rounded font-mono">Pusat</span>
                                                     )}
                                                 </div>
                                                 <div className="text-right">
@@ -578,9 +597,10 @@ export default function Index({
                             <div className="flex justify-end pt-2">
                                 <Link
                                     href={`/admin/motorcycles/${detailOtrModalItem.id}/edit`}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-xs transition"
+                                    className="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-xs px-4 py-2 rounded-lg transition inline-flex items-center gap-1.5"
                                 >
-                                    ✏️ Edit Data &amp; Harga Lengkap
+                                    <Edit2 className="w-3.5 h-3.5" />
+                                    <span>Edit Data &amp; Harga Lengkap</span>
                                 </Link>
                             </div>
                         </div>
@@ -590,9 +610,9 @@ export default function Index({
                 {/* MODAL KONFIRMASI HAPUS PRODUK (SUPER ADMIN ONLY) */}
                 {deleteModalItem && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-fadeIn">
-                        <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 space-y-4 border border-slate-200">
-                            <div className="w-12 h-12 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center text-2xl mx-auto">
-                                🗑️
+                        <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 space-y-4 border border-zinc-200">
+                            <div className="w-12 h-12 rounded-xl bg-zinc-100 text-zinc-900 flex items-center justify-center mx-auto">
+                                <Trash2 className="w-6 h-6" />
                             </div>
                             <div className="text-center space-y-2">
                                 <h3 className="text-lg font-black text-slate-900">
