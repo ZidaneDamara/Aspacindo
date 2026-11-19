@@ -225,14 +225,14 @@ export default function Index({
                             <span className="text-[11px] font-semibold text-zinc-500 uppercase tracking-wider pl-1 pr-2 whitespace-nowrap">
                                 Wilayah OTR:
                             </span>
-                            <div className="inline-flex p-1 bg-zinc-100 rounded-lg border border-zinc-200/80 gap-1 min-w-max">
+                            <div className="inline-flex p-1 bg-zinc-100 rounded-lg border border-zinc-200 gap-1 min-w-max">
                                 <button
                                     type="button"
                                     onClick={() => handleRegionTabChange('Semua')}
-                                    className={`px-3 py-1.5 rounded-md text-xs font-semibold transition inline-flex items-center gap-1.5 ${
+                                    className={`px-3 py-1.5 rounded-md text-xs font-semibold whitespace-nowrap transition inline-flex items-center gap-1.5 ${
                                         currentRegionFilter === 'Semua'
-                                            ? 'bg-zinc-900 text-white shadow-xs'
-                                            : 'text-zinc-700 hover:text-zinc-950 hover:bg-zinc-200/60'
+                                            ? 'bg-zinc-900 !text-white shadow-xs'
+                                            : '!text-zinc-700 hover:!text-zinc-950 hover:bg-zinc-200/70'
                                     }`}
                                 >
                                     <Globe className="w-3.5 h-3.5" />
@@ -243,16 +243,16 @@ export default function Index({
                                         key={reg}
                                         type="button"
                                         onClick={() => handleRegionTabChange(reg)}
-                                        className={`px-3 py-1.5 rounded-md text-xs font-semibold transition inline-flex items-center gap-1.5 ${
+                                        className={`px-3 py-1.5 rounded-md text-xs font-semibold whitespace-nowrap transition inline-flex items-center gap-1.5 ${
                                             currentRegionFilter === reg
-                                                ? 'bg-zinc-900 text-white shadow-xs'
-                                                : 'text-zinc-700 hover:text-zinc-950 hover:bg-zinc-200/60'
+                                                ? 'bg-zinc-900 !text-white shadow-xs'
+                                                : '!text-zinc-700 hover:!text-zinc-950 hover:bg-zinc-200/70'
                                         }`}
                                     >
                                         <Building2 className="w-3.5 h-3.5 opacity-70" />
                                         <span>{reg}</span>
                                         {reg === 'Pekanbaru' && (
-                                            <span className="text-[9px] px-1 py-0.2 rounded font-mono font-semibold bg-zinc-200 text-zinc-800">Pusat</span>
+                                            <span className="text-[9px] px-1 py-0.2 rounded font-mono font-semibold bg-zinc-200 !text-zinc-800">Pusat</span>
                                         )}
                                     </button>
                                 ))}
@@ -262,8 +262,8 @@ export default function Index({
                 )}
 
                 {/* Search & Filters Bar */}
-                <div className="bg-white p-4 rounded-xl border border-zinc-200 shadow-2xs flex flex-col md:flex-row justify-between items-center gap-3">
-                    <form onSubmit={handleFilterSubmit} className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+                <div className="bg-white p-3.5 rounded-xl border border-zinc-200 shadow-2xs flex flex-col md:flex-row justify-between items-stretch md:items-center gap-3">
+                    <form onSubmit={handleFilterSubmit} className="flex flex-wrap items-center gap-2 w-full md:w-auto">
                         <div className="relative w-full sm:w-64">
                             <Search className="w-3.5 h-3.5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
                             <input
@@ -289,7 +289,7 @@ export default function Index({
                                     { preserveState: true }
                                 );
                             }}
-                            className="text-xs border border-zinc-300 rounded-lg px-3 py-2 text-zinc-700 bg-zinc-50/50 focus:outline-none focus:ring-1 focus:ring-zinc-900"
+                            className="text-xs border border-zinc-300 rounded-lg px-3 py-2 !text-zinc-700 bg-zinc-50/50 focus:outline-none focus:ring-1 focus:ring-zinc-900"
                         >
                             {categories.map((c) => (
                                 <option key={c} value={c}>
@@ -300,9 +300,9 @@ export default function Index({
 
                         <button
                             type="submit"
-                            className="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition"
+                            className="bg-zinc-900 hover:bg-zinc-800 !text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition shadow-xs"
                         >
-                            Filter
+                            Cari
                         </button>
                     </form>
 
@@ -316,7 +316,7 @@ export default function Index({
                                 type="button"
                                 onClick={handleSaveAllRegional}
                                 disabled={savingAll}
-                                className="bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 text-white font-semibold text-xs px-3.5 py-2 rounded-lg shadow-2xs transition inline-flex items-center gap-1.5"
+                                className="bg-zinc-900 hover:bg-zinc-800 disabled:opacity-50 !text-white font-semibold text-xs px-3.5 py-2 rounded-lg shadow-2xs transition inline-flex items-center gap-1.5"
                             >
                                 <Save className="w-3.5 h-3.5" />
                                 <span>Simpan Semua OTR {activeRegion}</span>
@@ -447,9 +447,9 @@ export default function Index({
                                                         <button
                                                             type="button"
                                                             onClick={() => setDetailOtrModalItem(bike)}
-                                                            className="px-2.5 py-1 bg-white hover:bg-zinc-50 text-zinc-800 rounded-md text-[11px] font-semibold transition inline-flex items-center gap-1.5 border border-zinc-200 shadow-2xs"
+                                                            className="px-2.5 py-1.5 bg-zinc-100 hover:bg-zinc-200 !text-zinc-900 rounded-md text-xs font-semibold transition inline-flex items-center gap-1.5 border border-zinc-300 shadow-2xs whitespace-nowrap"
                                                         >
-                                                            <MapPin className="w-3 h-3 text-zinc-500" />
+                                                            <MapPin className="w-3.5 h-3.5 text-zinc-600" />
                                                             <span>Lihat 7 Wilayah OTR</span>
                                                         </button>
                                                     </td>
@@ -471,7 +471,7 @@ export default function Index({
                                                 {/* Featured */}
                                                 <td className="px-4 py-3 text-center">
                                                     {bike.is_featured ? (
-                                                        <span className="text-zinc-900 font-semibold bg-zinc-100 border border-zinc-200 px-2 py-0.5 rounded text-[10px]">
+                                                        <span className="!text-zinc-900 font-semibold bg-zinc-100 border border-zinc-200 px-2 py-0.5 rounded text-[10px]">
                                                             Unggulan
                                                         </span>
                                                     ) : (
@@ -481,13 +481,13 @@ export default function Index({
 
                                                 {/* Actions */}
                                                 <td className="px-4 py-3 text-right">
-                                                    <div className="inline-flex items-center gap-1.5">
+                                                    <div className="inline-flex items-center justify-end gap-1.5">
                                                         {activeRegion && activeRegion !== 'Semua' && (
                                                             <button
                                                                 type="button"
                                                                 onClick={() => handleSaveSingleRegional(bike.id)}
                                                                 disabled={isRowSaving || savingAll}
-                                                                className="bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-[11px] px-2.5 py-1 rounded-md transition disabled:opacity-50"
+                                                                className="bg-zinc-900 hover:bg-zinc-800 !text-white font-semibold text-xs px-2.5 py-1.5 rounded-md transition disabled:opacity-50 shadow-xs"
                                                             >
                                                                 {isRowSaving ? 'Menyimpan...' : 'Simpan OTR'}
                                                             </button>
@@ -497,20 +497,20 @@ export default function Index({
                                                             <>
                                                                 <Link
                                                                     href={`/admin/motorcycles/${bike.id}/edit`}
-                                                                    className="p-1.5 border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-700 hover:text-zinc-950 rounded-md transition inline-flex items-center gap-1 text-xs font-medium shadow-2xs"
+                                                                    className="px-2.5 py-1.5 border border-zinc-200 bg-white hover:bg-zinc-50 !text-zinc-700 hover:!text-zinc-950 rounded-md transition inline-flex items-center gap-1 text-xs font-semibold shadow-2xs whitespace-nowrap"
                                                                     title="Edit Produk"
                                                                 >
-                                                                    <Edit2 className="w-3.5 h-3.5" />
-                                                                    <span className="hidden sm:inline">Edit</span>
+                                                                    <Edit2 className="w-3.5 h-3.5 text-zinc-500" />
+                                                                    <span>Edit</span>
                                                                 </Link>
                                                                 <button
                                                                     type="button"
                                                                     onClick={() => setDeleteModalItem(bike)}
-                                                                    className="p-1.5 border border-zinc-200 bg-white hover:bg-rose-50 text-zinc-400 hover:text-rose-600 hover:border-rose-200 rounded-md transition inline-flex items-center gap-1 text-xs font-medium shadow-2xs"
+                                                                    className="px-2.5 py-1.5 border border-zinc-200 bg-white hover:bg-rose-50 !text-zinc-600 hover:!text-rose-600 hover:border-rose-200 rounded-md transition inline-flex items-center gap-1 text-xs font-semibold shadow-2xs whitespace-nowrap"
                                                                     title="Hapus Produk"
                                                                 >
-                                                                    <Trash2 className="w-3.5 h-3.5" />
-                                                                    <span className="hidden sm:inline">Hapus</span>
+                                                                    <Trash2 className="w-3.5 h-3.5 text-zinc-400 hover:text-rose-600" />
+                                                                    <span>Hapus</span>
                                                                 </button>
                                                             </>
                                                         )}

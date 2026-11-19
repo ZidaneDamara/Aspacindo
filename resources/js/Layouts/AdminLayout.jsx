@@ -115,7 +115,7 @@ export default function AdminLayout({ title = 'Admin Dashboard', children }) {
     };
 
     return (
-        <div className="min-h-screen bg-zinc-50/70 flex font-sans text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white">
+        <div className="admin-root min-h-screen bg-zinc-50/70 flex font-sans text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white">
             <Head>
                 <title>{`${title} | Aspacindo Management`}</title>
             </Head>

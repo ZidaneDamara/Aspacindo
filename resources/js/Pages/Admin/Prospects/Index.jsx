@@ -248,8 +248,8 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                                 onClick={() => handleFilterStatus(btn.val)}
                                 className={`px-3 py-1.5 rounded-md text-xs font-semibold whitespace-nowrap transition ${
                                     statusFilter === btn.val
-                                        ? 'bg-zinc-900 text-white shadow-xs'
-                                        : 'text-zinc-700 hover:text-zinc-950 hover:bg-zinc-200/70'
+                                        ? 'bg-zinc-900 !text-white shadow-xs'
+                                        : '!text-zinc-700 hover:!text-zinc-950 hover:bg-zinc-200/70'
                                 }`}
                             >
                                 {btn.label}
@@ -315,13 +315,13 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                                             <td className="px-4 py-3 font-medium text-zinc-700">{p.leasing_partner}</td>
                                             <td className="px-4 py-3">{getStatusBadge(p.status)}</td>
                                             <td className="px-4 py-3 text-right">
-                                                <div className="inline-flex items-center justify-end gap-1.5">
+                                                <div className="inline-flex items-center justify-end gap-1.5 whitespace-nowrap">
                                                     <a
                                                         href={buildWhatsAppUrl(p)}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         title="Hubungi via WhatsApp"
-                                                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900 text-xs font-medium transition shadow-2xs"
+                                                        className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-zinc-200 bg-white !text-zinc-700 hover:bg-zinc-50 hover:!text-zinc-950 text-xs font-semibold transition shadow-2xs whitespace-nowrap"
                                                     >
                                                         <MessageSquare className="w-3.5 h-3.5 text-zinc-500" />
                                                         <span>WA</span>
@@ -329,14 +329,14 @@ export default function ProspectIndex({ prospects, stats, filters }) {
                                                     <button
                                                         type="button"
                                                         onClick={() => openFollowUpModal(p)}
-                                                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-md bg-zinc-900 text-white hover:bg-zinc-800 text-xs font-medium transition shadow-xs"
+                                                        className="inline-flex items-center justify-center px-3 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 !text-white text-xs font-semibold transition shadow-xs whitespace-nowrap"
                                                     >
                                                         <span>Follow Up</span>
                                                     </button>
                                                     <button
                                                         type="button"
                                                         onClick={() => handleDelete(p.id, p.name)}
-                                                        className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-transparent text-zinc-400 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-200 transition"
+                                                        className="inline-flex items-center justify-center w-7 h-7 rounded-md border border-zinc-200 bg-white hover:bg-rose-50 !text-zinc-400 hover:!text-rose-600 hover:border-rose-200 transition shadow-2xs"
                                                         title="Hapus"
                                                     >
                                                         <Trash2 className="w-3.5 h-3.5" />

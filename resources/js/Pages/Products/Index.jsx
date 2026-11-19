@@ -328,10 +328,10 @@ export default function Index({
                                             key={sub.value}
                                             type="button"
                                             onClick={() => handleSubCategoryChange(sub.value)}
-                                            className={`group relative flex-shrink-0 px-5 sm:px-7 py-2.5 transition-all duration-200 transform -skew-x-[20deg] cursor-pointer select-none text-slate-900 ${
+                                            className={`group relative flex-shrink-0 px-5 sm:px-7 py-2.5 transition-all duration-200 transform -skew-x-[20deg] cursor-pointer select-none ${
                                                 isActive
-                                                    ? 'bg-[#153278] shadow-md z-10 ring-1 ring-[#153278]'
-                                                    : 'bg-[#eaedf0] hover:bg-[#dfe3e8]'
+                                                    ? 'bg-[#153278] shadow-md z-10 ring-1 ring-[#153278] !text-white'
+                                                    : 'bg-[#eaedf0] hover:bg-[#dfe3e8] !text-[#0A2872]'
                                             }`}
                                         >
                                             <span
