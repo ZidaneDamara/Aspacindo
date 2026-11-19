@@ -620,7 +620,7 @@
     ]
   },
   "resources/js/Pages/CreditSimulation.jsx": {
-    "file": "assets/CreditSimulation-DjwfzJWS.js",
+    "file": "assets/CreditSimulation-D-gffJ5a.js",
     "name": "CreditSimulation",
     "src": "resources/js/Pages/CreditSimulation.jsx",
     "isDynamicEntry": true,
@@ -713,7 +713,7 @@
     ]
   },
   "resources/js/Pages/Products/Index.jsx": {
-    "file": "assets/Index-C63HLxjj.js",
+    "file": "assets/Index-BlEFFeV6.js",
     "name": "Index",
     "src": "resources/js/Pages/Products/Index.jsx",
     "isDynamicEntry": true,
@@ -892,7 +892,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-CKCw8wPi.js",
+    "file": "assets/app-jG82_Hgl.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
@@ -962,7 +962,7 @@
       "resources/js/Pages/Welcome.jsx"
     ],
     "css": [
-      "assets/app-CDpAkfzn.css"
+      "assets/app-BB_hKsJb.css"
     ]
   }
 }

@@ -24,9 +24,18 @@ export default function Index({
 
     const [currentRegion, setCurrentRegion] = useState(filters.region || selectedRegion || 'Pekanbaru');
     const [selectedCategory, setSelectedCategory] = useState(filters.category || 'Semua');
+    const [selectedSubCategory, setSelectedSubCategory] = useState(filters.sub_category || 'Semua');
     const [sort, setSort] = useState(filters.sort || 'newest');
     const [minPrice, setMinPrice] = useState(filters.min_price || '');
     const [maxPrice, setMaxPrice] = useState(filters.max_price || '');
+
+    useEffect(() => {
+        setSelectedCategory(filters.category || 'Semua');
+    }, [filters.category]);
+
+    useEffect(() => {
+        setSelectedSubCategory(filters.sub_category || 'Semua');
+    }, [filters.sub_category]);
 
     // Official Category Icons Mapping provided by user
     const categoryIcons = [
@@ -39,13 +48,74 @@ export default function Index({
         { name: 'Moped', icon: '/images/categories/moped.png', label: 'Moped' },
     ];
 
-    const applyFilters = (newCategory, newSort, newMin, newMax, newRegion) => {
+    // Model / Sub-Category Mapping per Category (Yamaha Motorcycle Families)
+    const SUB_CATEGORIES_MAP = {
+        'MAXi': [
+            { label: 'Semua MAXi', value: 'Semua' },
+            { label: 'NMAX', value: 'NMAX' },
+            { label: 'Aerox', value: 'Aerox' },
+            { label: 'XMAX', value: 'XMAX' },
+            { label: 'Lexi', value: 'Lexi' },
+        ],
+        'Classy': [
+            { label: 'Semua Classy', value: 'Semua' },
+            { label: 'Fazzio', value: 'Fazzio' },
+            { label: 'Grand Filano', value: 'Grand Filano' },
+        ],
+        'Matic': [
+            { label: 'Semua Matic', value: 'Semua' },
+            { label: 'Gear 125', value: 'Gear' },
+            { label: 'FreeGo', value: 'FreeGo' },
+            { label: 'Mio M3', value: 'Mio M3' },
+            { label: 'X-Ride', value: 'X-Ride' },
+        ],
+        'Sport': [
+            { label: 'Semua Sport', value: 'Semua' },
+            { label: 'R15', value: 'R15' },
+            { label: 'R25', value: 'R25' },
+            { label: 'MT-25', value: 'MT-25' },
+            { label: 'XSR 155', value: 'XSR' },
+            { label: 'Vixion', value: 'Vixion' },
+        ],
+        'Moped': [
+            { label: 'Semua Moped', value: 'Semua' },
+            { label: 'MX King', value: 'MX King' },
+            { label: 'Jupiter Z1', value: 'Jupiter Z1' },
+            { label: 'Vega Force', value: 'Vega Force' },
+        ],
+        'Off-Road': [
+            { label: 'Semua Off-Road', value: 'Semua' },
+            { label: 'WR 155 R', value: 'WR 155' },
+        ],
+        'Semua': [
+            { label: 'Semua Model', value: 'Semua' },
+            { label: 'NMAX', value: 'NMAX' },
+            { label: 'Aerox', value: 'Aerox' },
+            { label: 'XMAX', value: 'XMAX' },
+            { label: 'Lexi', value: 'Lexi' },
+            { label: 'Fazzio', value: 'Fazzio' },
+            { label: 'Grand Filano', value: 'Grand Filano' },
+            { label: 'Gear 125', value: 'Gear' },
+            { label: 'FreeGo', value: 'FreeGo' },
+            { label: 'R15', value: 'R15' },
+            { label: 'XSR 155', value: 'XSR' },
+            { label: 'MX King', value: 'MX King' },
+            { label: 'WR 155 R', value: 'WR 155' },
+        ],
+    };
+
+    const currentSubCategories = SUB_CATEGORIES_MAP[selectedCategory] || SUB_CATEGORIES_MAP['Semua'];
+
+    const applyFilters = (newCategory, newSubCategory, newSort, newMin, newMax, newRegion) => {
         const reg = newRegion || currentRegion;
+        const cat = newCategory !== undefined ? newCategory : selectedCategory;
+        const sub = newSubCategory !== undefined ? newSubCategory : selectedSubCategory;
         router.get(
             '/produk',
             {
                 region: reg !== 'Pekanbaru' ? reg : undefined,
-                category: newCategory !== 'Semua' ? newCategory : undefined,
+                category: cat !== 'Semua' ? cat : undefined,
+                sub_category: sub !== 'Semua' ? sub : undefined,
                 sort: newSort !== 'newest' ? newSort : undefined,
                 min_price: newMin || undefined,
                 max_price: newMax || undefined,
@@ -56,7 +126,13 @@ export default function Index({
 
     const handleCategoryChange = (catName) => {
         setSelectedCategory(catName);
-        applyFilters(catName, sort, minPrice, maxPrice, currentRegion);
+        setSelectedSubCategory('Semua');
+        applyFilters(catName, 'Semua', sort, minPrice, maxPrice, currentRegion);
+    };
+
+    const handleSubCategoryChange = (subVal) => {
+        setSelectedSubCategory(subVal);
+        applyFilters(selectedCategory, subVal, sort, minPrice, maxPrice, currentRegion);
     };
 
     const handleRegionChange = (reg) => {
@@ -64,18 +140,18 @@ export default function Index({
         if (typeof window !== 'undefined') {
             localStorage.setItem('aspacindo_preferred_region', reg);
         }
-        applyFilters(selectedCategory, sort, minPrice, maxPrice, reg);
+        applyFilters(selectedCategory, selectedSubCategory, sort, minPrice, maxPrice, reg);
     };
 
     const handleSortChange = (e) => {
         const val = e.target.value;
         setSort(val);
-        applyFilters(selectedCategory, val, minPrice, maxPrice, currentRegion);
+        applyFilters(selectedCategory, selectedSubCategory, val, minPrice, maxPrice, currentRegion);
     };
 
     const handlePriceSubmit = (e) => {
         e.preventDefault();
-        applyFilters(selectedCategory, sort, minPrice, maxPrice, currentRegion);
+        applyFilters(selectedCategory, selectedSubCategory, sort, minPrice, maxPrice, currentRegion);
     };
 
     // Category Bar Component embedded directly into the sticky Header
@@ -129,11 +205,18 @@ export default function Index({
                         <h1 className="font-play font-bold text-[18px] leading-[27px] uppercase tracking-tight text-slate-900">
                             Produk Sepeda Motor Yamaha
                         </h1>
-                        {selectedCategory !== 'Semua' && (
-                            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-800 text-xs font-normal px-4 py-1.5 rounded-full border border-blue-100">
-                                Kategori: {selectedCategory}
-                            </div>
-                        )}
+                        <div className="flex flex-wrap items-center justify-center gap-2">
+                            {selectedCategory !== 'Semua' && (
+                                <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-800 text-xs font-normal px-4 py-1.5 rounded-full border border-blue-100">
+                                    Kategori: {selectedCategory}
+                                </div>
+                            )}
+                            {selectedSubCategory !== 'Semua' && (
+                                <div className="inline-flex items-center gap-2 bg-[#153278] text-white text-xs font-normal px-4 py-1.5 rounded-full shadow-xs">
+                                    Model: {selectedSubCategory}
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     {/* REGION FILTER BAR */}
@@ -208,6 +291,39 @@ export default function Index({
                         </div>
                     </div>
 
+                    {/* SUB-CATEGORY / MOTORCYCLE MODEL TABS (Yamaha Trapezoid Design) */}
+                    {currentSubCategories && currentSubCategories.length > 0 && (
+                        <div className="w-full flex flex-col items-center justify-center space-y-2 py-1">
+                            <div
+                                className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scroll-smooth px-2 py-2 max-w-full touch-pan-x"
+                                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                            >
+                                {currentSubCategories.map((sub) => {
+                                    const isActive = selectedSubCategory === sub.value;
+                                    return (
+                                        <button
+                                            key={sub.value}
+                                            type="button"
+                                            onClick={() => handleSubCategoryChange(sub.value)}
+                                            className={`group relative flex-shrink-0 px-5 sm:px-7 py-2.5 transition-all duration-200 transform -skew-x-[20deg] cursor-pointer select-none ${
+                                                isActive
+                                                    ? 'bg-[#153278] text-white shadow-md z-10 ring-1 ring-[#153278]'
+                                                    : 'bg-[#eaedf0] text-[#153278] hover:bg-[#dfe3e8]'
+                                            }`}
+                                        >
+                                            <span className="block transform skew-x-[20deg] font-play font-bold text-xs sm:text-[13px] uppercase tracking-wider whitespace-nowrap">
+                                                {sub.label}
+                                            </span>
+                                            {isActive && (
+                                                <span className="absolute -bottom-1 left-0 right-0 h-1 bg-[#0f2459]" />
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
                     {/* PRODUCT GRID */}
                     {motorcycles.data.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -225,10 +341,11 @@ export default function Index({
                             <button
                                 onClick={() => {
                                     setSelectedCategory('Semua');
+                                    setSelectedSubCategory('Semua');
                                     setMinPrice('');
                                     setMaxPrice('');
                                     setSort('newest');
-                                    applyFilters('Semua', 'newest', '', '', 'Pekanbaru');
+                                    applyFilters('Semua', 'Semua', 'newest', '', '', 'Pekanbaru');
                                 }}
                                 style={{ background: 'linear-gradient(298deg, #0A2872 0%, #0A73BA 97%)' }}
                                 className="text-white font-bold text-xs px-6 py-3 rounded-full uppercase tracking-wider shadow-md hover:brightness-110"

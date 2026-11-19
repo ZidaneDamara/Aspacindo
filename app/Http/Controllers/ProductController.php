@@ -28,6 +28,7 @@ class ProductController extends Controller
         }
 
         $category = $request->query('category');
+        $subCategory = $request->query('sub_category');
         $minPrice = $request->query('min_price');
         $maxPrice = $request->query('max_price');
         $sort = $request->query('sort', 'newest');
@@ -35,6 +36,38 @@ class ProductController extends Controller
         $query = Motorcycle::active()
             ->with(['primaryImage', 'colors'])
             ->byCategory($category);
+
+        if ($subCategory && $subCategory !== 'Semua') {
+            $query->where(function ($q) use ($subCategory) {
+                if ($subCategory === 'XMAX') {
+                    $q->where('name', 'LIKE', '%XMAX%')->orWhere('name', 'LIKE', '%X-MAX%');
+                } elseif ($subCategory === 'Grand Filano') {
+                    $q->where('name', 'LIKE', '%Filano%');
+                } elseif ($subCategory === 'Gear') {
+                    $q->where('name', 'LIKE', '%Gear%');
+                } elseif ($subCategory === 'Mio M3') {
+                    $q->where('name', 'LIKE', '%Mio%');
+                } elseif ($subCategory === 'X-Ride') {
+                    $q->where('name', 'LIKE', '%X-Ride%')->orWhere('name', 'LIKE', '%Xride%');
+                } elseif ($subCategory === 'R15') {
+                    $q->where('name', 'LIKE', '%R15%')->orWhere('name', 'LIKE', '%R-15%');
+                } elseif ($subCategory === 'R25') {
+                    $q->where('name', 'LIKE', '%R-25%')->orWhere('name', 'LIKE', '%R25%');
+                } elseif ($subCategory === 'MT-25') {
+                    $q->where('name', 'LIKE', '%MT-25%')->orWhere('name', 'LIKE', '%MT25%');
+                } elseif ($subCategory === 'XSR') {
+                    $q->where('name', 'LIKE', '%XSR%');
+                } elseif ($subCategory === 'Jupiter Z1') {
+                    $q->where('name', 'LIKE', '%Jupiter%');
+                } elseif ($subCategory === 'Vega Force') {
+                    $q->where('name', 'LIKE', '%Vega%');
+                } elseif ($subCategory === 'WR 155') {
+                    $q->where('name', 'LIKE', '%WR%');
+                } else {
+                    $q->where('name', 'LIKE', "%{$subCategory}%");
+                }
+            });
+        }
 
         $driver = DB::connection()->getDriverName();
         $escapedRegionPath = '$."' . str_replace(['\\', '"'], ['\\\\', '\\"'], $region) . '"';
@@ -76,6 +109,7 @@ class ProductController extends Controller
             'filters' => [
                 'region' => $region,
                 'category' => $category ?? 'Semua',
+                'sub_category' => $subCategory ?? 'Semua',
                 'min_price' => $minPrice ?? '',
                 'max_price' => $maxPrice ?? '',
                 'sort' => $sort,
