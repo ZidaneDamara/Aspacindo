@@ -60,8 +60,8 @@ class CreditSimulationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:30',
+            'name' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:30',
             'email' => 'nullable|email|max:255',
             'address' => 'nullable|string|max:1000',
             'city' => 'nullable|string|max:255',
@@ -113,8 +113,8 @@ class CreditSimulationController extends Controller
 
         $prospect = Prospect::create([
             'ticket_number' => $ticketNumber,
-            'name' => $validated['name'],
-            'phone' => $validated['phone'],
+            'name' => !empty($validated['name']) ? $validated['name'] : 'Customer WhatsApp',
+            'phone' => !empty($validated['phone']) ? $validated['phone'] : '081262241100',
             'email' => $validated['email'] ?? null,
             'address' => $validated['address'] ?? null,
             'city' => $validated['city'] ?? $region,

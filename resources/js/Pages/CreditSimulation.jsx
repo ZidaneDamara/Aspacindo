@@ -120,46 +120,86 @@ export default function CreditSimulation({
         }
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        post('/simulasi-cicilan', {
-            preserveScroll: true,
-            onSuccess: (page) => {
-                if (page.props.flash?.submittedProspect) {
-                    setLastSubmittedProspect(page.props.flash.submittedProspect);
-                    setShowSuccessModal(true);
-                }
-            },
-        });
+    const buildWhatsAppMessage = () => {
+        if (!selectedMotorcycle) return '';
+        const currentPrice = getPriceForCurrentRegion(selectedMotorcycle, currentRegion);
+        const customerName = data.name.trim() || 'Calon Konsumen';
+        const customerPhone = data.phone.trim();
+        const customerCity = data.city || currentRegion;
+
+        let msg = `Halo Yamaha Aspacindo, saya ingin mengajukan simulasi cicilan kredit motor: \n\n`;
+        msg += `* RINCIAN SIMULASI KREDIT:*\n`;
+        msg += `• Motor: * ${ selectedMotorcycle.name }*\n`;
+        msg += `• Wilayah OTR: * Area ${ currentRegion }*\n`;
+        msg += `• Harga OTR: * ${ formatRupiah(currentPrice) }*\n`;
+        msg += `• Uang Muka(DP ${ dpPercent } %): * ${ formatRupiah(dpAmount) }*\n`;
+        msg += `• Jangka Tenor: * ${ tenorMonths } Bulan *\n`;
+        msg += `• Estimasi Cicilan: * ${ formatRupiah(monthlyInstallment) } / bulan*\n`;
+        msg += `_(Catatan: Harga cicilan bisa selisih 50k-100k perbulan tergantung leasing)_\n\n`;
+
+        msg += `* DATA PEMOHON:*\n`;
+        msg += `• Nama Lengkap: ${ customerName } \n`;
+        if (customerPhone) {
+            msg += `• No.Handphone / WA: ${ customerPhone } \n`;
+        }
+        msg += `• Kota / Domisili: ${ customerCity } \n`;
+        if (data.current_motorcycle && data.current_motorcycle !== 'Belum Punya Motor') {
+            msg += `• Motor Saat Ini: ${ data.current_motorcycle } \n`;
+        }
+        if (data.address.trim()) {
+            msg += `• Alamat: ${ data.address.trim() } \n`;
+        }
+        if (data.notes.trim()) {
+            msg += `• Catatan Tambahan: ${ data.notes.trim() } \n`;
+        }
+        msg += `\nMohon dibantu info promo diskon DP, persyaratan berkas kredit, dan proses survey - nya.Terima kasih!`;
+
+        return msg;
     };
 
-    const buildWhatsAppMessage = () => {
-        if (!lastSubmittedProspect && !selectedMotorcycle) return '';
-        const currentPrice = getPriceForCurrentRegion(selectedMotorcycle, currentRegion);
-        const p = lastSubmittedProspect || {
-            ticket_number: 'SIMULASI-LANGSUNG',
-            name: data.name || 'Customer',
-            motorcycle_name: selectedMotorcycle?.name,
-            price_otr: currentPrice,
-            dp_amount: dpAmount,
-            dp_percent: dpPercent,
-            tenor_months: tenorMonths,
-            monthly_installment: monthlyInstallment,
-            leasing_partner: selectedPartner.name,
-        };
+    const handleDirectWhatsApp = () => {
+        // Silently save prospect record in background if motorcycle is selected
+        if (selectedMotorcycle) {
+            try {
+                const formData = new FormData();
+                formData.append('name', data.name.trim() || 'Customer WhatsApp');
+                formData.append('phone', data.phone.trim() || '081262241100');
+                formData.append('email', data.email.trim());
+                formData.append('city', data.city);
+                formData.append('address', data.address.trim());
+                formData.append('current_motorcycle', data.current_motorcycle);
+                formData.append('motorcycle_id', selectedMotorcycle.id);
+                formData.append('region', currentRegion);
+                formData.append('dp_percent', dpPercent);
+                formData.append('tenor_months', tenorMonths);
+                formData.append('leasing_partner', selectedPartner.name);
+                formData.append('notes', data.notes.trim());
 
-        return `Halo Yamaha Aspacindo, saya mengajukan simulasi cicilan kredit motor:
-*KODE TIKET:* ${p.ticket_number}
-*Wilayah OTR:* Area ${currentRegion}
-*Nama:* ${p.name}
-*Motor:* ${p.motorcycle_name}
-*Harga OTR:* ${formatRupiah(p.price_otr)}
-*Uang Muka (DP ${p.dp_percent}%):* ${formatRupiah(p.dp_amount)}
-*Tenor:* ${p.tenor_months} Bulan
-*Estimasi Cicilan:* ${formatRupiah(p.monthly_installment)} / bulan
-*Leasing:* ${p.leasing_partner}
+                const xsrfToken = document.cookie
+                    .split('; ')
+                    .find((row) => row.startsWith('XSRF-TOKEN='))
+                    ?.split('=')[1];
 
-Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
+                fetch('/simulasi-cicilan', {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-XSRF-TOKEN': xsrfToken ? decodeURIComponent(xsrfToken) : '',
+                        'Accept': 'application/json',
+                    },
+                    body: formData,
+                }).catch(() => {});
+            } catch (e) {
+                // Ignore silent background log error
+            }
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleDirectWhatsApp();
+        const waUrl = `https://wa.me/6281262241100?text=${encodeURIComponent(buildWhatsAppMessage())}`;
+        window.open(waUrl, '_blank');
     };
 
     return (
@@ -190,7 +230,7 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-                    
+
                     {/* Left & Middle Column: Form Inputs */}
                     <div className="lg:col-span-7 space-y-8">
 
@@ -210,11 +250,10 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                 {/* Nama Lengkap */}
                                 <div className="space-y-1.5 sm:col-span-2">
                                     <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
-                                        Nama Lengkap <span className="text-red-500">*</span>
+                                        Nama Lengkap <span className="text-blue-600 font-normal">(Disarankan)</span>
                                     </label>
                                     <input
                                         type="text"
-                                        required
                                         placeholder="Masukkan nama lengkap sesuai KTP"
                                         value={data.name}
                                         onChange={(e) => setData('name', e.target.value)}
@@ -226,11 +265,10 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                 {/* Nomor Handphone / WA */}
                                 <div className="space-y-1.5">
                                     <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
-                                        No. Handphone / WhatsApp <span className="text-red-500">*</span>
+                                        No. Handphone / WhatsApp <span className="text-blue-600 font-normal">(Disarankan)</span>
                                     </label>
                                     <input
                                         type="tel"
-                                        required
                                         placeholder="08XXXXXXXXXX"
                                         value={data.phone}
                                         onChange={(e) => setData('phone', e.target.value)}
@@ -405,15 +443,29 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                             key={months}
                                             type="button"
                                             onClick={() => setTenorMonths(months)}
-                                            className={`py-3 rounded-2xl font-black text-sm border transition ${
-                                                tenorMonths === months
+                                            className={`py-3 rounded-2xl font-black text-sm border transition ${tenorMonths === months
                                                     ? 'bg-blue-600 text-white border-transparent shadow-lg shadow-blue-500/20 scale-[1.02]'
                                                     : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
-                                            }`}
+                                                }`}
                                         >
                                             {months} Bulan
                                         </button>
                                     ))}
+                                </div>
+                            </div>
+
+                            {/* Note Selisih Leasing */}
+                            <div className="p-4 bg-amber-50 border border-amber-200/90 rounded-2xl flex items-start gap-3 text-amber-900 text-xs">
+                                <svg className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <div className="space-y-0.5 leading-relaxed">
+                                    <span className="font-extrabold text-amber-950 block uppercase tracking-wider text-[11px]">
+                                        Catatan Simulasi Kredit:
+                                    </span>
+                                    <p className="text-amber-900 font-medium text-xs">
+                                        Harga cicilan bisa selisih 50k - 100k perbulan tergantung leasing (seperti BAF, Adira Finance, SOF/OTO, IMFI, dll).
+                                    </p>
                                 </div>
                             </div>
 
@@ -473,6 +525,19 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                         </span>
                                     </div>
 
+                                    {/* Notes Selisih Leasing Highlight */}
+                                    <div className="p-3.5 bg-amber-400/20 border border-amber-300/40 rounded-2xl text-amber-100 text-xs flex items-start gap-2.5 backdrop-blur-xs">
+                                        <svg className="w-4 h-4 text-amber-300 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <div className="leading-snug">
+                                            <strong className="font-bold text-amber-200 block text-[11px] uppercase tracking-wider">Catatan:</strong>
+                                            <p className="text-amber-100 text-xs mt-0.5 font-medium">
+                                                Harga cicilan bisa selisih 50k - 100k perbulan tergantung leasing.
+                                            </p>
+                                        </div>
+                                    </div>
+
                                     <div className="space-y-2.5 text-xs text-white border-t border-white/15 pt-4">
                                         <div className="flex justify-between">
                                             <span className="text-blue-100">Uang Muka (DP):</span>
@@ -484,106 +549,111 @@ Mohon dapat dibantu untuk survey dan proses berkas kreditnya. Terima kasih!`;
                                         </div>
                                     </div>
 
-                                    {/* Primary Form Submit Button */}
-                                    <button
-                                        type="submit"
-                                        disabled={processing}
-                                        className="w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-black py-4 rounded-2xl shadow-xl hover:shadow-emerald-500/30 transition text-sm uppercase tracking-wider disabled:opacity-50 flex items-center justify-center gap-2"
+                                    {/* Primary Form Submit Button - Direct WhatsApp 081262241100 */}
+                                    <a
+                                        href={`https://wa.me/6281262241100?text=${encodeURIComponent(buildWhatsAppMessage())}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={handleDirectWhatsApp}
+                                        className="w-full text-center bg-emerald-500 hover:bg-emerald-600 active:scale-[0.98] text-white font-black py-4 px-6 rounded-2xl shadow-xl hover:shadow-emerald-500/30 transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 cursor-pointer select-none"
                                     >
-                                        {processing ? (
-                                            <span>Menyimpan data prospect...</span>
-                                        ) : (
-                                            <>
-                                                <span>Simpan &amp; Ajukan Simulasi Kredit</span>
-                                                <span>&rarr;</span>
-                                            </>
-                                        )}
-                                    </button>
+                                        <svg className="w-5 h-5 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                                        </svg>
+                                        <span>Simpan &amp; Ajukan Simulasi Kredit</span>
+                                        <span>&rarr;</span>
+                                    </a>
+
+                                    <p className="text-[11px] text-blue-100 text-center leading-relaxed">
+                                        💬 Terhubung langsung ke WhatsApp Dealer <strong>081262241100</strong> dengan template rincian simulasi kredit yang siap dikirim.
+                                    </p>
 
                                     <p className="text-[10px] text-blue-100 text-center leading-relaxed opacity-90">
                                         *Data pribadi Anda tersimpan aman dan hanya digunakan untuk kebutuhan konfirmasi &amp; survey pengajuan kredit motor Yamaha Aspacindo.
                                     </p>
                                 </div>
                             )}
-                        </div>
                     </div>
-
-                </form>
             </div>
 
-            {/* SUCCESS SUBMISSION MODAL */}
-            {showSuccessModal && lastSubmittedProspect && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm overflow-y-auto">
-                    <div className="bg-white rounded-3xl max-w-lg w-full p-8 text-center space-y-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
-                        <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
-                            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                            </svg>
-                        </div>
+        </form>
+            </div >
 
-                        <div>
-                            <span className="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-black rounded-full uppercase tracking-wider">
-                                Data Prospect Tersimpan!
-                            </span>
-                            <h3 className="text-2xl font-black text-slate-900 mt-2">Pengajuan Kredit Diterima</h3>
-                            <p className="text-xs text-slate-500 mt-1 font-mono font-bold text-blue-600">
-                                KODE TIKET: {lastSubmittedProspect.ticket_number}
-                            </p>
-                        </div>
+        {/* SUCCESS SUBMISSION MODAL */ }
+    {
+        showSuccessModal && lastSubmittedProspect && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-sm overflow-y-auto">
+                <div className="bg-white rounded-3xl max-w-lg w-full p-8 text-center space-y-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+                    <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
+                        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
 
-                        <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left text-xs space-y-2">
-                            <div className="flex justify-between">
-                                <span className="text-slate-500">Nama Customer:</span>
-                                <span className="font-bold text-slate-900">{lastSubmittedProspect.name}</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-slate-500">No. WhatsApp:</span>
-                                <span className="font-bold text-slate-900">{lastSubmittedProspect.phone}</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-slate-500">Motor Pilihan:</span>
-                                <span className="font-bold text-slate-900">{lastSubmittedProspect.motorcycle_name}</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-slate-500">Estimasi Cicilan:</span>
-                                <span className="font-black text-emerald-600">
-                                    {formatRupiah(lastSubmittedProspect.monthly_installment)} / bln
-                                </span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span className="text-slate-500">DP ({lastSubmittedProspect.dp_percent}%):</span>
-                                <span className="font-bold text-slate-900">{formatRupiah(lastSubmittedProspect.dp_amount)}</span>
-                            </div>
-                        </div>
-
-                        <p className="text-xs text-slate-600">
-                            Tim Sales resmi Yamaha Aspacindo Riau akan segera menghubungi Anda. Anda juga dapat langsung melanjutkan chat via WhatsApp sekarang:
+                    <div>
+                        <span className="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-black rounded-full uppercase tracking-wider">
+                            Data Prospect Tersimpan!
+                        </span>
+                        <h3 className="text-2xl font-black text-slate-900 mt-2">Pengajuan Kredit Diterima</h3>
+                        <p className="text-xs text-slate-500 mt-1 font-mono font-bold text-blue-600">
+                            KODE TIKET: {lastSubmittedProspect.ticket_number}
                         </p>
+                    </div>
 
-                        <div className="space-y-3 pt-2">
-                            <a
-                                href={`https://wa.me/6281262241100?text=${encodeURIComponent(buildWhatsAppMessage())}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-4 rounded-2xl shadow-lg hover:shadow-emerald-500/20 transition text-sm uppercase tracking-wider"
-                            >
-                                Lanjutkan Diskusi via WhatsApp Sales &rarr;
-                            </a>
-
-                            <button
-                                type="button"
-                                onClick={() => {
-                                    setShowSuccessModal(false);
-                                    reset();
-                                }}
-                                className="block w-full text-center bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-2xl transition text-xs"
-                            >
-                                Hitung Simulasi Lainnya
-                            </button>
+                    <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left text-xs space-y-2">
+                        <div className="flex justify-between">
+                            <span className="text-slate-500">Nama Customer:</span>
+                            <span className="font-bold text-slate-900">{lastSubmittedProspect.name}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-slate-500">No. WhatsApp:</span>
+                            <span className="font-bold text-slate-900">{lastSubmittedProspect.phone}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-slate-500">Motor Pilihan:</span>
+                            <span className="font-bold text-slate-900">{lastSubmittedProspect.motorcycle_name}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-slate-500">Estimasi Cicilan:</span>
+                            <span className="font-black text-emerald-600">
+                                {formatRupiah(lastSubmittedProspect.monthly_installment)} / bln
+                            </span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-slate-500">DP ({lastSubmittedProspect.dp_percent}%):</span>
+                            <span className="font-bold text-slate-900">{formatRupiah(lastSubmittedProspect.dp_amount)}</span>
                         </div>
                     </div>
+
+                    <p className="text-xs text-slate-600">
+                        Tim Sales resmi Yamaha Aspacindo Riau akan segera menghubungi Anda. Anda juga dapat langsung melanjutkan chat via WhatsApp sekarang:
+                    </p>
+
+                    <div className="space-y-3 pt-2">
+                        <a
+                            href={`https://wa.me/6281262241100?text=${encodeURIComponent(buildWhatsAppMessage())}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block w-full text-center bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold py-4 rounded-2xl shadow-lg hover:shadow-emerald-500/20 transition text-sm uppercase tracking-wider"
+                        >
+                            Lanjutkan Diskusi via WhatsApp Sales &rarr;
+                        </a>
+
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setShowSuccessModal(false);
+                                reset();
+                            }}
+                            className="block w-full text-center bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-2xl transition text-xs"
+                        >
+                            Hitung Simulasi Lainnya
+                        </button>
+                    </div>
                 </div>
-            )}
-        </PublicLayout>
+            </div>
+        )
+    }
+        </PublicLayout >
     );
 }
